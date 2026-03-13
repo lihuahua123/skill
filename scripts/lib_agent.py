@@ -387,6 +387,53 @@ def _extract_usage_from_transcript(transcript: List[Dict[str, Any]]) -> Dict[str
     return totals
 
 
+def _extract_per_round_usage_from_transcript(transcript: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Extract per-round (per LLM call) token usage and cost from transcript.
+
+    Returns a list of dicts, one per assistant message, with:
+      round (1-based), input_tokens, output_tokens, total_tokens, cost_usd,
+      and optionally time_seconds if entry has a timestamp.
+    """
+    rounds: List[Dict[str, Any]] = []
+    prev_timestamp: float | None = None
+
+    for entry in transcript:
+        if entry.get("type") != "message":
+            continue
+        msg = entry.get("message", {})
+        if msg.get("role") != "assistant":
+            # Optional: use user message timestamp as start of next round
+            ts = entry.get("timestamp") or entry.get("createdAt") or msg.get("timestamp")
+            if isinstance(ts, (int, float)):
+                prev_timestamp = float(ts) if ts > 1e10 else ts / 1000.0
+            continue
+
+        usage = msg.get("usage", {})
+        inp = usage.get("input", 0)
+        out = usage.get("output", 0)
+        total = usage.get("totalTokens", 0) or (inp + out)
+        cost = (usage.get("cost") or {}).get("total", 0.0)
+
+        time_seconds: float | None = None
+        ts = entry.get("timestamp") or entry.get("createdAt") or msg.get("timestamp")
+        if isinstance(ts, (int, float)):
+            t = float(ts) if ts > 1e10 else ts / 1000.0
+            if prev_timestamp is not None and t >= prev_timestamp:
+                time_seconds = round(t - prev_timestamp, 3)
+            prev_timestamp = t
+
+        rounds.append({
+            "round": len(rounds) + 1,
+            "input_tokens": inp,
+            "output_tokens": out,
+            "total_tokens": total,
+            "cost_usd": round(cost, 6),
+            "time_seconds": time_seconds,
+        })
+
+    return rounds
+
+
 def execute_openclaw_task(
     *,
     task: Task,
@@ -448,6 +495,7 @@ def execute_openclaw_task(
 
     transcript = _load_transcript(agent_id, session_id, start_time)
     usage = _extract_usage_from_transcript(transcript)
+    usage_per_round = _extract_per_round_usage_from_transcript(transcript)
     execution_time = time.time() - start_time
 
     status = "success"
@@ -502,6 +550,7 @@ def execute_openclaw_task(
         "status": status,
         "transcript": transcript,
         "usage": usage,
+        "usage_per_round": usage_per_round,
         "workspace": str(workspace),
         "exit_code": exit_code,
         "timed_out": timed_out,

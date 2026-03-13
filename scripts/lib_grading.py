@@ -7,6 +7,9 @@ from __future__ import annotations
 import json
 import logging
 import re
+import time
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -22,6 +25,15 @@ DEFAULT_JUDGE_MODEL = "openrouter/anthropic/claude-opus-4.5"
 DEFAULT_JUDGE_AGENT_PREFIX = "bench-judge"
 DEFAULT_JUDGE_TIMEOUT_SECONDS = 180
 
+# Kimi (Moonshot) judge defaults; override with env PINCHBENCH_KIMI_JUDGE_API_KEY in production
+KIMI_JUDGE_API_BASE = "https://api.moonshot.cn/v1"
+KIMI_JUDGE_MODEL = "kimi-k2.5"
+# Default key for development; prefer env PINCHBENCH_KIMI_JUDGE_API_KEY
+KIMI_JUDGE_API_KEY_DEFAULT = "sk-ccNgMEVLZvvhMAgMVl8H7l3YHUlwUjelCGeDDZWR1vpTS3jh"
+# Kimi K2.5 pricing USD per 1M tokens (input $0.60, output $2.00)
+KIMI_JUDGE_PRICE_INPUT_PER_1M = 0.60
+KIMI_JUDGE_PRICE_OUTPUT_PER_1M = 2.00
+
 
 @dataclass
 class GradeResult:
@@ -31,9 +43,10 @@ class GradeResult:
     grading_type: str
     breakdown: Dict[str, float]
     notes: str
+    judge_usage: Optional[Dict[str, Any]] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        d: Dict[str, Any] = {
             "task_id": self.task_id,
             "score": self.score,
             "max_score": self.max_score,
@@ -41,6 +54,9 @@ class GradeResult:
             "breakdown": self.breakdown,
             "notes": self.notes,
         }
+        if self.judge_usage is not None:
+            d["judge_usage"] = self.judge_usage
+        return d
 
 
 def grade_task(
@@ -51,42 +67,73 @@ def grade_task(
     judge_model: str = DEFAULT_JUDGE_MODEL,
     judge_agent_prefix: str = DEFAULT_JUDGE_AGENT_PREFIX,
     judge_timeout_seconds: float = DEFAULT_JUDGE_TIMEOUT_SECONDS,
+    judge_api_base: Optional[str] = None,
+    judge_api_model: Optional[str] = None,
+    judge_api_key: Optional[str] = None,
     verbose: bool = False,
 ) -> GradeResult:
     grading_type = task.grading_type
     if verbose:
         logger.info("   [VERBOSE] Grading task %s with type: %s", task.task_id, grading_type)
         logger.info("   [VERBOSE] Execution status: %s", execution_result.get("status", "unknown"))
-    
+
+    use_kimi_judge = (
+        judge_api_base is not None
+        and judge_api_model is not None
+        and judge_api_key is not None
+    )
+
     if grading_type == "automated":
         result = _grade_automated(task, execution_result, verbose=verbose)
         if verbose:
             logger.info("   [VERBOSE] Automated grade breakdown: %s", result.breakdown)
         return result
     if grading_type == "llm_judge":
-        result = _grade_llm_judge(
-            task=task,
-            execution_result=execution_result,
-            judge_model=judge_model,
-            judge_agent_prefix=judge_agent_prefix,
-            judge_timeout_seconds=judge_timeout_seconds,
-            skill_dir=skill_dir,
-            verbose=verbose,
-        )
+        if use_kimi_judge:
+            result = _grade_llm_judge_kimi(
+                task=task,
+                execution_result=execution_result,
+                api_base=judge_api_base,
+                model=judge_api_model,
+                api_key=judge_api_key,
+                timeout_seconds=judge_timeout_seconds,
+                verbose=verbose,
+            )
+        else:
+            result = _grade_llm_judge(
+                task=task,
+                execution_result=execution_result,
+                judge_model=judge_model,
+                judge_agent_prefix=judge_agent_prefix,
+                judge_timeout_seconds=judge_timeout_seconds,
+                skill_dir=skill_dir,
+                verbose=verbose,
+            )
         if verbose:
             logger.info("   [VERBOSE] LLM judge breakdown: %s", result.breakdown)
         return result
     if grading_type == "hybrid":
         auto_result = _grade_automated(task, execution_result, verbose=verbose)
-        llm_result = _grade_llm_judge(
-            task=task,
-            execution_result=execution_result,
-            judge_model=judge_model,
-            judge_agent_prefix=judge_agent_prefix,
-            judge_timeout_seconds=judge_timeout_seconds,
-            skill_dir=skill_dir,
-            verbose=verbose,
-        )
+        if use_kimi_judge:
+            llm_result = _grade_llm_judge_kimi(
+                task=task,
+                execution_result=execution_result,
+                api_base=judge_api_base,
+                model=judge_api_model,
+                api_key=judge_api_key,
+                timeout_seconds=judge_timeout_seconds,
+                verbose=verbose,
+            )
+        else:
+            llm_result = _grade_llm_judge(
+                task=task,
+                execution_result=execution_result,
+                judge_model=judge_model,
+                judge_agent_prefix=judge_agent_prefix,
+                judge_timeout_seconds=judge_timeout_seconds,
+                skill_dir=skill_dir,
+                verbose=verbose,
+            )
         return _combine_grades(task, auto_result, llm_result)
     raise ValueError(f"Unknown grading type: {grading_type}")
 
@@ -134,6 +181,106 @@ def _grade_automated(task: Task, execution_result: Dict[str, Any], verbose: bool
         grading_type="automated",
         breakdown=_normalize_score_dict(scores),
         notes="",
+    )
+
+
+def _grade_llm_judge_kimi(
+    *,
+    task: Task,
+    execution_result: Dict[str, Any],
+    api_base: str,
+    model: str,
+    api_key: str,
+    timeout_seconds: float = DEFAULT_JUDGE_TIMEOUT_SECONDS,
+    verbose: bool = False,
+) -> GradeResult:
+    """Call Kimi (Moonshot) API directly for grading; returns GradeResult with judge_usage."""
+    transcript_summary = _summarize_transcript(execution_result.get("transcript", []))
+    if verbose:
+        logger.info("   [VERBOSE] Transcript summary for judge (first 1000 chars):\n%s", transcript_summary[:1000])
+    rubric = task.llm_judge_rubric or _format_grading_criteria(task)
+    prompt = _build_judge_prompt(task, transcript_summary, rubric)
+
+    url = api_base.rstrip("/") + "/chat/completions"
+    if not url.startswith("http"):
+        url = "https://" + url
+    body = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 1,  # this model only allows temperature=1
+    }
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(body).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}",
+        },
+        method="POST",
+    )
+
+    start = time.time()
+    judge_usage: Dict[str, Any] = {
+        "model": model,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "execution_time_seconds": 0.0,
+        "request_count": 1,
+    }
+    content_text = ""
+    try:
+        with urllib.request.urlopen(req, timeout=int(timeout_seconds)) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        judge_usage["execution_time_seconds"] = round(time.time() - start, 3)
+        choice = (data.get("choices") or [None])[0]
+        if choice and isinstance(choice.get("message"), dict):
+            content_text = choice["message"].get("content") or ""
+        usage = data.get("usage") or {}
+        judge_usage["input_tokens"] = int(usage.get("prompt_tokens", 0) or usage.get("input_tokens", 0))
+        judge_usage["output_tokens"] = int(usage.get("completion_tokens", 0) or usage.get("output_tokens", 0))
+        judge_usage["total_tokens"] = judge_usage["input_tokens"] + judge_usage["output_tokens"]
+        if judge_usage["total_tokens"] > 0:
+            cost = (
+                judge_usage["input_tokens"] * (KIMI_JUDGE_PRICE_INPUT_PER_1M / 1e6)
+                + judge_usage["output_tokens"] * (KIMI_JUDGE_PRICE_OUTPUT_PER_1M / 1e6)
+            )
+            judge_usage["cost_usd"] = round(cost, 6)
+    except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, KeyError) as e:
+        judge_usage["execution_time_seconds"] = round(time.time() - start, 3)
+        err_detail = str(e)
+        if isinstance(e, urllib.error.HTTPError):
+            try:
+                body = e.read().decode("utf-8", errors="replace")
+                if body:
+                    err_detail = f"{e.code} {e.reason}: {body[:500]}"
+            except Exception:
+                pass
+        logger.warning("Kimi judge API request failed: %s", err_detail)
+        return GradeResult(
+            task_id=task.task_id,
+            score=0.0,
+            max_score=1.0,
+            grading_type="llm_judge",
+            breakdown={},
+            notes=f"Kimi judge API error: {err_detail}",
+            judge_usage=judge_usage,
+        )
+
+    raw_parsed = _parse_judge_response_text(content_text)
+    parsed = _normalize_judge_response(raw_parsed)
+    breakdown = parsed.get("scores", {})
+    total = parsed.get("total")
+    notes = parsed.get("notes", "")
+    return GradeResult(
+        task_id=task.task_id,
+        score=float(total) if total is not None else 0.0,
+        max_score=1.0,
+        grading_type="llm_judge",
+        breakdown=_normalize_score_dict(breakdown),
+        notes=str(notes) if notes is not None else "",
+        judge_usage=judge_usage,
     )
 
 
@@ -207,6 +354,7 @@ def _combine_grades(task: Task, auto_result: GradeResult, llm_result: GradeResul
         grading_type="hybrid",
         breakdown=breakdown,
         notes=notes,
+        judge_usage=llm_result.judge_usage,
     )
 
 
@@ -312,9 +460,15 @@ def _parse_judge_response(transcript: List[Dict[str, Any]]) -> Dict[str, Any]:
             if item.get("type") == "text":
                 content_chunks.append(item.get("text", ""))
     raw_text = "\n".join(content_chunks).strip()
-    if not raw_text:
+    return _parse_judge_response_text(raw_text)
+
+
+def _parse_judge_response_text(raw_text: str) -> Dict[str, Any]:
+    """Parse judge JSON from raw response text (from transcript or direct API content)."""
+    if not raw_text or not raw_text.strip():
         return {}
 
+    raw_text = raw_text.strip()
     # First, try to extract JSON from code blocks (```json ... ```)
     code_block_match = re.search(r"```json\s*(.*?)\s*```", raw_text, re.DOTALL)
     if code_block_match:

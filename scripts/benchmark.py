@@ -29,7 +29,13 @@ from lib_agent import (
     execute_openclaw_task,
     slugify_model,
 )
-from lib_grading import GradeResult, grade_task
+from lib_grading import (
+    GradeResult,
+    KIMI_JUDGE_API_BASE,
+    KIMI_JUDGE_API_KEY_DEFAULT,
+    KIMI_JUDGE_MODEL,
+    grade_task,
+)
 from lib_tasks import Task, TaskLoader
 
 
@@ -229,6 +235,24 @@ def _parse_args() -> argparse.Namespace:
         metavar="KEY",
         help="Official key to mark submission as official (can also use PINCHBENCH_OFFICIAL_KEY env var)",
     )
+    parser.add_argument(
+        "--judge-api-base",
+        type=str,
+        default=KIMI_JUDGE_API_BASE,
+        help="LLM judge API base URL (e.g. https://api.moonshot.cn/v1). Set with --judge-model and --judge-api-key to use Kimi judge.",
+    )
+    parser.add_argument(
+        "--judge-model",
+        type=str,
+        default=KIMI_JUDGE_MODEL,
+        help="LLM judge model name (e.g. kimi-k2.5).",
+    )
+    parser.add_argument(
+        "--judge-api-key",
+        type=str,
+        default=None,
+        help="LLM judge API key. Defaults to env PINCHBENCH_KIMI_JUDGE_API_KEY or built-in Kimi key.",
+    )
     return parser.parse_args()
 
 
@@ -295,6 +319,45 @@ def _colorize_gradient(ascii_art: str) -> str:
         green_blue = int(255 * (1 - t))
         colored_lines.append(f"\x1b[38;2;255;{green_blue};{green_blue}m{line}\x1b[0m")
     return "\n".join(colored_lines)
+
+
+def _completion_summary(grading: Dict[str, Any]) -> Dict[str, Any]:
+    """Build task completion summary from grading dict."""
+    runs = grading.get("runs", [])
+    mean = float(grading.get("mean", 0.0))
+    max_score = 1.0
+    notes = ""
+    if runs:
+        max_score = float(runs[0].get("max_score", 1.0))
+        notes = runs[0].get("notes", "")
+    return {
+        "score": round(mean, 4),
+        "max_score": max_score,
+        "passed": mean >= max_score if max_score > 0 else False,
+        "notes": notes,
+    }
+
+
+def _aggregate_judge_usage(grading: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Aggregate judge_usage from all runs in grading. Returns None if no run used judge."""
+    runs = grading.get("runs", [])
+    usages = [r.get("judge_usage") for r in runs if isinstance(r.get("judge_usage"), dict)]
+    if not usages:
+        return None
+    agg = {
+        "model": usages[0].get("model", ""),
+        "input_tokens": sum(int(u.get("input_tokens", 0)) for u in usages),
+        "output_tokens": sum(int(u.get("output_tokens", 0)) for u in usages),
+        "total_tokens": sum(int(u.get("total_tokens", 0)) for u in usages),
+        "cost_usd": round(sum(float(u.get("cost_usd", 0) or 0) for u in usages), 6),
+        "execution_time_seconds": round(
+            sum(float(u.get("execution_time_seconds", 0) or 0) for u in usages), 3
+        ),
+        "request_count": sum(int(u.get("request_count", 0)) for u in usages),
+    }
+    if len(usages) > 1:
+        agg["runs"] = len(usages)
+    return agg
 
 
 def _compute_efficiency_summary(
@@ -499,6 +562,17 @@ def main():
     results = []
     grades_by_task_id = {}
 
+    judge_api_key = args.judge_api_key or os.environ.get(
+        "PINCHBENCH_KIMI_JUDGE_API_KEY", KIMI_JUDGE_API_KEY_DEFAULT
+    )
+    judge_kw = {}
+    if judge_api_key:
+        judge_kw = {
+            "judge_api_base": args.judge_api_base,
+            "judge_api_model": args.judge_model,
+            "judge_api_key": judge_api_key,
+        }
+
     tasks_to_run = runner.tasks
     if task_ids is not None:
         tasks_to_run = [task for task in runner.tasks if task.task_id in task_ids]
@@ -537,6 +611,7 @@ def main():
                     "status": "error",
                     "transcript": [],
                     "usage": {},
+                    "usage_per_round": [],
                     "workspace": "",
                     "exit_code": -1,
                     "timed_out": False,
@@ -545,10 +620,13 @@ def main():
                     "stderr": execution_error,
                 }
             try:
-                grade_kwargs = dict(task=task, execution_result=result, skill_dir=skill_dir, verbose=args.verbose)
-                if args.judge:
-                    grade_kwargs["judge_model"] = args.judge
-                grade = grade_task(**grade_kwargs)
+                grade = grade_task(
+                    task=task,
+                    execution_result=result,
+                    skill_dir=skill_dir,
+                    verbose=args.verbose,
+                    **judge_kw,
+                )
             except Exception as exc:
                 if execution_error:
                     note = f"Execution failed: {execution_error}; Grading failed: {exc}"
@@ -595,22 +673,62 @@ def main():
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    task_entries = [
-        {
-            "task_id": result["task_id"],
+    task_entries = []
+    for result in results:
+        task_id = result["task_id"]
+        grading = grades_by_task_id[task_id]
+        entry = {
+            "task_id": task_id,
             "status": result["status"],
             "timed_out": result["timed_out"],
             "execution_time": result["execution_time"],
             "transcript_length": len(result["transcript"]),
+            "llm_rounds": len(result.get("usage_per_round", [])),
             "usage": result.get("usage", {}),
+            "usage_per_round": result.get("usage_per_round", []),
             "workspace": result["workspace"],
-            "grading": grades_by_task_id[result["task_id"]],
-            "frontmatter": tasks_by_id[result["task_id"]].frontmatter,
+            "grading": grading,
+            "completion": _completion_summary(grading),
+            "frontmatter": tasks_by_id[task_id].frontmatter,
         }
-        for result in results
-    ]
+        judge_usage = _aggregate_judge_usage(grading)
+        if judge_usage is not None:
+            entry["judge_usage"] = judge_usage
+        task_entries.append(entry)
 
     efficiency = _compute_efficiency_summary(task_entries, grades_by_task_id)
+
+    judge_summary = None
+    seen_judge_task_ids = set()
+    judge_summary = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "execution_time_seconds": 0.0,
+        "request_count": 0,
+        "tasks_using_judge": 0,
+    }
+    for e in task_entries:
+        ju = e.get("judge_usage")
+        if not isinstance(ju, dict):
+            continue
+        tid = e["task_id"]
+        if tid in seen_judge_task_ids:
+            continue
+        seen_judge_task_ids.add(tid)
+        judge_summary["tasks_using_judge"] += 1
+        judge_summary["input_tokens"] += int(ju.get("input_tokens", 0))
+        judge_summary["output_tokens"] += int(ju.get("output_tokens", 0))
+        judge_summary["total_tokens"] += int(ju.get("total_tokens", 0))
+        judge_summary["cost_usd"] += float(ju.get("cost_usd", 0) or 0)
+        judge_summary["execution_time_seconds"] += float(ju.get("execution_time_seconds", 0) or 0)
+        judge_summary["request_count"] += int(ju.get("request_count", 0))
+    if seen_judge_task_ids:
+        judge_summary["cost_usd"] = round(judge_summary["cost_usd"], 6)
+        judge_summary["execution_time_seconds"] = round(judge_summary["execution_time_seconds"], 3)
+    else:
+        judge_summary = None
 
     aggregate = {
         "model": args.model,
@@ -622,6 +740,8 @@ def main():
         "tasks": task_entries,
         "efficiency": efficiency,
     }
+    if judge_summary is not None:
+        aggregate["judge_summary"] = judge_summary
 
     output_path = output_dir / f"{run_id}_{model_slug}.json"
     output_path.write_text(json.dumps(aggregate, indent=2), encoding="utf-8")
