@@ -104,7 +104,7 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 | `--runs N`               | Number of runs per task for averaging                                         |
 | `--max-task-attempts N`  | Retry a task in-place with validator feedback until it passes or hits `N` attempts |
 | `--feedback-policy P`    | Retry feedback style: `vague`, `error-localized`, or `actionable-path`        |
-| `--feedback-format F`    | Retry prompt format: `full-refresh` or cache-friendly `stable-prefix`         |
+| `--feedback-format F`    | Retry prompt format: `full-refresh` or cache-friendly `stable-prefix` (default) |
 | `--context-policy C`     | Retry context handling: `append`, `fresh-session`, or `rollback`              |
 | `--stop-rule R`          | Retry stopping rule: `no-improvement` or `max-attempts-only`                  |
 | `--timeout-multiplier N` | Scale timeouts for slower models                                              |

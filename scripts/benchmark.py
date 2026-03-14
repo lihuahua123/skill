@@ -235,8 +235,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--feedback-format",
         choices=("full-refresh", "stable-prefix"),
-        default="full-refresh",
-        help="Retry feedback formatting policy",
+        default="stable-prefix",
+        help="Retry feedback formatting policy (default: cache-friendly stable-prefix)",
     )
     parser.add_argument(
         "--context-policy",
