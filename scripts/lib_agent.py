@@ -10,7 +10,7 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from lib_tasks import Task
 
@@ -37,13 +37,14 @@ def _get_agent_workspace(agent_id: str) -> Path | None:
             return None
 
         # Parse the agent list output to find workspace
-        # OpenClaw normalizes colons to dashes in agent names, so check both.
+        # OpenClaw normalizes colons to dashes and may lowercase agent names.
         normalized_id = agent_id.replace(":", "-")
         lines = list_result.stdout.split("\n")
         found_agent = False
         for line in lines:
             stripped = line.strip()
-            if stripped.startswith(f"- {agent_id}") or stripped.startswith(f"- {normalized_id}"):
+            name_part = stripped[2:].split()[0] if stripped.startswith("- ") else ""
+            if name_part in (agent_id, normalized_id, agent_id.lower(), normalized_id.lower()):
                 found_agent = True
             elif found_agent and "Workspace:" in line:
                 workspace_str = line.split("Workspace:")[1].strip()
@@ -219,6 +220,10 @@ def _get_agent_store_dir(agent_id: str) -> Path:
     normalized_dir = base_dir / agent_id.replace(":", "-")
     if normalized_dir.exists():
         return normalized_dir
+    # OpenClaw may store agent dir with lowercase id (e.g. bench-minimax-cn-minimax-m2-5)
+    lower_dir = base_dir / agent_id.lower()
+    if lower_dir.exists():
+        return lower_dir
     return direct_dir
 
 
@@ -434,32 +439,17 @@ def _extract_per_round_usage_from_transcript(transcript: List[Dict[str, Any]]) -
     return rounds
 
 
-def execute_openclaw_task(
+def _run_openclaw_message(
     *,
-    task: Task,
     agent_id: str,
-    model_id: str,
-    run_id: str,
-    timeout_multiplier: float,
-    skill_dir: Path,
-    verbose: bool = False,
+    prompt: str,
+    workspace: Path,
+    session_id: str,
+    timeout_seconds: float,
+    started_at: Optional[float] = None,
 ) -> Dict[str, Any]:
-    logger.info("🤖 Agent [%s] starting task: %s", agent_id, task.task_id)
-    logger.info("   Task: %s", task.name)
-    logger.info("   Category: %s", task.category)
-    if verbose:
-        logger.info(
-            "   Prompt: %s", task.prompt[:500] + "..." if len(task.prompt) > 500 else task.prompt
-        )
-
-    # Clean up previous session transcripts so we can reliably find this task's
-    # transcript (OpenClaw uses its own UUID-based naming, not our session ID).
-    cleanup_agent_sessions(agent_id)
-
-    start_time = time.time()
-    workspace = prepare_task_workspace(skill_dir, run_id, task, agent_id)
-    session_id = f"{task.task_id}_{int(time.time() * 1000)}"
-    timeout_seconds = task.timeout_seconds * timeout_multiplier
+    """Send a single message to an OpenClaw agent session and return execution artifacts."""
+    start_time = started_at if started_at is not None else time.time()
     stdout = ""
     stderr = ""
     exit_code = -1
@@ -475,7 +465,7 @@ def execute_openclaw_task(
                 "--session-id",
                 session_id,
                 "--message",
-                task.prompt,
+                prompt,
             ],
             capture_output=True,
             text=True,
@@ -507,6 +497,61 @@ def execute_openclaw_task(
         status = "error"
     if stderr and "openclaw command not found" in str(stderr):
         status = "error"
+
+    return {
+        "status": status,
+        "transcript": transcript,
+        "usage": usage,
+        "usage_per_round": usage_per_round,
+        "workspace": str(workspace),
+        "exit_code": exit_code,
+        "timed_out": timed_out,
+        "execution_time": execution_time,
+        "stdout": stdout,
+        "stderr": stderr,
+        "session_id": session_id,
+    }
+
+
+def execute_openclaw_task(
+    *,
+    task: Task,
+    agent_id: str,
+    model_id: str,
+    run_id: str,
+    timeout_multiplier: float,
+    skill_dir: Path,
+    verbose: bool = False,
+) -> Dict[str, Any]:
+    logger.info("🤖 Agent [%s] starting task: %s", agent_id, task.task_id)
+    logger.info("   Task: %s", task.name)
+    logger.info("   Category: %s", task.category)
+    if verbose:
+        logger.info(
+            "   Prompt: %s", task.prompt[:500] + "..." if len(task.prompt) > 500 else task.prompt
+        )
+
+    # Clean up previous session transcripts so we can reliably find this task's
+    # transcript (OpenClaw uses its own UUID-based naming, not our session ID).
+    cleanup_agent_sessions(agent_id)
+
+    workspace = prepare_task_workspace(skill_dir, run_id, task, agent_id)
+    session_id = f"{task.task_id}_{int(time.time() * 1000)}"
+    timeout_seconds = task.timeout_seconds * timeout_multiplier
+    start_time = time.time()
+    run_result = _run_openclaw_message(
+        agent_id=agent_id,
+        prompt=task.prompt,
+        workspace=workspace,
+        session_id=session_id,
+        timeout_seconds=timeout_seconds,
+        started_at=start_time,
+    )
+    transcript = run_result["transcript"]
+    stdout = run_result["stdout"]
+    stderr = run_result["stderr"]
+    exit_code = run_result["exit_code"]
+    execution_time = run_result["execution_time"]
 
     # Verbose logging for debugging
     if verbose:
@@ -547,16 +592,17 @@ def execute_openclaw_task(
     return {
         "agent_id": agent_id,
         "task_id": task.task_id,
-        "status": status,
+        "status": run_result["status"],
         "transcript": transcript,
-        "usage": usage,
-        "usage_per_round": usage_per_round,
+        "usage": run_result["usage"],
+        "usage_per_round": run_result["usage_per_round"],
         "workspace": str(workspace),
         "exit_code": exit_code,
-        "timed_out": timed_out,
+        "timed_out": run_result["timed_out"],
         "execution_time": execution_time,
         "stdout": stdout,
         "stderr": stderr,
+        "session_id": session_id,
     }
 
 

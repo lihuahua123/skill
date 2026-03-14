@@ -32,6 +32,9 @@ uv run benchmark.py --model anthropic/claude-sonnet-4 --suite automated-only
 # Run specific tasks
 uv run benchmark.py --model anthropic/claude-sonnet-4 --suite task_01_calendar,task_02_stock
 
+# Retry failed tasks in-place with validator feedback
+uv run benchmark.py --model anthropic/claude-sonnet-4 --max-task-attempts 3
+
 # Skip uploading results
 uv run benchmark.py --model anthropic/claude-sonnet-4 --no-upload
 ```
@@ -73,6 +76,7 @@ uv run benchmark.py --model anthropic/claude-sonnet-4 --no-upload
 | `--output-dir` | Results directory (default: `results/`) |
 | `--timeout-multiplier` | Scale task timeouts for slower models |
 | `--runs` | Number of runs per task for averaging |
+| `--max-task-attempts` | Retry a task with validator feedback until it passes or reaches the limit |
 | `--no-upload` | Skip uploading to leaderboard |
 | `--register` | Request new API token for submissions |
 | `--upload FILE` | Upload previous results JSON |

@@ -34,6 +34,9 @@ cd skill
 
 # Or run specific tasks
 ./scripts/run.sh --model openrouter/openai/gpt-4o --suite task_01_calendar,task_02_stock
+
+# Or allow validator-feedback retries within each task
+./scripts/run.sh --model openrouter/anthropic/claude-sonnet-4 --max-task-attempts 3
 ```
 
 > **Note:** Model IDs must include their provider prefix (e.g. `openrouter/`, `anthropic/`). [OpenRouter](https://openrouter.ai) is the default provider used for routing.
@@ -96,6 +99,7 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 | `--judge MODEL`          | Judge model for LLM grading (default: `openrouter/anthropic/claude-opus-4.5`) |
 | `--suite SUITE`          | `all`, `automated-only`, or comma-separated task IDs                          |
 | `--runs N`               | Number of runs per task for averaging                                         |
+| `--max-task-attempts N`  | Retry a task in-place with validator feedback until it passes or hits `N` attempts |
 | `--timeout-multiplier N` | Scale timeouts for slower models                                              |
 | `--output-dir DIR`       | Where to save results (default: `results/`)                                   |
 | `--no-upload`            | Skip uploading to leaderboard                                                 |

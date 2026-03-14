@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 
 from lib_agent import (
+    _run_openclaw_message,
     cleanup_agent_sessions,
     ensure_agent_exists,
     execute_openclaw_task,
@@ -219,6 +220,12 @@ def _parse_args() -> argparse.Namespace:
         help="Number of runs per task for averaging",
     )
     parser.add_argument(
+        "--max-task-attempts",
+        type=int,
+        default=1,
+        help="Maximum validator-feedback iterations per task run",
+    )
+    parser.add_argument(
         "--judge",
         default=None,
         help="Judge model identifier (default: openrouter/anthropic/claude-opus-4.5)",
@@ -336,6 +343,221 @@ def _completion_summary(grading: Dict[str, Any]) -> Dict[str, Any]:
         "passed": mean >= max_score if max_score > 0 else False,
         "notes": notes,
     }
+
+
+def _grade_passed(grade: GradeResult) -> bool:
+    return grade.max_score > 0 and grade.score >= grade.max_score
+
+
+def _build_iteration_feedback(task: Task, grade: GradeResult, attempt_number: int) -> str:
+    breakdown_lines = []
+    for key, value in grade.breakdown.items():
+        breakdown_lines.append(f"- {key}: {value:.4f}")
+    if not breakdown_lines:
+        breakdown_lines.append("- No detailed breakdown available from the validator.")
+
+    notes = grade.notes.strip() if grade.notes else "No additional validator notes."
+    criteria = "\n".join(f"- {item}" for item in task.grading_criteria) or "- None provided."
+
+    return (
+        f"You are retrying benchmark task `{task.task_id}` after validator feedback.\n\n"
+        f"Attempt completed: {attempt_number}\n"
+        f"Validator score: {grade.score:.4f}/{grade.max_score:.4f}\n"
+        f"Task passes only when the score reaches the maximum.\n\n"
+        "Validator breakdown:\n"
+        f"{chr(10).join(breakdown_lines)}\n\n"
+        "Validator notes:\n"
+        f"{notes}\n\n"
+        "Original grading criteria:\n"
+        f"{criteria}\n\n"
+        "Continue working in the same workspace and improve the result based on this feedback. "
+        "Do not restart from scratch unless necessary. When you are done, provide the updated final answer."
+    )
+
+
+def _execute_task_with_feedback(
+    *,
+    task: Task,
+    agent_id: str,
+    model_id: str,
+    run_id: str,
+    timeout_multiplier: float,
+    skill_dir: Path,
+    max_task_attempts: int,
+    judge_kw: Dict[str, Any],
+    verbose: bool = False,
+) -> Dict[str, Any]:
+    attempt_summaries: List[Dict[str, Any]] = []
+    execution_error = None
+
+    try:
+        result = execute_openclaw_task(
+            task=task,
+            agent_id=agent_id,
+            model_id=model_id,
+            run_id=run_id,
+            timeout_multiplier=timeout_multiplier,
+            skill_dir=skill_dir,
+            verbose=verbose,
+        )
+    except Exception as exc:
+        execution_error = str(exc)
+        logger.warning("Task execution failed for %s, continuing: %s", task.task_id, exc)
+        result = {
+            "agent_id": agent_id,
+            "task_id": task.task_id,
+            "status": "error",
+            "transcript": [],
+            "usage": {},
+            "usage_per_round": [],
+            "workspace": "",
+            "exit_code": -1,
+            "timed_out": False,
+            "execution_time": 0.0,
+            "stdout": "",
+            "stderr": execution_error,
+            "session_id": None,
+        }
+
+    try:
+        grade = grade_task(
+            task=task,
+            execution_result=result,
+            skill_dir=skill_dir,
+            verbose=verbose,
+            **judge_kw,
+        )
+    except Exception as exc:
+        note = (
+            f"Execution failed: {execution_error}; Grading failed: {exc}"
+            if execution_error
+            else f"Grading failed: {exc}"
+        )
+        logger.warning("Task grading failed for %s, continuing: %s", task.task_id, exc)
+        grade = GradeResult(
+            task_id=task.task_id,
+            score=0.0,
+            max_score=1.0,
+            grading_type=task.grading_type,
+            breakdown={},
+            notes=note,
+        )
+
+    attempt_summaries.append(
+        {
+            "attempt": 1,
+            "execution": result,
+            "grading": grade.to_dict(),
+            "feedback_prompt": None,
+        }
+    )
+    score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
+    logger.info(
+        "   📊 Attempt 1/%s score: %.2f/%.2f (%.0f%%)",
+        max(1, max_task_attempts),
+        grade.score,
+        grade.max_score,
+        score_pct_1,
+    )
+
+    max_attempts = max(1, max_task_attempts)
+    previous_score = grade.score
+    for attempt_number in range(2, max_attempts + 1):
+        if _grade_passed(grade):
+            break
+
+        if not result.get("workspace") or not result.get("session_id"):
+            logger.info(
+                "Stopping retries for %s because workspace/session context is unavailable",
+                task.task_id,
+            )
+            break
+
+        feedback_prompt = _build_iteration_feedback(task, grade, attempt_number - 1)
+        logger.info(
+            "🔁 Retrying %s with validator feedback (%s/%s)",
+            task.task_id,
+            attempt_number,
+            max_attempts,
+        )
+
+        retry_result = _run_openclaw_message(
+            agent_id=agent_id,
+            prompt=feedback_prompt,
+            workspace=Path(result["workspace"]),
+            session_id=result["session_id"],
+            timeout_seconds=task.timeout_seconds * timeout_multiplier,
+        )
+        result = {
+            **retry_result,
+            "agent_id": agent_id,
+            "task_id": task.task_id,
+        }
+
+        try:
+            grade = grade_task(
+                task=task,
+                execution_result=result,
+                skill_dir=skill_dir,
+                verbose=verbose,
+                **judge_kw,
+            )
+        except Exception as exc:
+            logger.warning(
+                "Task grading failed during retry for %s, continuing: %s",
+                task.task_id,
+                exc,
+            )
+            grade = GradeResult(
+                task_id=task.task_id,
+                score=0.0,
+                max_score=1.0,
+                grading_type=task.grading_type,
+                breakdown={},
+                notes=f"Retry grading failed: {exc}",
+            )
+        attempt_summaries.append(
+            {
+                "attempt": attempt_number,
+                "execution": result,
+                "grading": grade.to_dict(),
+                "feedback_prompt": feedback_prompt,
+            }
+        )
+        score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
+        logger.info(
+            "   📊 Attempt %s/%s score: %.2f/%.2f (%.0f%%)",
+            attempt_number,
+            max_attempts,
+            grade.score,
+            grade.max_score,
+            score_pct,
+        )
+        if grade.score == previous_score:
+            logger.info(
+                "   ⏹️  Stopping retries for %s because score did not improve (%.2f)",
+                task.task_id,
+                grade.score,
+            )
+            break
+        previous_score = grade.score
+
+    return {
+        "result": result,
+        "grade": grade,
+        "attempts": attempt_summaries,
+    }
+
+
+def _json_sanitize(obj: Any) -> Any:
+    """Recursively convert structures so they are JSON-serializable (e.g. bytes -> placeholder)."""
+    if isinstance(obj, bytes):
+        return f"<bytes length={len(obj)}>"
+    if isinstance(obj, dict):
+        return {k: _json_sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_json_sanitize(v) for v in obj]
+    return obj
 
 
 def _aggregate_judge_usage(grading: Dict[str, Any]) -> Optional[Dict[str, Any]]:
@@ -559,7 +781,7 @@ def main():
     cleanup_agent_sessions(agent_id)
 
     task_ids = _select_task_ids(runner.tasks, args.suite)
-    results = []
+    run_outcomes = []
     grades_by_task_id = {}
 
     judge_api_key = args.judge_api_key or os.environ.get(
@@ -579,8 +801,10 @@ def main():
     tasks_by_id = {task.task_id: task for task in tasks_to_run}
 
     runs_per_task = max(1, args.runs)
+    max_task_attempts = max(1, args.max_task_attempts)
     for i, task in enumerate(tasks_to_run, 1):
         task_grades = []
+        task_runs = []
         for run_index in range(runs_per_task):
             logger.info("\n%s", "=" * 80)
             logger.info(
@@ -591,58 +815,22 @@ def main():
                 runs_per_task,
             )
             logger.info("%s", "=" * 80)
-            execution_error = None
-            try:
-                result = execute_openclaw_task(
-                    task=task,
-                    agent_id=agent_id,
-                    model_id=args.model,
-                    run_id=f"{run_id}-{run_index + 1}",
-                    timeout_multiplier=args.timeout_multiplier,
-                    skill_dir=skill_dir,
-                    verbose=args.verbose,
-                )
-            except Exception as exc:
-                execution_error = str(exc)
-                logger.warning("Task execution failed for %s, continuing: %s", task.task_id, exc)
-                result = {
-                    "agent_id": agent_id,
-                    "task_id": task.task_id,
-                    "status": "error",
-                    "transcript": [],
-                    "usage": {},
-                    "usage_per_round": [],
-                    "workspace": "",
-                    "exit_code": -1,
-                    "timed_out": False,
-                    "execution_time": 0.0,
-                    "stdout": "",
-                    "stderr": execution_error,
-                }
-            try:
-                grade = grade_task(
-                    task=task,
-                    execution_result=result,
-                    skill_dir=skill_dir,
-                    verbose=args.verbose,
-                    **judge_kw,
-                )
-            except Exception as exc:
-                if execution_error:
-                    note = f"Execution failed: {execution_error}; Grading failed: {exc}"
-                else:
-                    note = f"Grading failed: {exc}"
-                logger.warning("Task grading failed for %s, continuing: %s", task.task_id, exc)
-                grade = GradeResult(
-                    task_id=task.task_id,
-                    score=0.0,
-                    max_score=1.0,
-                    grading_type=task.grading_type,
-                    breakdown={},
-                    notes=note,
-                )
+            outcome = _execute_task_with_feedback(
+                task=task,
+                agent_id=agent_id,
+                model_id=args.model,
+                run_id=f"{run_id}-{run_index + 1}",
+                timeout_multiplier=args.timeout_multiplier,
+                skill_dir=skill_dir,
+                max_task_attempts=max_task_attempts,
+                judge_kw=judge_kw,
+                verbose=args.verbose,
+            )
+            result = outcome["result"]
+            grade = outcome["grade"]
             task_grades.append(grade)
-            results.append(result)
+            task_runs.append(outcome)
+            run_outcomes.append(outcome)
 
             # Log score immediately after grading
             score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
@@ -660,6 +848,11 @@ def main():
             )
             if grade.notes:
                 logger.info("   Notes: %s", grade.notes[:200])
+            logger.info(
+                "   Attempts used: %s/%s",
+                len(outcome["attempts"]),
+                max_task_attempts,
+            )
 
         task_scores = [grade.score for grade in task_grades]
         grades_by_task_id[task.task_id] = {
@@ -668,13 +861,15 @@ def main():
             "std": statistics.stdev(task_scores) if len(task_scores) > 1 else 0.0,
             "min": min(task_scores),
             "max": max(task_scores),
+            "attempts_per_run": [len(run["attempts"]) for run in task_runs],
         }
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     task_entries = []
-    for result in results:
+    for outcome in run_outcomes:
+        result = outcome["result"]
         task_id = result["task_id"]
         grading = grades_by_task_id[task_id]
         entry = {
@@ -690,6 +885,8 @@ def main():
             "grading": grading,
             "completion": _completion_summary(grading),
             "frontmatter": tasks_by_id[task_id].frontmatter,
+            "attempt_count": len(outcome["attempts"]),
+            "attempts": outcome["attempts"],
         }
         judge_usage = _aggregate_judge_usage(grading)
         if judge_usage is not None:
@@ -737,6 +934,7 @@ def main():
         "timestamp": time.time(),
         "suite": args.suite,
         "runs_per_task": runs_per_task,
+        "max_task_attempts": max_task_attempts,
         "tasks": task_entries,
         "efficiency": efficiency,
     }
@@ -744,7 +942,9 @@ def main():
         aggregate["judge_summary"] = judge_summary
 
     output_path = output_dir / f"{run_id}_{model_slug}.json"
-    output_path.write_text(json.dumps(aggregate, indent=2), encoding="utf-8")
+    output_path.write_text(
+        json.dumps(_json_sanitize(aggregate), indent=2), encoding="utf-8"
+    )
 
     logger.info("Saved results to %s", output_path)
     _log_efficiency_summary(efficiency, grades_by_task_id)
