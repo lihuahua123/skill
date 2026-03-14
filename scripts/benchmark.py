@@ -16,6 +16,7 @@ import argparse
 import json
 import logging
 import os
+import shutil
 import statistics
 import subprocess
 import sys
@@ -515,6 +516,17 @@ def _build_iteration_feedback(
     return header + body
 
 
+def _retry_session_id(task_id: str, attempt_number: int) -> str:
+    return f"{task_id}_retry_{attempt_number}_{int(time.time() * 1000)}"
+
+
+def _restore_workspace_snapshot(snapshot_path: Path, workspace: Path) -> None:
+    if workspace.exists():
+        shutil.rmtree(workspace)
+    workspace.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(snapshot_path, workspace)
+
+
 def _execute_task_with_feedback(
     *,
     task: Task,
@@ -533,6 +545,7 @@ def _execute_task_with_feedback(
 ) -> Dict[str, Any]:
     attempt_summaries: List[Dict[str, Any]] = []
     execution_error = None
+    snapshot_path = Path("/tmp/pinchbench") / run_id / "snapshots" / task.task_id
 
     try:
         result = execute_openclaw_task(
@@ -542,6 +555,7 @@ def _execute_task_with_feedback(
             run_id=run_id,
             timeout_multiplier=timeout_multiplier,
             skill_dir=skill_dir,
+            initial_workspace_snapshot=snapshot_path if context_policy == "rollback" else None,
             verbose=verbose,
         )
     except Exception as exc:
@@ -561,6 +575,7 @@ def _execute_task_with_feedback(
             "stdout": "",
             "stderr": execution_error,
             "session_id": None,
+            "initial_workspace_snapshot": None,
         }
 
     try:
@@ -596,6 +611,8 @@ def _execute_task_with_feedback(
             "feedback_policy": feedback_policy,
             "feedback_format": feedback_format,
             "context_policy": context_policy,
+            "session_reset": False,
+            "workspace_restored": False,
         }
     )
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
@@ -634,17 +651,41 @@ def _execute_task_with_feedback(
             max_attempts,
         )
 
+        retry_workspace = Path(result["workspace"])
+        retry_session_id = result["session_id"]
+        session_reset = False
+        workspace_restored = False
+
+        if context_policy in ("fresh-session", "rollback"):
+            cleanup_agent_sessions(agent_id)
+            retry_session_id = _retry_session_id(task.task_id, attempt_number)
+            session_reset = True
+        if context_policy == "rollback":
+            if not snapshot_path.exists():
+                logger.info(
+                    "Stopping retries for %s because rollback snapshot is unavailable",
+                    task.task_id,
+                )
+                break
+            _restore_workspace_snapshot(snapshot_path, retry_workspace)
+            workspace_restored = True
+
         retry_result = _run_openclaw_message(
             agent_id=agent_id,
             prompt=feedback_prompt,
-            workspace=Path(result["workspace"]),
-            session_id=result["session_id"],
+            workspace=retry_workspace,
+            session_id=retry_session_id,
             timeout_seconds=task.timeout_seconds * timeout_multiplier,
         )
         result = {
             **retry_result,
             "agent_id": agent_id,
             "task_id": task.task_id,
+            "initial_workspace_snapshot": (
+                str(snapshot_path) if context_policy == "rollback" else result.get("initial_workspace_snapshot")
+            ),
+            "session_reset": session_reset,
+            "workspace_restored": workspace_restored,
         }
 
         try:
@@ -678,6 +719,8 @@ def _execute_task_with_feedback(
                 "feedback_policy": feedback_policy,
                 "feedback_format": feedback_format,
                 "context_policy": context_policy,
+                "session_reset": session_reset,
+                "workspace_restored": workspace_restored,
             }
         )
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0

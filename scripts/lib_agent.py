@@ -521,6 +521,7 @@ def execute_openclaw_task(
     run_id: str,
     timeout_multiplier: float,
     skill_dir: Path,
+    initial_workspace_snapshot: Optional[Path] = None,
     verbose: bool = False,
 ) -> Dict[str, Any]:
     logger.info("🤖 Agent [%s] starting task: %s", agent_id, task.task_id)
@@ -536,6 +537,13 @@ def execute_openclaw_task(
     cleanup_agent_sessions(agent_id)
 
     workspace = prepare_task_workspace(skill_dir, run_id, task, agent_id)
+    if initial_workspace_snapshot is not None:
+        import shutil
+
+        if initial_workspace_snapshot.exists():
+            shutil.rmtree(initial_workspace_snapshot)
+        initial_workspace_snapshot.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(workspace, initial_workspace_snapshot)
     session_id = f"{task.task_id}_{int(time.time() * 1000)}"
     timeout_seconds = task.timeout_seconds * timeout_multiplier
     start_time = time.time()
@@ -603,6 +611,9 @@ def execute_openclaw_task(
         "stdout": stdout,
         "stderr": stderr,
         "session_id": session_id,
+        "initial_workspace_snapshot": (
+            str(initial_workspace_snapshot) if initial_workspace_snapshot is not None else None
+        ),
     }
 
 
