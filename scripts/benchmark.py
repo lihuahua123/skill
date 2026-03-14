@@ -527,6 +527,67 @@ def _restore_workspace_snapshot(snapshot_path: Path, workspace: Path) -> None:
     shutil.copytree(snapshot_path, workspace)
 
 
+def _usage_delta(current: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    if not previous:
+        return dict(current)
+    delta: Dict[str, Any] = {}
+    for key, value in current.items():
+        prev_value = previous.get(key, 0)
+        if isinstance(value, float) or isinstance(prev_value, float):
+            delta[key] = round(float(value) - float(prev_value), 6)
+        else:
+            delta[key] = int(value) - int(prev_value)
+    return delta
+
+
+def _usage_round_delta(
+    current_rounds: List[Dict[str, Any]],
+    previous_rounds: Optional[List[Dict[str, Any]]],
+) -> List[Dict[str, Any]]:
+    previous_count = len(previous_rounds or [])
+    new_rounds = current_rounds[previous_count:]
+    normalized = []
+    for idx, round_usage in enumerate(new_rounds, start=1):
+        normalized.append({
+            **round_usage,
+            "round": idx,
+        })
+    return normalized
+
+
+def _aggregate_attempt_usage(attempts: List[Dict[str, Any]]) -> Dict[str, Any]:
+    totals = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0,
+    }
+    for attempt in attempts:
+        usage = attempt.get("execution", {}).get("usage", {})
+        totals["input_tokens"] += int(usage.get("input_tokens", 0))
+        totals["output_tokens"] += int(usage.get("output_tokens", 0))
+        totals["cache_read_tokens"] += int(usage.get("cache_read_tokens", 0))
+        totals["cache_write_tokens"] += int(usage.get("cache_write_tokens", 0))
+        totals["total_tokens"] += int(usage.get("total_tokens", 0))
+        totals["cost_usd"] += float(usage.get("cost_usd", 0.0) or 0.0)
+        totals["request_count"] += int(usage.get("request_count", 0))
+    totals["cost_usd"] = round(totals["cost_usd"], 6)
+    return totals
+
+
+def _aggregate_attempt_round_usage(attempts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    rounds: List[Dict[str, Any]] = []
+    for attempt in attempts:
+        for round_usage in attempt.get("execution", {}).get("usage_per_round", []):
+            rounds.append({**round_usage})
+    for idx, round_usage in enumerate(rounds, start=1):
+        round_usage["round"] = idx
+    return rounds
+
+
 def _execute_task_with_feedback(
     *,
     task: Task,
@@ -547,6 +608,8 @@ def _execute_task_with_feedback(
     execution_error = None
     snapshot_path = Path("/tmp/pinchbench") / run_id / "snapshots" / task.task_id
     stop_reason = "max-attempts-reached"
+    previous_cumulative_usage: Optional[Dict[str, Any]] = None
+    previous_cumulative_usage_per_round: Optional[List[Dict[str, Any]]] = None
 
     try:
         result = execute_openclaw_task(
@@ -606,7 +669,11 @@ def _execute_task_with_feedback(
     attempt_summaries.append(
         {
             "attempt": 1,
-            "execution": result,
+            "execution": {
+                **result,
+                "cumulative_usage": dict(result.get("usage", {})),
+                "cumulative_usage_per_round": list(result.get("usage_per_round", [])),
+            },
             "grading": grade.to_dict(),
             "feedback_prompt": None,
             "feedback_policy": feedback_policy,
@@ -616,6 +683,8 @@ def _execute_task_with_feedback(
             "workspace_restored": False,
         }
     )
+    previous_cumulative_usage = dict(result.get("usage", {}))
+    previous_cumulative_usage_per_round = list(result.get("usage_per_round", []))
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
     logger.info(
         "   📊 Attempt 1/%s score: %.2f/%.2f (%.0f%%)",
@@ -681,8 +750,20 @@ def _execute_task_with_feedback(
             session_id=retry_session_id,
             timeout_seconds=task.timeout_seconds * timeout_multiplier,
         )
+        execution_payload = retry_result
+        if context_policy == "append":
+            execution_payload = {
+                **retry_result,
+                "cumulative_usage": dict(retry_result.get("usage", {})),
+                "cumulative_usage_per_round": list(retry_result.get("usage_per_round", [])),
+                "usage": _usage_delta(retry_result.get("usage", {}), previous_cumulative_usage),
+                "usage_per_round": _usage_round_delta(
+                    retry_result.get("usage_per_round", []),
+                    previous_cumulative_usage_per_round,
+                ),
+            }
         result = {
-            **retry_result,
+            **execution_payload,
             "agent_id": agent_id,
             "task_id": task.task_id,
             "initial_workspace_snapshot": (
@@ -726,6 +807,12 @@ def _execute_task_with_feedback(
                 "session_reset": session_reset,
                 "workspace_restored": workspace_restored,
             }
+        )
+        previous_cumulative_usage = dict(
+            execution_payload.get("cumulative_usage", execution_payload.get("usage", {}))
+        )
+        previous_cumulative_usage_per_round = list(
+            execution_payload.get("cumulative_usage_per_round", execution_payload.get("usage_per_round", []))
         )
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
         logger.info(
@@ -1094,15 +1181,17 @@ def main():
         result = outcome["result"]
         task_id = result["task_id"]
         grading = grades_by_task_id[task_id]
+        total_usage = _aggregate_attempt_usage(outcome["attempts"])
+        total_usage_per_round = _aggregate_attempt_round_usage(outcome["attempts"])
         entry = {
             "task_id": task_id,
             "status": result["status"],
             "timed_out": result["timed_out"],
             "execution_time": result["execution_time"],
             "transcript_length": len(result["transcript"]),
-            "llm_rounds": len(result.get("usage_per_round", [])),
-            "usage": result.get("usage", {}),
-            "usage_per_round": result.get("usage_per_round", []),
+            "llm_rounds": len(total_usage_per_round),
+            "usage": total_usage,
+            "usage_per_round": total_usage_per_round,
             "workspace": result["workspace"],
             "grading": grading,
             "completion": _completion_summary(grading),
