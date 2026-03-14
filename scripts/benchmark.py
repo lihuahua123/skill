@@ -226,6 +226,30 @@ def _parse_args() -> argparse.Namespace:
         help="Maximum validator-feedback iterations per task run",
     )
     parser.add_argument(
+        "--feedback-policy",
+        choices=("vague", "error-localized", "actionable-path"),
+        default="error-localized",
+        help="Retry feedback content policy",
+    )
+    parser.add_argument(
+        "--feedback-format",
+        choices=("full-refresh", "stable-prefix"),
+        default="full-refresh",
+        help="Retry feedback formatting policy",
+    )
+    parser.add_argument(
+        "--context-policy",
+        choices=("append", "fresh-session", "rollback"),
+        default="append",
+        help="Retry context policy",
+    )
+    parser.add_argument(
+        "--stop-rule",
+        choices=("no-improvement", "max-attempts-only"),
+        default="no-improvement",
+        help="Rule for stopping validator-feedback retries",
+    )
+    parser.add_argument(
         "--judge",
         default=None,
         help="Judge model identifier (default: openrouter/anthropic/claude-opus-4.5)",
@@ -384,6 +408,10 @@ def _execute_task_with_feedback(
     timeout_multiplier: float,
     skill_dir: Path,
     max_task_attempts: int,
+    feedback_policy: str,
+    feedback_format: str,
+    context_policy: str,
+    stop_rule: str,
     judge_kw: Dict[str, Any],
     verbose: bool = False,
 ) -> Dict[str, Any]:
@@ -449,6 +477,9 @@ def _execute_task_with_feedback(
             "execution": result,
             "grading": grade.to_dict(),
             "feedback_prompt": None,
+            "feedback_policy": feedback_policy,
+            "feedback_format": feedback_format,
+            "context_policy": context_policy,
         }
     )
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
@@ -522,6 +553,9 @@ def _execute_task_with_feedback(
                 "execution": result,
                 "grading": grade.to_dict(),
                 "feedback_prompt": feedback_prompt,
+                "feedback_policy": feedback_policy,
+                "feedback_format": feedback_format,
+                "context_policy": context_policy,
             }
         )
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
@@ -533,7 +567,7 @@ def _execute_task_with_feedback(
             grade.max_score,
             score_pct,
         )
-        if grade.score == previous_score:
+        if stop_rule == "no-improvement" and grade.score == previous_score:
             logger.info(
                 "   ⏹️  Stopping retries for %s because score did not improve (%.2f)",
                 task.task_id,
@@ -823,6 +857,10 @@ def main():
                 timeout_multiplier=args.timeout_multiplier,
                 skill_dir=skill_dir,
                 max_task_attempts=max_task_attempts,
+                feedback_policy=args.feedback_policy,
+                feedback_format=args.feedback_format,
+                context_policy=args.context_policy,
+                stop_rule=args.stop_rule,
                 judge_kw=judge_kw,
                 verbose=args.verbose,
             )
@@ -887,6 +925,12 @@ def main():
             "frontmatter": tasks_by_id[task_id].frontmatter,
             "attempt_count": len(outcome["attempts"]),
             "attempts": outcome["attempts"],
+            "retry_policies": {
+                "feedback_policy": args.feedback_policy,
+                "feedback_format": args.feedback_format,
+                "context_policy": args.context_policy,
+                "stop_rule": args.stop_rule,
+            },
         }
         judge_usage = _aggregate_judge_usage(grading)
         if judge_usage is not None:
@@ -935,6 +979,12 @@ def main():
         "suite": args.suite,
         "runs_per_task": runs_per_task,
         "max_task_attempts": max_task_attempts,
+        "retry_policies": {
+            "feedback_policy": args.feedback_policy,
+            "feedback_format": args.feedback_format,
+            "context_policy": args.context_policy,
+            "stop_rule": args.stop_rule,
+        },
         "tasks": task_entries,
         "efficiency": efficiency,
     }
