@@ -373,30 +373,146 @@ def _grade_passed(grade: GradeResult) -> bool:
     return grade.max_score > 0 and grade.score >= grade.max_score
 
 
-def _build_iteration_feedback(task: Task, grade: GradeResult, attempt_number: int) -> str:
-    breakdown_lines = []
+def _format_breakdown_lines(grade: GradeResult, unresolved_only: bool = False) -> List[str]:
+    lines = []
     for key, value in grade.breakdown.items():
-        breakdown_lines.append(f"- {key}: {value:.4f}")
-    if not breakdown_lines:
-        breakdown_lines.append("- No detailed breakdown available from the validator.")
+        if unresolved_only and value >= 1.0:
+            continue
+        lines.append(f"- {key}: {value:.4f}")
+    if not lines:
+        if unresolved_only:
+            return ["- No unresolved breakdown items were reported."]
+        return ["- No detailed breakdown available from the validator."]
+    return lines
 
+
+def _retry_policy_instructions(feedback_policy: str) -> str:
+    if feedback_policy == "vague":
+        return (
+            "- Continue working in the same workspace.\n"
+            "- Do not restart from scratch unless necessary.\n"
+            "- Make the minimal changes needed to pass validation.\n"
+            "- When you are done, provide the updated final answer."
+        )
+    if feedback_policy == "actionable-path":
+        return (
+            "- Continue working in the same workspace.\n"
+            "- Do not restart from scratch unless necessary.\n"
+            "- Address only unresolved issues.\n"
+            "- Prefer targeted fixes over broad rewrites.\n"
+            "- When you are done, provide the updated final answer."
+        )
+    return (
+        "- Continue working in the same workspace.\n"
+        "- Do not restart from scratch unless necessary.\n"
+        "- Focus on unresolved issues only.\n"
+        "- Do not repeat already-correct work unless required.\n"
+        "- When you are done, provide the updated final answer."
+    )
+
+
+def _actionable_repair_steps(grade: GradeResult) -> List[str]:
+    unresolved = [key for key, value in grade.breakdown.items() if value < 1.0]
+    steps = []
+    if unresolved:
+        steps.append(
+            "1. Review the unresolved validator items and map each one to a concrete fix."
+        )
+    else:
+        steps.append("1. Re-check the latest output against the grading criteria.")
+    steps.append("2. Verify the required files, tool calls, and final answer format.")
+    steps.append("3. Edit only what is needed to satisfy the remaining requirements.")
+    return steps
+
+
+def _build_iteration_feedback(
+    task: Task,
+    grade: GradeResult,
+    attempt_number: int,
+    *,
+    feedback_policy: str,
+    feedback_format: str,
+) -> str:
     notes = grade.notes.strip() if grade.notes else "No additional validator notes."
     criteria = "\n".join(f"- {item}" for item in task.grading_criteria) or "- None provided."
+    full_breakdown = "\n".join(_format_breakdown_lines(grade))
+    unresolved_breakdown = "\n".join(_format_breakdown_lines(grade, unresolved_only=True))
 
-    return (
+    if feedback_format == "stable-prefix":
+        stable_prefix = (
+            f"You are working on benchmark task `{task.task_id}`.\n\n"
+            "Task passes only when the validator score reaches the maximum.\n\n"
+            "Original grading criteria:\n"
+            f"{criteria}\n\n"
+            "Retry policy:\n"
+            f"{_retry_policy_instructions(feedback_policy)}"
+        )
+        dynamic_suffix = (
+            f"\n\nLatest validator result:\n"
+            f"- Attempt: {attempt_number}\n"
+            f"- Score: {grade.score:.4f}/{grade.max_score:.4f}\n"
+        )
+        if feedback_policy == "vague":
+            dynamic_suffix += (
+                "\nThe task did not pass. Improve the result and try again."
+            )
+        elif feedback_policy == "error-localized":
+            dynamic_suffix += (
+                "\n\nRemaining issues:\n"
+                f"{unresolved_breakdown}\n\n"
+                "Validator notes:\n"
+                f"{notes}"
+            )
+        else:
+            dynamic_suffix += (
+                "\n\nUnresolved issues:\n"
+                f"{unresolved_breakdown}\n\n"
+                "Suggested repair plan:\n"
+                f"{chr(10).join(_actionable_repair_steps(grade))}\n\n"
+                "Validator notes:\n"
+                f"{notes}"
+            )
+        return stable_prefix + dynamic_suffix
+
+    header = (
         f"You are retrying benchmark task `{task.task_id}` after validator feedback.\n\n"
         f"Attempt completed: {attempt_number}\n"
         f"Validator score: {grade.score:.4f}/{grade.max_score:.4f}\n"
-        f"Task passes only when the score reaches the maximum.\n\n"
-        "Validator breakdown:\n"
-        f"{chr(10).join(breakdown_lines)}\n\n"
-        "Validator notes:\n"
-        f"{notes}\n\n"
-        "Original grading criteria:\n"
-        f"{criteria}\n\n"
-        "Continue working in the same workspace and improve the result based on this feedback. "
-        "Do not restart from scratch unless necessary. When you are done, provide the updated final answer."
+        "Task passes only when the score reaches the maximum.\n\n"
     )
+    if feedback_policy == "vague":
+        body = (
+            "The previous attempt did not pass validation.\n\n"
+            "Original grading criteria:\n"
+            f"{criteria}\n\n"
+            "Retry policy:\n"
+            f"{_retry_policy_instructions(feedback_policy)}"
+        )
+    elif feedback_policy == "actionable-path":
+        body = (
+            "Unresolved validator issues:\n"
+            f"{unresolved_breakdown}\n\n"
+            "Validator notes:\n"
+            f"{notes}\n\n"
+            "Suggested repair plan:\n"
+            f"{chr(10).join(_actionable_repair_steps(grade))}\n\n"
+            "Original grading criteria:\n"
+            f"{criteria}\n\n"
+            "Retry policy:\n"
+            f"{_retry_policy_instructions(feedback_policy)}"
+        )
+    else:
+        body = (
+            "Validator breakdown:\n"
+            f"{full_breakdown}\n\n"
+            "Validator notes:\n"
+            f"{notes}\n\n"
+            "Original grading criteria:\n"
+            f"{criteria}\n\n"
+            "Retry policy:\n"
+            f"{_retry_policy_instructions(feedback_policy)}"
+        )
+    return header + body
 
 
 def _execute_task_with_feedback(
@@ -504,7 +620,13 @@ def _execute_task_with_feedback(
             )
             break
 
-        feedback_prompt = _build_iteration_feedback(task, grade, attempt_number - 1)
+        feedback_prompt = _build_iteration_feedback(
+            task,
+            grade,
+            attempt_number - 1,
+            feedback_policy=feedback_policy,
+            feedback_format=feedback_format,
+        )
         logger.info(
             "🔁 Retrying %s with validator feedback (%s/%s)",
             task.task_id,
