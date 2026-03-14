@@ -555,6 +555,12 @@ def _usage_round_delta(
     return normalized
 
 
+def _execution_time_delta(current: float, previous: Optional[float]) -> float:
+    if previous is None:
+        return round(float(current), 6)
+    return round(float(current) - float(previous), 6)
+
+
 def _aggregate_attempt_usage(attempts: List[Dict[str, Any]]) -> Dict[str, Any]:
     totals = {
         "input_tokens": 0,
@@ -576,6 +582,14 @@ def _aggregate_attempt_usage(attempts: List[Dict[str, Any]]) -> Dict[str, Any]:
         totals["request_count"] += int(usage.get("request_count", 0))
     totals["cost_usd"] = round(totals["cost_usd"], 6)
     return totals
+
+
+def _aggregate_attempt_execution_time(attempts: List[Dict[str, Any]]) -> float:
+    total = 0.0
+    for attempt in attempts:
+        execution = attempt.get("execution", {})
+        total += float(execution.get("execution_time", 0.0) or 0.0)
+    return round(total, 6)
 
 
 def _aggregate_attempt_round_usage(attempts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -610,6 +624,7 @@ def _execute_task_with_feedback(
     stop_reason = "max-attempts-reached"
     previous_cumulative_usage: Optional[Dict[str, Any]] = None
     previous_cumulative_usage_per_round: Optional[List[Dict[str, Any]]] = None
+    previous_cumulative_execution_time: Optional[float] = None
 
     try:
         result = execute_openclaw_task(
@@ -671,6 +686,7 @@ def _execute_task_with_feedback(
             "attempt": 1,
             "execution": {
                 **result,
+                "cumulative_execution_time": round(float(result.get("execution_time", 0.0) or 0.0), 6),
                 "cumulative_usage": dict(result.get("usage", {})),
                 "cumulative_usage_per_round": list(result.get("usage_per_round", [])),
             },
@@ -685,6 +701,7 @@ def _execute_task_with_feedback(
     )
     previous_cumulative_usage = dict(result.get("usage", {}))
     previous_cumulative_usage_per_round = list(result.get("usage_per_round", []))
+    previous_cumulative_execution_time = round(float(result.get("execution_time", 0.0) or 0.0), 6)
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
     logger.info(
         "   📊 Attempt 1/%s score: %.2f/%.2f (%.0f%%)",
@@ -754,6 +771,13 @@ def _execute_task_with_feedback(
         if context_policy == "append":
             execution_payload = {
                 **retry_result,
+                "cumulative_execution_time": round(
+                    float(retry_result.get("execution_time", 0.0) or 0.0), 6
+                ),
+                "execution_time": _execution_time_delta(
+                    float(retry_result.get("execution_time", 0.0) or 0.0),
+                    previous_cumulative_execution_time,
+                ),
                 "cumulative_usage": dict(retry_result.get("usage", {})),
                 "cumulative_usage_per_round": list(retry_result.get("usage_per_round", [])),
                 "usage": _usage_delta(retry_result.get("usage", {}), previous_cumulative_usage),
@@ -772,6 +796,12 @@ def _execute_task_with_feedback(
             "session_reset": session_reset,
             "workspace_restored": workspace_restored,
         }
+        if "cumulative_execution_time" not in result:
+            result["cumulative_execution_time"] = round(
+                float(result.get("execution_time", 0.0) or 0.0)
+                + float(previous_cumulative_execution_time or 0.0),
+                6,
+            )
 
         try:
             grade = grade_task(
@@ -813,6 +843,16 @@ def _execute_task_with_feedback(
         )
         previous_cumulative_usage_per_round = list(
             execution_payload.get("cumulative_usage_per_round", execution_payload.get("usage_per_round", []))
+        )
+        previous_cumulative_execution_time = round(
+            float(
+                execution_payload.get(
+                    "cumulative_execution_time",
+                    execution_payload.get("execution_time", 0.0),
+                )
+                or 0.0
+            ),
+            6,
         )
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
         logger.info(
@@ -1183,11 +1223,12 @@ def main():
         grading = grades_by_task_id[task_id]
         total_usage = _aggregate_attempt_usage(outcome["attempts"])
         total_usage_per_round = _aggregate_attempt_round_usage(outcome["attempts"])
+        total_execution_time = _aggregate_attempt_execution_time(outcome["attempts"])
         entry = {
             "task_id": task_id,
             "status": result["status"],
             "timed_out": result["timed_out"],
-            "execution_time": result["execution_time"],
+            "execution_time": total_execution_time,
             "transcript_length": len(result["transcript"]),
             "llm_rounds": len(total_usage_per_round),
             "usage": total_usage,
