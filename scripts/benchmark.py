@@ -546,6 +546,7 @@ def _execute_task_with_feedback(
     attempt_summaries: List[Dict[str, Any]] = []
     execution_error = None
     snapshot_path = Path("/tmp/pinchbench") / run_id / "snapshots" / task.task_id
+    stop_reason = "max-attempts-reached"
 
     try:
         result = execute_openclaw_task(
@@ -628,6 +629,7 @@ def _execute_task_with_feedback(
     previous_score = grade.score
     for attempt_number in range(2, max_attempts + 1):
         if _grade_passed(grade):
+            stop_reason = "passed"
             break
 
         if not result.get("workspace") or not result.get("session_id"):
@@ -635,6 +637,7 @@ def _execute_task_with_feedback(
                 "Stopping retries for %s because workspace/session context is unavailable",
                 task.task_id,
             )
+            stop_reason = "missing-workspace-or-session"
             break
 
         feedback_prompt = _build_iteration_feedback(
@@ -666,6 +669,7 @@ def _execute_task_with_feedback(
                     "Stopping retries for %s because rollback snapshot is unavailable",
                     task.task_id,
                 )
+                stop_reason = "missing-rollback-snapshot"
                 break
             _restore_workspace_snapshot(snapshot_path, retry_workspace)
             workspace_restored = True
@@ -738,13 +742,18 @@ def _execute_task_with_feedback(
                 task.task_id,
                 grade.score,
             )
+            stop_reason = "no-improvement"
             break
         previous_score = grade.score
+
+    if _grade_passed(grade):
+        stop_reason = "passed"
 
     return {
         "result": result,
         "grade": grade,
         "attempts": attempt_summaries,
+        "stop_reason": stop_reason,
     }
 
 
@@ -757,6 +766,16 @@ def _json_sanitize(obj: Any) -> Any:
     if isinstance(obj, (list, tuple)):
         return [_json_sanitize(v) for v in obj]
     return obj
+
+
+def _first_success_attempt(attempts: List[Dict[str, Any]]) -> Optional[int]:
+    for attempt in attempts:
+        grading = attempt.get("grading", {})
+        score = float(grading.get("score", 0.0))
+        max_score = float(grading.get("max_score", 0.0))
+        if max_score > 0 and score >= max_score:
+            return int(attempt.get("attempt", 0))
+    return None
 
 
 def _aggregate_judge_usage(grading: Dict[str, Any]) -> Optional[Dict[str, Any]]:
@@ -1089,6 +1108,8 @@ def main():
             "completion": _completion_summary(grading),
             "frontmatter": tasks_by_id[task_id].frontmatter,
             "attempt_count": len(outcome["attempts"]),
+            "first_success_attempt": _first_success_attempt(outcome["attempts"]),
+            "stop_reason": outcome["stop_reason"],
             "attempts": outcome["attempts"],
             "retry_policies": {
                 "feedback_policy": args.feedback_policy,
