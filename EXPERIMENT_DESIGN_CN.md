@@ -2,12 +2,41 @@
 
 ## 研究目标
 
-本研究基于 PinchBench/OpenClaw，系统评估真实 agent 在“失败后多轮纠错”场景中的行为表现。研究重点不再停留于“多轮是否有效”，而是进一步回答以下机制性问题：
+本研究基于 PinchBench/OpenClaw，系统评估真实 agent 在“失败后多轮纠错”场景中的行为表现。研究重点不是提出新的 agent 方法，也不是单纯追求更高 success，而是在既有 validator-driven retry 框架之上，系统回答以下 token-efficiency 问题：
 
-- 多轮反馈的收益曲线如何演化，以及何时达到饱和或转为负收益
-- 多轮失败究竟来自对话历史污染、工作区状态污染，还是反馈信号本身不足
-- 是否可以根据早期迭代轨迹预测后续收益，并据此动态决定是否继续重试
-- 在保证收敛的前提下，所需的最小充分反馈与上下文是什么
+- 在尽量不损失 success 的前提下，多轮反馈究竟额外消耗了多少 token
+- 哪些失败主要来自历史堆积或状态残留，从而造成可避免的 token 浪费
+- 在固定成功率目标或固定预算目标下，哪类 stopping rule 最能节省 token
+- 哪类 feedback / context 配置具有最佳 token-efficiency
+
+## 论文定位
+
+这项工作应明确定位为一篇 empirical study，而不是方法论文。
+
+核心定位：
+
+- 研究对象是真实 tool-using agent 在 validator-driven retry 下的成本与收益行为
+- 核心贡献是 measurement、ablation 和 token-efficiency characterization
+- 目标是找出更省 token 的重试配置，而不是提出新的训练方法或通用 agent 架构
+
+非目标：
+
+- 不主张“首次提出多轮反馈”
+- 不主张“首次提出 fresh-session / rollback”
+- 不主张“学习一个全新的 agent policy”
+- 不把 cache-friendly formatting 包装成通用方法创新
+
+更合适的 claim 是：
+
+- 在真实 tool-using agent benchmark 上，系统刻画 validator-driven retries 的 success-cost frontier
+- 区分哪些额外 token 是有效投入，哪些只是由历史污染或冗余反馈造成的浪费
+- 给出在不同预算目标下更合理的 retry 配置与 stopping 经验规律
+
+建议全文都坚持下面这个叙述顺序：
+
+1. `token efficiency` 是主目标
+2. `success` 是约束条件或比较基线
+3. 重点不是“谁效果最好”，而是“谁在相近效果下最省 token”
 
 ## 现有项目基础
 
@@ -30,13 +59,13 @@
 
 ### RQ1
 
-多轮 validator feedback 的收益曲线与失效点是什么？
+多轮 validator feedback 的 token-efficiency 曲线与失效点是什么？
 
-这一问题将“边际收益”和“成功轮次分布”合并分析，关注 success 如何随轮次增长、何时饱和，以及是否出现“越改越错”的后期退化。
+这一问题将“边际收益”和“token 开销”合并分析，关注 success 如何随轮次增长、token 如何累积，以及从第几轮开始额外 token 基本不再值得。
 
 ### RQ2
 
-多轮反馈失败的主要根因是什么？
+多轮反馈中的 token 浪费主要来自哪里？
 
 具体区分三类可能来源：
 
@@ -46,19 +75,19 @@
 
 ### RQ3
 
-能否基于早期迭代轨迹学习一个自适应 stopping policy？
+在固定预算或固定成功率目标下，哪类 stopping rule 最省 token？
 
-重点不再是静态比较 `max_task_attempts = k`，而是判断“下一轮是否值得继续”，从而在成功率与成本之间做动态预算控制。
+重点不再是提出新 policy，而是系统比较不同停止规则在 success 与 token/cost 上的经验 tradeoff。
 
 ### RQ4
 
-保证收敛所需的最小充分反馈与上下文是什么？
+哪类 feedback / context 配置最省 token？
 
 该问题关注的不是“更多 feedback 是否更好”，而是：
 
-- 哪些反馈字段真正必要
+- 哪些反馈字段真正带来额外 success
 - 哪些上下文历史只是 token 噪音
-- cache-friendly formatting 能否在降本时保持相近 success
+- 哪些压缩或稳定化策略能在降本时保持相近 success
 
 “任务复杂度如何影响迭代轮数”建议作为分层分析或 moderator，而不是单独作为主 RQ。更适合作为 RQ1 与 RQ3 的解释变量。
 
@@ -187,13 +216,13 @@
 
 ## 各研究问题对应的实验设计
 
-### RQ1：多轮反馈的收益曲线与失效点是什么
+### RQ1：多轮反馈的 token-efficiency 曲线与失效点是什么
 
 目标：
 
-- 系统刻画 success 随轮次增长的动力学
-- 判断收益主要集中在哪几轮
-- 识别何时出现边际收益趋近于 0 或后期退化
+- 系统刻画 success 随轮次增长、token 随轮次累积的联合动力学
+- 判断 token 投入最划算的轮次集中在哪几轮
+- 识别何时出现“额外 token 基本不再值得”的失效点
 
 实验：
 
@@ -201,31 +230,33 @@
 - 扫描 `max_task_attempts = 1, 2, 3, 4, 5, 6`
 - 对每个模型、每个任务进行多次重复运行
 - 设置较高上限时，记录每个成功样本的首次成功轮次
-- 对未成功样本保留 censoring 信息，支持后续 survival-style 分析
+- 对未成功样本明确记录“在当前最大重试轮数内仍未成功”，以便与“已观察到首次成功轮次”的样本区分开来
 
 指标：
 
+- 累计 token by round
 - `success@k`
 - `delta success(k) = success@k - success@(k-1)`
+- `delta tokens(k)`
+- 每增加 1% success 所需 token / cost
 - 首次成功轮次分布
 - median attempts to success
 - `P(success by round k)`
-- 每增加一轮带来的新增 token / cost
 - 后期轮次 failure rate 是否上升
 
 回答的问题：
 
-- 多轮相对单轮究竟提升多少
-- 收益主要集中在哪几轮
-- 后续轮次是在补救少量难例，还是已经基本无效
-- 是否存在“越改越错”或收益转负的失效点
+- 多轮相对单轮究竟多花了多少 token，换来了多少 success
+- 最划算的增益主要集中在哪几轮
+- 后续轮次是在补救少量难例，还是已经基本只增加成本
+- 是否存在“继续 retry 主要是在烧 token”的失效点
 
-### RQ2：多轮反馈失败的主要根因是什么
+### RQ2：多轮反馈中的 token 浪费主要来自哪里
 
 目标：
 
-- 区分多轮失败究竟主要来自历史污染、状态污染，还是反馈不足
-- 将“context pollution”从笼统现象变成可验证、可分解的机制分析
+- 区分额外 token 开销究竟主要来自历史污染、状态污染，还是反馈不足
+- 将“context pollution”从笼统现象变成可验证、可分解的浪费来源分析
 
 实验：
 
@@ -242,39 +273,43 @@
 - 最终 success
 - attempts to success
 - 累计 token / cost
+- 相对 `append` 节省的 token 比例
 - transcript 长度增长
 - 后期轮次退化
 - 不同 policy 下的 failure mode 分布
 
 回答的问题：
 
-- 对话历史污染是否真实存在
-- 工作区残留状态是否会系统性伤害后续重试
-- rollback 是否能同时改善 success 与成本边界
-- 若 `append`、`fresh-session`、`rollback` 差异不大，是否说明问题主要不在上下文管理
+- 对话历史污染是否真实存在，并且会不会系统性浪费 token
+- 工作区残留状态是否会导致无效重试
+- rollback 是否能在保持 success 的同时减少累计 token
+- 若 `append`、`fresh-session`、`rollback` 差异不大，是否说明主要浪费不在上下文管理
 
-### RQ3：能否基于早期迭代轨迹学习自适应 stopping policy
+### RQ3：在固定预算或固定成功率目标下，哪类 stopping rule 最省 token
 
 目标：
 
-- 判断“下一轮是否值得继续”
-- 用动态停止规则替代静态 `max_task_attempts = k`
+- 比较不同停止规则的 token-efficiency
+- 判断“下一轮是否值得继续”在经验上是否可预测
 - 在固定预算下提升 success，或在相近 success 下显著降本
 
 实验：
 
-- 从前 1 至 2 轮提取早期信号，训练或拟合简单 stopping rule
-- 可使用的输入特征包括：
+- 比较一组简单、可解释的 stopping rules，而不是复杂策略学习：
+  - 固定 `max_task_attempts = 3`
+  - 固定 `max_task_attempts = 5`
+  - 当 score 连续两轮不提升时停止
+  - 当 unresolved criteria 数量不再下降时停止
+  - 当单位 token 带来的 improvement 低于阈值时停止
+- 可选地做一个轻量 oracle-style 分析：
+  - 用前 1 至 2 轮的观测信号估计下一轮成功概率
+  - 但这部分只作为分析工具，不作为本文主方法
+- 可使用的观测信号包括：
   - validator score 与 score delta
   - unresolved criteria 数量
   - feedback 长度
   - 本轮 token 增量
-  - 文件改动规模或 patch 大小
   - 历史是否已出现 improvement
-- 与固定 budget baseline 比较：
-  - 固定 `max_task_attempts = 3`
-  - 固定 `max_task_attempts = 5`
-  - 动态 stopping
 
 指标：
 
@@ -283,22 +318,23 @@
 - 每增加 1% success 所需 token / cost
 - score per 1K tokens
 - success per dollar
-- stopping decision accuracy
-- under-stop / over-stop error rate
+- 达到目标 success 所需的最少 token
+- stop-too-early / stop-too-late rate
+- 达到目标 success 所需的平均 token / cost
 
 回答的问题：
 
-- 是否可以早期预测后续轮次仍有收益
-- 动态 stopping 能否优于固定轮次上限
-- 哪类任务适合继续迭代，哪类任务应尽早放弃
+- 简单 stopping rules 能否在相近 success 下显著少用 token
+- 哪类任务适合继续迭代，哪类任务应尽早停止
+- 为多大比例的任务，额外一轮其实只是纯成本
 
-### RQ4：保证收敛所需的最小充分反馈与上下文是什么
+### RQ4：哪类 feedback / context 配置最省 token
 
 目标：
 
 - 评估哪些 feedback 信息真正必要
 - 评估哪些上下文历史只是 token 噪音
-- 研究 cache-friendly formatting 是否能在保留 success 的同时显著降本
+- 研究不同 feedback/context 配置的 success-cost frontier
 
 实验：
 
@@ -320,13 +356,40 @@
 - 每轮 improvement rate
 - feedback 文本长度 / token 数
 - cache 命中相关 proxy
+- success per 1K tokens
+- success per dollar
 
 回答的问题：
 
-- 更具体的反馈是否真的更有效，还是只是更贵
+- 更具体的反馈是否真的更有效，还是主要只是更贵
 - 哪些反馈字段是收敛所必需的
 - cache-friendly 改写是否能在降低 token 的同时保持类似 success
-- “最小充分上下文”是否存在稳定模式
+- 哪一组 feedback/context 配置处在更优的 Pareto frontier
+
+## 核心指标优先级
+
+如果论文需要明确主指标与次指标，建议按下面顺序写：
+
+主指标：
+
+- success per 1K tokens
+- success per dollar
+- 达到目标 success 所需的平均 token
+- 每增加 1% success 所需 token
+
+次指标：
+
+- 最终 success rate
+- `success@k`
+- 首次成功轮次
+- 平均 attempt 数
+
+解释性指标：
+
+- transcript 长度增长
+- feedback 文本长度 / token 数
+- unresolved criteria 数量变化
+- stop-too-early / stop-too-late rate
 
 ## 任务复杂度分析
 
@@ -343,6 +406,198 @@
 
 这些大多可以直接从任务 frontmatter 和任务结构中提取，不一定需要人工标注。
 
+## 最小可执行实验矩阵
+
+为了避免实验设计过散，建议先跑下面这 4 组最小实验。每组实验只服务一个主 RQ，且尽量复用同一套日志。
+
+### 实验 E1：Attempt Budget 扫描
+
+对应 RQ：
+
+- RQ1
+
+固定条件：
+
+- `feedback_policy = error-localized`
+- `context_policy = append`
+- `feedback_format = full-refresh`
+- `stop_rule = fixed`
+
+扫描变量：
+
+- `max_task_attempts = 1, 2, 3, 4, 5, 6`
+
+核心输出：
+
+- `success@k`
+- `delta success(k)`
+- `delta tokens(k)`
+- 首次成功轮次分布
+- 每增加 1% success 所需 token
+
+用途：
+
+- 先回答“多轮 retry 是否值得，以及从第几轮开始不值”
+- 为后续 stopping rule 设计提供 baseline
+
+### 实验 E2：Context Policy 对比
+
+对应 RQ：
+
+- RQ2
+
+固定条件：
+
+- `feedback_policy = error-localized`
+- `feedback_format = full-refresh`
+- `max_task_attempts = 5`
+- `stop_rule = fixed`
+
+扫描变量：
+
+- `context_policy = append`
+- `context_policy = fresh-session`
+- `context_policy = rollback`
+
+核心输出：
+
+- 相对 `append` 的 token 节省比例
+- matched-success token savings
+- 不同 context policy 的 success-cost frontier
+
+用途：
+
+- 判断主要 token 浪费是否来自历史污染或状态污染
+- 明确 `fresh-session` 和 `rollback` 是否值得额外工程成本
+
+### 实验 E3：Stopping Rule 对比
+
+对应 RQ：
+
+- RQ3
+
+固定条件：
+
+- `feedback_policy = error-localized`
+- `context_policy` 先固定为 E2 中更划算的一种
+- `feedback_format = full-refresh`
+- `max_task_attempts = 5` 或 `6`
+
+扫描变量：
+
+- `stop_rule = fixed-3`
+- `stop_rule = fixed-5`
+- `stop_rule = score-stall`
+- `stop_rule = unresolved-stall`
+- `stop_rule = low-return`
+
+核心输出：
+
+- 不同 stopping rule 的 success per 1K tokens
+- 达到目标 success 所需的平均 token
+- stop-too-early / stop-too-late rate
+
+用途：
+
+- 判断简单启发式 stopping rule 是否已经足够省 token
+- 避免把论文做成复杂 policy learning
+
+### 实验 E4：Feedback / Format 对比
+
+对应 RQ：
+
+- RQ4
+
+固定条件：
+
+- `context_policy` 先固定为 E2 中更划算的一种
+- `stop_rule` 先固定为 E3 中更划算的一种
+- `max_task_attempts = 5`
+
+扫描变量：
+
+- `feedback_policy = vague`
+- `feedback_policy = error-localized`
+- `feedback_policy = actionable-path`
+- `feedback_format = full-refresh`
+- `feedback_format = stable-prefix`
+
+可选扩展：
+
+- unresolved-only feedback
+- latest-failure-summary only
+
+核心输出：
+
+- success per 1K tokens
+- success per dollar
+- feedback token 长度与最终 success 的关系
+- token saved at matched success
+
+用途：
+
+- 找出最省 token 的 feedback / context 配置
+- 支撑论文的 token-efficiency 主结论
+
+## 实验与日志字段映射
+
+下面这部分可以直接作为 instrumentation checklist。
+
+### E1 必需日志字段
+
+- `task_id`
+- `model`
+- `attempt_index`
+- `max_task_attempts`
+- `success`
+- `first_success_attempt`
+- `prompt_tokens_by_attempt`
+- `completion_tokens_by_attempt`
+- `cumulative_usage_by_attempt`
+- `score_by_attempt`
+- `unresolved_criteria_count`
+- `stop_reason`
+- `success_within_budget`
+
+### E2 必需日志字段
+
+- E1 的全部字段
+- `context_policy`
+- `session_reset`
+- `workspace_restored`
+- `workspace_changed_since_last_attempt`
+- transcript 总长度与每轮新增长度
+- retry prompt 的稳定前缀长度和动态后缀长度
+
+### E3 必需日志字段
+
+- E1 的全部字段
+- `stop_rule`
+- `stop_rule_threshold`
+- 每轮是否触发停止规则
+- 触发停止规则的依据
+- score delta by attempt
+- token delta by attempt
+
+### E4 必需日志字段
+
+- E1 的全部字段
+- `feedback_policy`
+- `feedback_format`
+- feedback 文本长度或 token 数
+- feedback 的结构化字段摘要
+- prompt cache 命中相关 proxy
+- retry prompt 的稳定前缀长度和动态后缀长度
+
+### 所有实验共享的建议字段
+
+- `run_id`
+- `seed` 或 temperature 相关配置
+- `task_category`
+- `timeout_seconds`
+- grading criteria 数量
+- 是否使用 `llm_judge`
+
 ## 需要修改的代码范围
 
 当前先不改代码，这里只总结后续实现范围。
@@ -357,9 +612,12 @@
 
 - 将 `_build_iteration_feedback` 抽象成可配置的 `feedback_policy`
 - 增加 `context_policy`
+- 增加 `stop_rule`，支持固定轮次和简单启发式停止规则
 - 增加相关 CLI 参数
 - 在结果 JSON 中记录 policy 元数据和 stop reason
 - 支持 cache-friendly 的 `stable-prefix` feedback formatting
+- 记录每一轮 feedback prompt 的长度、token 数和结构化字段
+- 记录每一轮是否命中停止规则，以及触发停止的依据
 
 ### 2. Agent Execution Layer
 
@@ -372,6 +630,7 @@
 - 支持新 session 下的重试执行，同时复用 workspace
 - 为 rollback 实验提供 workspace snapshot / restore
 - 更明确地记录 session / workspace 生命周期信息
+- 记录每一轮执行前后的 workspace 是否变化、是否恢复，以便区分“状态污染”与“纯历史污染”
 
 ### 3. Analysis Pipeline
 
@@ -385,7 +644,11 @@
 - marginal gain by attempt
 - attempts-to-success 分布
 - token-success / cost-success 曲线
+- matched-success token savings 分析
+- token saved per avoided retry
 - feedback/context policy 对比
+- stopping rule 对比
+- 按目标 success 反推最小 token 预算
 - 按任务复杂度 proxy 分层分析
 
 ### 4. Task Metadata
@@ -407,6 +670,7 @@
 - `--context-policy`
 - `--max-task-attempts`
 - `--stop-rule`
+- `--stop-threshold`
 - `--snapshot-workspace`
 
 ## 建议补充的记录字段
@@ -416,21 +680,32 @@
 - `feedback_policy`
 - `feedback_format`
 - `context_policy`
+- `stop_rule`
+- `stop_rule_threshold`
 - `stop_reason`
 - `first_success_attempt`
+- `success_within_budget`
 - `cumulative_usage_by_attempt`
+- `prompt_tokens_by_attempt`
+- `completion_tokens_by_attempt`
 - `unresolved_criteria_count`
 - feedback 文本长度或 token 数
+- retry prompt 的稳定前缀长度和动态后缀长度
+- transcript 总长度与每轮新增长度
 - `workspace_restored`
 - `session_reset`
+- `workspace_changed_since_last_attempt`
 
 ## 建议输出的结果形式
 
 ### 表格
 
 - 单轮 vs 多轮的整体 success / token / cost 对比
+- 相近 success 下的 token 节省对比
 - feedback policy 对比表
 - append vs rollback 对比表
+- stopping rule 对比表
+- 不同目标 success 下的最小 token 预算表
 
 ### 图表
 
@@ -439,6 +714,9 @@
 - attempts-to-success 直方图或 CDF
 - cumulative token vs success
 - cumulative cost vs success
+- success-cost Pareto frontier
+- token saved at matched success
+- stop rule 的 budget-success 曲线
 - complexity-stratified success-cost 曲线
 - append vs rollback 对比图
 
@@ -460,8 +738,8 @@
 2. 增加可配置的 `feedback_policy` 与 `feedback_format`，支撑 RQ4。
 3. 增加 `fresh-session` 与 `rollback`，完成 RQ2 的 failure decomposition。
 4. 补充 stop reason、first success attempt、unresolved criteria 等 instrumentation。
-5. 基于 RQ1/RQ2 结果构建并评估动态 stopping rule，完成 RQ3。
+5. 比较简单 stopping rules，在不引入复杂方法学习的前提下完成 RQ3。
 
 ## 一句话总结
 
-这项研究的主要贡献应表述为：在真实 tool-using agent benchmark 上，系统刻画 validator-driven iterative repair 的收益动力学、失败机理、动态 stopping 策略以及最小充分反馈设计，而不是简单证明多轮重试可能带来提升。
+这项研究的主要贡献应表述为：在真实 tool-using agent benchmark 上，系统测量 validator-driven iterative repair 的 token-efficiency、浪费来源与 success-cost frontier，并给出在尽量不损失 success 的前提下更省 token 的 retry 配置经验规律，而不是提出新的 agent 方法。
