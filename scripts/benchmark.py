@@ -13,6 +13,7 @@ from the tasks/ directory.
 # ///
 
 import argparse
+import hashlib
 import json
 import logging
 import os
@@ -246,9 +247,21 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--stop-rule",
-        choices=("no-improvement", "max-attempts-only"),
-        default="no-improvement",
+        choices=(
+            "max-attempts-only",
+            "no-improvement",
+            "score-stall",
+            "unresolved-stall",
+            "low-return",
+        ),
+        default="max-attempts-only",
         help="Rule for stopping validator-feedback retries",
+    )
+    parser.add_argument(
+        "--stop-threshold",
+        type=float,
+        default=0.0,
+        help="Threshold used by some stop rules (e.g. low-return or score-stall)",
     )
     parser.add_argument(
         "--judge",
@@ -433,11 +446,12 @@ def _build_iteration_feedback(
     *,
     feedback_policy: str,
     feedback_format: str,
-) -> str:
+) -> Dict[str, Any]:
     notes = grade.notes.strip() if grade.notes else "No additional validator notes."
     criteria = "\n".join(f"- {item}" for item in task.grading_criteria) or "- None provided."
     full_breakdown = "\n".join(_format_breakdown_lines(grade))
     unresolved_breakdown = "\n".join(_format_breakdown_lines(grade, unresolved_only=True))
+    unresolved_count = sum(1 for value in grade.breakdown.values() if value < 1.0)
 
     if feedback_format == "stable-prefix":
         stable_prefix = (
@@ -473,7 +487,15 @@ def _build_iteration_feedback(
                 "Validator notes:\n"
                 f"{notes}"
             )
-        return stable_prefix + dynamic_suffix
+        text = stable_prefix + dynamic_suffix
+        return {
+            "text": text,
+            "text_length_chars": len(text),
+            "stable_prefix_length_chars": len(stable_prefix),
+            "dynamic_suffix_length_chars": len(dynamic_suffix),
+            "unresolved_criteria_count": unresolved_count,
+            "feedback_format": feedback_format,
+        }
 
     header = (
         f"You are retrying benchmark task `{task.task_id}` after validator feedback.\n\n"
@@ -513,7 +535,15 @@ def _build_iteration_feedback(
             "Retry policy:\n"
             f"{_retry_policy_instructions(feedback_policy)}"
         )
-    return header + body
+    text = header + body
+    return {
+        "text": text,
+        "text_length_chars": len(text),
+        "stable_prefix_length_chars": 0,
+        "dynamic_suffix_length_chars": len(text),
+        "unresolved_criteria_count": unresolved_count,
+        "feedback_format": feedback_format,
+    }
 
 
 def _retry_session_id(task_id: str, attempt_number: int) -> str:
@@ -525,6 +555,90 @@ def _restore_workspace_snapshot(snapshot_path: Path, workspace: Path) -> None:
         shutil.rmtree(workspace)
     workspace.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(snapshot_path, workspace)
+
+
+def _workspace_fingerprint(workspace: Path) -> Dict[str, Any]:
+    if not workspace.exists():
+        return {
+            "exists": False,
+            "file_count": 0,
+            "total_bytes": 0,
+            "digest": None,
+        }
+
+    hasher = hashlib.sha256()
+    file_count = 0
+    total_bytes = 0
+    for file_path in sorted(path for path in workspace.rglob("*") if path.is_file()):
+        relative = file_path.relative_to(workspace).as_posix()
+        data = file_path.read_bytes()
+        file_count += 1
+        total_bytes += len(data)
+        hasher.update(relative.encode("utf-8"))
+        hasher.update(b"\0")
+        hasher.update(data)
+        hasher.update(b"\0")
+
+    return {
+        "exists": True,
+        "file_count": file_count,
+        "total_bytes": total_bytes,
+        "digest": hasher.hexdigest(),
+    }
+
+
+def _workspace_changed(previous: Optional[Dict[str, Any]], current: Dict[str, Any]) -> Optional[bool]:
+    if previous is None:
+        return None
+    return previous.get("digest") != current.get("digest")
+
+
+def _unresolved_criteria_count(grade: GradeResult) -> int:
+    return sum(1 for value in grade.breakdown.values() if value < 1.0)
+
+
+def _score_delta(current_score: float, previous_score: Optional[float]) -> Optional[float]:
+    if previous_score is None:
+        return None
+    return round(float(current_score) - float(previous_score), 6)
+
+
+def _should_stop_retry(
+    *,
+    stop_rule: str,
+    stop_threshold: float,
+    current_score: float,
+    previous_score: Optional[float],
+    current_unresolved_count: int,
+    previous_unresolved_count: Optional[int],
+    token_delta: float,
+) -> Optional[str]:
+    if stop_rule == "max-attempts-only":
+        return None
+
+    score_delta = _score_delta(current_score, previous_score)
+    if stop_rule in ("no-improvement", "score-stall"):
+        if score_delta is not None and score_delta <= stop_threshold:
+            return "score-stall"
+        return None
+
+    if stop_rule == "unresolved-stall":
+        if (
+            previous_unresolved_count is not None
+            and current_unresolved_count >= previous_unresolved_count
+        ):
+            return "unresolved-stall"
+        return None
+
+    if stop_rule == "low-return":
+        if score_delta is None:
+            return None
+        if token_delta <= 0:
+            return "low-return"
+        improvement_per_1k_tokens = (score_delta / token_delta) * 1000.0
+        if improvement_per_1k_tokens <= stop_threshold:
+            return "low-return"
+    return None
 
 
 def _usage_delta(current: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
@@ -615,6 +729,7 @@ def _execute_task_with_feedback(
     feedback_format: str,
     context_policy: str,
     stop_rule: str,
+    stop_threshold: float,
     judge_kw: Dict[str, Any],
     verbose: bool = False,
 ) -> Dict[str, Any]:
@@ -625,6 +740,8 @@ def _execute_task_with_feedback(
     previous_cumulative_usage: Optional[Dict[str, Any]] = None
     previous_cumulative_usage_per_round: Optional[List[Dict[str, Any]]] = None
     previous_cumulative_execution_time: Optional[float] = None
+    previous_transcript_length: Optional[int] = None
+    previous_workspace_fingerprint: Optional[Dict[str, Any]] = None
 
     try:
         result = execute_openclaw_task(
@@ -692,16 +809,29 @@ def _execute_task_with_feedback(
             },
             "grading": grade.to_dict(),
             "feedback_prompt": None,
+            "feedback_prompt_stats": None,
             "feedback_policy": feedback_policy,
             "feedback_format": feedback_format,
             "context_policy": context_policy,
             "session_reset": False,
             "workspace_restored": False,
+            "workspace_fingerprint": _workspace_fingerprint(Path(result["workspace"])),
+            "workspace_changed_since_last_attempt": None,
+            "transcript_length": len(result.get("transcript", [])),
+            "transcript_length_delta": len(result.get("transcript", [])),
+            "score_delta": None,
+            "unresolved_criteria_count": _unresolved_criteria_count(grade),
+            "stop_rule": stop_rule,
+            "stop_rule_threshold": stop_threshold,
+            "stop_rule_triggered": False,
+            "stop_rule_trigger_reason": None,
         }
     )
     previous_cumulative_usage = dict(result.get("usage", {}))
     previous_cumulative_usage_per_round = list(result.get("usage_per_round", []))
     previous_cumulative_execution_time = round(float(result.get("execution_time", 0.0) or 0.0), 6)
+    previous_transcript_length = len(result.get("transcript", []))
+    previous_workspace_fingerprint = attempt_summaries[-1]["workspace_fingerprint"]
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
     logger.info(
         "   📊 Attempt 1/%s score: %.2f/%.2f (%.0f%%)",
@@ -726,13 +856,14 @@ def _execute_task_with_feedback(
             stop_reason = "missing-workspace-or-session"
             break
 
-        feedback_prompt = _build_iteration_feedback(
+        feedback_payload = _build_iteration_feedback(
             task,
             grade,
             attempt_number - 1,
             feedback_policy=feedback_policy,
             feedback_format=feedback_format,
         )
+        feedback_prompt = feedback_payload["text"]
         logger.info(
             "🔁 Retrying %s with validator feedback (%s/%s)",
             task.task_id,
@@ -825,17 +956,46 @@ def _execute_task_with_feedback(
                 breakdown={},
                 notes=f"Retry grading failed: {exc}",
             )
+        current_workspace_fingerprint = _workspace_fingerprint(retry_workspace)
+        transcript_length = len(result.get("transcript", []))
+        transcript_length_delta = transcript_length - int(previous_transcript_length or 0)
+        unresolved_count = _unresolved_criteria_count(grade)
+        score_delta = _score_delta(grade.score, previous_score)
+        token_delta = float(result.get("usage", {}).get("total_tokens", 0) or 0.0)
+        stop_trigger_reason = _should_stop_retry(
+            stop_rule=stop_rule,
+            stop_threshold=stop_threshold,
+            current_score=grade.score,
+            previous_score=previous_score,
+            current_unresolved_count=unresolved_count,
+            previous_unresolved_count=attempt_summaries[-1].get("unresolved_criteria_count"),
+            token_delta=token_delta,
+        )
         attempt_summaries.append(
             {
                 "attempt": attempt_number,
                 "execution": result,
                 "grading": grade.to_dict(),
                 "feedback_prompt": feedback_prompt,
+                "feedback_prompt_stats": feedback_payload,
                 "feedback_policy": feedback_policy,
                 "feedback_format": feedback_format,
                 "context_policy": context_policy,
                 "session_reset": session_reset,
                 "workspace_restored": workspace_restored,
+                "workspace_fingerprint": current_workspace_fingerprint,
+                "workspace_changed_since_last_attempt": _workspace_changed(
+                    previous_workspace_fingerprint,
+                    current_workspace_fingerprint,
+                ),
+                "transcript_length": transcript_length,
+                "transcript_length_delta": transcript_length_delta,
+                "score_delta": score_delta,
+                "unresolved_criteria_count": unresolved_count,
+                "stop_rule": stop_rule,
+                "stop_rule_threshold": stop_threshold,
+                "stop_rule_triggered": stop_trigger_reason is not None,
+                "stop_rule_trigger_reason": stop_trigger_reason,
             }
         )
         previous_cumulative_usage = dict(
@@ -854,6 +1014,8 @@ def _execute_task_with_feedback(
             ),
             6,
         )
+        previous_transcript_length = transcript_length
+        previous_workspace_fingerprint = current_workspace_fingerprint
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
         logger.info(
             "   📊 Attempt %s/%s score: %.2f/%.2f (%.0f%%)",
@@ -863,13 +1025,13 @@ def _execute_task_with_feedback(
             grade.max_score,
             score_pct,
         )
-        if stop_rule == "no-improvement" and grade.score == previous_score:
+        if stop_trigger_reason is not None:
             logger.info(
-                "   ⏹️  Stopping retries for %s because score did not improve (%.2f)",
+                "   ⏹️  Stopping retries for %s because %s",
                 task.task_id,
-                grade.score,
+                stop_trigger_reason,
             )
-            stop_reason = "no-improvement"
+            stop_reason = stop_trigger_reason
             break
         previous_score = grade.score
 
@@ -944,6 +1106,7 @@ def _compute_efficiency_summary(
     total_requests = 0
     total_execution_time = 0.0
     tasks_with_usage = 0
+    successful_tasks = 0
 
     per_task_efficiency: List[Dict[str, Any]] = []
     for entry in task_entries:
@@ -951,6 +1114,7 @@ def _compute_efficiency_summary(
         task_id = entry["task_id"]
         grading = grades_by_task_id.get(task_id, {})
         score = float(grading.get("mean", 0.0))
+        passed = bool(entry.get("completion", {}).get("passed", False))
 
         inp = int(usage.get("input_tokens", 0))
         out = int(usage.get("output_tokens", 0))
@@ -965,6 +1129,8 @@ def _compute_efficiency_summary(
         total_cost_usd += cost
         total_requests += reqs
         total_execution_time += exec_time
+        if passed:
+            successful_tasks += 1
 
         if tot > 0:
             tasks_with_usage += 1
@@ -972,9 +1138,11 @@ def _compute_efficiency_summary(
         per_task_efficiency.append({
             "task_id": task_id,
             "score": round(score, 4),
+            "passed": passed,
             "total_tokens": tot,
             "cost_usd": round(cost, 6),
             "tokens_per_score_point": round(tot / score, 1) if score > 0 else None,
+            "tokens_per_success": tot if passed else None,
         })
 
     # Aggregate scores
@@ -1001,6 +1169,17 @@ def _compute_efficiency_summary(
         ),
         "score_per_dollar": (
             round(total_score / total_cost_usd, 4)
+            if total_cost_usd > 0
+            else None
+        ),
+        "success_rate": round(successful_tasks / num_tasks, 6) if num_tasks > 0 else 0.0,
+        "success_per_1k_tokens": (
+            round(successful_tasks / (total_tokens / 1000), 6)
+            if total_tokens > 0
+            else None
+        ),
+        "success_per_dollar": (
+            round(successful_tasks / total_cost_usd, 6)
             if total_cost_usd > 0
             else None
         ),
@@ -1036,15 +1215,26 @@ def _log_efficiency_summary(
         f"{efficiency['tokens_per_task']:,.0f}",
     )
     logger.info("   Mean score: %.4f", mean_score)
+    logger.info("   Success rate: %.4f", efficiency.get("success_rate", 0.0))
     if efficiency.get("score_per_1k_tokens") is not None:
         logger.info(
             "   Score per 1K tokens: %.4f (higher = more efficient)",
             efficiency["score_per_1k_tokens"],
         )
+    if efficiency.get("success_per_1k_tokens") is not None:
+        logger.info(
+            "   Success per 1K tokens: %.6f (higher = more efficient)",
+            efficiency["success_per_1k_tokens"],
+        )
     if efficiency.get("score_per_dollar") is not None:
         logger.info(
             "   Score per dollar: %.4f (higher = more cost-efficient)",
             efficiency["score_per_dollar"],
+        )
+    if efficiency.get("success_per_dollar") is not None:
+        logger.info(
+            "   Success per dollar: %.6f (higher = more cost-efficient)",
+            efficiency["success_per_dollar"],
         )
     logger.info("%s", "=" * 80)
 
@@ -1172,6 +1362,7 @@ def main():
                 feedback_format=args.feedback_format,
                 context_policy=args.context_policy,
                 stop_rule=args.stop_rule,
+                stop_threshold=args.stop_threshold,
                 judge_kw=judge_kw,
                 verbose=args.verbose,
             )
@@ -1220,7 +1411,8 @@ def main():
     for outcome in run_outcomes:
         result = outcome["result"]
         task_id = result["task_id"]
-        grading = grades_by_task_id[task_id]
+        grading_summary = grades_by_task_id[task_id]
+        run_grading = outcome["grade"].to_dict()
         total_usage = _aggregate_attempt_usage(outcome["attempts"])
         total_usage_per_round = _aggregate_attempt_round_usage(outcome["attempts"])
         total_execution_time = _aggregate_attempt_execution_time(outcome["attempts"])
@@ -1234,11 +1426,36 @@ def main():
             "usage": total_usage,
             "usage_per_round": total_usage_per_round,
             "workspace": result["workspace"],
-            "grading": grading,
-            "completion": _completion_summary(grading),
+            "grading": run_grading,
+            "grading_summary": grading_summary,
+            "completion": _completion_summary({"runs": [run_grading], "mean": run_grading["score"]}),
             "frontmatter": tasks_by_id[task_id].frontmatter,
             "attempt_count": len(outcome["attempts"]),
             "first_success_attempt": _first_success_attempt(outcome["attempts"]),
+            "success_within_budget": _first_success_attempt(outcome["attempts"]) is not None,
+            "unresolved_criteria_count_by_attempt": [
+                attempt.get("unresolved_criteria_count") for attempt in outcome["attempts"]
+            ],
+            "transcript_length_by_attempt": [
+                attempt.get("transcript_length") for attempt in outcome["attempts"]
+            ],
+            "prompt_tokens_by_attempt": [
+                int(attempt.get("execution", {}).get("usage", {}).get("input_tokens", 0) or 0)
+                for attempt in outcome["attempts"]
+            ],
+            "completion_tokens_by_attempt": [
+                int(attempt.get("execution", {}).get("usage", {}).get("output_tokens", 0) or 0)
+                for attempt in outcome["attempts"]
+            ],
+            "feedback_length_chars_by_attempt": [
+                (
+                    attempt.get("feedback_prompt_stats", {}) or {}
+                ).get("text_length_chars")
+                for attempt in outcome["attempts"]
+            ],
+            "workspace_changed_by_attempt": [
+                attempt.get("workspace_changed_since_last_attempt") for attempt in outcome["attempts"]
+            ],
             "stop_reason": outcome["stop_reason"],
             "attempts": outcome["attempts"],
             "retry_policies": {
@@ -1246,9 +1463,10 @@ def main():
                 "feedback_format": args.feedback_format,
                 "context_policy": args.context_policy,
                 "stop_rule": args.stop_rule,
+                "stop_threshold": args.stop_threshold,
             },
         }
-        judge_usage = _aggregate_judge_usage(grading)
+        judge_usage = _aggregate_judge_usage(grading_summary)
         if judge_usage is not None:
             entry["judge_usage"] = judge_usage
         task_entries.append(entry)
@@ -1300,6 +1518,7 @@ def main():
             "feedback_format": args.feedback_format,
             "context_policy": args.context_policy,
             "stop_rule": args.stop_rule,
+            "stop_threshold": args.stop_threshold,
         },
         "tasks": task_entries,
         "efficiency": efficiency,
