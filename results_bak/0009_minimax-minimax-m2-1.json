@@ -1,0 +1,331 @@
+{
+  "model": "minimax/minimax-m2.1",
+  "benchmark_version": "69e7063",
+  "run_id": "0009",
+  "timestamp": 1773368894.6554098,
+  "suite": "task_01_calendar",
+  "runs_per_task": 1,
+  "max_task_attempts": 1,
+  "tasks": [
+    {
+      "task_id": "task_01_calendar",
+      "status": "success",
+      "timed_out": false,
+      "execution_time": 20.99343991279602,
+      "transcript_length": 8,
+      "llm_rounds": 2,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 220,
+        "cache_read_tokens": 10391,
+        "cache_write_tokens": 10411,
+        "total_tokens": 21439,
+        "cost_usd": 0.0,
+        "request_count": 2
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "input_tokens": 20,
+          "output_tokens": 82,
+          "total_tokens": 10513,
+          "cost_usd": 0,
+          "time_seconds": null
+        },
+        {
+          "round": 2,
+          "input_tokens": 397,
+          "output_tokens": 138,
+          "total_tokens": 10926,
+          "cost_usd": 0,
+          "time_seconds": null
+        }
+      ],
+      "workspace": "/tmp/pinchbench/0009/agent_workspace",
+      "grading": {
+        "runs": [
+          {
+            "task_id": "task_01_calendar",
+            "score": 0.0,
+            "max_score": 1.0,
+            "grading_type": "automated",
+            "breakdown": {
+              "file_created": 0.0,
+              "date_correct": 0.0,
+              "time_correct": 0.0,
+              "attendee_present": 0.0,
+              "title_correct": 0.0,
+              "description_present": 0.0
+            },
+            "notes": ""
+          }
+        ],
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "attempts_per_run": [
+          1
+        ]
+      },
+      "completion": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "notes": ""
+      },
+      "frontmatter": {
+        "id": "task_01_calendar",
+        "name": "Calendar Event Creation",
+        "category": "calendar",
+        "grading_type": "automated",
+        "timeout_seconds": 120,
+        "workspace_files": []
+      },
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "execution": {
+            "agent_id": "bench-minimax-minimax-m2-1",
+            "task_id": "task_01_calendar",
+            "status": "success",
+            "transcript": [
+              {
+                "type": "session",
+                "version": 3,
+                "id": "task_01_calendar_1773368873656",
+                "timestamp": "2026-03-13T02:28:02.989Z",
+                "cwd": "/tmp/pinchbench/0009/agent_workspace"
+              },
+              {
+                "type": "model_change",
+                "id": "b972c350",
+                "parentId": null,
+                "timestamp": "2026-03-13T02:28:02.998Z",
+                "provider": "minimax-cn",
+                "modelId": "MiniMax-M2.5"
+              },
+              {
+                "type": "thinking_level_change",
+                "id": "132c3947",
+                "parentId": "b972c350",
+                "timestamp": "2026-03-13T02:28:02.999Z",
+                "thinkingLevel": "off"
+              },
+              {
+                "type": "custom",
+                "customType": "model-snapshot",
+                "data": {
+                  "timestamp": 1773368883005,
+                  "provider": "minimax-cn",
+                  "modelApi": "anthropic-messages",
+                  "modelId": "MiniMax-M2.5"
+                },
+                "id": "cf9a1c8f",
+                "parentId": "132c3947",
+                "timestamp": "2026-03-13T02:28:03.006Z"
+              },
+              {
+                "type": "message",
+                "id": "a5ffce66",
+                "parentId": "cf9a1c8f",
+                "timestamp": "2026-03-13T02:28:03.029Z",
+                "message": {
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Continue where you left off. The previous model attempt failed or timed out."
+                    }
+                  ],
+                  "timestamp": 1773368883014
+                }
+              },
+              {
+                "type": "message",
+                "id": "e3367e39",
+                "parentId": "a5ffce66",
+                "timestamp": "2026-03-13T02:28:10.175Z",
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "thinking",
+                      "thinking": "The user is asking me to continue where a previous model left off. This appears to be a fresh workspace (based on BOOTSTRAP.md existing), so there's likely no prior work to continue from.\n\nLet me check what's in the workspace to understand the context better.",
+                      "thinkingSignature": "da3c819678c43d8d0e493394179fe5a2545f2a6787111c35c5f2648009de115b"
+                    },
+                    {
+                      "type": "toolCall",
+                      "id": "call_function_ge07gl9b34wm_1",
+                      "name": "exec",
+                      "arguments": {
+                        "command": "ls -la"
+                      }
+                    }
+                  ],
+                  "api": "anthropic-messages",
+                  "provider": "minimax-cn",
+                  "model": "MiniMax-M2.5",
+                  "usage": {
+                    "input": 20,
+                    "output": 82,
+                    "cacheRead": 0,
+                    "cacheWrite": 10411,
+                    "totalTokens": 10513,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1773368883020
+                }
+              },
+              {
+                "type": "message",
+                "id": "66521f26",
+                "parentId": "e3367e39",
+                "timestamp": "2026-03-13T02:28:10.217Z",
+                "message": {
+                  "role": "toolResult",
+                  "toolCallId": "call_function_ge07gl9b34wm_1",
+                  "toolName": "exec",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "total 36\ndrwxr-xr-x 4 root root 4096 Mar 13 10:27 .\ndrwxr-xr-x 3 root root   37 Mar 13 10:27 ..\n-rw-r--r-- 1 root root 7874 Mar 13 10:27 AGENTS.md\n-rw-r--r-- 1 root root 1470 Mar 13 10:27 BOOTSTRAP.md\ndrwxr-xr-x 7 root root  155 Mar 13 10:27 .git\n-rw-r--r-- 1 root root  168 Mar 13 10:27 HEARTBEAT.md\n-rw-r--r-- 1 root root  636 Mar 13 10:27 IDENTITY.md\ndrwxr-xr-x 2 root root   42 Mar 13 10:27 .openclaw\n-rw-r--r-- 1 root root 1673 Mar 13 10:27 SOUL.md\n-rw-r--r-- 1 root root  860 Mar 13 10:27 TOOLS.md\n-rw-r--r-- 1 root root  477 Mar 13 10:27 USER.md"
+                    }
+                  ],
+                  "details": {
+                    "status": "completed",
+                    "exitCode": 0,
+                    "durationMs": 14,
+                    "aggregated": "total 36\ndrwxr-xr-x 4 root root 4096 Mar 13 10:27 .\ndrwxr-xr-x 3 root root   37 Mar 13 10:27 ..\n-rw-r--r-- 1 root root 7874 Mar 13 10:27 AGENTS.md\n-rw-r--r-- 1 root root 1470 Mar 13 10:27 BOOTSTRAP.md\ndrwxr-xr-x 7 root root  155 Mar 13 10:27 .git\n-rw-r--r-- 1 root root  168 Mar 13 10:27 HEARTBEAT.md\n-rw-r--r-- 1 root root  636 Mar 13 10:27 IDENTITY.md\ndrwxr-xr-x 2 root root   42 Mar 13 10:27 .openclaw\n-rw-r--r-- 1 root root 1673 Mar 13 10:27 SOUL.md\n-rw-r--r-- 1 root root  860 Mar 13 10:27 TOOLS.md\n-rw-r--r-- 1 root root  477 Mar 13 10:27 USER.md",
+                    "cwd": "/tmp/pinchbench/0009/agent_workspace"
+                  },
+                  "isError": false,
+                  "timestamp": 1773368890212
+                }
+              },
+              {
+                "type": "message",
+                "id": "dd0c0703",
+                "parentId": "66521f26",
+                "timestamp": "2026-03-13T02:28:14.535Z",
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "thinking",
+                      "thinking": "This is a fresh workspace with BOOTSTRAP.md still present. That means no one has completed the initial setup yet. The previous model attempt likely timed out during bootstrap or never started.\n\nSince BOOTSTRAP.md exists, I should follow it - this is a fresh start. Let me introduce myself and help the user complete the bootstrap process.",
+                      "thinkingSignature": "6579d2dc0cd0d349210bce1ed73b3c7b107c47f1ed8f8cb68558b4e2e3e84aad"
+                    },
+                    {
+                      "type": "text",
+                      "text": "Hey! Looks like this is a fresh workspace \u2014 BOOTSTRAP.md is still here, which means we haven't officially met yet.\n\nThe previous attempt seems to have timed out before we could get acquainted. No worries, let's start fresh.\n\nI'm here and ready. Who are you, and what should I call you?"
+                    }
+                  ],
+                  "api": "anthropic-messages",
+                  "provider": "minimax-cn",
+                  "model": "MiniMax-M2.5",
+                  "usage": {
+                    "input": 397,
+                    "output": 138,
+                    "cacheRead": 10391,
+                    "cacheWrite": 0,
+                    "totalTokens": 10926,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "stop",
+                  "timestamp": 1773368890215
+                }
+              }
+            ],
+            "usage": {
+              "input_tokens": 417,
+              "output_tokens": 220,
+              "cache_read_tokens": 10391,
+              "cache_write_tokens": 10411,
+              "total_tokens": 21439,
+              "cost_usd": 0.0,
+              "request_count": 2
+            },
+            "usage_per_round": [
+              {
+                "round": 1,
+                "input_tokens": 20,
+                "output_tokens": 82,
+                "total_tokens": 10513,
+                "cost_usd": 0,
+                "time_seconds": null
+              },
+              {
+                "round": 2,
+                "input_tokens": 397,
+                "output_tokens": 138,
+                "total_tokens": 10926,
+                "cost_usd": 0,
+                "time_seconds": null
+              }
+            ],
+            "workspace": "/tmp/pinchbench/0009/agent_workspace",
+            "exit_code": 0,
+            "timed_out": false,
+            "execution_time": 20.99343991279602,
+            "stdout": "\u001b[35m[plugins]\u001b[39m \u001b[36mfeishu_doc: Registered feishu_doc, feishu_app_scopes\u001b[39m\n\u001b[35m[plugins]\u001b[39m \u001b[36mfeishu_chat: Registered feishu_chat tool\u001b[39m\n\u001b[35m[plugins]\u001b[39m \u001b[36mfeishu_wiki: Registered feishu_wiki tool\u001b[39m\n\u001b[35m[plugins]\u001b[39m \u001b[36mfeishu_drive: Registered feishu_drive tool\u001b[39m\n\u001b[35m[plugins]\u001b[39m \u001b[36mfeishu_bitable: Registered bitable tools\u001b[39m\nHey! Looks like this is a fresh workspace \u2014 BOOTSTRAP.md is still here, which means we haven't officially met yet.\n\nThe previous attempt seems to have timed out before we could get acquainted. No worries, let's start fresh.\n\nI'm here and ready. Who are you, and what should I call you?\n",
+            "stderr": "Gateway agent failed; falling back to embedded: Error: gateway closed (1006 abnormal closure (no close frame)): no close reason\nGateway target: ws://127.0.0.1:8080\nSource: local loopback\nConfig: /root/.openclaw/openclaw.json\nBind: lan\n\u001b[31m[diagnostic]\u001b[39m \u001b[31mlane task error: lane=main durationMs=5576 error=\"FailoverError: Unknown model: minimax/minimax-m2.1\"\u001b[39m\n\u001b[31m[diagnostic]\u001b[39m \u001b[31mlane task error: lane=session:agent:bench-minimax-minimax-m2-1:main durationMs=5592 error=\"FailoverError: Unknown model: minimax/minimax-m2.1\"\u001b[39m\n\u001b[34m[tools]\u001b[39m \u001b[33mtools.profile (coding) allowlist contains unknown entries (apply_patch, image). These entries won't match any tool unless the plugin is enabled.\u001b[39m\n\u001b[35m[model-fallback]\u001b[39m \u001b[33mModel \"minimax/minimax-m2.1\" not found. Fell back to \"minimax-cn/MiniMax-M2.5\".\u001b[39m\n",
+            "session_id": "task_01_calendar_1773368873656"
+          },
+          "grading": {
+            "task_id": "task_01_calendar",
+            "score": 0.0,
+            "max_score": 1.0,
+            "grading_type": "automated",
+            "breakdown": {
+              "file_created": 0.0,
+              "date_correct": 0.0,
+              "time_correct": 0.0,
+              "attendee_present": 0.0,
+              "title_correct": 0.0,
+              "description_present": 0.0
+            },
+            "notes": ""
+          },
+          "feedback_prompt": null
+        }
+      ]
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 21439,
+    "total_input_tokens": 417,
+    "total_output_tokens": 220,
+    "total_cost_usd": 0.0,
+    "total_requests": 2,
+    "total_execution_time_seconds": 20.99,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 21439.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "per_task": [
+      {
+        "task_id": "task_01_calendar",
+        "score": 0.0,
+        "total_tokens": 21439,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null
+      }
+    ]
+  }
+}

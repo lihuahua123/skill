@@ -67,12 +67,18 @@ def _series_label(result: Dict[str, Any], path: Path, mode: str) -> str:
         return f"{result.get('run_id', path.stem)} | {result.get('model', 'unknown')}"
     if mode == "policy":
         retry = result.get("retry_policies", {})
-        return (
-            f"{result.get('model', 'unknown')} | "
-            f"{retry.get('feedback_policy', 'na')} | "
-            f"{retry.get('feedback_format', 'na')} | "
-            f"{retry.get('context_policy', 'na')}"
-        )
+        parts = [
+            result.get("model", "unknown"),
+            retry.get("feedback_policy", "na"),
+            retry.get("feedback_format", "na"),
+            retry.get("context_policy", "na"),
+            retry.get("stop_rule", "na"),
+            f"k={result.get('max_task_attempts', 'na')}",
+        ]
+        stop_threshold = retry.get("stop_threshold")
+        if stop_threshold not in (None, "", 0, 0.0, "0", "0.0"):
+            parts.append(f"thr={stop_threshold}")
+        return " | ".join(str(part) for part in parts)
     return path.stem
 
 

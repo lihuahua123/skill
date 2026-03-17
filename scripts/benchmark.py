@@ -550,6 +550,20 @@ def _retry_session_id(task_id: str, attempt_number: int) -> str:
     return f"{task_id}_retry_{attempt_number}_{int(time.time() * 1000)}"
 
 
+def _compose_retry_prompt(task: Task, feedback_prompt: str, *, session_reset: bool) -> str:
+    if not session_reset:
+        return feedback_prompt
+    return (
+        f"You are restarting benchmark task `{task.task_id}` in a fresh session.\n\n"
+        "Re-read the original task instructions below and continue from the current workspace state.\n"
+        "Then apply the validator feedback and fix only what is still unresolved.\n\n"
+        "Original task:\n"
+        f"{task.prompt}\n\n"
+        "Validator feedback for the retry:\n"
+        f"{feedback_prompt}"
+    )
+
+
 def _restore_workspace_snapshot(snapshot_path: Path, workspace: Path) -> None:
     if workspace.exists():
         shutil.rmtree(workspace)
@@ -891,9 +905,15 @@ def _execute_task_with_feedback(
             _restore_workspace_snapshot(snapshot_path, retry_workspace)
             workspace_restored = True
 
+        retry_prompt = _compose_retry_prompt(
+            task,
+            feedback_prompt,
+            session_reset=session_reset,
+        )
+
         retry_result = _run_openclaw_message(
             agent_id=agent_id,
-            prompt=feedback_prompt,
+            prompt=retry_prompt,
             workspace=retry_workspace,
             session_id=retry_session_id,
             timeout_seconds=task.timeout_seconds * timeout_multiplier,
@@ -975,9 +995,9 @@ def _execute_task_with_feedback(
             {
                 "attempt": attempt_number,
                 "execution": result,
-                "grading": grade.to_dict(),
-                "feedback_prompt": feedback_prompt,
-                "feedback_prompt_stats": feedback_payload,
+            "grading": grade.to_dict(),
+            "feedback_prompt": retry_prompt,
+            "feedback_prompt_stats": feedback_payload,
                 "feedback_policy": feedback_policy,
                 "feedback_format": feedback_format,
                 "context_policy": context_policy,

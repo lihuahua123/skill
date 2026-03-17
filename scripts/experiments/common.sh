@@ -19,6 +19,18 @@ resolve_model() {
   exit 2
 }
 
+option_supplied() {
+  local option="$1"
+  shift
+  local arg
+  for arg in "$@"; do
+    if [[ "${arg}" == "${option}" || "${arg}" == "${option}="* ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 default_suite() {
   printf '%s\n' "${SUITE:-all}"
 }
@@ -34,6 +46,26 @@ run_benchmark() {
     cd "${REPO_ROOT}"
     ./scripts/run.sh "$@" --output-dir "${output_dir}" --no-upload
   )
+}
+
+latest_result_json() {
+  local results_dir="$1"
+  find "${REPO_ROOT}/${results_dir}" -maxdepth 1 -name '*.json' | sort | tail -n 1
+}
+
+result_has_perfect_success() {
+  local result_json="$1"
+  python3 - "$result_json" <<'PY'
+import json
+import sys
+
+path = sys.argv[1]
+with open(path, "r", encoding="utf-8") as handle:
+    payload = json.load(handle)
+
+success_rate = float((payload.get("efficiency") or {}).get("success_rate", 0.0) or 0.0)
+sys.exit(0 if success_rate >= 1.0 else 1)
+PY
 }
 
 run_analysis() {

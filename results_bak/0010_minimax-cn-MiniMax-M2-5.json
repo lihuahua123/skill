@@ -1,0 +1,137 @@
+{
+  "model": "minimax-cn/MiniMax-M2.5",
+  "benchmark_version": "69e7063",
+  "run_id": "0010",
+  "timestamp": 1773369853.593061,
+  "suite": "task_01_calendar",
+  "runs_per_task": 1,
+  "max_task_attempts": 1,
+  "tasks": [
+    {
+      "task_id": "task_01_calendar",
+      "status": "error",
+      "timed_out": false,
+      "execution_time": 27.206026554107666,
+      "transcript_length": 0,
+      "llm_rounds": 0,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0
+      },
+      "usage_per_round": [],
+      "workspace": "/tmp/pinchbench/0010-1/task_01_calendar",
+      "grading": {
+        "runs": [
+          {
+            "task_id": "task_01_calendar",
+            "score": 0.0,
+            "max_score": 1.0,
+            "grading_type": "automated",
+            "breakdown": {
+              "file_created": 0.0,
+              "date_correct": 0.0,
+              "time_correct": 0.0,
+              "attendee_present": 0.0,
+              "title_correct": 0.0,
+              "description_present": 0.0
+            },
+            "notes": ""
+          }
+        ],
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "attempts_per_run": [
+          1
+        ]
+      },
+      "completion": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "notes": ""
+      },
+      "frontmatter": {
+        "id": "task_01_calendar",
+        "name": "Calendar Event Creation",
+        "category": "calendar",
+        "grading_type": "automated",
+        "timeout_seconds": 120,
+        "workspace_files": []
+      },
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "execution": {
+            "agent_id": "bench-minimax-cn-MiniMax-M2-5",
+            "task_id": "task_01_calendar",
+            "status": "error",
+            "transcript": [],
+            "usage": {
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "total_tokens": 0,
+              "cost_usd": 0.0,
+              "request_count": 0
+            },
+            "usage_per_round": [],
+            "workspace": "/tmp/pinchbench/0010-1/task_01_calendar",
+            "exit_code": 0,
+            "timed_out": false,
+            "execution_time": 27.206026554107666,
+            "stdout": "[plugins] feishu_doc: Registered feishu_doc, feishu_app_scopes\n[plugins] feishu_chat: Registered feishu_chat tool\n[plugins] feishu_wiki: Registered feishu_wiki tool\n[plugins] feishu_drive: Registered feishu_drive tool\n[plugins] feishu_bitable: Registered bitable tools\nCreated `project-sync.ics`:\n\n- **Date:** Tuesday, March 17, 2026 at 3:00 PM\n- **Duration:** 1 hour (ends 4:00 PM)\n- **Title:** Project Sync\n- **Attendee:** john@example.com\n- **Note:** Discussing the Q1 roadmap\n\nImport this file into your calendar app to add the event.\n",
+            "stderr": "Gateway agent failed; falling back to embedded: Error: gateway closed (1006 abnormal closure (no close frame)): no close reason\nGateway target: ws://127.0.0.1:8080\nSource: local loopback\nConfig: /root/.openclaw/openclaw.json\nBind: lan\n[tools] tools.profile (coding) allowlist contains unknown entries (apply_patch, image). These entries won't match any tool unless the plugin is enabled.\n",
+            "session_id": "task_01_calendar_1773369826383"
+          },
+          "grading": {
+            "task_id": "task_01_calendar",
+            "score": 0.0,
+            "max_score": 1.0,
+            "grading_type": "automated",
+            "breakdown": {
+              "file_created": 0.0,
+              "date_correct": 0.0,
+              "time_correct": 0.0,
+              "attendee_present": 0.0,
+              "title_correct": 0.0,
+              "description_present": 0.0
+            },
+            "notes": ""
+          },
+          "feedback_prompt": null
+        }
+      ]
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 0,
+    "total_execution_time_seconds": 27.21,
+    "tasks_with_usage_data": 0,
+    "tokens_per_task": 0.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": null,
+    "score_per_dollar": null,
+    "per_task": [
+      {
+        "task_id": "task_01_calendar",
+        "score": 0.0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null
+      }
+    ]
+  }
+}

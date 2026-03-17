@@ -1,0 +1,279 @@
+{
+  "series": [
+    {
+      "file": "results/rq2/0010_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0010",
+      "suite": "task_06_events",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "append",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 123416.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 83.702166,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 123416.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 193257.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 47.867698,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 69841.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq2/0011_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | fresh-session | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0011",
+      "suite": "task_06_events",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "fresh-session",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 159042.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 75.452584,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 159042.0,
+            "success_per_1k_tokens": 0.006288,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 1590.42
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq2/0012_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | rollback | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0012",
+      "suite": "task_06_events",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "rollback",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 201698.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 127.040268,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 201698.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 912189.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 427.0662,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 710491.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq2/0014_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0014",
+      "suite": "task_10_workflow",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "append",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 44284.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 55.982408,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 44284.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 94252.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 28.171049,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 49968.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq2/0015_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | fresh-session | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0015",
+      "suite": "task_10_workflow",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "fresh-session",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 44813.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 47.921452,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 44813.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 130967.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 114.41305,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 86154.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq2/0016_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | rollback | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0016",
+      "suite": "task_10_workflow",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "rollback",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 44720.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 40.198682,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 44720.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 186244.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 154.441715,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 141524.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    }
+  ]
+}

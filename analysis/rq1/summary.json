@@ -1,0 +1,152 @@
+{
+  "series": [
+    {
+      "file": "results/rq1/0001_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=6",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0001",
+      "suite": "task_06_events",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "append",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 509095.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 290.295293,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 509095.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1220019.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 181.208325,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 710924.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1693611.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 100.583901,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 473592.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2103572.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 122.178311,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 409961.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2521969.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 89.366764,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 418397.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 2775708.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 40.927713,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 253739.0,
+            "success_per_1k_tokens": 0.00036,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 2537.39
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/0009_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0009",
+      "suite": "task_06_events",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "context_policy": "append",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 427272.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 66.406866,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 427272.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1367194.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 89.593216,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 939922.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    }
+  ]
+}

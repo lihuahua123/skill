@@ -517,3 +517,430 @@
 2026-03-13 13:37:43,143 - INFO -    Score per 1K tokens: 0.0022 (higher = more efficient)
 2026-03-13 13:37:43,143 - INFO - ================================================================================
 2026-03-13 13:37:43,149 - WARNING - Upload failed: PINCHBENCH_TOKEN is not configured
+2026-03-16 21:53:29,335 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
+
+░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
+▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
+▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
+█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
+█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
+
+                                                           @%@%%@                       
+                                             %*+#++#@   %+-=-....=@                     
+                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
+                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
+            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
+            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
+            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
+            #+========================--------=#=-==-----------------=@                 
+            #+========================-------------------------------=@                 
+            **========================---------------------------++--+@                 
+            @%*+======================------++--=#+--------------==-=#@                 
+            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
+             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
+             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
+            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
+            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
+            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
+            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
+             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
+              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
+                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
+                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
+                                @%%        @%%##############%@            @@            
+                                            @@%%%########%@@                            
+                                               @@@%%%%%@@@                              
+                                                                                        
+                                                                                        
+                                                                                        
+
+2026-03-16 21:53:29,335 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
+2026-03-16 21:53:34,338 - INFO - 🔧 Initializing BenchmarkRunner...
+2026-03-16 21:53:34,338 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
+2026-03-16 21:53:34,338 - INFO - Initialized BenchmarkRunner
+2026-03-16 21:53:34,338 - INFO - 📂 Loading tasks from directory...
+2026-03-16 21:53:34,338 - INFO - Loading tasks...
+2026-03-16 21:53:34,339 - INFO - Found 23 task files
+2026-03-16 21:53:34,340 - INFO - Successfully loaded task: task_00_sanity
+2026-03-16 21:53:34,341 - INFO - Successfully loaded task: task_01_calendar
+2026-03-16 21:53:34,342 - INFO - Successfully loaded task: task_02_stock
+2026-03-16 21:53:34,343 - INFO - Successfully loaded task: task_03_blog
+2026-03-16 21:53:34,344 - INFO - Successfully loaded task: task_04_weather
+2026-03-16 21:53:34,347 - INFO - Successfully loaded task: task_05_summary
+2026-03-16 21:53:34,347 - INFO - Successfully loaded task: task_06_events
+2026-03-16 21:53:34,348 - INFO - Successfully loaded task: task_07_email
+2026-03-16 21:53:34,350 - INFO - Successfully loaded task: task_08_memory
+2026-03-16 21:53:34,351 - INFO - Successfully loaded task: task_09_files
+2026-03-16 21:53:34,352 - INFO - Successfully loaded task: task_10_workflow
+2026-03-16 21:53:34,353 - INFO - Successfully loaded task: task_11_clawdhub
+2026-03-16 21:53:34,354 - INFO - Successfully loaded task: task_12_skill_search
+2026-03-16 21:53:34,355 - INFO - Successfully loaded task: task_13_image_gen
+2026-03-16 21:53:34,356 - INFO - Successfully loaded task: task_14_humanizer
+2026-03-16 21:53:34,361 - INFO - Successfully loaded task: task_15_daily_summary
+2026-03-16 21:53:34,369 - INFO - Successfully loaded task: task_16_email_triage
+2026-03-16 21:53:34,380 - INFO - Successfully loaded task: task_17_email_search
+2026-03-16 21:53:34,381 - INFO - Successfully loaded task: task_16_market_research
+2026-03-16 21:53:34,382 - INFO - Successfully loaded task: task_18_spreadsheet_summary
+2026-03-16 21:53:34,383 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
+2026-03-16 21:53:34,384 - INFO - Successfully loaded task: task_21_openclaw_comprehension
+2026-03-16 21:53:34,386 - INFO - Successfully loaded task: task_22_second_brain
+2026-03-16 21:53:34,386 - INFO - Successfully loaded 23 tasks
+2026-03-16 21:53:34,386 - INFO - Loaded 23 tasks
+2026-03-16 21:53:37,394 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
+2026-03-16 21:53:45,321 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
+
+2026-03-16 21:53:45,322 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
+2026-03-16 21:53:45,323 - INFO - 
+================================================================================
+2026-03-16 21:53:45,323 - INFO - 📋 Task 1/1 (Run 1/1)
+2026-03-16 21:53:45,323 - INFO - ================================================================================
+2026-03-16 21:53:45,323 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
+2026-03-16 21:53:45,323 - INFO -    Task: Multi-step API Workflow
+2026-03-16 21:53:45,323 - INFO -    Category: complex
+2026-03-16 21:54:28,528 - INFO - Found transcript via sessions.json: task_10_workflow_1773669228525.jsonl (attempt 1)
+2026-03-16 21:54:52,700 - INFO -    📊 Attempt 1/5 score: 0.87/1.00 (87%)
+2026-03-16 21:54:52,700 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/5)
+2026-03-16 21:55:28,410 - INFO - Found transcript via sessions.json: task_10_workflow_1773669228525.jsonl (attempt 1)
+2026-03-16 21:56:25,025 - INFO -    📊 Attempt 2/5 score: 0.88/1.00 (88%)
+2026-03-16 21:56:25,025 - INFO - 🔁 Retrying task_10_workflow with validator feedback (3/5)
+2026-03-16 21:57:26,543 - INFO - Found transcript via sessions.json: task_10_workflow_1773669228525.jsonl (attempt 1)
+2026-03-16 21:58:06,985 - INFO -    📊 Attempt 3/5 score: 0.87/1.00 (87%)
+2026-03-16 21:58:06,985 - INFO - 🔁 Retrying task_10_workflow with validator feedback (4/5)
+2026-03-16 21:58:39,614 - INFO - Found transcript via sessions.json: task_10_workflow_1773669228525.jsonl (attempt 1)
+2026-03-16 21:59:07,339 - INFO -    📊 Attempt 4/5 score: 0.88/1.00 (88%)
+2026-03-16 21:59:07,339 - INFO - 🔁 Retrying task_10_workflow with validator feedback (5/5)
+2026-03-16 22:00:02,486 - INFO - Found transcript via sessions.json: task_10_workflow_1773669228525.jsonl (attempt 1)
+2026-03-16 22:00:12,964 - WARNING - Kimi judge API request failed: 429 Too Many Requests: {"error":{"message":"The engine is currently overloaded, please try again later","type":"engine_overloaded_error"}}
+2026-03-16 22:00:12,969 - INFO -    📊 Attempt 5/5 score: 0.42/1.00 (42%)
+2026-03-16 22:00:12,969 - INFO - ⚠️ Task task_10_workflow: 0.4/1.0 (42%) - hybrid
+2026-03-16 22:00:12,969 - INFO -    Notes: Kimi judge API error: 429 Too Many Requests: {"error":{"message":"The engine is currently overloaded, please try again later","type":"engine_overloaded_error"}}
+2026-03-16 22:00:12,969 - INFO -    Attempts used: 5/5
+2026-03-16 22:00:13,004 - INFO - Saved results to results/rq3/0023_minimax-cn-MiniMax-M2-5.json
+2026-03-16 22:00:13,004 - INFO - 
+================================================================================
+2026-03-16 22:00:13,004 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
+2026-03-16 22:00:13,004 - INFO - ================================================================================
+2026-03-16 22:00:13,005 - INFO -    Total tokens used: 424,711 (input: 112,883, output: 7,022)
+2026-03-16 22:00:13,005 - INFO -    Total API requests: 28
+2026-03-16 22:00:13,005 - INFO -    Avg tokens/task: 424,711
+2026-03-16 22:00:13,005 - INFO -    Mean score: 0.4167
+2026-03-16 22:00:13,005 - INFO -    Success rate: 0.0000
+2026-03-16 22:00:13,005 - INFO -    Score per 1K tokens: 0.0010 (higher = more efficient)
+2026-03-16 22:00:13,005 - INFO -    Success per 1K tokens: 0.000000 (higher = more efficient)
+2026-03-16 22:00:13,005 - INFO - ================================================================================
+2026-03-16 22:00:13,005 - INFO - Skipping upload (--no-upload)
+2026-03-16 22:00:13,217 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
+
+░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
+▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
+▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
+█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
+█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
+
+                                                           @%@%%@                       
+                                             %*+#++#@   %+-=-....=@                     
+                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
+                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
+            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
+            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
+            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
+            #+========================--------=#=-==-----------------=@                 
+            #+========================-------------------------------=@                 
+            **========================---------------------------++--+@                 
+            @%*+======================------++--=#+--------------==-=#@                 
+            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
+             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
+             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
+            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
+            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
+            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
+            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
+             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
+              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
+                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
+                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
+                                @%%        @%%##############%@            @@            
+                                            @@%%%########%@@                            
+                                               @@@%%%%%@@@                              
+                                                                                        
+                                                                                        
+                                                                                        
+
+2026-03-16 22:00:13,217 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
+2026-03-16 22:00:18,220 - INFO - 🔧 Initializing BenchmarkRunner...
+2026-03-16 22:00:18,220 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
+2026-03-16 22:00:18,220 - INFO - Initialized BenchmarkRunner
+2026-03-16 22:00:18,220 - INFO - 📂 Loading tasks from directory...
+2026-03-16 22:00:18,220 - INFO - Loading tasks...
+2026-03-16 22:00:18,221 - INFO - Found 23 task files
+2026-03-16 22:00:18,222 - INFO - Successfully loaded task: task_00_sanity
+2026-03-16 22:00:18,223 - INFO - Successfully loaded task: task_01_calendar
+2026-03-16 22:00:18,224 - INFO - Successfully loaded task: task_02_stock
+2026-03-16 22:00:18,225 - INFO - Successfully loaded task: task_03_blog
+2026-03-16 22:00:18,226 - INFO - Successfully loaded task: task_04_weather
+2026-03-16 22:00:18,229 - INFO - Successfully loaded task: task_05_summary
+2026-03-16 22:00:18,230 - INFO - Successfully loaded task: task_06_events
+2026-03-16 22:00:18,230 - INFO - Successfully loaded task: task_07_email
+2026-03-16 22:00:18,232 - INFO - Successfully loaded task: task_08_memory
+2026-03-16 22:00:18,233 - INFO - Successfully loaded task: task_09_files
+2026-03-16 22:00:18,234 - INFO - Successfully loaded task: task_10_workflow
+2026-03-16 22:00:18,235 - INFO - Successfully loaded task: task_11_clawdhub
+2026-03-16 22:00:18,237 - INFO - Successfully loaded task: task_12_skill_search
+2026-03-16 22:00:18,238 - INFO - Successfully loaded task: task_13_image_gen
+2026-03-16 22:00:18,239 - INFO - Successfully loaded task: task_14_humanizer
+2026-03-16 22:00:18,245 - INFO - Successfully loaded task: task_15_daily_summary
+2026-03-16 22:00:18,253 - INFO - Successfully loaded task: task_16_email_triage
+2026-03-16 22:00:18,264 - INFO - Successfully loaded task: task_17_email_search
+2026-03-16 22:00:18,265 - INFO - Successfully loaded task: task_16_market_research
+2026-03-16 22:00:18,266 - INFO - Successfully loaded task: task_18_spreadsheet_summary
+2026-03-16 22:00:18,267 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
+2026-03-16 22:00:18,268 - INFO - Successfully loaded task: task_21_openclaw_comprehension
+2026-03-16 22:00:18,270 - INFO - Successfully loaded task: task_22_second_brain
+2026-03-16 22:00:18,270 - INFO - Successfully loaded 23 tasks
+2026-03-16 22:00:18,270 - INFO - Loaded 23 tasks
+2026-03-16 22:00:21,395 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:00:29,485 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
+
+2026-03-16 22:00:29,487 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:00:29,487 - INFO - 
+================================================================================
+2026-03-16 22:00:29,487 - INFO - 📋 Task 1/1 (Run 1/1)
+2026-03-16 22:00:29,487 - INFO - ================================================================================
+2026-03-16 22:00:29,487 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
+2026-03-16 22:00:29,487 - INFO -    Task: Multi-step API Workflow
+2026-03-16 22:00:29,488 - INFO -    Category: complex
+2026-03-16 22:01:02,932 - INFO - Found transcript via sessions.json: task_10_workflow_1773669632591.jsonl (attempt 1)
+2026-03-16 22:01:59,611 - INFO -    📊 Attempt 1/5 score: 0.89/1.00 (89%)
+2026-03-16 22:01:59,612 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/5)
+2026-03-16 22:03:07,277 - INFO - Found transcript via sessions.json: task_10_workflow_1773669632591.jsonl (attempt 1)
+2026-03-16 22:03:26,948 - INFO -    📊 Attempt 2/5 score: 0.92/1.00 (92%)
+2026-03-16 22:03:26,949 - INFO - 🔁 Retrying task_10_workflow with validator feedback (3/5)
+2026-03-16 22:04:43,914 - INFO - Found transcript via sessions.json: task_10_workflow_1773669632591.jsonl (attempt 1)
+2026-03-16 22:05:39,813 - INFO -    📊 Attempt 3/5 score: 0.92/1.00 (92%)
+2026-03-16 22:05:39,813 - INFO -    ⏹️  Stopping retries for task_10_workflow because score-stall
+2026-03-16 22:05:39,813 - INFO - ⚠️ Task task_10_workflow: 0.9/1.0 (92%) - hybrid
+2026-03-16 22:05:39,813 - INFO -    Notes: Excellent performance. Agent created a robust Python script with comprehensive error handling (FileNotFoundError, JSONDecodeError, HTTPError, URLError), efficient config loading (fixed double-load iss
+2026-03-16 22:05:39,813 - INFO -    Attempts used: 3/5
+2026-03-16 22:05:39,833 - INFO - Saved results to results/rq3/0024_minimax-cn-MiniMax-M2-5.json
+2026-03-16 22:05:39,833 - INFO - 
+================================================================================
+2026-03-16 22:05:39,833 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
+2026-03-16 22:05:39,833 - INFO - ================================================================================
+2026-03-16 22:05:39,833 - INFO -    Total tokens used: 231,478 (input: 44,403, output: 4,316)
+2026-03-16 22:05:39,833 - INFO -    Total API requests: 17
+2026-03-16 22:05:39,834 - INFO -    Avg tokens/task: 231,478
+2026-03-16 22:05:39,834 - INFO -    Mean score: 0.9167
+2026-03-16 22:05:39,834 - INFO -    Success rate: 0.0000
+2026-03-16 22:05:39,834 - INFO -    Score per 1K tokens: 0.0040 (higher = more efficient)
+2026-03-16 22:05:39,834 - INFO -    Success per 1K tokens: 0.000000 (higher = more efficient)
+2026-03-16 22:05:39,834 - INFO - ================================================================================
+2026-03-16 22:05:39,834 - INFO - Skipping upload (--no-upload)
+2026-03-16 22:05:39,998 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
+
+░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
+▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
+▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
+█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
+█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
+
+                                                           @%@%%@                       
+                                             %*+#++#@   %+-=-....=@                     
+                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
+                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
+            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
+            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
+            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
+            #+========================--------=#=-==-----------------=@                 
+            #+========================-------------------------------=@                 
+            **========================---------------------------++--+@                 
+            @%*+======================------++--=#+--------------==-=#@                 
+            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
+             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
+             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
+            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
+            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
+            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
+            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
+             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
+              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
+                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
+                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
+                                @%%        @%%##############%@            @@            
+                                            @@%%%########%@@                            
+                                               @@@%%%%%@@@                              
+                                                                                        
+                                                                                        
+                                                                                        
+
+2026-03-16 22:05:39,998 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
+2026-03-16 22:05:45,001 - INFO - 🔧 Initializing BenchmarkRunner...
+2026-03-16 22:05:45,001 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
+2026-03-16 22:05:45,001 - INFO - Initialized BenchmarkRunner
+2026-03-16 22:05:45,001 - INFO - 📂 Loading tasks from directory...
+2026-03-16 22:05:45,002 - INFO - Loading tasks...
+2026-03-16 22:05:45,002 - INFO - Found 23 task files
+2026-03-16 22:05:45,003 - INFO - Successfully loaded task: task_00_sanity
+2026-03-16 22:05:45,004 - INFO - Successfully loaded task: task_01_calendar
+2026-03-16 22:05:45,005 - INFO - Successfully loaded task: task_02_stock
+2026-03-16 22:05:45,006 - INFO - Successfully loaded task: task_03_blog
+2026-03-16 22:05:45,007 - INFO - Successfully loaded task: task_04_weather
+2026-03-16 22:05:45,010 - INFO - Successfully loaded task: task_05_summary
+2026-03-16 22:05:45,011 - INFO - Successfully loaded task: task_06_events
+2026-03-16 22:05:45,011 - INFO - Successfully loaded task: task_07_email
+2026-03-16 22:05:45,013 - INFO - Successfully loaded task: task_08_memory
+2026-03-16 22:05:45,014 - INFO - Successfully loaded task: task_09_files
+2026-03-16 22:05:45,015 - INFO - Successfully loaded task: task_10_workflow
+2026-03-16 22:05:45,016 - INFO - Successfully loaded task: task_11_clawdhub
+2026-03-16 22:05:45,018 - INFO - Successfully loaded task: task_12_skill_search
+2026-03-16 22:05:45,018 - INFO - Successfully loaded task: task_13_image_gen
+2026-03-16 22:05:45,019 - INFO - Successfully loaded task: task_14_humanizer
+2026-03-16 22:05:45,024 - INFO - Successfully loaded task: task_15_daily_summary
+2026-03-16 22:05:45,033 - INFO - Successfully loaded task: task_16_email_triage
+2026-03-16 22:05:45,043 - INFO - Successfully loaded task: task_17_email_search
+2026-03-16 22:05:45,044 - INFO - Successfully loaded task: task_16_market_research
+2026-03-16 22:05:45,046 - INFO - Successfully loaded task: task_18_spreadsheet_summary
+2026-03-16 22:05:45,047 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
+2026-03-16 22:05:45,048 - INFO - Successfully loaded task: task_21_openclaw_comprehension
+2026-03-16 22:05:45,050 - INFO - Successfully loaded task: task_22_second_brain
+2026-03-16 22:05:45,050 - INFO - Successfully loaded 23 tasks
+2026-03-16 22:05:45,050 - INFO - Loaded 23 tasks
+2026-03-16 22:05:48,197 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:05:55,969 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
+
+2026-03-16 22:05:55,970 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:05:55,970 - INFO - 
+================================================================================
+2026-03-16 22:05:55,971 - INFO - 📋 Task 1/1 (Run 1/1)
+2026-03-16 22:05:55,971 - INFO - ================================================================================
+2026-03-16 22:05:55,971 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
+2026-03-16 22:05:55,971 - INFO -    Task: Multi-step API Workflow
+2026-03-16 22:05:55,971 - INFO -    Category: complex
+2026-03-16 22:06:33,559 - INFO - Found transcript via sessions.json: task_10_workflow_1773669959166.jsonl (attempt 1)
+2026-03-16 22:07:23,552 - INFO -    📊 Attempt 1/5 score: 0.89/1.00 (89%)
+2026-03-16 22:07:23,553 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/5)
+2026-03-16 22:08:12,249 - INFO - Found transcript via sessions.json: task_10_workflow_1773669959166.jsonl (attempt 1)
+2026-03-16 22:09:04,189 - INFO -    📊 Attempt 2/5 score: 0.91/1.00 (91%)
+2026-03-16 22:09:04,189 - INFO - 🔁 Retrying task_10_workflow with validator feedback (3/5)
+2026-03-16 22:09:42,296 - INFO - Found transcript via sessions.json: task_10_workflow_1773669959166.jsonl (attempt 1)
+2026-03-16 22:10:44,997 - INFO -    📊 Attempt 3/5 score: 0.90/1.00 (90%)
+2026-03-16 22:10:44,998 - INFO -    ⏹️  Stopping retries for task_10_workflow because unresolved-stall
+2026-03-16 22:10:44,998 - INFO - ⚠️ Task task_10_workflow: 0.9/1.0 (90%) - hybrid
+2026-03-16 22:10:44,998 - INFO -    Notes: Script is well-structured with proper config reading, HTTP request implementation using urllib, and error handling. Minor deduction for module-level print statements (side effects on import) and error
+2026-03-16 22:10:44,998 - INFO -    Attempts used: 3/5
+2026-03-16 22:10:45,016 - INFO - Saved results to results/rq3/0025_minimax-cn-MiniMax-M2-5.json
+2026-03-16 22:10:45,016 - INFO - 
+================================================================================
+2026-03-16 22:10:45,016 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
+2026-03-16 22:10:45,016 - INFO - ================================================================================
+2026-03-16 22:10:45,016 - INFO -    Total tokens used: 166,067 (input: 23,173, output: 3,445)
+2026-03-16 22:10:45,016 - INFO -    Total API requests: 13
+2026-03-16 22:10:45,017 - INFO -    Avg tokens/task: 166,067
+2026-03-16 22:10:45,017 - INFO -    Mean score: 0.9017
+2026-03-16 22:10:45,017 - INFO -    Success rate: 0.0000
+2026-03-16 22:10:45,017 - INFO -    Score per 1K tokens: 0.0054 (higher = more efficient)
+2026-03-16 22:10:45,017 - INFO -    Success per 1K tokens: 0.000000 (higher = more efficient)
+2026-03-16 22:10:45,017 - INFO - ================================================================================
+2026-03-16 22:10:45,017 - INFO - Skipping upload (--no-upload)
+2026-03-16 22:10:45,184 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
+
+░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
+▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
+▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
+█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
+█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
+
+                                                           @%@%%@                       
+                                             %*+#++#@   %+-=-....=@                     
+                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
+                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
+            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
+            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
+            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
+            #+========================--------=#=-==-----------------=@                 
+            #+========================-------------------------------=@                 
+            **========================---------------------------++--+@                 
+            @%*+======================------++--=#+--------------==-=#@                 
+            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
+             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
+             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
+            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
+            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
+            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
+            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
+             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
+              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
+                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
+                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
+                                @%%        @%%##############%@            @@            
+                                            @@%%%########%@@                            
+                                               @@@%%%%%@@@                              
+                                                                                        
+                                                                                        
+                                                                                        
+
+2026-03-16 22:10:45,184 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
+2026-03-16 22:10:50,187 - INFO - 🔧 Initializing BenchmarkRunner...
+2026-03-16 22:10:50,187 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
+2026-03-16 22:10:50,187 - INFO - Initialized BenchmarkRunner
+2026-03-16 22:10:50,187 - INFO - 📂 Loading tasks from directory...
+2026-03-16 22:10:50,187 - INFO - Loading tasks...
+2026-03-16 22:10:50,188 - INFO - Found 23 task files
+2026-03-16 22:10:50,189 - INFO - Successfully loaded task: task_00_sanity
+2026-03-16 22:10:50,190 - INFO - Successfully loaded task: task_01_calendar
+2026-03-16 22:10:50,191 - INFO - Successfully loaded task: task_02_stock
+2026-03-16 22:10:50,192 - INFO - Successfully loaded task: task_03_blog
+2026-03-16 22:10:50,192 - INFO - Successfully loaded task: task_04_weather
+2026-03-16 22:10:50,195 - INFO - Successfully loaded task: task_05_summary
+2026-03-16 22:10:50,196 - INFO - Successfully loaded task: task_06_events
+2026-03-16 22:10:50,197 - INFO - Successfully loaded task: task_07_email
+2026-03-16 22:10:50,198 - INFO - Successfully loaded task: task_08_memory
+2026-03-16 22:10:50,199 - INFO - Successfully loaded task: task_09_files
+2026-03-16 22:10:50,201 - INFO - Successfully loaded task: task_10_workflow
+2026-03-16 22:10:50,201 - INFO - Successfully loaded task: task_11_clawdhub
+2026-03-16 22:10:50,203 - INFO - Successfully loaded task: task_12_skill_search
+2026-03-16 22:10:50,204 - INFO - Successfully loaded task: task_13_image_gen
+2026-03-16 22:10:50,205 - INFO - Successfully loaded task: task_14_humanizer
+2026-03-16 22:10:50,210 - INFO - Successfully loaded task: task_15_daily_summary
+2026-03-16 22:10:50,218 - INFO - Successfully loaded task: task_16_email_triage
+2026-03-16 22:10:50,229 - INFO - Successfully loaded task: task_17_email_search
+2026-03-16 22:10:50,230 - INFO - Successfully loaded task: task_16_market_research
+2026-03-16 22:10:50,231 - INFO - Successfully loaded task: task_18_spreadsheet_summary
+2026-03-16 22:10:50,232 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
+2026-03-16 22:10:50,233 - INFO - Successfully loaded task: task_21_openclaw_comprehension
+2026-03-16 22:10:50,235 - INFO - Successfully loaded task: task_22_second_brain
+2026-03-16 22:10:50,235 - INFO - Successfully loaded 23 tasks
+2026-03-16 22:10:50,235 - INFO - Loaded 23 tasks
+2026-03-16 22:10:53,288 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:11:01,118 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
+
+2026-03-16 22:11:01,119 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
+2026-03-16 22:11:01,119 - INFO - 
+================================================================================
+2026-03-16 22:11:01,119 - INFO - 📋 Task 1/1 (Run 1/1)
+2026-03-16 22:11:01,120 - INFO - ================================================================================
+2026-03-16 22:11:01,120 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
+2026-03-16 22:11:01,120 - INFO -    Task: Multi-step API Workflow
+2026-03-16 22:11:01,120 - INFO -    Category: complex
+2026-03-16 22:12:01,780 - INFO - Found transcript via sessions.json: task_10_workflow_1773670264115.jsonl (attempt 1)
+2026-03-16 22:12:51,751 - INFO -    📊 Attempt 1/5 score: 0.90/1.00 (90%)
+2026-03-16 22:12:51,751 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/5)
+2026-03-16 22:14:09,531 - INFO - Found transcript via sessions.json: task_10_workflow_1773670264115.jsonl (attempt 1)
+2026-03-16 22:14:55,308 - INFO -    📊 Attempt 2/5 score: 0.92/1.00 (92%)
+2026-03-16 22:14:55,309 - INFO -    ⏹️  Stopping retries for task_10_workflow because low-return
+2026-03-16 22:14:55,309 - INFO - ⚠️ Task task_10_workflow: 0.9/1.0 (92%) - hybrid
+2026-03-16 22:14:55,309 - INFO -    Notes: Excellent completion. Python script is well-structured with proper error handling (HTTPError, URLError, timeouts), reads config correctly, and uses standard library appropriately. NOTES.md is comprehe
+2026-03-16 22:14:55,309 - INFO -    Attempts used: 2/5
+2026-03-16 22:14:55,323 - INFO - Saved results to results/rq3/0026_minimax-cn-MiniMax-M2-5.json
+2026-03-16 22:14:55,323 - INFO - 
+================================================================================
+2026-03-16 22:14:55,323 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
+2026-03-16 22:14:55,323 - INFO - ================================================================================
+2026-03-16 22:14:55,323 - INFO -    Total tokens used: 196,686 (input: 35,641, output: 3,408)
+2026-03-16 22:14:55,323 - INFO -    Total API requests: 15
+2026-03-16 22:14:55,323 - INFO -    Avg tokens/task: 196,686
+2026-03-16 22:14:55,324 - INFO -    Mean score: 0.9167
+2026-03-16 22:14:55,324 - INFO -    Success rate: 0.0000
+2026-03-16 22:14:55,324 - INFO -    Score per 1K tokens: 0.0047 (higher = more efficient)
+2026-03-16 22:14:55,324 - INFO -    Success per 1K tokens: 0.000000 (higher = more efficient)
+2026-03-16 22:14:55,324 - INFO - ================================================================================
+2026-03-16 22:14:55,324 - INFO - Skipping upload (--no-upload)

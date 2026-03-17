@@ -251,11 +251,11 @@
 - 后续轮次是在补救少量难例，还是已经基本只增加成本
 - 是否存在“继续 retry 主要是在烧 token”的失效点
 
-### RQ2：多轮反馈中的 token 浪费主要来自哪里
+### RQ2：失败后的低效主要来自 history pollution、workspace pollution，还是根本不是上下文管理问题
 
 目标：
 
-- 区分额外 token 开销究竟主要来自历史污染、状态污染，还是反馈不足
+- 区分如果重试效果不好，究竟主要来自历史污染、状态污染，还是反馈不足
 - 将“context pollution”从笼统现象变成可验证、可分解的浪费来源分析
 
 实验：
@@ -268,6 +268,11 @@
 - 严格控制 workspace 状态是否保留或恢复
 - 必要时增加“精简 feedback summary”变体，以控制 prompt 长度因素
 
+ 1. fresh-session/rollback 在新 session 里同时注入 original task prompt + retry
+     feedback
+  2. 区分两种 rollback：
+      - task-reset rollback：回到任务初始状态
+      - step rollback：回到失败前最近可恢复检查点
 指标：
 
 - 最终 success
@@ -743,3 +748,41 @@
 ## 一句话总结
 
 这项研究的主要贡献应表述为：在真实 tool-using agent benchmark 上，系统测量 validator-driven iterative repair 的 token-efficiency、浪费来源与 success-cost frontier，并给出在尽量不损失 success 的前提下更省 token 的 retry 配置经验规律，而不是提出新的 agent 方法。
+
+
+所以如果你后面写论文，最好明确区分两层：
+
+  - intra-attempt inefficiency：一次 attempt 内部轮次过多、工具试错太多
+  - inter-attempt inefficiency：多次 retry 带来的额外成本
+
+## 附录：Stopping Rule 的形式化定义
+
+下表给出本文中各类 stopping rule 的输入、判定公式与触发条件。这里的规则定义与当前实现保持一致，具体实现位于 [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) 的 `_should_stop_retry(...)`。
+
+| stop_rule | 输入 | 判定公式 | 触发条件 | 直观含义 |
+|---|---|---|---|---|
+| `max-attempts-only` | `max_task_attempts`、当前 attempt 编号、当前任务是否已通过 | 无额外公式；该规则本身不执行提前停止判定 | 仅在任务已通过，或达到最大 attempt 数时结束 | 不做智能提前停止，只提供固定预算上限 |
+| `score-stall` | `current_score`、`previous_score`、`stop_threshold` | `score_delta = current_score - previous_score`；若 `score_delta <= stop_threshold` 则触发 | 当前一轮到这一轮的分数提升不超过阈值时停止 | 只看“分数是否继续增长”，不考虑新增 token 成本 |
+| `unresolved-stall` | `current_unresolved_count`、`previous_unresolved_count` | 若 `current_unresolved_count >= previous_unresolved_count` 则触发 | 当前未解决 criteria 数量没有下降，甚至上升时停止 | 只看“未解决问题是否减少”，用结构性进展替代纯分数信号 |
+| `low-return` | `current_score`、`previous_score`、`token_delta`、`stop_threshold` | `score_delta = current_score - previous_score`；`improvement_per_1k_tokens = (score_delta / token_delta) * 1000`；若 `improvement_per_1k_tokens <= stop_threshold` 则触发 | 每 1000 token 带来的分数提升不超过阈值时停止；若 `token_delta <= 0` 也直接触发 | 衡量“额外 token 投入是否值得”，是单位成本收益规则 |
+
+其中：
+
+- `current_score` 表示当前 attempt 经 grader 评估后的分数。
+- `previous_score` 表示上一轮 attempt 的分数。
+- `current_unresolved_count` 表示当前 attempt 结束后仍未满足的 grading criteria 数量。
+- `previous_unresolved_count` 表示上一轮 attempt 的未解决 criteria 数量。
+- `token_delta` 表示本轮 retry 相比上一轮新增消耗的 `total_tokens`。
+- `stop_threshold` 表示 stopping rule 的阈值，不同规则下语义不同。
+
+为便于论文撰写，可进一步将四类规则概括为三种判定视角：
+
+- 固定预算规则：`max-attempts-only`
+- 纯结果停滞规则：`score-stall` 与 `unresolved-stall`
+- 成本收益规则：`low-return`
+
+若需要在实验设计中更明确地区分这些规则的目标，可以使用以下表述：
+
+- `score-stall` 关注“继续重试是否还能显著提升结果质量”。
+- `unresolved-stall` 关注“继续重试是否还能减少明确的未解决问题”。
+- `low-return` 关注“继续重试带来的质量收益是否值得新增 token 成本”。

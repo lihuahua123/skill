@@ -667,8 +667,9 @@ https://research.monash.edu/en/publications/contrastrepair-enhancing-conversatio
   链接: https://arxiv.org/abs/2312.06853  
   为什么相关：
   - 它是专门面向 language feedback 的 benchmark
-  - 明确支持不同 feedback type，例如 suggestion、explanation、performance signals
-  - 和你的 `feedback_policy` 设计思路很接近
+  - 明确支持不同 feedback type，例如 只指出错误，只指出正确，或者给予建议
+  - 和你的 `feedback_policy` 设计思路一模一样
+
   对你的影响：
   - 你不能把“agent 应该从语言反馈中学习”当新动机
   - 但 LLF-Bench 更偏 interactive learning benchmark，不是围绕 validator-driven retries、cost frontier 或 workspace/state rollback
@@ -875,6 +876,7 @@ https://research.monash.edu/en/publications/contrastrepair-enhancing-conversatio
    https://arxiv.org/abs/2602.21227
 9. Gecko  
    https://arxiv.org/abs/2602.19218
+    作者提出一个 “虚拟工具执行环境” Gecko，在不调用真实工具的情况下，通过模拟执行 + 反馈机制来帮助 LLM 在推理时不断修正 tool call
 
 ### Agent 方向下更安全的论文定位
 

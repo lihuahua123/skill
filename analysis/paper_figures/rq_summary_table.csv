@@ -1,0 +1,5 @@
+series_label,max_k,eligible_runs_at_final_k,success_rate_at_final_k,avg_tokens_at_final_k,avg_cost_usd_at_final_k
+minimax-cn/MiniMax-M2.5 | legacy-single-turn | legacy | legacy,5,2,0.5,1663808.0,0.0
+minimax/minimax-m2.1 | legacy-single-turn | legacy | legacy,1,5,0.2,23675.8,0.0
+minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append,2,1,0.0,123647.0,0.0
+minimax-cn/MiniMax-M2.5 | error-localized | stable-prefix | append,2,3,0.0,175270.3,0.0
