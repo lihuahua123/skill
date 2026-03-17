@@ -71,7 +71,6 @@ def _series_label(result: Dict[str, Any], path: Path, mode: str) -> str:
             result.get("model", "unknown"),
             retry.get("feedback_policy", "na"),
             retry.get("feedback_format", "na"),
-            retry.get("context_policy", "na"),
             retry.get("stop_rule", "na"),
             f"k={result.get('max_task_attempts', 'na')}",
         ]

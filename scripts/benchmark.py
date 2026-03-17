@@ -13,11 +13,9 @@ from the tasks/ directory.
 # ///
 
 import argparse
-import hashlib
 import json
 import logging
 import os
-import shutil
 import statistics
 import subprocess
 import sys
@@ -25,13 +23,7 @@ import time
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
-from lib_agent import (
-    _run_openclaw_message,
-    cleanup_agent_sessions,
-    ensure_agent_exists,
-    execute_openclaw_task,
-    slugify_model,
-)
+from lib_agent import _run_openclaw_message, cleanup_agent_sessions, ensure_agent_exists, execute_openclaw_task, slugify_model
 from lib_grading import (
     GradeResult,
     KIMI_JUDGE_API_BASE,
@@ -238,12 +230,6 @@ def _parse_args() -> argparse.Namespace:
         choices=("full-refresh", "stable-prefix"),
         default="stable-prefix",
         help="Retry feedback formatting policy (default: cache-friendly stable-prefix)",
-    )
-    parser.add_argument(
-        "--context-policy",
-        choices=("append", "fresh-session", "rollback"),
-        default="append",
-        help="Retry context policy",
     )
     parser.add_argument(
         "--stop-rule",
@@ -546,65 +532,9 @@ def _build_iteration_feedback(
     }
 
 
-def _retry_session_id(task_id: str, attempt_number: int) -> str:
-    return f"{task_id}_retry_{attempt_number}_{int(time.time() * 1000)}"
-
-
-def _compose_retry_prompt(task: Task, feedback_prompt: str, *, session_reset: bool) -> str:
-    if not session_reset:
-        return feedback_prompt
-    return (
-        f"You are restarting benchmark task `{task.task_id}` in a fresh session.\n\n"
-        "Re-read the original task instructions below and continue from the current workspace state.\n"
-        "Then apply the validator feedback and fix only what is still unresolved.\n\n"
-        "Original task:\n"
-        f"{task.prompt}\n\n"
-        "Validator feedback for the retry:\n"
-        f"{feedback_prompt}"
-    )
-
-
-def _restore_workspace_snapshot(snapshot_path: Path, workspace: Path) -> None:
-    if workspace.exists():
-        shutil.rmtree(workspace)
-    workspace.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(snapshot_path, workspace)
-
-
-def _workspace_fingerprint(workspace: Path) -> Dict[str, Any]:
-    if not workspace.exists():
-        return {
-            "exists": False,
-            "file_count": 0,
-            "total_bytes": 0,
-            "digest": None,
-        }
-
-    hasher = hashlib.sha256()
-    file_count = 0
-    total_bytes = 0
-    for file_path in sorted(path for path in workspace.rglob("*") if path.is_file()):
-        relative = file_path.relative_to(workspace).as_posix()
-        data = file_path.read_bytes()
-        file_count += 1
-        total_bytes += len(data)
-        hasher.update(relative.encode("utf-8"))
-        hasher.update(b"\0")
-        hasher.update(data)
-        hasher.update(b"\0")
-
-    return {
-        "exists": True,
-        "file_count": file_count,
-        "total_bytes": total_bytes,
-        "digest": hasher.hexdigest(),
-    }
-
-
-def _workspace_changed(previous: Optional[Dict[str, Any]], current: Dict[str, Any]) -> Optional[bool]:
-    if previous is None:
-        return None
-    return previous.get("digest") != current.get("digest")
+def _compose_retry_prompt(task: Task, feedback_prompt: str) -> str:
+    del task
+    return feedback_prompt
 
 
 def _unresolved_criteria_count(grade: GradeResult) -> int:
@@ -741,7 +671,6 @@ def _execute_task_with_feedback(
     max_task_attempts: int,
     feedback_policy: str,
     feedback_format: str,
-    context_policy: str,
     stop_rule: str,
     stop_threshold: float,
     judge_kw: Dict[str, Any],
@@ -749,13 +678,11 @@ def _execute_task_with_feedback(
 ) -> Dict[str, Any]:
     attempt_summaries: List[Dict[str, Any]] = []
     execution_error = None
-    snapshot_path = Path("/tmp/pinchbench") / run_id / "snapshots" / task.task_id
     stop_reason = "max-attempts-reached"
     previous_cumulative_usage: Optional[Dict[str, Any]] = None
     previous_cumulative_usage_per_round: Optional[List[Dict[str, Any]]] = None
     previous_cumulative_execution_time: Optional[float] = None
     previous_transcript_length: Optional[int] = None
-    previous_workspace_fingerprint: Optional[Dict[str, Any]] = None
 
     try:
         result = execute_openclaw_task(
@@ -765,7 +692,7 @@ def _execute_task_with_feedback(
             run_id=run_id,
             timeout_multiplier=timeout_multiplier,
             skill_dir=skill_dir,
-            initial_workspace_snapshot=snapshot_path if context_policy == "rollback" else None,
+            initial_workspace_snapshot=None,
             verbose=verbose,
         )
     except Exception as exc:
@@ -826,11 +753,6 @@ def _execute_task_with_feedback(
             "feedback_prompt_stats": None,
             "feedback_policy": feedback_policy,
             "feedback_format": feedback_format,
-            "context_policy": context_policy,
-            "session_reset": False,
-            "workspace_restored": False,
-            "workspace_fingerprint": _workspace_fingerprint(Path(result["workspace"])),
-            "workspace_changed_since_last_attempt": None,
             "transcript_length": len(result.get("transcript", [])),
             "transcript_length_delta": len(result.get("transcript", [])),
             "score_delta": None,
@@ -845,7 +767,6 @@ def _execute_task_with_feedback(
     previous_cumulative_usage_per_round = list(result.get("usage_per_round", []))
     previous_cumulative_execution_time = round(float(result.get("execution_time", 0.0) or 0.0), 6)
     previous_transcript_length = len(result.get("transcript", []))
-    previous_workspace_fingerprint = attempt_summaries[-1]["workspace_fingerprint"]
     score_pct_1 = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
     logger.info(
         "   📊 Attempt 1/%s score: %.2f/%.2f (%.0f%%)",
@@ -887,29 +808,7 @@ def _execute_task_with_feedback(
 
         retry_workspace = Path(result["workspace"])
         retry_session_id = result["session_id"]
-        session_reset = False
-        workspace_restored = False
-
-        if context_policy in ("fresh-session", "rollback"):
-            cleanup_agent_sessions(agent_id)
-            retry_session_id = _retry_session_id(task.task_id, attempt_number)
-            session_reset = True
-        if context_policy == "rollback":
-            if not snapshot_path.exists():
-                logger.info(
-                    "Stopping retries for %s because rollback snapshot is unavailable",
-                    task.task_id,
-                )
-                stop_reason = "missing-rollback-snapshot"
-                break
-            _restore_workspace_snapshot(snapshot_path, retry_workspace)
-            workspace_restored = True
-
-        retry_prompt = _compose_retry_prompt(
-            task,
-            feedback_prompt,
-            session_reset=session_reset,
-        )
+        retry_prompt = _compose_retry_prompt(task, feedback_prompt)
 
         retry_result = _run_openclaw_message(
             agent_id=agent_id,
@@ -918,34 +817,28 @@ def _execute_task_with_feedback(
             session_id=retry_session_id,
             timeout_seconds=task.timeout_seconds * timeout_multiplier,
         )
-        execution_payload = retry_result
-        if context_policy == "append":
-            execution_payload = {
-                **retry_result,
-                "cumulative_execution_time": round(
-                    float(retry_result.get("execution_time", 0.0) or 0.0), 6
-                ),
-                "execution_time": _execution_time_delta(
-                    float(retry_result.get("execution_time", 0.0) or 0.0),
-                    previous_cumulative_execution_time,
-                ),
-                "cumulative_usage": dict(retry_result.get("usage", {})),
-                "cumulative_usage_per_round": list(retry_result.get("usage_per_round", [])),
-                "usage": _usage_delta(retry_result.get("usage", {}), previous_cumulative_usage),
-                "usage_per_round": _usage_round_delta(
-                    retry_result.get("usage_per_round", []),
-                    previous_cumulative_usage_per_round,
-                ),
-            }
+        execution_payload = {
+            **retry_result,
+            "cumulative_execution_time": round(
+                float(retry_result.get("execution_time", 0.0) or 0.0), 6
+            ),
+            "execution_time": _execution_time_delta(
+                float(retry_result.get("execution_time", 0.0) or 0.0),
+                previous_cumulative_execution_time,
+            ),
+            "cumulative_usage": dict(retry_result.get("usage", {})),
+            "cumulative_usage_per_round": list(retry_result.get("usage_per_round", [])),
+            "usage": _usage_delta(retry_result.get("usage", {}), previous_cumulative_usage),
+            "usage_per_round": _usage_round_delta(
+                retry_result.get("usage_per_round", []),
+                previous_cumulative_usage_per_round,
+            ),
+        }
         result = {
             **execution_payload,
             "agent_id": agent_id,
             "task_id": task.task_id,
-            "initial_workspace_snapshot": (
-                str(snapshot_path) if context_policy == "rollback" else result.get("initial_workspace_snapshot")
-            ),
-            "session_reset": session_reset,
-            "workspace_restored": workspace_restored,
+            "initial_workspace_snapshot": result.get("initial_workspace_snapshot"),
         }
         if "cumulative_execution_time" not in result:
             result["cumulative_execution_time"] = round(
@@ -976,7 +869,6 @@ def _execute_task_with_feedback(
                 breakdown={},
                 notes=f"Retry grading failed: {exc}",
             )
-        current_workspace_fingerprint = _workspace_fingerprint(retry_workspace)
         transcript_length = len(result.get("transcript", []))
         transcript_length_delta = transcript_length - int(previous_transcript_length or 0)
         unresolved_count = _unresolved_criteria_count(grade)
@@ -996,18 +888,10 @@ def _execute_task_with_feedback(
                 "attempt": attempt_number,
                 "execution": result,
             "grading": grade.to_dict(),
-            "feedback_prompt": retry_prompt,
-            "feedback_prompt_stats": feedback_payload,
+                "feedback_prompt": retry_prompt,
+                "feedback_prompt_stats": feedback_payload,
                 "feedback_policy": feedback_policy,
                 "feedback_format": feedback_format,
-                "context_policy": context_policy,
-                "session_reset": session_reset,
-                "workspace_restored": workspace_restored,
-                "workspace_fingerprint": current_workspace_fingerprint,
-                "workspace_changed_since_last_attempt": _workspace_changed(
-                    previous_workspace_fingerprint,
-                    current_workspace_fingerprint,
-                ),
                 "transcript_length": transcript_length,
                 "transcript_length_delta": transcript_length_delta,
                 "score_delta": score_delta,
@@ -1035,7 +919,6 @@ def _execute_task_with_feedback(
             6,
         )
         previous_transcript_length = transcript_length
-        previous_workspace_fingerprint = current_workspace_fingerprint
         score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
         logger.info(
             "   📊 Attempt %s/%s score: %.2f/%.2f (%.0f%%)",
@@ -1380,7 +1263,6 @@ def main():
                 max_task_attempts=max_task_attempts,
                 feedback_policy=args.feedback_policy,
                 feedback_format=args.feedback_format,
-                context_policy=args.context_policy,
                 stop_rule=args.stop_rule,
                 stop_threshold=args.stop_threshold,
                 judge_kw=judge_kw,
@@ -1473,15 +1355,11 @@ def main():
                 ).get("text_length_chars")
                 for attempt in outcome["attempts"]
             ],
-            "workspace_changed_by_attempt": [
-                attempt.get("workspace_changed_since_last_attempt") for attempt in outcome["attempts"]
-            ],
             "stop_reason": outcome["stop_reason"],
             "attempts": outcome["attempts"],
             "retry_policies": {
                 "feedback_policy": args.feedback_policy,
                 "feedback_format": args.feedback_format,
-                "context_policy": args.context_policy,
                 "stop_rule": args.stop_rule,
                 "stop_threshold": args.stop_threshold,
             },
@@ -1536,7 +1414,6 @@ def main():
         "retry_policies": {
             "feedback_policy": args.feedback_policy,
             "feedback_format": args.feedback_format,
-            "context_policy": args.context_policy,
             "stop_rule": args.stop_rule,
             "stop_threshold": args.stop_threshold,
         },

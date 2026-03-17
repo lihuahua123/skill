@@ -2,262 +2,136 @@
 
 ## Research Goal
 
-This study uses PinchBench/OpenClaw to evaluate real agent behavior under iterative repair after failure. The goal is not just to show that multi-turn feedback can help, but to quantify:
+This study focuses on validator-driven retries in PinchBench/OpenClaw and asks three practical questions:
 
-- the marginal benefit of additional retries
-- the distribution of attempts required for success
-- the tradeoff between token/cost and success
-- how feedback policy and context policy affect convergence
+- how much additional success is gained from extra retry budget
+- when retrying stops being token-efficient
+- which feedback and stopping policies give the best success-cost tradeoff
 
-## Existing Project Foundation
-
-The repository already contains a usable multi-turn baseline.
-
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) defines `_build_iteration_feedback`, which builds retry prompts from validator score, breakdown, notes, and grading criteria.
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) implements in-place retry with the same workspace and same session.
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) already stores `attempts`, `usage`, `usage_per_round`, and grading outputs in the result JSON.
-- [`README.md`](/root/skill/README.md) already exposes `--max-task-attempts`.
-
-This means the baseline data path for RQ1, RQ2, and part of RQ3 already exists. The main missing pieces are policy variables, context variants, and finer-grained instrumentation.
+The project is framed as an empirical token-efficiency study, not as a new agent method.
 
 ## Research Questions
 
-The study should focus on four main research questions.
-
 ### RQ1
 
-What is the marginal benefit of multi-turn validator feedback?
-
-### RQ2
-
-How many iterations are typically required for success, and what is the distribution of attempts-to-success?
+What is the marginal benefit of additional validator-feedback retries?
 
 ### RQ3
 
-What is the tradeoff between token/cost and success?
+Under fixed budget or fixed target success, which stopping rule is most token-efficient?
 
 ### RQ4
 
-How do feedback policy and context policy affect convergence?
+Which feedback policy and feedback format provide the best success-cost tradeoff?
 
-Task complexity should be treated as a moderator or stratification variable rather than a standalone main RQ.
+Task complexity should be treated as a stratification variable rather than a standalone RQ.
+
+## Existing Project Foundation
+
+The repository already contains the core append-style retry baseline.
+
+- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) builds retry prompts from validator outputs.
+- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) supports repeated validator-feedback attempts in the same task run.
+- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) already records attempts, usage, usage-per-round, and grading outputs.
+- [`README.md`](/root/skill/README.md) already exposes `--max-task-attempts`.
 
 ## Feedback Policy Design
 
-The retry prompt should be abstracted into configurable `feedback_policy` variants.
+The retry prompt should remain configurable through `feedback_policy`.
 
 ### `vague`
 
-Meaning:
-
-- only tells the agent that the previous attempt did not pass
-- asks the agent to continue working and retry
-
-Purpose:
-
-- weak-feedback baseline
+- only says the previous attempt did not pass
+- asks the agent to continue and retry
 
 ### `error-localized`
 
-Meaning:
-
-- identifies which grading items failed
+- identifies failed grading items
 - includes validator notes
-- does not explicitly tell the agent how to repair the issue
-
-Purpose:
-
-- measures the value of locating the error without prescribing a fix
+- does not prescribe a repair plan
 
 ### `actionable-path`
 
-Meaning:
-
-- identifies the failure
-- provides explicit repair guidance or next-step instructions
-
-Purpose:
-
-- measures whether higher-quality feedback reduces attempts and improves success
+- identifies failure points
+- adds explicit repair guidance or next-step instructions
 
 ## Cache-Friendly Feedback Design
 
-To maximize prompt cache reuse, feedback templates should use a stable-prefix structure instead of rewriting the full feedback each round.
+To maximize prompt-cache reuse, retry prompts should support a stable-prefix structure.
 
-### Stable Prefix
+### `full-refresh`
 
-The stable prefix should include:
+- rewrites the whole retry feedback block each round
 
-- task ID
-- original grading criteria
-- common retry rules
-- fixed description of the active feedback policy
+### `stable-prefix`
 
-This section should remain identical across attempts for the same task.
-
-### Dynamic Suffix
-
-The dynamic suffix should include:
-
-- latest attempt number
-- latest score
-- unresolved issues only
-- short validator notes or repair steps
-
-This section should be appended at the end of the prompt and should remain compact.
-
-### Design Rules
-
-- do not repeat full history across attempts
-- do not repeat already-passed items
-- keep ordering fixed across rounds
-- place changing content at the end
-- prefer structured fields over long free-form summaries
-
-This allows two formatting variants:
-
-- `full-refresh`: rewrite a full feedback block every round
-- `stable-prefix`: fixed prefix plus a small changing suffix
-
-The latter is the preferred cache-friendly design.
-
-## Context Policy Design
-
-The system should support multiple `context_policy` variants.
-
-### `append`
-
-Meaning:
-
-- keep the same session
-- keep the same workspace
-- append retry feedback into the existing context
-
-Role:
-
-- current baseline
-
-### `fresh-session`
-
-Meaning:
-
-- start a new session
-- keep the workspace state
-- inject a compact retry prompt or feedback summary
-
-Role:
-
-- isolates conversational-history effects from workspace-state effects
-
-### `rollback`
-
-Meaning:
-
-- restore the workspace to a snapshot before the failed attempt
-- use a new session
-- inject only the retry guidance
-
-Role:
-
-- tests whether context/state rollback can improve success while reducing cost
-
-Important constraint:
-
-- rollback must address both session history and workspace state; resetting only the session without restoring files will confound the experiment
+- keeps a fixed prefix with task metadata and retry rules
+- appends a compact dynamic suffix containing only the latest unresolved issues
 
 ## Experimental Design by Research Question
 
-### RQ1: Marginal Benefit of Multi-Turn Feedback
+### RQ1: Marginal Benefit of Retry Budget
 
 Objective:
 
-- measure how much each additional retry improves success
+- measure how success grows with retry budget
+- identify where marginal gains flatten
 
 Experiment:
 
-- fix one feedback strategy, initially the current default or `error-localized`
+- fix `feedback_policy = error-localized`
+- fix `feedback_format = full-refresh`
 - sweep `max_task_attempts = 1, 2, 3, 4, 5, 6`
-- run multiple repetitions per model and per task
+- run multiple repetitions per model and task
 
 Metrics:
 
 - `success@k`
-- `delta success(k) = success@k - success@(k-1)`
-- additional tokens per extra attempt
-- additional cost per extra attempt
-
-Questions answered:
-
-- how much better is multi-turn than single-turn
-- where do gains concentrate
-- where does the curve plateau
-
-### RQ2: Attempts-to-Success Distribution
-
-Objective:
-
-- characterize when success tends to happen
-
-Experiment:
-
-- fix a feedback strategy
-- run with a high enough upper bound such as `max_task_attempts = 6` or `8`
-- record the first successful attempt for each successful run
-- treat failed runs as censored cases if survival analysis is used
-
-Metrics:
-
+- `delta success(k)`
+- cumulative tokens and USD cost by attempt
 - first-success attempt distribution
-- median attempts to success
-- `P(success by round k)`
-- per-model and per-task-category distributions
+- tokens per additional 1% success
 
-Questions answered:
-
-- in which round does success usually occur
-- whether later rounds rescue difficult cases or provide little value
-
-### RQ3: Token Cost vs Success Tradeoff
+### RQ3: Stopping Rule Efficiency
 
 Objective:
 
-- quantify whether more retries are worth the cost
+- compare simple, interpretable stopping rules under a common retry budget
 
 Experiment:
 
-- reuse the `max_task_attempts = 1..k` sweep
-- compare models under the same attempt budget
-- generate cost-success and token-success curves
+- fix `feedback_policy = error-localized`
+- fix `feedback_format = full-refresh`
+- use a common maximum attempt budget such as `5`
+- compare:
+  - `max-attempts-only`
+  - `score-stall`
+  - `unresolved-stall`
+  - `low-return`
 
 Metrics:
 
 - success vs cumulative tokens
 - success vs cumulative USD cost
-- tokens per additional 1% success
-- score per 1K tokens
+- success per 1K tokens
 - success per dollar
+- average token/cost to reach target success
+- stop-too-early and stop-too-late rate
 
-Questions answered:
-
-- what retry budget is the most cost-effective
-- whether stronger models benefit less from additional retries
-- whether different models occupy different Pareto frontiers
-
-### RQ4: Effect of Feedback Quality on Convergence
+### RQ4: Feedback Policy and Format
 
 Objective:
 
-- measure how feedback specificity changes convergence behavior
+- measure how retry guidance quality changes convergence and token use
 
 Experiment:
 
-- fix `max_task_attempts`, e.g. `5`
+- fix `max_task_attempts`
 - compare:
   - `vague`
   - `error-localized`
   - `actionable-path`
-- keep all other settings identical
-- optionally cross with feedback formatting:
+- cross with:
   - `full-refresh`
   - `stable-prefix`
 
@@ -265,178 +139,102 @@ Metrics:
 
 - final success rate
 - first-success attempt
-- average cumulative token/cost
+- cumulative token/cost
 - per-round improvement rate
-- failure mode distribution
+- feedback length and cache-related proxy metrics
 
-Questions answered:
+## Minimal Experiment Matrix
 
-- whether more specific feedback improves convergence
-- whether better feedback is worth the extra prompt budget
-- whether cache-friendly formatting preserves performance while lowering cost
+### E1: Attempt Budget Sweep
 
-## Extended Experiment: Append vs Rollback
+- supports RQ1
+- varies `max_task_attempts`
 
-This should be treated as a focused extension rather than mixed into the main four RQs.
+### E3: Stop Rule Comparison
 
-Experiment:
+- supports RQ3
+- varies `stop_rule`
 
-- fix one feedback policy
-- compare:
-  - `append`
-  - `fresh-session`
-  - `rollback`
-- control whether workspace state is preserved or restored
+### E4: Feedback / Format Comparison
 
-Metrics:
+- supports RQ4
+- varies `feedback_policy` and `feedback_format`
 
-- final success
-- attempts to success
-- cumulative tokens and cost
-- late-round degradation
-- transcript growth
+## Required Code Scope
 
-Questions answered:
-
-- whether context pollution is a real effect
-- whether rollback can improve the cost-performance boundary
-
-## Task Complexity Analysis
-
-Task complexity should be used as a stratification variable rather than a main standalone research question.
-
-Possible complexity proxies:
-
-- `timeout_seconds`
-- number of grading criteria
-- number of workspace fixture files
-- whether the task uses `llm_judge`
-- task category
-- empirical `pass@1` difficulty
-
-These can be extracted from task frontmatter and task structure without requiring manual labels.
-
-## Code Changes Required
-
-No code changes are made yet. The following summarizes the implementation scope.
-
-### 1. Benchmark Runner
+### Benchmark Runner
 
 File:
 
 - [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py)
 
-Changes needed:
+Needed support:
 
-- abstract `_build_iteration_feedback` into configurable `feedback_policy`
-- add `context_policy`
-- add CLI flags for retry strategy variants
-- record policy metadata and stop reasons in result JSON
-- support cache-friendly `stable-prefix` feedback formatting
+- configurable `feedback_policy`
+- configurable `feedback_format`
+- configurable `stop_rule`
+- retry policy metadata in result JSON
+- per-attempt retry prompt statistics
 
-### 2. Agent Execution Layer
+### Analysis Pipeline
 
-File:
+Needed support:
 
-- [`scripts/lib_agent.py`](/root/skill/scripts/lib_agent.py)
+- `success@k`
+- marginal gain by attempt
+- token-success and cost-success curves
+- stopping-rule comparison
+- feedback-policy comparison
+- target-success budget backsolve
 
-Changes needed:
-
-- support new-session retries with workspace reuse
-- support workspace snapshot/restore for rollback experiments
-- record clearer session/workspace lifecycle metadata
-
-### 3. Analysis Pipeline
-
-Files to add or update:
-
-- a dedicated analysis script or notebook
-
-Changes needed:
-
-- compute `success@k`
-- compute marginal gain by attempt
-- compute attempts-to-success distribution
-- compute token-success and cost-success curves
-- compare feedback/context policy variants
-- stratify results by task complexity proxies
-
-### 4. Task Metadata
-
-Optional changes:
-
-- add explicit complexity tags in task frontmatter
-
-Alternative:
-
-- infer complexity only from existing metadata and empirical difficulty
-
-## Suggested New Configuration Surface
-
-Recommended future CLI options:
-
-- `--feedback-policy`
-- `--feedback-format`
-- `--context-policy`
-- `--max-task-attempts`
-- `--stop-rule`
-- `--snapshot-workspace`
-
-## Suggested Additional Logging Fields
-
-The current results already store attempts and usage, but more detail is needed for analysis.
-
-Recommended fields:
+## Suggested Logging Fields
 
 - `feedback_policy`
 - `feedback_format`
-- `context_policy`
+- `stop_rule`
+- `stop_rule_threshold`
 - `stop_reason`
 - `first_success_attempt`
+- `success_within_budget`
 - `cumulative_usage_by_attempt`
+- `prompt_tokens_by_attempt`
+- `completion_tokens_by_attempt`
 - `unresolved_criteria_count`
 - feedback text length or token count
-- `workspace_restored`
-- `session_reset`
+- transcript length and per-attempt delta
 
 ## Recommended Outputs
 
 ### Tables
 
-- single-turn vs multi-turn overall success, token, and cost
-- feedback policy comparison
-- append vs rollback comparison
+- single-turn vs multi-turn success / token / cost
+- stopping-rule comparison
+- feedback-policy comparison
+- minimum token budget at matched success
 
 ### Figures
 
-- `success@k` curve
+- `success@k`
 - marginal gain by attempt
 - attempts-to-success histogram or CDF
 - cumulative token vs success
 - cumulative cost vs success
-- complexity-stratified success-cost curves
-- append vs rollback comparison figure
+- stopping-rule budget-success curve
 
 ## Threats to Validity
 
-The experimental design should explicitly acknowledge the following limitations.
-
-- LLM output stochasticity requires repeated runs
+- stochastic LLM outputs require repeated runs
 - judge-based grading may introduce bias or variance
-- cache-hit behavior may depend on provider implementation and may not be fully observable
-- rollback experiments become confounded if session state and workspace state are not both controlled
-- static complexity proxies may not perfectly reflect true cognitive difficulty
+- cache-hit behavior depends on provider implementation
+- static complexity proxies may not perfectly reflect task difficulty
 
 ## Recommended Implementation Order
 
-The project should proceed in the following order.
-
-1. Reproduce the current append baseline with attempt-budget sweeps.
-2. Add configurable `feedback_policy`.
-3. Add cache-friendly `stable-prefix` feedback formatting.
-4. Run the main RQ1-RQ4 experiments.
-5. Implement and evaluate `append` vs `rollback`.
+1. Reproduce the append baseline with attempt-budget sweeps.
+2. Compare stopping rules for token efficiency.
+3. Compare feedback policies and cache-friendly formatting.
+4. Add final reporting for budget-success frontiers.
 
 ## One-Sentence Summary
 
-The main contribution of the study should be framed as a systematic analysis of the benefit boundary, cost boundary, and convergence mechanisms of validator-driven iterative repair in real tool-using agents, rather than simply showing that multi-turn retries can help.
+The main contribution should be framed as a systematic analysis of retry benefit boundaries, stopping efficiency, and feedback efficiency in real tool-using agents.

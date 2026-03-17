@@ -32,7 +32,6 @@ fi
 
 RESULTS_DIR="${RQ3_RESULTS_DIR:-results/rq3}"
 ANALYSIS_DIR="${RQ3_ANALYSIS_DIR:-analysis/rq3}"
-CONTEXT_POLICY_VALUE="${RQ3_CONTEXT_POLICY:-append}"
 MAX_ATTEMPTS_VALUE="${RQ3_MAX_ATTEMPTS:-5}"
 
 run_benchmark "${RESULTS_DIR}" \
@@ -42,7 +41,6 @@ run_benchmark "${RESULTS_DIR}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ3_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ3_FEEDBACK_FORMAT:-full-refresh}" \
-  --context-policy "${CONTEXT_POLICY_VALUE}" \
   --stop-rule "max-attempts-only" \
   "${EXTRA_ARGS[@]}"
 
@@ -60,7 +58,6 @@ run_benchmark "${RESULTS_DIR}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ3_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ3_FEEDBACK_FORMAT:-full-refresh}" \
-  --context-policy "${CONTEXT_POLICY_VALUE}" \
   --stop-rule "score-stall" \
   --stop-threshold "${RQ3_SCORE_STALL_THRESHOLD:-0.0}" \
   "${EXTRA_ARGS[@]}"
@@ -72,7 +69,6 @@ run_benchmark "${RESULTS_DIR}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ3_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ3_FEEDBACK_FORMAT:-full-refresh}" \
-  --context-policy "${CONTEXT_POLICY_VALUE}" \
   --stop-rule "unresolved-stall" \
   "${EXTRA_ARGS[@]}"
 
@@ -83,7 +79,6 @@ run_benchmark "${RESULTS_DIR}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ3_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ3_FEEDBACK_FORMAT:-full-refresh}" \
-  --context-policy "${CONTEXT_POLICY_VALUE}" \
   --stop-rule "low-return" \
   --stop-threshold "${RQ3_LOW_RETURN_THRESHOLD:-0.01}" \
   "${EXTRA_ARGS[@]}"

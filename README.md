@@ -38,8 +38,8 @@ cd skill
 # Or allow validator-feedback retries within each task
 ./scripts/run.sh --model openrouter/anthropic/claude-sonnet-4 --max-task-attempts 3
 
-# Or compare retry policies
-./scripts/run.sh --model openrouter/anthropic/claude-sonnet-4 --max-task-attempts 5 --feedback-policy actionable-path --feedback-format stable-prefix --context-policy fresh-session
+# Or compare retry feedback and stopping policies
+./scripts/run.sh --model openrouter/anthropic/claude-sonnet-4 --max-task-attempts 5 --feedback-policy actionable-path --feedback-format stable-prefix --stop-rule score-stall
 ```
 
 > **Note:** Model IDs must include their provider prefix (e.g. `openrouter/`, `anthropic/`). [OpenRouter](https://openrouter.ai) is the default provider used for routing.
@@ -105,7 +105,6 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 | `--max-task-attempts N`  | Retry a task in-place with validator feedback until it passes or hits `N` attempts |
 | `--feedback-policy P`    | Retry feedback style: `vague`, `error-localized`, or `actionable-path`        |
 | `--feedback-format F`    | Retry prompt format: `full-refresh` or cache-friendly `stable-prefix` (default) |
-| `--context-policy C`     | Retry context handling: `append`, `fresh-session`, or `rollback`              |
 | `--stop-rule R`          | Retry stopping rule: `no-improvement` or `max-attempts-only`                  |
 | `--timeout-multiplier N` | Scale timeouts for slower models                                              |
 | `--output-dir DIR`       | Where to save results (default: `results/`)                                   |
@@ -120,9 +119,6 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 - `--feedback-policy error-localized` includes validator failures and notes.
 - `--feedback-policy actionable-path` adds a targeted repair plan.
 - `--feedback-format stable-prefix` keeps most of the retry prompt fixed across attempts to improve prompt-cache reuse.
-- `--context-policy append` keeps the same session and workspace.
-- `--context-policy fresh-session` starts a new session while keeping the workspace state.
-- `--context-policy rollback` restores the initial workspace snapshot before each retry.
 
 ## Contributing Tasks
 
