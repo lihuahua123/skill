@@ -33,9 +33,10 @@ fi
 RESULTS_DIR="${RQ4_RESULTS_DIR:-results/rq4}"
 ANALYSIS_DIR="${RQ4_ANALYSIS_DIR:-analysis/rq4}"
 STOP_RULE_VALUE="${RQ4_STOP_RULE:-max-attempts-only}"
-
-for feedback_policy in vague error-localized actionable-path; do
-  for feedback_format in full-refresh stable-prefix; do
+# vague error-localized 
+# stable-prefix
+for feedback_policy in  actionable-path; do
+  for feedback_format in stable-prefix; do
     run_benchmark "${RESULTS_DIR}" \
       "${MODEL_ARGS[@]}" \
       "${SUITE_ARGS[@]}" \

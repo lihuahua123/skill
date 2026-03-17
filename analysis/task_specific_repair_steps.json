@@ -1,0 +1,163 @@
+{
+  "source_runs": [
+    "results/rq1/0028_minimax-cn-MiniMax-M2-5.json",
+    "results/rq1/0029_minimax-cn-MiniMax-M2-5.json"
+  ],
+  "description": "Task-specific retry repair steps distilled from multi-attempt traces in RQ1 runs 0028 and 0029. These steps are intended for retries only, after an initial attempt has failed.",
+  "tasks": {
+    "task_08_memory": {
+      "task_name": "Memory Retrieval from Context",
+      "when_to_use": "Use on retries when the answer file exists but the transcript suggests the agent did not actually read notes.md, or when the date is right but the validator still fails on read_notes / clear_answer.",
+      "observed_failure_patterns": [
+        "The agent often wrote the correct date to answer.txt but never explicitly read notes.md in the transcript.",
+        "After the first attempt, the run plateaued at read_notes = 0.0."
+      ],
+      "repair_steps": [
+        "Start by explicitly reading notes.md again in the current attempt; do not rely on memory from earlier attempts.",
+        "Locate the beta release line verbatim and extract only the deadline for the beta release.",
+        "Rewrite answer.txt with a single direct answer such as 'The beta release deadline is June 1, 2024.'",
+        "Before finishing, verify both conditions: the transcript shows a read of notes.md and answer.txt contains the exact date."
+      ]
+    },
+    "task_09_files": {
+      "task_name": "File Structure Creation",
+      "when_to_use": "Use when almost all structure is already correct and only one file-content criterion is missing.",
+      "observed_failure_patterns": [
+        "The project structure was complete except .gitignore lacked a __pycache__ entry."
+      ],
+      "repair_steps": [
+        "Do not rebuild the project structure from scratch; inspect only the files tied to failing criteria.",
+        "Open .gitignore and add a literal __pycache__ ignore entry if it is missing.",
+        "Leave src/main.py and README.md unchanged unless they are directly implicated by the validator.",
+        "Confirm the final workspace has src/, src/main.py, README.md, and .gitignore with __pycache__."
+      ]
+    },
+    "task_10_workflow": {
+      "task_name": "Multi-step API Workflow",
+      "when_to_use": "Use when the script and NOTES.md are already strong but the task keeps failing on automated.read_config or intermittent grading errors.",
+      "observed_failure_patterns": [
+        "The agent often produced a high-quality script and notes, but automated.read_config stayed at 0.0.",
+        "Some retries were dominated by judge/network failures rather than actual task regressions."
+      ],
+      "repair_steps": [
+        "Re-read config.json explicitly with the file-reading tool in the retry, even if you already know the endpoint.",
+        "Verify the Python script still parses config.json, extracts the endpoint, performs an HTTP request with urllib or equivalent, and includes basic error handling.",
+        "Keep NOTES.md focused on what was done, how the script works, how to run it, and the key configuration details.",
+        "If the files are already correct, prefer minimal edits and prioritize making the transcript visibly satisfy the 'read config.json' requirement."
+      ]
+    },
+    "task_13_image_gen": {
+      "task_name": "AI Image Generation",
+      "when_to_use": "Use when previous attempts produced good prompts but failed to create a valid robot_cafe.png or failed to use the expected image-generation path.",
+      "observed_failure_patterns": [
+        "The model often spent retries rewriting prompts even though prompt quality was already high.",
+        "Many failures came from using curl or external APIs that returned JSON errors instead of a real PNG.",
+        "Several traces lacked clear confirmation that the image tool was used and the file was saved successfully."
+      ],
+      "repair_steps": [
+        "Do not spend the retry mostly improving prompt wording if the prompt already includes robot, cozy cafe, and book; focus on successful generation and file output.",
+        "Prefer the platform's image-generation tool or the most direct supported image path over ad hoc external HTTP workflows.",
+        "After generation, verify that robot_cafe.png exists in the current directory and is an image artifact rather than an error payload.",
+        "In the final response, explicitly confirm that the image was generated and saved as robot_cafe.png."
+      ]
+    },
+    "task_14_humanizer": {
+      "task_name": "Humanize AI-Generated Blog",
+      "when_to_use": "Use when the agent gets stuck trying to install the skill repeatedly or when the transformation approach is good but execution stalls.",
+      "observed_failure_patterns": [
+        "Repeated skill-install attempts consumed retries and sometimes led to time-wasting loops.",
+        "The strongest outcomes came from quick fallback to manual rewrite after skill issues."
+      ],
+      "repair_steps": [
+        "Read ai_blog.txt first and preserve its core points before attempting any transformation workflow.",
+        "Attempt the humanizer skill once or briefly check whether it is already available; do not loop on installation failures.",
+        "If the skill is unavailable or rate-limited, immediately switch to a manual rewrite instead of spending the retry budget on repeated install attempts.",
+        "Rewrite for natural voice: remove robotic transitions, vary sentence structure, use contractions where appropriate, and save the final result to humanized_blog.txt."
+      ]
+    },
+    "task_15_daily_summary": {
+      "task_name": "Daily Research Summary Generation",
+      "when_to_use": "Use when the first attempt failed due to read/timeout issues or when the summary is strong but slightly too long or not prioritized sharply enough.",
+      "observed_failure_patterns": [
+        "One attempt failed entirely due to a read timeout.",
+        "Later attempts were high quality and only needed minor tightening on conciseness."
+      ],
+      "repair_steps": [
+        "Ensure all required research files are explicitly discovered and read before drafting; missing source coverage is more dangerous than wording issues.",
+        "Draft the summary around the highest-priority developments first: major risks, strategic threats, urgent customer issues, and material product updates.",
+        "Keep the write-up concise and executive-friendly rather than exhaustive; trim low-signal details once coverage is complete.",
+        "Before finalizing, verify the output reflects all major documents and highlights priorities rather than listing everything equally."
+      ]
+    },
+    "task_16_email_triage": {
+      "task_name": "Email Inbox Triage",
+      "when_to_use": "Use when the report is mostly correct but fails on ordering, one edge-case categorization, or one specific email priority assignment.",
+      "observed_failure_patterns": [
+        "The triage logic was usually strong, but the report sometimes failed on strict sort order.",
+        "Occasional misses involved the high-value client or spam handling, even when the rest of the report was correct.",
+        "Later successful runs improved by fixing structure and edge-case categorization rather than redoing the entire triage."
+      ],
+      "repair_steps": [
+        "Re-open the generated triage report and audit it email-by-email against the inbox rather than re-triaging from scratch.",
+        "Check the critical anchors first: outage and correlated alert must be P0, the major client and urgent security items must be elevated appropriately, and obvious spam must stay low priority.",
+        "Sort the final report strictly by priority groups before finalizing, because formatting/order can fail even when labels are correct.",
+        "Review categories and action recommendations for any emails that are borderline informational vs. action-needed, then keep the summary section intact."
+      ]
+    },
+    "task_17_email_search": {
+      "task_name": "Email Search and Summarization",
+      "when_to_use": "Use when the summary is nearly complete and only cross-referencing or synthesis depth is missing.",
+      "observed_failure_patterns": [
+        "The first attempt was already strong but missed full cross-referencing across the relevant emails."
+      ],
+      "repair_steps": [
+        "Do not broaden the search blindly; revisit the already relevant emails and connect facts across them.",
+        "Make the summary explicitly link budget changes, timeline shifts, technical decisions, and security findings to the same project thread.",
+        "Keep noise filtering intact; avoid adding unrelated emails just to increase coverage count.",
+        "Ensure the output sections remain structured and that each major claim is supported by the email set."
+      ]
+    },
+    "task_20_eli5_pdf_summary": {
+      "task_name": "ELI5 PDF Summarization",
+      "when_to_use": "Use when the summary is factually decent but still too technical, too abstract, or not child-friendly enough.",
+      "observed_failure_patterns": [
+        "The first attempt included technical terms like 'Artificial General Intelligence' and 'pattern matching'.",
+        "Later successful attempts improved mainly by simplifying wording and analogies, not by adding more facts."
+      ],
+      "repair_steps": [
+        "Re-read your current summary and remove or replace every technical term a young child would not understand.",
+        "Explain GPT-4 using everyday analogies such as a very smart helper, student, or friend who can look at pictures and answer questions.",
+        "Keep the key ideas: what GPT-4 is, what it can do, that people tried to make it safer, and that it can still make mistakes.",
+        "Target a warm, simple 200-400 word explanation with short sentences and no paper-style phrasing."
+      ]
+    },
+    "task_21_openclaw_comprehension": {
+      "task_name": "OpenClaw Report Comprehension",
+      "when_to_use": "Use when only one extracted fact is wrong or incomplete, especially API type wording.",
+      "observed_failure_patterns": [
+        "The first attempt got nearly everything right but only partially captured the API type."
+      ],
+      "repair_steps": [
+        "Do not re-extract the whole report blindly; identify the exact failing line in answer.txt and verify that fact against the PDF.",
+        "For API wording, preserve both key qualifiers when present in the report rather than shortening aggressively.",
+        "Keep one answer per line and avoid reformulating already-correct answers.",
+        "Before finishing, check each line against the expected format: counts, category labels, filename, API type, date, and task count."
+      ]
+    },
+    "task_22_second_brain": {
+      "task_name": "Second Brain Knowledge Persistence",
+      "when_to_use": "Use when the memory file exists but the retry still fails on same-session recall, cross-session retrieval, or answer quality.",
+      "observed_failure_patterns": [
+        "Early failures came from saving to the wrong path.",
+        "Later retries fixed the file path but still lacked evidence of actual recall behavior in the transcript.",
+        "The model often performed file I/O without clearly answering the recall questions from the stored memory."
+      ],
+      "repair_steps": [
+        "First verify that the canonical file path is exactly memory/MEMORY.md and that it contains all required facts in a readable structure.",
+        "In the same-session recall step, answer the user questions directly using the stored facts instead of merely mentioning the file operations.",
+        "In the fresh-session recall step, explicitly read memory/MEMORY.md again and respond to all five requested items in the final answer.",
+        "Prioritize evidence of successful retrieval in the transcript: correct file path, explicit read of the memory file, and direct factual answers."
+      ]
+    }
+  }
+}

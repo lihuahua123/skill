@@ -2,7 +2,7 @@
   "series": [
     {
       "file": "results/rq1/0001_minimax-cn-MiniMax-M2-5.json",
-      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=6",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0001",
       "suite": "task_06_events",
@@ -102,7 +102,7 @@
     },
     {
       "file": "results/rq1/0009_minimax-cn-MiniMax-M2-5.json",
-      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | append | max-attempts-only | k=2",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=2",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0009",
       "suite": "task_06_events",
@@ -142,6 +142,204 @@
             "delta_success_rate": 0.0,
             "delta_tokens_per_task": 939922.0,
             "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/0028_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0028",
+      "suite": "task_06_events,task_07_email,task_08_memory,task_09_files,task_10_workflow,task_11_clawdhub,task_12_skill_search,task_13_image_gen,task_14_humanizer,task_15_daily_summary,task_16_email_triage,task_17_email_search,task_18_market_research,task_19_spreadsheet_summary,task_20_eli5_pdf_summary,task_21_openclaw_comprehension,task_22_second_brain",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 15,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.266667,
+            "successful_tasks": 4,
+            "avg_tokens_per_task": 150107.533,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 50.156895,
+            "delta_success_rate": 0.266667,
+            "delta_tokens_per_task": 150107.533,
+            "success_per_1k_tokens": 0.001777,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 5629.025
+          },
+          {
+            "k": 2,
+            "success_rate": 0.466667,
+            "successful_tasks": 7,
+            "avg_tokens_per_task": 217294.733,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 42.360407,
+            "delta_success_rate": 0.2,
+            "delta_tokens_per_task": 67187.2,
+            "success_per_1k_tokens": 0.002148,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 3359.36
+          },
+          {
+            "k": 3,
+            "success_rate": 0.533333,
+            "successful_tasks": 8,
+            "avg_tokens_per_task": 291731.533,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 38.644683,
+            "delta_success_rate": 0.066666,
+            "delta_tokens_per_task": 74436.8,
+            "success_per_1k_tokens": 0.001828,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 11165.632
+          },
+          {
+            "k": 4,
+            "success_rate": 0.6,
+            "successful_tasks": 9,
+            "avg_tokens_per_task": 328084.6,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 52.066466,
+            "delta_success_rate": 0.066667,
+            "delta_tokens_per_task": 36353.067,
+            "success_per_1k_tokens": 0.001829,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 5452.933
+          },
+          {
+            "k": 5,
+            "success_rate": 0.6,
+            "successful_tasks": 9,
+            "avg_tokens_per_task": 347745.467,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 39.461317,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 19660.867,
+            "success_per_1k_tokens": 0.001725,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.6,
+            "successful_tasks": 9,
+            "avg_tokens_per_task": 390224.133,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 53.369378,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 42478.666,
+            "success_per_1k_tokens": 0.001538,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/0029_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0029",
+      "suite": "task_13_image_gen,task_16_email_triage",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0
+      },
+      "curve": {
+        "num_tasks": 2,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 49002.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 111.428528,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 49002.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.5,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 165456.5,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 66.170306,
+            "delta_success_rate": 0.5,
+            "delta_tokens_per_task": 116454.5,
+            "success_per_1k_tokens": 0.003022,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 2329.09
+          },
+          {
+            "k": 3,
+            "success_rate": 0.5,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 172382.5,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 67.239177,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 6926.0,
+            "success_per_1k_tokens": 0.002901,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.5,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 194145.5,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 64.717862,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 21763.0,
+            "success_per_1k_tokens": 0.002575,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.5,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 216369.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 62.878242,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 22223.5,
+            "success_per_1k_tokens": 0.002311,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.5,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 246788.5,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 56.967384,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 30419.5,
+            "success_per_1k_tokens": 0.002026,
             "success_per_dollar": null,
             "tokens_per_1pct_success": null
           }

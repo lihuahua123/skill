@@ -33,6 +33,13 @@ KIMI_JUDGE_API_KEY_DEFAULT = "sk-ccNgMEVLZvvhMAgMVl8H7l3YHUlwUjelCGeDDZWR1vpTS3j
 # Kimi K2.5 pricing USD per 1M tokens (input $0.60, output $2.00)
 KIMI_JUDGE_PRICE_INPUT_PER_1M = 0.60
 KIMI_JUDGE_PRICE_OUTPUT_PER_1M = 2.00
+KIMI_JUDGE_MAX_RETRIES = 3
+
+
+def _is_retryable_kimi_error(exc: Exception) -> bool:
+    if isinstance(exc, urllib.error.HTTPError):
+        return exc.code == 429 or 500 <= exc.code < 600
+    return isinstance(exc, urllib.error.URLError)
 
 
 @dataclass
@@ -219,7 +226,6 @@ def _grade_llm_judge_kimi(
         method="POST",
     )
 
-    start = time.time()
     judge_usage: Dict[str, Any] = {
         "model": model,
         "input_tokens": 0,
@@ -227,46 +233,63 @@ def _grade_llm_judge_kimi(
         "total_tokens": 0,
         "cost_usd": 0.0,
         "execution_time_seconds": 0.0,
-        "request_count": 1,
+        "request_count": 0,
     }
     content_text = ""
-    try:
-        with urllib.request.urlopen(req, timeout=int(timeout_seconds)) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-        judge_usage["execution_time_seconds"] = round(time.time() - start, 3)
-        choice = (data.get("choices") or [None])[0]
-        if choice and isinstance(choice.get("message"), dict):
-            content_text = choice["message"].get("content") or ""
-        usage = data.get("usage") or {}
-        judge_usage["input_tokens"] = int(usage.get("prompt_tokens", 0) or usage.get("input_tokens", 0))
-        judge_usage["output_tokens"] = int(usage.get("completion_tokens", 0) or usage.get("output_tokens", 0))
-        judge_usage["total_tokens"] = judge_usage["input_tokens"] + judge_usage["output_tokens"]
-        if judge_usage["total_tokens"] > 0:
-            cost = (
-                judge_usage["input_tokens"] * (KIMI_JUDGE_PRICE_INPUT_PER_1M / 1e6)
-                + judge_usage["output_tokens"] * (KIMI_JUDGE_PRICE_OUTPUT_PER_1M / 1e6)
+    last_error_detail = ""
+    request_start = time.time()
+    for attempt in range(1, KIMI_JUDGE_MAX_RETRIES + 1):
+        judge_usage["request_count"] = attempt
+        try:
+            with urllib.request.urlopen(req, timeout=int(timeout_seconds)) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            judge_usage["execution_time_seconds"] = round(time.time() - request_start, 3)
+            choice = (data.get("choices") or [None])[0]
+            if choice and isinstance(choice.get("message"), dict):
+                content_text = choice["message"].get("content") or ""
+            usage = data.get("usage") or {}
+            judge_usage["input_tokens"] = int(usage.get("prompt_tokens", 0) or usage.get("input_tokens", 0))
+            judge_usage["output_tokens"] = int(usage.get("completion_tokens", 0) or usage.get("output_tokens", 0))
+            judge_usage["total_tokens"] = judge_usage["input_tokens"] + judge_usage["output_tokens"]
+            if judge_usage["total_tokens"] > 0:
+                cost = (
+                    judge_usage["input_tokens"] * (KIMI_JUDGE_PRICE_INPUT_PER_1M / 1e6)
+                    + judge_usage["output_tokens"] * (KIMI_JUDGE_PRICE_OUTPUT_PER_1M / 1e6)
+                )
+                judge_usage["cost_usd"] = round(cost, 6)
+            break
+        except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, KeyError) as e:
+            judge_usage["execution_time_seconds"] = round(time.time() - request_start, 3)
+            err_detail = str(e)
+            if isinstance(e, urllib.error.HTTPError):
+                try:
+                    body = e.read().decode("utf-8", errors="replace")
+                    if body:
+                        err_detail = f"{e.code} {e.reason}: {body[:500]}"
+                except Exception:
+                    pass
+            last_error_detail = err_detail
+            if attempt < KIMI_JUDGE_MAX_RETRIES and _is_retryable_kimi_error(e):
+                backoff_seconds = attempt
+                logger.warning(
+                    "Kimi judge API request failed on attempt %s/%s: %s; retrying in %ss",
+                    attempt,
+                    KIMI_JUDGE_MAX_RETRIES,
+                    err_detail,
+                    backoff_seconds,
+                )
+                time.sleep(backoff_seconds)
+                continue
+            logger.warning("Kimi judge API request failed: %s", err_detail)
+            return GradeResult(
+                task_id=task.task_id,
+                score=0.0,
+                max_score=1.0,
+                grading_type="llm_judge",
+                breakdown={},
+                notes=f"Kimi judge API error: {err_detail}",
+                judge_usage=judge_usage,
             )
-            judge_usage["cost_usd"] = round(cost, 6)
-    except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, KeyError) as e:
-        judge_usage["execution_time_seconds"] = round(time.time() - start, 3)
-        err_detail = str(e)
-        if isinstance(e, urllib.error.HTTPError):
-            try:
-                body = e.read().decode("utf-8", errors="replace")
-                if body:
-                    err_detail = f"{e.code} {e.reason}: {body[:500]}"
-            except Exception:
-                pass
-        logger.warning("Kimi judge API request failed: %s", err_detail)
-        return GradeResult(
-            task_id=task.task_id,
-            score=0.0,
-            max_score=1.0,
-            grading_type="llm_judge",
-            breakdown={},
-            notes=f"Kimi judge API error: {err_detail}",
-            judge_usage=judge_usage,
-        )
 
     raw_parsed = _parse_judge_response_text(content_text)
     parsed = _normalize_judge_response(raw_parsed)

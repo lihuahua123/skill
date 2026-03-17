@@ -66,6 +66,31 @@
 
 ## 各研究问题的实验设计
 
+### RQ1：单轮的Feedback Policy 与 Feedback Format
+
+目标：
+
+- 评估 feedback 质量和格式对收敛与 token 开销的影响
+
+实验：
+
+- 固定 `max_task_attempts`
+- 比较：
+  - `vague`
+  - `error-localized`
+  - `actionable-path`
+- 交叉比较：
+  - `full-refresh`
+  - `stable-prefix`
+
+指标：
+
+- 最终 success rate
+- 首次成功轮次
+- 累计 token / cost
+- 每轮 improvement rate
+- feedback 长度与 cache 相关 proxy
+
 ### RQ1：Retry Budget 的边际收益
 
 目标：
@@ -114,30 +139,6 @@
 - 达到目标 success 所需平均 token / cost
 - stop-too-early / stop-too-late rate
 
-### RQ4：Feedback Policy 与 Feedback Format
-
-目标：
-
-- 评估 feedback 质量和格式对收敛与 token 开销的影响
-
-实验：
-
-- 固定 `max_task_attempts`
-- 比较：
-  - `vague`
-  - `error-localized`
-  - `actionable-path`
-- 交叉比较：
-  - `full-refresh`
-  - `stable-prefix`
-
-指标：
-
-- 最终 success rate
-- 首次成功轮次
-- 累计 token / cost
-- 每轮 improvement rate
-- feedback 长度与 cache 相关 proxy
 
 ## 最小实验矩阵
 

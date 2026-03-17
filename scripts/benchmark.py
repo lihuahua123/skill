@@ -42,6 +42,10 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger("benchmark")
+TASK_SPECIFIC_REPAIR_STEPS_PATH = (
+    Path(__file__).resolve().parent.parent / "analysis" / "task_specific_repair_steps.json"
+)
+_TASK_SPECIFIC_REPAIR_STEPS_CACHE: Optional[Dict[str, Any]] = None
 
 
 class OpenClawAgent:
@@ -386,6 +390,33 @@ def _format_breakdown_lines(grade: GradeResult, unresolved_only: bool = False) -
     return lines
 
 
+def _load_task_specific_repair_steps() -> Dict[str, Any]:
+    global _TASK_SPECIFIC_REPAIR_STEPS_CACHE
+    if _TASK_SPECIFIC_REPAIR_STEPS_CACHE is not None:
+        return _TASK_SPECIFIC_REPAIR_STEPS_CACHE
+    try:
+        _TASK_SPECIFIC_REPAIR_STEPS_CACHE = json.loads(
+            TASK_SPECIFIC_REPAIR_STEPS_PATH.read_text()
+        )
+    except FileNotFoundError:
+        logger.warning(
+            "Task-specific repair steps file not found: %s",
+            TASK_SPECIFIC_REPAIR_STEPS_PATH,
+        )
+        _TASK_SPECIFIC_REPAIR_STEPS_CACHE = {"tasks": {}}
+    except json.JSONDecodeError as exc:
+        logger.warning(
+            "Failed to parse task-specific repair steps file %s: %s",
+            TASK_SPECIFIC_REPAIR_STEPS_PATH,
+            exc,
+        )
+        _TASK_SPECIFIC_REPAIR_STEPS_CACHE = {"tasks": {}}
+    return _TASK_SPECIFIC_REPAIR_STEPS_CACHE
+
+
+_TASK_SPECIFIC_REPAIR_STEPS_CACHE = _load_task_specific_repair_steps()
+
+
 def _retry_policy_instructions(feedback_policy: str) -> str:
     if feedback_policy == "vague":
         return (
@@ -399,6 +430,7 @@ def _retry_policy_instructions(feedback_policy: str) -> str:
             "- Continue working in the same workspace.\n"
             "- Do not restart from scratch unless necessary.\n"
             "- Address only unresolved issues.\n"
+            "- Follow the suggested repair plan, especially any task-specific steps.\n"
             "- Prefer targeted fixes over broad rewrites.\n"
             "- When you are done, provide the updated final answer."
         )
@@ -411,7 +443,18 @@ def _retry_policy_instructions(feedback_policy: str) -> str:
     )
 
 
-def _actionable_repair_steps(grade: GradeResult) -> List[str]:
+def _actionable_repair_steps(task: Task, grade: GradeResult) -> List[str]:
+    task_specific = (
+        _load_task_specific_repair_steps().get("tasks", {}).get(task.task_id)
+    )
+    if task_specific:
+        configured_steps = task_specific.get("repair_steps") or []
+        if configured_steps:
+            return [
+                f"{idx}. {step}"
+                for idx, step in enumerate(configured_steps, start=1)
+            ]
+
     unresolved = [key for key, value in grade.breakdown.items() if value < 1.0]
     steps = []
     if unresolved:
@@ -469,7 +512,7 @@ def _build_iteration_feedback(
                 "\n\nUnresolved issues:\n"
                 f"{unresolved_breakdown}\n\n"
                 "Suggested repair plan:\n"
-                f"{chr(10).join(_actionable_repair_steps(grade))}\n\n"
+                f"{chr(10).join(_actionable_repair_steps(task, grade))}\n\n"
                 "Validator notes:\n"
                 f"{notes}"
             )
@@ -504,7 +547,7 @@ def _build_iteration_feedback(
             "Validator notes:\n"
             f"{notes}\n\n"
             "Suggested repair plan:\n"
-            f"{chr(10).join(_actionable_repair_steps(grade))}\n\n"
+            f"{chr(10).join(_actionable_repair_steps(task, grade))}\n\n"
             "Original grading criteria:\n"
             f"{criteria}\n\n"
             "Retry policy:\n"
