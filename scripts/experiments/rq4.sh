@@ -34,9 +34,9 @@ RESULTS_DIR="${RQ4_RESULTS_DIR:-results/rq4}"
 ANALYSIS_DIR="${RQ4_ANALYSIS_DIR:-analysis/rq4}"
 STOP_RULE_VALUE="${RQ4_STOP_RULE:-max-attempts-only}"
 # vague error-localized 
-# stable-prefix
-for feedback_policy in  actionable-path; do
-  for feedback_format in stable-prefix; do
+# stable-prefix full-refresh
+for feedback_policy in  vague error-localized actionable-path-file; do
+  for feedback_format in stable-prefix full-refresh; do
     run_benchmark "${RESULTS_DIR}" \
       "${MODEL_ARGS[@]}" \
       "${SUITE_ARGS[@]}" \
@@ -51,3 +51,5 @@ for feedback_policy in  actionable-path; do
 done
 
 run_analysis "${RESULTS_DIR}" "${ANALYSIS_DIR}" "policy"
+
+# ./scripts/experiments/rq4.sh --model minimax-cn/MiniMax-M2.5 --suit task_08_memory,task_09_files,task_10_workflow,task_13_image_gen,task_14_humanizer,task_15_daily_summary,task_16_email_triage,task_17_email_search,task_20_eli5_pdf_summary,task_21_openclaw_comprehension,task_22_second_brain

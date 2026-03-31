@@ -40,10 +40,11 @@
         "Some retries were dominated by judge/network failures rather than actual task regressions."
       ],
       "repair_steps": [
-        "Re-read config.json explicitly with the file-reading tool in the retry, even if you already know the endpoint.",
-        "Verify the Python script still parses config.json, extracts the endpoint, performs an HTTP request with urllib or equivalent, and includes basic error handling.",
-        "Keep NOTES.md focused on what was done, how the script works, how to run it, and the key configuration details.",
-        "If the files are already correct, prefer minimal edits and prioritize making the transcript visibly satisfy the 'read config.json' requirement."
+        "First inspect the unresolved breakdown and validator notes, then target only the still-failing items instead of repeating the full workflow.",
+        "If automated.read_config is still failing, explicitly read config.json again and ensure the transcript contains a detectable file-read call for that file before making broader changes.",
+        "If the remaining issues are script or documentation judge deductions, keep the existing solution and make only the minimal code/doc updates suggested by the validator notes.",
+        "Verify the Python script still parses config.json, extracts the endpoint, performs an HTTP request, and includes the specific missing robustness checks called out by the validator.",
+        "Keep NOTES.md focused on what was done, how the script works, how to run it, and only the key configuration details relevant to the unresolved judge feedback."
       ]
     },
     "task_13_image_gen": {

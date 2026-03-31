@@ -1,714 +1,616 @@
-2026-03-17 11:47:33,491 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
+[run] threejs-structure-parser
+{
+  "task": "threejs-structure-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] python-scala-translation
+{
+  "task": "python-scala-translation",
+  "status": "failed",
+  "exit_code": -9,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-google-auto
+{
+  "task": "fix-build-google-auto",
+  "status": "failed",
+  "exit_code": -9,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-agentops
+{
+  "task": "fix-build-agentops",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] court-form-filling
+{
+  "task": "court-form-filling",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dialogue-parser
+{
+  "task": "dialogue-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] powerlifting-coef-calc
+{
+  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
+  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-31-02.json"
+}
+[run] threejs-structure-parser
+{
+  "task": "powerlifting-coef-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] earthquake-phase-association
+{
+  "task": "threejs-structure-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] python-scala-translation
+{
+  "task": "earthquake-phase-association",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dapt-intrusion-detection
+{
+  "task": "python-scala-translation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-google-auto
+{
+  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
+  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
+}
+[run] threejs-structure-parser
+[run] python-scala-translation
+[run] fix-build-google-auto
+{
+  "task": "fix-build-google-auto",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-agentops
+[run] court-form-filling
+[run] dialogue-parser
+[run] powerlifting-coef-calc
+[run] earthquake-phase-association
+{
+  "task": "earthquake-phase-association",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dapt-intrusion-detection
+[run] setup-fuzzing-py
+[run] software-dependency-audit
+[run] suricata-custom-exfil
+[run] r2r-mpc-control
+[run] energy-market-pricing
+{
+  "task": "energy-market-pricing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] financial-modeling-qa
+[run] find-topk-similiar-chemicals
+[run] react-performance-debugging
+{
+  "task": "react-performance-debugging",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] glm-lake-mendota
+[run] lake-warming-attribution
+[run] latex-formula-extraction
+{
+  "task": "latex-formula-extraction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lean4-proof
+[run] manufacturing-equipment-maintenance
+[run] manufacturing-codebook-normalization
+{
+  "task": "manufacturing-codebook-normalization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mars-clouds-clustering
+{
+  "task": "mars-clouds-clustering",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] offer-letter-generator
+[run] parallel-tfidf-search
+{
+  "task": "parallel-tfidf-search",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pedestrian-traffic-counting
+{
+  "task": "pedestrian-traffic-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] quantum-numerical-simulation
+{
+  "task": "quantum-numerical-simulation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-demand
+{
+  "task": "shock-analysis-demand",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] reserves-at-risk-calc
+[run] sec-financial-report
+[run] spring-boot-jakarta-migration
+{
+  "backend": "skillsbench",
+  "job_name": "skillsbench-rq1-2026-03-28__19-58-04",
+  "task_count": 32,
+  "completed_task_count": 0,
+  "failed_task_count": 11,
+  "failed_tasks": [
+    {
+      "task": "fix-build-google-auto",
+      "exit_code": 1
+    },
+    {
+      "task": "earthquake-phase-association",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-market-pricing",
+      "exit_code": 1
+    },
+    {
+      "task": "react-performance-debugging",
+      "exit_code": 1
+    },
+    {
+      "task": "latex-formula-extraction",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-codebook-normalization",
+      "exit_code": 1
+    },
+    {
+      "task": "mars-clouds-clustering",
+      "exit_code": 1
+    },
+    {
+      "task": "parallel-tfidf-search",
+      "exit_code": 1
+    },
+    {
+      "task": "pedestrian-traffic-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "quantum-numerical-simulation",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-demand",
+      "exit_code": 1
+    }
+  ],
+  "tasks": [
+    "tasks/threejs-structure-parser",
+    "tasks/python-scala-translation",
+    "tasks/fix-build-google-auto",
+    "tasks/fix-build-agentops",
+    "tasks/court-form-filling",
+    "tasks/dialogue-parser",
+    "tasks/powerlifting-coef-calc",
+    "tasks/earthquake-phase-association",
+    "tasks/dapt-intrusion-detection",
+    "tasks/setup-fuzzing-py",
+    "tasks/software-dependency-audit",
+    "tasks/suricata-custom-exfil",
+    "tasks/r2r-mpc-control",
+    "tasks/energy-market-pricing",
+    "tasks/financial-modeling-qa",
+    "tasks/find-topk-similiar-chemicals",
+    "tasks/react-performance-debugging",
+    "tasks/glm-lake-mendota",
+    "tasks/lake-warming-attribution",
+    "tasks/latex-formula-extraction",
+    "tasks/lean4-proof",
+    "tasks/manufacturing-equipment-maintenance",
+    "tasks/manufacturing-codebook-normalization",
+    "tasks/mars-clouds-clustering",
+    "tasks/offer-letter-generator",
+    "tasks/parallel-tfidf-search",
+    "tasks/pedestrian-traffic-counting",
+    "tasks/quantum-numerical-simulation",
+    "tasks/shock-analysis-demand",
+    "tasks/reserves-at-risk-calc",
+    "tasks/sec-financial-report",
+    "tasks/spring-boot-jakarta-migration"
+  ],
+  "aggregate_output": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
+}
+error: Workspace member `/root/skillsbench/tasks/fix-build-agentops/tests` is missing a `pyproject.toml` (matches: `tasks/fix-build-agentops/tests`)
+Using CPython 3.12.13
+Removed virtual environment at: .venv
+Creating virtual environment at: .venv
+   Updating https://github.com/agentskills/agentskills.git (main)
+   Updating https://github.com/laude-institute/harbor.git (HEAD)
+  × Failed to download and build `skills-ref @
+  │ git+https://github.com/agentskills/agentskills.git@main#subdirectory=skills-ref`
+  ├─▶ Git operation failed
+  ├─▶ failed to fetch into: /root/.cache/uv/git-v0/db/8ced64d3013e1c08
+  ├─▶ failed to fetch commit `7f094a2f794fbf6ccf805f601cdc497110b8a8cd`
+  ╰─▶ process didn't exit successfully: `/usr/bin/git fetch --force
+      --update-head-ok 'https://github.com/agentskills/agentskills.git'
+      '+7f094a2f794fbf6ccf805f601cdc497110b8a8cd:refs/commit/7f094a2f794fbf6ccf805f601cdc497110b8a8cd'`
+      (exit status: 128)
+      --- stderr
+      fatal: unable to access
+      'https://github.com/agentskills/agentskills.git/': GnuTLS recv error
+      (-110): The TLS connection was non-properly terminated.
 
-░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
-▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
-▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
-█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
-█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
-
-                                                           @%@%%@                       
-                                             %*+#++#@   %+-=-....=@                     
-                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
-                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
-            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
-            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
-            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
-            #+========================--------=#=-==-----------------=@                 
-            #+========================-------------------------------=@                 
-            **========================---------------------------++--+@                 
-            @%*+======================------++--=#+--------------==-=#@                 
-            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
-             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
-             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
-            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
-            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
-            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
-            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
-             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
-              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
-                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
-                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
-                                @%%        @%%##############%@            @@            
-                                            @@%%%########%@@                            
-                                               @@@%%%%%@@@                              
-                                                                                        
-                                                                                        
-                                                                                        
-
-2026-03-17 11:47:33,492 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
-usage: benchmark.py [-h] [--model MODEL] [--suite SUITE]
-                    [--output-dir OUTPUT_DIR] [--register] [--no-upload]
-                    [--upload RESULTS_JSON]
-                    [--timeout-multiplier TIMEOUT_MULTIPLIER] [--runs RUNS]
-                    [--max-task-attempts MAX_TASK_ATTEMPTS]
-                    [--feedback-policy {vague,error-localized,actionable-path}]
-                    [--feedback-format {full-refresh,stable-prefix}]
-                    [--stop-rule {max-attempts-only,no-improvement,score-stall,unresolved-stall,low-return}]
-                    [--stop-threshold STOP_THRESHOLD] [--judge JUDGE]
-                    [--verbose] [--official-key KEY]
-                    [--judge-api-base JUDGE_API_BASE]
-                    [--judge-model JUDGE_MODEL]
-                    [--judge-api-key JUDGE_API_KEY]
-benchmark.py: error: argument --suite: expected one argument
-2026-03-17 11:48:46,105 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
-
-░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
-▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
-▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
-█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
-█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
-
-                                                           @%@%%@                       
-                                             %*+#++#@   %+-=-....=@                     
-                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
-                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
-            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
-            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
-            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
-            #+========================--------=#=-==-----------------=@                 
-            #+========================-------------------------------=@                 
-            **========================---------------------------++--+@                 
-            @%*+======================------++--=#+--------------==-=#@                 
-            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
-             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
-             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
-            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
-            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
-            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
-            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
-             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
-              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
-                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
-                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
-                                @%%        @%%##############%@            @@            
-                                            @@%%%########%@@                            
-                                               @@@%%%%%@@@                              
-                                                                                        
-                                                                                        
-                                                                                        
-
-2026-03-17 11:48:46,105 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
-2026-03-17 11:48:51,107 - INFO - 🔧 Initializing BenchmarkRunner...
-2026-03-17 11:48:51,107 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
-2026-03-17 11:48:51,107 - INFO - Initialized BenchmarkRunner
-2026-03-17 11:48:51,107 - INFO - 📂 Loading tasks from directory...
-2026-03-17 11:48:51,107 - INFO - Loading tasks...
-2026-03-17 11:48:51,109 - INFO - Found 23 task files
-2026-03-17 11:48:51,110 - INFO - Successfully loaded task: task_00_sanity
-2026-03-17 11:48:51,111 - INFO - Successfully loaded task: task_01_calendar
-2026-03-17 11:48:51,112 - INFO - Successfully loaded task: task_02_stock
-2026-03-17 11:48:51,113 - INFO - Successfully loaded task: task_03_blog
-2026-03-17 11:48:51,113 - INFO - Successfully loaded task: task_04_weather
-2026-03-17 11:48:51,116 - INFO - Successfully loaded task: task_05_summary
-2026-03-17 11:48:51,117 - INFO - Successfully loaded task: task_06_events
-2026-03-17 11:48:51,118 - INFO - Successfully loaded task: task_07_email
-2026-03-17 11:48:51,120 - INFO - Successfully loaded task: task_08_memory
-2026-03-17 11:48:51,120 - INFO - Successfully loaded task: task_09_files
-2026-03-17 11:48:51,122 - INFO - Successfully loaded task: task_10_workflow
-2026-03-17 11:48:51,122 - INFO - Successfully loaded task: task_11_clawdhub
-2026-03-17 11:48:51,124 - INFO - Successfully loaded task: task_12_skill_search
-2026-03-17 11:48:51,125 - INFO - Successfully loaded task: task_13_image_gen
-2026-03-17 11:48:51,126 - INFO - Successfully loaded task: task_14_humanizer
-2026-03-17 11:48:51,131 - INFO - Successfully loaded task: task_15_daily_summary
-2026-03-17 11:48:51,139 - INFO - Successfully loaded task: task_16_email_triage
-2026-03-17 11:48:51,150 - INFO - Successfully loaded task: task_17_email_search
-2026-03-17 11:48:51,151 - INFO - Successfully loaded task: task_16_market_research
-2026-03-17 11:48:51,152 - INFO - Successfully loaded task: task_18_spreadsheet_summary
-2026-03-17 11:48:51,153 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
-2026-03-17 11:48:51,154 - INFO - Successfully loaded task: task_21_openclaw_comprehension
-2026-03-17 11:48:51,156 - INFO - Successfully loaded task: task_22_second_brain
-2026-03-17 11:48:51,156 - INFO - Successfully loaded 23 tasks
-2026-03-17 11:48:51,156 - INFO - Loaded 23 tasks
-2026-03-17 11:48:54,161 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:49:01,844 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
-
-2026-03-17 11:49:01,845 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:49:01,845 - INFO - 
-================================================================================
-2026-03-17 11:49:01,845 - INFO - 📋 Task 1/15 (Run 1/1)
-2026-03-17 11:49:01,845 - INFO - ================================================================================
-2026-03-17 11:49:01,845 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_06_events
-2026-03-17 11:49:01,845 - INFO -    Task: Tech Conference Research
-2026-03-17 11:49:01,845 - INFO -    Category: research
-2026-03-17 11:50:00,040 - INFO - Found transcript via sessions.json: task_06_events_1773719344755.jsonl (attempt 1)
-2026-03-17 11:50:25,700 - INFO -    📊 Attempt 1/6 score: 1.00/1.00 (100%)
-2026-03-17 11:50:25,700 - INFO - ✅ Task task_06_events: 1.0/1.0 (100%) - llm_judge
-2026-03-17 11:50:25,700 - INFO -    Notes: Excellent execution. All 5 conferences are major legitimate tech events (MWC, Microsoft Build, Google I/O, Black Hat, AWS re:Invent) with accurate dates, locations, and URLs for 2025. Information pres
-2026-03-17 11:50:25,700 - INFO -    Attempts used: 1/6
-2026-03-17 11:50:25,700 - INFO - 
-================================================================================
-2026-03-17 11:50:25,700 - INFO - 📋 Task 2/15 (Run 1/1)
-2026-03-17 11:50:25,701 - INFO - ================================================================================
-2026-03-17 11:50:25,701 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_07_email
-2026-03-17 11:50:25,701 - INFO -    Task: Professional Email Drafting
-2026-03-17 11:50:25,701 - INFO -    Category: writing
-2026-03-17 11:50:25,702 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:50:44,187 - INFO - Found transcript via sessions.json: task_07_email_1773719428781.jsonl (attempt 1)
-2026-03-17 11:51:23,371 - INFO -    📊 Attempt 1/6 score: 1.00/1.00 (100%)
-2026-03-17 11:51:23,371 - INFO - ✅ Task task_07_email: 1.0/1.0 (100%) - llm_judge
-2026-03-17 11:51:23,371 - INFO -    Notes: Excellent execution. The email maintains perfect professional tone with appropriate courtesy, clearly declines with scheduling conflict reason, offers concrete alternatives (reschedule and materials r
-2026-03-17 11:51:23,372 - INFO -    Attempts used: 1/6
-2026-03-17 11:51:23,372 - INFO - 
-================================================================================
-2026-03-17 11:51:23,372 - INFO - 📋 Task 3/15 (Run 1/1)
-2026-03-17 11:51:23,372 - INFO - ================================================================================
-2026-03-17 11:51:23,372 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_08_memory
-2026-03-17 11:51:23,372 - INFO -    Task: Memory Retrieval from Context
-2026-03-17 11:51:23,372 - INFO -    Category: context
-2026-03-17 11:51:23,373 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:51:44,869 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:51:44,871 - INFO -    📊 Attempt 1/6 score: 0.70/1.00 (70%)
-2026-03-17 11:51:44,872 - INFO - 🔁 Retrying task_08_memory with validator feedback (2/6)
-2026-03-17 11:52:09,317 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:52:09,320 - INFO -    📊 Attempt 2/6 score: 0.80/1.00 (80%)
-2026-03-17 11:52:09,320 - INFO - 🔁 Retrying task_08_memory with validator feedback (3/6)
-2026-03-17 11:52:27,711 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:52:27,715 - INFO -    📊 Attempt 3/6 score: 0.80/1.00 (80%)
-2026-03-17 11:52:27,715 - INFO - 🔁 Retrying task_08_memory with validator feedback (4/6)
-2026-03-17 11:52:52,447 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:52:52,451 - INFO -    📊 Attempt 4/6 score: 0.80/1.00 (80%)
-2026-03-17 11:52:52,451 - INFO - 🔁 Retrying task_08_memory with validator feedback (5/6)
-2026-03-17 11:53:36,815 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:53:36,819 - INFO -    📊 Attempt 5/6 score: 0.80/1.00 (80%)
-2026-03-17 11:53:36,819 - INFO - 🔁 Retrying task_08_memory with validator feedback (6/6)
-2026-03-17 11:54:04,001 - INFO - Found transcript via sessions.json: task_08_memory_1773719486263.jsonl (attempt 1)
-2026-03-17 11:54:04,005 - INFO -    📊 Attempt 6/6 score: 0.80/1.00 (80%)
-2026-03-17 11:54:04,005 - INFO - ⚠️ Task task_08_memory: 0.8/1.0 (80%) - automated
-2026-03-17 11:54:04,005 - INFO -    Attempts used: 6/6
-2026-03-17 11:54:04,005 - INFO - 
-================================================================================
-2026-03-17 11:54:04,005 - INFO - 📋 Task 4/15 (Run 1/1)
-2026-03-17 11:54:04,006 - INFO - ================================================================================
-2026-03-17 11:54:04,006 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_09_files
-2026-03-17 11:54:04,006 - INFO -    Task: File Structure Creation
-2026-03-17 11:54:04,006 - INFO -    Category: file_ops
-2026-03-17 11:54:04,006 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:54:23,951 - INFO - Found transcript via sessions.json: task_09_files_1773719646958.jsonl (attempt 1)
-2026-03-17 11:54:23,954 - INFO -    📊 Attempt 1/6 score: 0.86/1.00 (86%)
-2026-03-17 11:54:23,954 - INFO - 🔁 Retrying task_09_files with validator feedback (2/6)
-2026-03-17 11:54:40,494 - INFO - Found transcript via sessions.json: task_09_files_1773719646958.jsonl (attempt 1)
-2026-03-17 11:54:40,497 - INFO -    📊 Attempt 2/6 score: 1.00/1.00 (100%)
-2026-03-17 11:54:40,497 - INFO - ✅ Task task_09_files: 1.0/1.0 (100%) - automated
-2026-03-17 11:54:40,497 - INFO -    Attempts used: 2/6
-2026-03-17 11:54:40,498 - INFO - 
-================================================================================
-2026-03-17 11:54:40,498 - INFO - 📋 Task 5/15 (Run 1/1)
-2026-03-17 11:54:40,498 - INFO - ================================================================================
-2026-03-17 11:54:40,498 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
-2026-03-17 11:54:40,498 - INFO -    Task: Multi-step API Workflow
-2026-03-17 11:54:40,498 - INFO -    Category: complex
-2026-03-17 11:54:40,499 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 11:55:15,322 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 11:55:53,057 - INFO -    📊 Attempt 1/6 score: 0.88/1.00 (88%)
-2026-03-17 11:55:53,058 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/6)
-2026-03-17 11:56:26,707 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 11:58:06,204 - INFO -    📊 Attempt 2/6 score: 0.90/1.00 (90%)
-2026-03-17 11:58:06,205 - INFO - 🔁 Retrying task_10_workflow with validator feedback (3/6)
-2026-03-17 11:58:37,742 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 11:58:49,118 - WARNING - Task grading failed during retry for task_10_workflow, continuing: Remote end closed connection without response
-2026-03-17 11:58:49,118 - INFO -    📊 Attempt 3/6 score: 0.00/1.00 (0%)
-2026-03-17 11:58:49,118 - INFO - 🔁 Retrying task_10_workflow with validator feedback (4/6)
-2026-03-17 11:59:11,233 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 11:59:49,703 - INFO -    📊 Attempt 4/6 score: 0.92/1.00 (92%)
-2026-03-17 11:59:49,703 - INFO - 🔁 Retrying task_10_workflow with validator feedback (5/6)
-2026-03-17 12:00:36,260 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 12:00:51,780 - WARNING - Kimi judge API request failed on attempt 1/3: 429 Too Many Requests: {"error":{"message":"The engine is currently overloaded, please try again later","type":"engine_overloaded_error"}}; retrying in 1s
-2026-03-17 12:01:00,189 - WARNING - Kimi judge API request failed on attempt 2/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 2s
-2026-03-17 12:01:49,347 - INFO -    📊 Attempt 5/6 score: 0.92/1.00 (92%)
-2026-03-17 12:01:49,347 - INFO - 🔁 Retrying task_10_workflow with validator feedback (6/6)
-2026-03-17 12:02:31,514 - INFO - Found transcript via sessions.json: task_10_workflow_1773719683458.jsonl (attempt 1)
-2026-03-17 12:02:43,880 - WARNING - Task grading failed during retry for task_10_workflow, continuing: Remote end closed connection without response
-2026-03-17 12:02:43,880 - INFO -    📊 Attempt 6/6 score: 0.00/1.00 (0%)
-2026-03-17 12:02:43,880 - INFO - ❌ Task task_10_workflow: 0.0/1.0 (0%) - hybrid
-2026-03-17 12:02:43,880 - INFO -    Notes: Retry grading failed: Remote end closed connection without response
-2026-03-17 12:02:43,881 - INFO -    Attempts used: 6/6
-2026-03-17 12:02:43,881 - INFO - 
-================================================================================
-2026-03-17 12:02:43,881 - INFO - 📋 Task 6/15 (Run 1/1)
-2026-03-17 12:02:43,881 - INFO - ================================================================================
-2026-03-17 12:02:43,881 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_11_clawdhub
-2026-03-17 12:02:43,881 - INFO -    Task: Create Project Structure
-2026-03-17 12:02:43,881 - INFO -    Category: file_ops
-2026-03-17 12:02:43,882 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:03:05,274 - INFO - Found transcript via sessions.json: task_11_clawdhub_1773720166989.jsonl (attempt 1)
-2026-03-17 12:03:05,276 - INFO -    📊 Attempt 1/6 score: 1.00/1.00 (100%)
-2026-03-17 12:03:05,276 - INFO - ✅ Task task_11_clawdhub: 1.0/1.0 (100%) - automated
-2026-03-17 12:03:05,276 - INFO -    Attempts used: 1/6
-2026-03-17 12:03:05,277 - INFO - 
-================================================================================
-2026-03-17 12:03:05,277 - INFO - 📋 Task 7/15 (Run 1/1)
-2026-03-17 12:03:05,277 - INFO - ================================================================================
-2026-03-17 12:03:05,277 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_12_skill_search
-2026-03-17 12:03:05,277 - INFO -    Task: Search and Replace in Files
-2026-03-17 12:03:05,277 - INFO -    Category: file_ops
-2026-03-17 12:03:05,278 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:03:37,264 - INFO - Found transcript via sessions.json: task_12_skill_search_1773720188385.jsonl (attempt 1)
-2026-03-17 12:03:37,266 - INFO -    📊 Attempt 1/6 score: 1.00/1.00 (100%)
-2026-03-17 12:03:37,266 - INFO - ✅ Task task_12_skill_search: 1.0/1.0 (100%) - automated
-2026-03-17 12:03:37,266 - INFO -    Attempts used: 1/6
-2026-03-17 12:03:37,267 - INFO - 
-================================================================================
-2026-03-17 12:03:37,267 - INFO - 📋 Task 8/15 (Run 1/1)
-2026-03-17 12:03:37,267 - INFO - ================================================================================
-2026-03-17 12:03:37,267 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_13_image_gen
-2026-03-17 12:03:37,267 - INFO -    Task: AI Image Generation
-2026-03-17 12:03:37,267 - INFO -    Category: creative
-2026-03-17 12:03:37,268 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:05:40,251 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:06:13,996 - INFO -    📊 Attempt 1/6 score: 0.23/1.00 (23%)
-2026-03-17 12:06:13,996 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (2/6)
-2026-03-17 12:06:32,580 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:07:28,619 - INFO -    📊 Attempt 2/6 score: 0.23/1.00 (23%)
-2026-03-17 12:07:28,619 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (3/6)
-2026-03-17 12:07:47,534 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:07:54,908 - WARNING - Kimi judge API request failed on attempt 1/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 1s
-2026-03-17 12:08:06,686 - WARNING - Kimi judge API request failed on attempt 2/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 2s
-2026-03-17 12:08:19,992 - WARNING - Kimi judge API request failed: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>
-2026-03-17 12:08:19,992 - INFO -    📊 Attempt 3/6 score: 0.08/1.00 (8%)
-2026-03-17 12:08:19,993 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (4/6)
-2026-03-17 12:08:38,596 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:09:40,140 - INFO -    📊 Attempt 4/6 score: 0.20/1.00 (20%)
-2026-03-17 12:09:40,140 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (5/6)
-2026-03-17 12:09:58,868 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:10:34,271 - INFO -    📊 Attempt 5/6 score: 0.23/1.00 (23%)
-2026-03-17 12:10:34,271 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (6/6)
-2026-03-17 12:10:52,721 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:11:46,605 - INFO -    📊 Attempt 6/6 score: 0.23/1.00 (23%)
-2026-03-17 12:11:46,605 - INFO - ⚠️ Task task_13_image_gen: 0.2/1.0 (23%) - hybrid
-2026-03-17 12:11:46,605 - INFO -    Notes: Agent failed to generate valid image despite 10+ attempts; output file consistently contained JSON error data rather than image. Prompts adequately captured all requested elements (friendly robot, coz
-2026-03-17 12:11:46,605 - INFO -    Attempts used: 6/6
-2026-03-17 12:11:46,605 - INFO - 
-================================================================================
-2026-03-17 12:11:46,606 - INFO - 📋 Task 9/15 (Run 1/1)
-2026-03-17 12:11:46,606 - INFO - ================================================================================
-2026-03-17 12:11:46,606 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_14_humanizer
-2026-03-17 12:11:46,606 - INFO -    Task: Humanize AI-Generated Blog
-2026-03-17 12:11:46,606 - INFO -    Category: content_transformation
-2026-03-17 12:11:46,607 - INFO - Removed 2 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:12:53,626 - INFO - Found transcript via sessions.json: task_14_humanizer_1773720709558.jsonl (attempt 1)
-2026-03-17 12:13:56,516 - INFO -    📊 Attempt 1/6 score: 0.89/1.00 (89%)
-2026-03-17 12:13:56,516 - INFO - 🔁 Retrying task_14_humanizer with validator feedback (2/6)
-2026-03-17 12:15:56,623 - INFO - Found transcript via sessions.json: task_13_image_gen_1773720220188.jsonl (attempt 1)
-2026-03-17 12:16:15,872 - INFO -    📊 Attempt 2/6 score: 0.00/1.00 (0%)
-2026-03-17 12:16:15,873 - INFO - 🔁 Retrying task_14_humanizer with validator feedback (3/6)
-2026-03-17 12:17:17,798 - INFO - Found transcript via sessions.json: task_14_humanizer_1773720709558.jsonl (attempt 1)
-2026-03-17 12:18:43,646 - INFO -    📊 Attempt 3/6 score: 0.89/1.00 (89%)
-2026-03-17 12:18:43,646 - INFO - 🔁 Retrying task_14_humanizer with validator feedback (4/6)
-2026-03-17 12:19:13,268 - INFO - Found transcript via sessions.json: task_14_humanizer_1773720709558.jsonl (attempt 1)
-2026-03-17 12:21:32,794 - INFO -    📊 Attempt 4/6 score: 0.71/1.00 (71%)
-2026-03-17 12:21:32,794 - INFO - 🔁 Retrying task_14_humanizer with validator feedback (5/6)
-2026-03-17 12:22:38,877 - INFO - Found transcript via sessions.json: task_14_humanizer_1773720709558.jsonl (attempt 1)
-2026-03-17 12:24:10,156 - INFO -    📊 Attempt 5/6 score: 0.06/1.00 (6%)
-2026-03-17 12:24:10,156 - INFO - 🔁 Retrying task_14_humanizer with validator feedback (6/6)
-2026-03-17 12:24:56,846 - INFO - Found transcript via sessions.json: task_14_humanizer_1773720709558.jsonl (attempt 1)
-2026-03-17 12:26:11,858 - INFO -    📊 Attempt 6/6 score: 0.96/1.00 (96%)
-2026-03-17 12:26:11,859 - INFO - ⚠️ Task task_14_humanizer: 1.0/1.0 (96%) - llm_judge
-2026-03-17 12:26:11,859 - INFO -    Notes: Agent successfully located the pre-installed humanizer skill, attempted to use it via CLI (which provided diagnostic output), and appropriately fell back to manual rewrite. Output exhibits strong natu
-2026-03-17 12:26:11,859 - INFO -    Attempts used: 6/6
-2026-03-17 12:26:11,859 - INFO - 
-================================================================================
-2026-03-17 12:26:11,859 - INFO - 📋 Task 10/15 (Run 1/1)
-2026-03-17 12:26:11,859 - INFO - ================================================================================
-2026-03-17 12:26:11,859 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_15_daily_summary
-2026-03-17 12:26:11,860 - INFO -    Task: Daily Research Summary Generation
-2026-03-17 12:26:11,860 - INFO -    Category: synthesis
-2026-03-17 12:26:11,860 - INFO - Removed 2 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:26:53,547 - INFO - Found transcript via sessions.json: task_15_daily_summary_1773721574831.jsonl (attempt 1)
-2026-03-17 12:29:58,096 - WARNING - Task grading failed for task_15_daily_summary, continuing: The read operation timed out
-2026-03-17 12:29:58,096 - INFO -    📊 Attempt 1/6 score: 0.00/1.00 (0%)
-2026-03-17 12:29:58,096 - INFO - 🔁 Retrying task_15_daily_summary with validator feedback (2/6)
-2026-03-17 12:30:30,244 - INFO - Found transcript via sessions.json: task_15_daily_summary_1773721574831.jsonl (attempt 1)
-2026-03-17 12:31:06,527 - INFO -    📊 Attempt 2/6 score: 0.98/1.00 (98%)
-2026-03-17 12:31:06,527 - INFO - 🔁 Retrying task_15_daily_summary with validator feedback (3/6)
-2026-03-17 12:32:33,295 - INFO - Found transcript via sessions.json: task_15_daily_summary_1773721574831.jsonl (attempt 1)
-2026-03-17 12:34:40,834 - INFO -    📊 Attempt 3/6 score: 0.99/1.00 (99%)
-2026-03-17 12:34:40,835 - INFO - 🔁 Retrying task_15_daily_summary with validator feedback (4/6)
-2026-03-17 12:35:21,490 - INFO - Found transcript via sessions.json: task_15_daily_summary_1773721574831.jsonl (attempt 1)
-2026-03-17 12:36:01,828 - INFO -    📊 Attempt 4/6 score: 1.00/1.00 (100%)
-2026-03-17 12:36:01,828 - INFO - ✅ Task task_15_daily_summary: 1.0/1.0 (100%) - llm_judge
-2026-03-17 12:36:01,828 - INFO -    Notes: Agent discovered and read all 5 research files, synthesized information effectively highlighting critical priorities (Nexus competitive threat, MegaCorp churn risk, EU AI Act deadline, SwiftCloud oppo
-2026-03-17 12:36:01,828 - INFO -    Attempts used: 4/6
-2026-03-17 12:36:01,828 - INFO - 
-================================================================================
-2026-03-17 12:36:01,828 - INFO - 📋 Task 11/15 (Run 1/1)
-2026-03-17 12:36:01,829 - INFO - ================================================================================
-2026-03-17 12:36:01,829 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_16_email_triage
-2026-03-17 12:36:01,829 - INFO -    Task: Email Inbox Triage
-2026-03-17 12:36:01,829 - INFO -    Category: organization
-2026-03-17 12:36:01,830 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:37:02,873 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:37:59,379 - INFO -    📊 Attempt 1/6 score: 0.95/1.00 (95%)
-2026-03-17 12:37:59,380 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (2/6)
-2026-03-17 12:38:47,295 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:39:49,442 - INFO -    📊 Attempt 2/6 score: 0.98/1.00 (98%)
-2026-03-17 12:39:49,443 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (3/6)
-2026-03-17 12:40:36,471 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:41:00,595 - INFO -    📊 Attempt 3/6 score: 0.95/1.00 (95%)
-2026-03-17 12:41:00,595 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (4/6)
-2026-03-17 12:41:53,765 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:42:01,376 - WARNING - Kimi judge API request failed on attempt 1/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 1s
-2026-03-17 12:42:09,570 - WARNING - Kimi judge API request failed on attempt 2/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 2s
-2026-03-17 12:42:19,048 - WARNING - Kimi judge API request failed: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>
-2026-03-17 12:42:19,048 - INFO -    📊 Attempt 4/6 score: 0.35/1.00 (35%)
-2026-03-17 12:42:19,048 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (5/6)
-2026-03-17 12:42:56,376 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:43:28,860 - INFO -    📊 Attempt 5/6 score: 0.96/1.00 (96%)
-2026-03-17 12:43:28,860 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (6/6)
-2026-03-17 12:44:02,124 - INFO - Found transcript via sessions.json: task_16_email_triage_1773722164829.jsonl (attempt 1)
-2026-03-17 12:44:46,799 - INFO -    📊 Attempt 6/6 score: 0.96/1.00 (96%)
-2026-03-17 12:44:46,799 - INFO - ⚠️ Task task_16_email_triage: 1.0/1.0 (96%) - hybrid
-2026-03-17 12:44:46,799 - INFO -    Notes: Excellent performance. All 13 emails correctly prioritized with production outage and correlated monitoring alert as P0, BigClient as P1, and appropriate triage of remaining items. Categorization is a
-2026-03-17 12:44:46,800 - INFO -    Attempts used: 6/6
-2026-03-17 12:44:46,800 - INFO - 
-================================================================================
-2026-03-17 12:44:46,800 - INFO - 📋 Task 12/15 (Run 1/1)
-2026-03-17 12:44:46,800 - INFO - ================================================================================
-2026-03-17 12:44:46,800 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_17_email_search
-2026-03-17 12:44:46,800 - INFO -    Task: Email Search and Summarization
-2026-03-17 12:44:46,800 - INFO -    Category: comprehension
-2026-03-17 12:44:46,801 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:46:01,816 - INFO - Found transcript via sessions.json: task_17_email_search_1773722689815.jsonl (attempt 1)
-2026-03-17 12:47:24,185 - INFO -    📊 Attempt 1/6 score: 0.97/1.00 (97%)
-2026-03-17 12:47:24,186 - INFO - 🔁 Retrying task_17_email_search with validator feedback (2/6)
-2026-03-17 12:48:43,888 - INFO - Found transcript via sessions.json: task_17_email_search_1773722689815.jsonl (attempt 1)
-2026-03-17 12:48:51,225 - WARNING - Kimi judge API request failed on attempt 1/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 1s
-2026-03-17 12:49:32,663 - INFO -    📊 Attempt 2/6 score: 1.00/1.00 (100%)
-2026-03-17 12:49:32,663 - INFO - ✅ Task task_17_email_search: 1.0/1.0 (100%) - hybrid
-2026-03-17 12:49:32,663 - INFO -    Notes: Excellent performance. The summary comprehensively covers all 10 relevant emails' content (project definition, tech stack, budget evolution $340K→$410K, timeline changes, security findings, client fee
-2026-03-17 12:49:32,664 - INFO -    Attempts used: 2/6
-2026-03-17 12:49:32,664 - INFO - 
-================================================================================
-2026-03-17 12:49:32,664 - INFO - 📋 Task 13/15 (Run 1/1)
-2026-03-17 12:49:32,664 - INFO - ================================================================================
-2026-03-17 12:49:32,664 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_20_eli5_pdf_summary
-2026-03-17 12:49:32,664 - INFO -    Task: ELI5 PDF Summarization
-2026-03-17 12:49:32,664 - INFO -    Category: comprehension
-2026-03-17 12:49:32,665 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:51:53,743 - INFO - Found transcript via sessions.json: task_20_eli5_pdf_summary_1773722975745.jsonl (attempt 1)
-2026-03-17 12:51:53,749 - WARNING - Failed to parse transcript line: Invalid \uXXXX escape: line 1 column 8544 (char 8543)
-2026-03-17 12:51:53,749 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:51:53,749 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:51:53,749 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:51:53,749 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:52:54,640 - INFO -    📊 Attempt 1/6 score: 0.57/1.00 (57%)
-2026-03-17 12:52:54,640 - INFO - 🔁 Retrying task_20_eli5_pdf_summary with validator feedback (2/6)
-2026-03-17 12:53:52,901 - INFO - Found transcript via sessions.json: task_20_eli5_pdf_summary_1773722975745.jsonl (attempt 1)
-2026-03-17 12:53:52,909 - WARNING - Failed to parse transcript line: Invalid \uXXXX escape: line 1 column 8544 (char 8543)
-2026-03-17 12:53:52,909 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:53:52,909 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:53:52,909 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:53:52,909 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:55:17,458 - INFO -    📊 Attempt 2/6 score: 0.92/1.00 (92%)
-2026-03-17 12:55:17,458 - INFO - 🔁 Retrying task_20_eli5_pdf_summary with validator feedback (3/6)
-2026-03-17 12:56:04,615 - INFO - Found transcript via sessions.json: task_20_eli5_pdf_summary_1773722975745.jsonl (attempt 1)
-2026-03-17 12:56:04,621 - WARNING - Failed to parse transcript line: Invalid \uXXXX escape: line 1 column 8544 (char 8543)
-2026-03-17 12:56:04,621 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:56:04,621 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:56:04,622 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:56:04,622 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:57:03,871 - INFO -    📊 Attempt 3/6 score: 1.00/1.00 (100%)
-2026-03-17 12:57:03,871 - INFO - ✅ Task task_20_eli5_pdf_summary: 1.0/1.0 (100%) - llm_judge
-2026-03-17 12:57:03,871 - INFO -    Notes: Final output achieves excellent ELI5 quality with child-friendly analogies (super smart friend, calculator comparison), no technical jargon, emojis for engagement, and accurate coverage of all key pap
-2026-03-17 12:57:03,872 - INFO -    Attempts used: 3/6
-2026-03-17 12:57:03,872 - INFO - 
-================================================================================
-2026-03-17 12:57:03,872 - INFO - 📋 Task 14/15 (Run 1/1)
-2026-03-17 12:57:03,872 - INFO - ================================================================================
-2026-03-17 12:57:03,872 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_21_openclaw_comprehension
-2026-03-17 12:57:03,872 - INFO -    Task: OpenClaw Report Comprehension
-2026-03-17 12:57:03,872 - INFO -    Category: comprehension
-2026-03-17 12:57:03,873 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:58:01,942 - INFO - Found transcript via sessions.json: task_21_openclaw_comprehension_1773723426837.jsonl (attempt 1)
-2026-03-17 12:58:01,947 - WARNING - Failed to parse transcript line: Unterminated string starting at: line 1 column 222 (char 221)
-2026-03-17 12:58:01,947 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:58:01,947 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:58:01,950 - INFO -    📊 Attempt 1/6 score: 0.94/1.00 (94%)
-2026-03-17 12:58:01,951 - INFO - 🔁 Retrying task_21_openclaw_comprehension with validator feedback (2/6)
-2026-03-17 12:58:32,684 - INFO - Found transcript via sessions.json: task_21_openclaw_comprehension_1773723426837.jsonl (attempt 1)
-2026-03-17 12:58:32,689 - WARNING - Failed to parse transcript line: Unterminated string starting at: line 1 column 222 (char 221)
-2026-03-17 12:58:32,689 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:58:32,689 - WARNING - Failed to parse transcript line: Expecting value: line 1 column 1 (char 0)
-2026-03-17 12:58:32,693 - INFO -    📊 Attempt 2/6 score: 1.00/1.00 (100%)
-2026-03-17 12:58:32,694 - INFO - ✅ Task task_21_openclaw_comprehension: 1.0/1.0 (100%) - automated
-2026-03-17 12:58:32,694 - INFO -    Attempts used: 2/6
-2026-03-17 12:58:32,694 - INFO - 
-================================================================================
-2026-03-17 12:58:32,695 - INFO - 📋 Task 15/15 (Run 1/1)
-2026-03-17 12:58:32,695 - INFO - ================================================================================
-2026-03-17 12:58:32,695 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_22_second_brain
-2026-03-17 12:58:32,695 - INFO -    Task: Second Brain Knowledge Persistence
-2026-03-17 12:58:32,695 - INFO -    Category: memory
-2026-03-17 12:58:32,696 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 12:58:56,722 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 12:59:12,023 - WARNING - Task grading failed for task_22_second_brain, continuing: Remote end closed connection without response
-2026-03-17 12:59:12,024 - INFO -    📊 Attempt 1/6 score: 0.00/1.00 (0%)
-2026-03-17 12:59:12,024 - INFO - 🔁 Retrying task_22_second_brain with validator feedback (2/6)
-2026-03-17 13:00:07,463 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 13:00:14,743 - WARNING - Kimi judge API request failed on attempt 1/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 1s
-2026-03-17 13:03:18,799 - WARNING - Task grading failed during retry for task_22_second_brain, continuing: The read operation timed out
-2026-03-17 13:03:18,799 - INFO -    📊 Attempt 2/6 score: 0.00/1.00 (0%)
-2026-03-17 13:03:18,800 - INFO - 🔁 Retrying task_22_second_brain with validator feedback (3/6)
-2026-03-17 13:03:41,887 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 13:05:51,634 - INFO -    📊 Attempt 3/6 score: 0.60/1.00 (60%)
-2026-03-17 13:05:51,634 - INFO - 🔁 Retrying task_22_second_brain with validator feedback (4/6)
-2026-03-17 13:10:51,714 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 13:12:36,966 - INFO -    📊 Attempt 4/6 score: 0.62/1.00 (62%)
-2026-03-17 13:12:36,966 - INFO - 🔁 Retrying task_22_second_brain with validator feedback (5/6)
-2026-03-17 13:13:23,151 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 13:15:32,224 - INFO -    📊 Attempt 5/6 score: 0.62/1.00 (62%)
-2026-03-17 13:15:32,224 - INFO - 🔁 Retrying task_22_second_brain with validator feedback (6/6)
-2026-03-17 13:20:32,331 - INFO - Found transcript via sessions.json: task_22_second_brain_1773723515706.jsonl (attempt 1)
-2026-03-17 13:21:46,003 - INFO -    📊 Attempt 6/6 score: 0.62/1.00 (62%)
-2026-03-17 13:21:46,003 - INFO - ⚠️ Task task_22_second_brain: 0.6/1.0 (62%) - hybrid
-2026-03-17 13:21:46,003 - INFO -    Notes: Agent successfully created memory/MEMORY.md with all 5 required facts stored correctly (Criterion 1: 1.0). However, transcript contains only file I/O operations with no evidence of Session 2 conversat
-2026-03-17 13:21:46,003 - INFO -    Attempts used: 6/6
-2026-03-17 13:21:46,216 - INFO - Saved results to results/rq1/0028_minimax-cn-MiniMax-M2-5.json
-2026-03-17 13:21:46,216 - INFO - 
-================================================================================
-2026-03-17 13:21:46,216 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
-2026-03-17 13:21:46,216 - INFO - ================================================================================
-2026-03-17 13:21:46,216 - INFO -    Total tokens used: 5,853,362 (input: 2,821,756, output: 61,066)
-2026-03-17 13:21:46,216 - INFO -    Total API requests: 253
-2026-03-17 13:21:46,216 - INFO -    Avg tokens/task: 390,224
-2026-03-17 13:21:46,216 - INFO -    Mean score: 0.8391
-2026-03-17 13:21:46,216 - INFO -    Success rate: 0.6000
-2026-03-17 13:21:46,216 - INFO -    Score per 1K tokens: 0.0022 (higher = more efficient)
-2026-03-17 13:21:46,216 - INFO -    Success per 1K tokens: 0.001538 (higher = more efficient)
-2026-03-17 13:21:46,216 - INFO - ================================================================================
-2026-03-17 13:21:46,216 - INFO - Skipping upload (--no-upload)
-2026-03-17 15:11:13,004 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
-
-░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
-▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
-▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
-█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
-█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
-
-                                                           @%@%%@                       
-                                             %*+#++#@   %+-=-....=@                     
-                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
-                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
-            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
-            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
-            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
-            #+========================--------=#=-==-----------------=@                 
-            #+========================-------------------------------=@                 
-            **========================---------------------------++--+@                 
-            @%*+======================------++--=#+--------------==-=#@                 
-            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
-             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
-             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
-            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
-            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
-            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
-            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
-             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
-              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
-                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
-                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
-                                @%%        @%%##############%@            @@            
-                                            @@%%%########%@@                            
-                                               @@@%%%%%@@@                              
-                                                                                        
-                                                                                        
-                                                                                        
-
-2026-03-17 15:11:13,004 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
-2026-03-17 15:11:18,006 - INFO - 🔧 Initializing BenchmarkRunner...
-2026-03-17 15:11:18,006 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
-2026-03-17 15:11:18,006 - INFO - Initialized BenchmarkRunner
-2026-03-17 15:11:18,006 - INFO - 📂 Loading tasks from directory...
-2026-03-17 15:11:18,006 - INFO - Loading tasks...
-2026-03-17 15:11:18,008 - INFO - Found 23 task files
-2026-03-17 15:11:18,009 - INFO - Successfully loaded task: task_00_sanity
-2026-03-17 15:11:18,010 - INFO - Successfully loaded task: task_01_calendar
-2026-03-17 15:11:18,011 - INFO - Successfully loaded task: task_02_stock
-2026-03-17 15:11:18,012 - INFO - Successfully loaded task: task_03_blog
-2026-03-17 15:11:18,013 - INFO - Successfully loaded task: task_04_weather
-2026-03-17 15:11:18,016 - INFO - Successfully loaded task: task_05_summary
-2026-03-17 15:11:18,016 - INFO - Successfully loaded task: task_06_events
-2026-03-17 15:11:18,017 - INFO - Successfully loaded task: task_07_email
-2026-03-17 15:11:18,019 - INFO - Successfully loaded task: task_08_memory
-2026-03-17 15:11:18,020 - INFO - Successfully loaded task: task_09_files
-2026-03-17 15:11:18,021 - INFO - Successfully loaded task: task_10_workflow
-2026-03-17 15:11:18,022 - INFO - Successfully loaded task: task_11_clawdhub
-2026-03-17 15:11:18,023 - INFO - Successfully loaded task: task_12_skill_search
-2026-03-17 15:11:18,024 - INFO - Successfully loaded task: task_13_image_gen
-2026-03-17 15:11:18,025 - INFO - Successfully loaded task: task_14_humanizer
-2026-03-17 15:11:18,030 - INFO - Successfully loaded task: task_15_daily_summary
-2026-03-17 15:11:18,038 - INFO - Successfully loaded task: task_16_email_triage
-2026-03-17 15:11:18,050 - INFO - Successfully loaded task: task_17_email_search
-2026-03-17 15:11:18,051 - INFO - Successfully loaded task: task_16_market_research
-2026-03-17 15:11:18,053 - INFO - Successfully loaded task: task_18_spreadsheet_summary
-2026-03-17 15:11:18,054 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
-2026-03-17 15:11:18,055 - INFO - Successfully loaded task: task_21_openclaw_comprehension
-2026-03-17 15:11:18,057 - INFO - Successfully loaded task: task_22_second_brain
-2026-03-17 15:11:18,057 - INFO - Successfully loaded 23 tasks
-2026-03-17 15:11:18,057 - INFO - Loaded 23 tasks
-2026-03-17 15:11:21,130 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
-2026-03-17 15:11:28,808 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
-
-2026-03-17 15:11:28,809 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 15:11:28,809 - INFO - 
-================================================================================
-2026-03-17 15:11:28,809 - INFO - 📋 Task 1/2 (Run 1/1)
-2026-03-17 15:11:28,810 - INFO - ================================================================================
-2026-03-17 15:11:28,810 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_13_image_gen
-2026-03-17 15:11:28,810 - INFO -    Task: AI Image Generation
-2026-03-17 15:11:28,810 - INFO -    Category: creative
-2026-03-17 15:13:31,824 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:15:10,342 - INFO -    📊 Attempt 1/6 score: 0.41/1.00 (42%)
-2026-03-17 15:15:10,342 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (2/6)
-2026-03-17 15:15:51,347 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:17:14,888 - INFO -    📊 Attempt 2/6 score: 0.17/1.00 (18%)
-2026-03-17 15:17:14,889 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (3/6)
-2026-03-17 15:17:58,031 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:18:41,687 - INFO -    📊 Attempt 3/6 score: 0.19/1.00 (19%)
-2026-03-17 15:18:41,687 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (4/6)
-2026-03-17 15:19:19,787 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:19:33,412 - WARNING - Task grading failed during retry for task_13_image_gen, continuing: Remote end closed connection without response
-2026-03-17 15:19:33,413 - INFO -    📊 Attempt 4/6 score: 0.00/1.00 (0%)
-2026-03-17 15:19:33,413 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (5/6)
-2026-03-17 15:20:07,831 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:20:40,734 - WARNING - Task grading failed during retry for task_13_image_gen, continuing: Remote end closed connection without response
-2026-03-17 15:20:40,735 - INFO -    📊 Attempt 5/6 score: 0.00/1.00 (0%)
-2026-03-17 15:20:40,735 - INFO - 🔁 Retrying task_13_image_gen with validator feedback (6/6)
-2026-03-17 15:21:03,328 - INFO - Found transcript via sessions.json: task_13_image_gen_1773731491758.jsonl (attempt 1)
-2026-03-17 15:22:06,867 - INFO -    📊 Attempt 6/6 score: 0.59/1.00 (59%)
-2026-03-17 15:22:06,868 - INFO - ⚠️ Task task_13_image_gen: 0.6/1.0 (59%) - hybrid
-2026-03-17 15:22:06,868 - INFO -    Notes: Agent successfully generated image using Stable Diffusion with comprehensive prompt including all key elements (robot, coffee shop, book, cozy atmosphere). Saved correctly as robot_cafe.png and verifi
-2026-03-17 15:22:06,868 - INFO -    Attempts used: 6/6
-2026-03-17 15:22:06,868 - INFO - 
-================================================================================
-2026-03-17 15:22:06,868 - INFO - 📋 Task 2/2 (Run 1/1)
-2026-03-17 15:22:06,868 - INFO - ================================================================================
-2026-03-17 15:22:06,868 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_16_email_triage
-2026-03-17 15:22:06,869 - INFO -    Task: Email Inbox Triage
-2026-03-17 15:22:06,869 - INFO -    Category: organization
-2026-03-17 15:22:06,869 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 15:23:52,560 - INFO - Found transcript via sessions.json: task_16_email_triage_1773732129770.jsonl (attempt 1)
-2026-03-17 15:25:40,056 - INFO -    📊 Attempt 1/6 score: 0.96/1.00 (96%)
-2026-03-17 15:25:40,057 - INFO - 🔁 Retrying task_16_email_triage with validator feedback (2/6)
-2026-03-17 15:27:11,388 - INFO - Found transcript via sessions.json: task_16_email_triage_1773732129770.jsonl (attempt 1)
-2026-03-17 15:28:55,292 - INFO -    📊 Attempt 2/6 score: 1.00/1.00 (100%)
-2026-03-17 15:28:55,292 - INFO - ✅ Task task_16_email_triage: 1.0/1.0 (100%) - hybrid
-2026-03-17 15:28:55,292 - INFO -    Notes: Excellent triage report. All 13 emails correctly prioritized with production outage and correlated monitoring alert as P0, high-value client and urgent security deadline as P1. Categories are accurate
-2026-03-17 15:28:55,293 - INFO -    Attempts used: 2/6
-2026-03-17 15:28:55,348 - INFO - Saved results to results/rq1/0029_minimax-cn-MiniMax-M2-5.json
-2026-03-17 15:28:55,349 - INFO - 
-================================================================================
-2026-03-17 15:28:55,349 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
-2026-03-17 15:28:55,349 - INFO - ================================================================================
-2026-03-17 15:28:55,349 - INFO -    Total tokens used: 493,577 (input: 128,107, output: 8,524)
-2026-03-17 15:28:55,349 - INFO -    Total API requests: 33
-2026-03-17 15:28:55,349 - INFO -    Avg tokens/task: 246,788
-2026-03-17 15:28:55,349 - INFO -    Mean score: 0.7933
-2026-03-17 15:28:55,349 - INFO -    Success rate: 0.5000
-2026-03-17 15:28:55,349 - INFO -    Score per 1K tokens: 0.0032 (higher = more efficient)
-2026-03-17 15:28:55,349 - INFO -    Success per 1K tokens: 0.002026 (higher = more efficient)
-2026-03-17 15:28:55,349 - INFO - ================================================================================
-2026-03-17 15:28:55,349 - INFO - Skipping upload (--no-upload)
-2026-03-17 16:15:49,358 - INFO - 🦞🦀🦐 PinchBench - OpenClaw Benchmarking
-
-░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░░      ░░░  ░░░░  ░
-▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒
-▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓▓       ▓▓▓      ▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓▓▓▓▓        ▓
-█  ███████████  █████  ██    ██  ████  ██  ████  ██  ████  ██  ████████  ██    ██  ████  ██  ████  █
-█  ████████        ██  ███   ███      ███  ████  ██       ███        ██  ███   ███      ███  ████  █
-
-                                                           @%@%%@                       
-                                             %*+#++#@   %+-=-....=@                     
-                                    @@%%%##%--+.....:# @=-=.:-.:-.=                     
-                  #%###%##++=---------+#==+-:+.+%++%==-+:-=-#####+.@                    
-            %+----------------------*%%@@@%-:=:#####+-=+--=.+####.-+=#@                 
-            %+====+*##+=====--------------=--=.-###+.=++##=-..+=.:+--=@                 
-            %+================+*##*+++++**+==+=.....==----=*=---+----=@                 
-            #+========================--------=#=-==-----------------=@                 
-            #+========================-------------------------------=@                 
-            **========================---------------------------++--+@                 
-            @%*+======================------++--=#+--------------==-=#@                 
-            @%%%%%###*+===============------#%--=#+--------=++++#%%###%%@               
-             @@@%@%%%%%%@%###+========------==--=+**+*#%%#######%%%%%%%%%%%@            
-             @@%%@@@%%@@@%%%%%%%%%####+++**#%%########%%%%%%@@%%@  @@@@###%%@@          
-            @@%#%@@%%@@@@%%@@@@@@%%%%%#####%%%%%%@@@@@@@@%%@@%%#%     @@%%#####%@       
-            @%#%%@%##@ @%#%@  @@%%@@@%%%%@@     @@@ @%@ @@%@@@%#%     @@%#######%@      
-            @%%@@%##%@@%##%@ @@%#% @@%#%%@@         @@  @%%@ @%%@     @@%########%@     
-            @@%%@@%%@ @%##%@ @%###@ @@%#####%@@@@       @@  @%%@      @%%#%#######%     
-             @%%@%#%@ @@%%@  @%###@  @@%###%######%%##%%@   @@@       @%#%@%######%     
-              @@ @%%@  @%%@  @@%%@    @@%%%########%######%@          @%%%@@#####%@     
-                  @@@  @@%%@  @%#%      @@%#########@@@@@@%%@         @@%@ %####%@      
-                        @@%@   @%#@       @%###########@@@@%@             @%##%@        
-                                @%%        @%%##############%@            @@            
-                                            @@%%%########%@@                            
-                                               @@@%%%%%@@@                              
-                                                                                        
-                                                                                        
-                                                                                        
-
-2026-03-17 16:15:49,358 - INFO - 🦞🦀🦐 Starting PinchBench 🦐🦀🦞
-2026-03-17 16:15:54,361 - INFO - 🔧 Initializing BenchmarkRunner...
-2026-03-17 16:15:54,361 - INFO - Initialized TaskLoader with directory: /root/skill/tasks
-2026-03-17 16:15:54,361 - INFO - Initialized BenchmarkRunner
-2026-03-17 16:15:54,361 - INFO - 📂 Loading tasks from directory...
-2026-03-17 16:15:54,361 - INFO - Loading tasks...
-2026-03-17 16:15:54,362 - INFO - Found 23 task files
-2026-03-17 16:15:54,363 - INFO - Successfully loaded task: task_00_sanity
-2026-03-17 16:15:54,364 - INFO - Successfully loaded task: task_01_calendar
-2026-03-17 16:15:54,365 - INFO - Successfully loaded task: task_02_stock
-2026-03-17 16:15:54,366 - INFO - Successfully loaded task: task_03_blog
-2026-03-17 16:15:54,366 - INFO - Successfully loaded task: task_04_weather
-2026-03-17 16:15:54,369 - INFO - Successfully loaded task: task_05_summary
-2026-03-17 16:15:54,370 - INFO - Successfully loaded task: task_06_events
-2026-03-17 16:15:54,371 - INFO - Successfully loaded task: task_07_email
-2026-03-17 16:15:54,373 - INFO - Successfully loaded task: task_08_memory
-2026-03-17 16:15:54,373 - INFO - Successfully loaded task: task_09_files
-2026-03-17 16:15:54,375 - INFO - Successfully loaded task: task_10_workflow
-2026-03-17 16:15:54,375 - INFO - Successfully loaded task: task_11_clawdhub
-2026-03-17 16:15:54,377 - INFO - Successfully loaded task: task_12_skill_search
-2026-03-17 16:15:54,378 - INFO - Successfully loaded task: task_13_image_gen
-2026-03-17 16:15:54,379 - INFO - Successfully loaded task: task_14_humanizer
-2026-03-17 16:15:54,384 - INFO - Successfully loaded task: task_15_daily_summary
-2026-03-17 16:15:54,392 - INFO - Successfully loaded task: task_16_email_triage
-2026-03-17 16:15:54,402 - INFO - Successfully loaded task: task_17_email_search
-2026-03-17 16:15:54,403 - INFO - Successfully loaded task: task_16_market_research
-2026-03-17 16:15:54,405 - INFO - Successfully loaded task: task_18_spreadsheet_summary
-2026-03-17 16:15:54,406 - INFO - Successfully loaded task: task_20_eli5_pdf_summary
-2026-03-17 16:15:54,407 - INFO - Successfully loaded task: task_21_openclaw_comprehension
-2026-03-17 16:15:54,409 - INFO - Successfully loaded task: task_22_second_brain
-2026-03-17 16:15:54,409 - INFO - Successfully loaded 23 tasks
-2026-03-17 16:15:54,409 - INFO - Loaded 23 tasks
-2026-03-17 16:15:57,380 - INFO - Creating OpenClaw agent bench-minimax-cn-MiniMax-M2-5
-2026-03-17 16:16:05,254 - WARNING - Agent creation returned 1: Agent "bench-minimax-cn-minimax-m2-5" already exists.
-
-2026-03-17 16:16:05,255 - INFO - Removed 1 old OpenClaw session transcripts for bench-minimax-cn-MiniMax-M2-5
-2026-03-17 16:16:05,256 - INFO - 
-================================================================================
-2026-03-17 16:16:05,256 - INFO - 📋 Task 1/1 (Run 1/1)
-2026-03-17 16:16:05,256 - INFO - ================================================================================
-2026-03-17 16:16:05,256 - INFO - 🤖 Agent [bench-minimax-cn-MiniMax-M2-5] starting task: task_10_workflow
-2026-03-17 16:16:05,256 - INFO -    Task: Multi-step API Workflow
-2026-03-17 16:16:05,256 - INFO -    Category: complex
-2026-03-17 16:16:53,303 - INFO - Found transcript via sessions.json: task_10_workflow_1773735368164.jsonl (attempt 1)
-2026-03-17 16:17:00,954 - WARNING - Kimi judge API request failed on attempt 1/3: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>; retrying in 1s
-2026-03-17 16:17:11,418 - WARNING - Kimi judge API request failed on attempt 2/3: 429 Too Many Requests: {"error":{"message":"The engine is currently overloaded, please try again later","type":"engine_overloaded_error"}}; retrying in 2s
-2026-03-17 16:18:26,481 - INFO -    📊 Attempt 1/2 score: 0.88/1.00 (88%)
-2026-03-17 16:18:26,481 - INFO - 🔁 Retrying task_10_workflow with validator feedback (2/2)
-2026-03-17 16:19:16,897 - INFO - Found transcript via sessions.json: task_10_workflow_1773735368164.jsonl (attempt 1)
-2026-03-17 16:20:21,652 - INFO -    📊 Attempt 2/2 score: 0.90/1.00 (90%)
-2026-03-17 16:20:21,652 - INFO - ⚠️ Task task_10_workflow: 0.9/1.0 (90%) - hybrid
-2026-03-17 16:20:21,653 - INFO -    Notes: Excellent retry addressing validator feedback. Script now includes comprehensive defensive error handling for file I/O, JSON parsing, and config validation. Switched from requests to standard library 
-2026-03-17 16:20:21,653 - INFO -    Attempts used: 2/2
-2026-03-17 16:20:21,663 - INFO - Saved results to results/rq4/0030_minimax-cn-MiniMax-M2-5.json
-2026-03-17 16:20:21,663 - INFO - 
-================================================================================
-2026-03-17 16:20:21,663 - INFO - 📊 TOKEN EFFICIENCY SUMMARY
-2026-03-17 16:20:21,663 - INFO - ================================================================================
-2026-03-17 16:20:21,663 - INFO -    Total tokens used: 82,095 (input: 5,916, output: 1,942)
-2026-03-17 16:20:21,663 - INFO -    Total API requests: 7
-2026-03-17 16:20:21,663 - INFO -    Avg tokens/task: 82,095
-2026-03-17 16:20:21,663 - INFO -    Mean score: 0.9017
-2026-03-17 16:20:21,664 - INFO -    Success rate: 0.0000
-2026-03-17 16:20:21,664 - INFO -    Score per 1K tokens: 0.0110 (higher = more efficient)
-2026-03-17 16:20:21,664 - INFO -    Success per 1K tokens: 0.000000 (higher = more efficient)
-2026-03-17 16:20:21,664 - INFO - ================================================================================
-2026-03-17 16:20:21,664 - INFO - Skipping upload (--no-upload)
+{
+  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json",
+  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
+}
+[run] threejs-structure-parser
+[run] python-scala-translation
+{
+  "task": "python-scala-translation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-google-auto
+{
+  "task": "fix-build-google-auto",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-agentops
+{
+  "task": "fix-build-agentops",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] court-form-filling
+[run] dialogue-parser
+[run] powerlifting-coef-calc
+{
+  "task": "powerlifting-coef-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] earthquake-phase-association
+{
+  "task": "earthquake-phase-association",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dapt-intrusion-detection
+{
+  "task": "dapt-intrusion-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] setup-fuzzing-py
+{
+  "task": "setup-fuzzing-py",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] software-dependency-audit
+{
+  "task": "software-dependency-audit",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] suricata-custom-exfil
+[run] r2r-mpc-control
+[run] energy-market-pricing
+{
+  "task": "energy-market-pricing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] financial-modeling-qa
+{
+  "task": "financial-modeling-qa",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] find-topk-similiar-chemicals
+{
+  "task": "find-topk-similiar-chemicals",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] react-performance-debugging
+{
+  "task": "react-performance-debugging",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] glm-lake-mendota
+{
+  "task": "glm-lake-mendota",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lake-warming-attribution
+[run] latex-formula-extraction
+{
+  "task": "latex-formula-extraction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lean4-proof
+{
+  "task": "lean4-proof",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-equipment-maintenance
+{
+  "task": "manufacturing-equipment-maintenance",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-codebook-normalization
+{
+  "task": "manufacturing-codebook-normalization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mars-clouds-clustering
+{
+  "task": "mars-clouds-clustering",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] offer-letter-generator
+[run] parallel-tfidf-search
+{
+  "task": "parallel-tfidf-search",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pedestrian-traffic-counting
+{
+  "task": "pedestrian-traffic-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] quantum-numerical-simulation
+{
+  "task": "quantum-numerical-simulation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-demand
+{
+  "task": "shock-analysis-demand",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] reserves-at-risk-calc
+{
+  "task": "reserves-at-risk-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] sec-financial-report
+{
+  "task": "sec-financial-report",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] spring-boot-jakarta-migration
+{
+  "task": "spring-boot-jakarta-migration",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "backend": "skillsbench",
+  "job_name": "skillsbench-rq1-2026-03-29__11-47-31",
+  "task_count": 32,
+  "completed_task_count": 0,
+  "failed_task_count": 25,
+  "failed_tasks": [
+    {
+      "task": "python-scala-translation",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-google-auto",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-agentops",
+      "exit_code": 1
+    },
+    {
+      "task": "powerlifting-coef-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "earthquake-phase-association",
+      "exit_code": 1
+    },
+    {
+      "task": "dapt-intrusion-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "setup-fuzzing-py",
+      "exit_code": 1
+    },
+    {
+      "task": "software-dependency-audit",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-market-pricing",
+      "exit_code": 1
+    },
+    {
+      "task": "financial-modeling-qa",
+      "exit_code": 1
+    },
+    {
+      "task": "find-topk-similiar-chemicals",
+      "exit_code": 1
+    },
+    {
+      "task": "react-performance-debugging",
+      "exit_code": 1
+    },
+    {
+      "task": "glm-lake-mendota",
+      "exit_code": 1
+    },
+    {
+      "task": "latex-formula-extraction",
+      "exit_code": 1
+    },
+    {
+      "task": "lean4-proof",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-equipment-maintenance",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-codebook-normalization",
+      "exit_code": 1
+    },
+    {
+      "task": "mars-clouds-clustering",
+      "exit_code": 1
+    },
+    {
+      "task": "parallel-tfidf-search",
+      "exit_code": 1
+    },
+    {
+      "task": "pedestrian-traffic-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "quantum-numerical-simulation",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-demand",
+      "exit_code": 1
+    },
+    {
+      "task": "reserves-at-risk-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "sec-financial-report",
+      "exit_code": 1
+    },
+    {
+      "task": "spring-boot-jakarta-migration",
+      "exit_code": 1
+    }
+  ],
+  "tasks": [
+    "tasks/threejs-structure-parser",
+    "tasks/python-scala-translation",
+    "tasks/fix-build-google-auto",
+    "tasks/fix-build-agentops",
+    "tasks/court-form-filling",
+    "tasks/dialogue-parser",
+    "tasks/powerlifting-coef-calc",
+    "tasks/earthquake-phase-association",
+    "tasks/dapt-intrusion-detection",
+    "tasks/setup-fuzzing-py",
+    "tasks/software-dependency-audit",
+    "tasks/suricata-custom-exfil",
+    "tasks/r2r-mpc-control",
+    "tasks/energy-market-pricing",
+    "tasks/financial-modeling-qa",
+    "tasks/find-topk-similiar-chemicals",
+    "tasks/react-performance-debugging",
+    "tasks/glm-lake-mendota",
+    "tasks/lake-warming-attribution",
+    "tasks/latex-formula-extraction",
+    "tasks/lean4-proof",
+    "tasks/manufacturing-equipment-maintenance",
+    "tasks/manufacturing-codebook-normalization",
+    "tasks/mars-clouds-clustering",
+    "tasks/offer-letter-generator",
+    "tasks/parallel-tfidf-search",
+    "tasks/pedestrian-traffic-counting",
+    "tasks/quantum-numerical-simulation",
+    "tasks/shock-analysis-demand",
+    "tasks/reserves-at-risk-calc",
+    "tasks/sec-financial-report",
+    "tasks/spring-boot-jakarta-migration"
+  ],
+  "aggregate_output": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
+}

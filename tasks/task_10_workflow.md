@@ -89,21 +89,41 @@ def grade(transcript: list, workspace_path: str) -> dict:
     workspace = Path(workspace_path)
 
     # Check if agent read config.json (from transcript)
+    # Keep the original schema check, but also support the actual
+    # transcript shape produced by some agents/tools.
     read_config = False
     for event in transcript:
         if event.get("type") != "message":
             continue
         msg = event.get("message", {})
-        if msg.get("role") == "assistant":
-            for item in msg.get("content", []):
-                if item.get("type") == "toolCall":
-                    tool_name = item.get("name", "")
-                    params = item.get("params", {})
-                    if tool_name in ["read_file", "readFile"]:
-                        files = params.get("files", [])
-                        if any("config.json" in str(f) for f in files):
-                            read_config = True
-                            break
+        if msg.get("role") != "assistant":
+            continue
+
+        for item in msg.get("content", []):
+            if item.get("type") != "toolCall":
+                continue
+
+            tool_name = item.get("name", "")
+            params = item.get("params") or item.get("arguments") or {}
+            candidates = []
+
+            if tool_name in ["read_file", "readFile"]:
+                candidates.extend(params.get("files", []))
+
+            if tool_name == "read":
+                file_path = params.get("file_path")
+                path = params.get("path")
+                if file_path:
+                    candidates.append(file_path)
+                if path:
+                    candidates.append(path)
+
+            if any("config.json" in str(candidate) for candidate in candidates):
+                read_config = True
+                break
+
+        if read_config:
+            break
 
     scores["read_config"] = 1.0 if read_config else 0.0
 

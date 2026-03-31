@@ -10,30 +10,8 @@
 
 全文定位为 empirical study，而不是新 agent 方法。
 
-## 研究问题
 
-### RQ1
 
-额外 validator-feedback 重试的边际收益是什么？
-
-### RQ3
-
-在固定预算或固定目标 success 下，哪类 stopping rule 最省 token？
-
-### RQ4
-
-哪类 feedback policy 与 feedback format 的 success-cost tradeoff 最好？
-
-任务复杂度只作为分层变量，不单独作为主 RQ。
-
-## 现有项目基础
-
-仓库已经具备 append 风格的多轮 retry baseline。
-
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) 已经会根据 validator 输出构造 retry prompt。
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) 已经支持同一任务运行内的多次 validator-feedback 尝试。
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) 已经记录 attempts、usage、usage_per_round 和 grading 结果。
-- [`README.md`](/root/skill/README.md) 已经暴露 `--max-task-attempts`。
 
 ## Feedback Policy 设计
 
@@ -66,7 +44,21 @@
 
 ## 各研究问题的实验设计
 
-### RQ1：单轮的Feedback Policy 与 Feedback Format
+### RQ1：总 token 开销中，有多少发生在单次 attempt 的内部探索阶段，又有多少来自外部
+    反馈触发的额外 retry？
+  - 第一部分：第一次 attempt 结束前烧了多少
+  - 第二部分：后续 retries 又增加了多少
+     哪些机制最容易导致 intra-attempt token 浪费？
+     这里就是你 task_06_events 那种发现：
+      - skill bootstrap overhead
+      - tool failure / timeout
+      - noisy search HTML
+      - history growth
+      - wrong skill choice 
+Intra-attempt: 主要是 HTML 噪声和反复调用失败的 Tool。这一部分只要有主动出现的失败就会不断迭代
+Inter-attempt: 主要是重复的 System Prompt 和不断堆叠的 History。这一部分没有主动出现的失败，而是外部感知，模拟人类反馈的，从而指导agent继续迭代
+
+### RQ2：单轮的Feedback Policy 与 Feedback Format
 
 目标：
 
@@ -90,9 +82,9 @@
 - 累计 token / cost
 - 每轮 improvement rate
 - feedback 长度与 cache 相关 proxy
-
-### RQ1：Retry Budget 的边际收益
-
+这个目前是发现error-localized 好像更好？还是actionable-path 更好来着？
+### RQ3：Retry Budget 的边际收益
+task_10_workflow
 目标：
 
 - 衡量 success 随 retry budget 的增长曲线
@@ -113,49 +105,9 @@
 - 首次成功轮次分布
 - 每增加 1% success 所需 token
 
-### RQ3：Stopping Rule 的 token-efficiency
-
-目标：
-
-- 比较简单、可解释的 stopping rules 在统一预算下的性价比
-
-实验：
-
-- 固定 `feedback_policy = error-localized`
-- 固定 `feedback_format = full-refresh`
-- 使用统一上限，如 `max_task_attempts = 5`
-- 对比：
-  - `max-attempts-only`
-  - `score-stall`
-  - `unresolved-stall`
-  - `low-return`
-
-指标：
-
-- success vs cumulative tokens
-- success vs cumulative USD cost
-- success per 1K tokens
-- success per dollar
-- 达到目标 success 所需平均 token / cost
-- stop-too-early / stop-too-late rate
-
 
 ## 最小实验矩阵
 
-### E1：Attempt Budget 扫描
-
-- 服务 RQ1
-- 扫描 `max_task_attempts`
-
-### E3：Stopping Rule 对比
-
-- 服务 RQ3
-- 扫描 `stop_rule`
-
-### E4：Feedback / Format 对比
-
-- 服务 RQ4
-- 扫描 `feedback_policy` 与 `feedback_format`
 
 ## 需要的代码范围
 
@@ -235,3 +187,62 @@
 ## 一句话总结
 
 论文贡献应表述为：在真实 tool-using agent benchmark 上，系统测量 retry 的收益边界、停止效率和反馈效率，而不是提出新的 agent 方法。
+
+actionable-path-file 是为了模仿人类的，要说需要真实人来判断的话，可以使用
+actionable-path 这种是交互式的，等你输出下一步应该做什么
+
+
+把 intra-attempt 和 inter-attempt 明确拆开，单独建模
+     task_06_events 这个 case 已经非常强地说明：大量浪费发生在第一次 attempt 内部，
+     而不是 retry 本身。
+     所以论文里不能只讲 retry efficiency，应该明确分成两层：
+  - intra-attempt inefficiency：skill 读取、工具失败、搜索噪声、history growth
+  - inter-attempt inefficiency：validator feedback 后整轮重试的额外成本
+    一个比较稳的定义是：
+
+  - intra-attempt feedback
+    同一 attempt 内，由 agent 自己的执行环境产生的反馈
+    例如：tool error、command output、parser error、runtime exception、甚至你在
+    agent loop 里插入的 lightweight self-critique
+  - inter-attempt feedback
+    一个完整 attempt 结束后，由外部 evaluator / validator / grader 产生的反馈，并触
+    发新 attempt
+
+
+  加上日志，每轮的tool类型或者skill类型， 每次 retry feedback 本身的 token 长度，每个 skill 被读取后带来的 token 增量，每轮的cache 和非cache 的input tokens
+
+   token efficiency = model policy × skill pool × tool reliability × retry policy
+
+   skill benchmark 用来选择skill
+
+   Stopping rule 最好做“离线反事实评估”
+     现在如果每个 stopping rule 都重新跑一次，结果会混入新的随机探索路径。
+     更稳的办法是：先收集完整轨迹，再离线模拟“如果在第 k 次停会怎样”。这样你比较的
+     是 stopping 决策本身，而不是每次重跑生成了不同轨迹。
+     这会让 RQ3 更硬。
+
+  现在有个问题是，pinchbench是LLM评分的，有的时候并不是我的策略好，而单纯因为LLM输出了更高的分数而已。所以还是skillbench比较靠谱？
+
+skillbench 是怎么停止的？
+   - 第一次模型说“我做完了”，不会立刻停
+  - agent 会回一条确认消息，让模型再确认一次
+  - 只有第二次还坚持 task_complete，才真正结束 loop
+
+  所以对 Terminus-2 来说，“没命令了”本身不是标准完成条件。更准确地说：
+  - commands 为空，loop 也可能继续
+  - 只要没有触发 task_complete 的双确认，agent 仍然会进入下一轮
+  - 下一轮 prompt 会带上当前 terminal output，再问模型下一步
+  这和 OpenClaw 的哲学差异很大：
+  - OpenClaw：no tool call => stop
+  - Terminus-2：explicit task_complete => stop，而且要双确认
+  这会直接影响你的 token 研究：
+  - OpenClaw 更容易因为“模型暂时不想调工具了”而提前结束
+  - Terminus-2 更容易继续多转几轮，直到明确声明完成
+  - 所以两者的“停止行为”不是同一类机制，token 曲线不能直接类比
+
+
+  现有 agent token-efficiency 分析把成本错误地归因给 retry；实际上，大量浪费发生在第一
+  次 attempt 内部。只有把 intra-attempt 与 inter-attempt 分开，feedback、budget、
+  stopping 的比较才是有效的。 真的吗
+
+  其实本意是想着尽可能少token来完成一件事，那我们是不是改变skill描述会比较好？

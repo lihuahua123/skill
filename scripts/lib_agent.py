@@ -17,10 +17,177 @@ from lib_tasks import Task
 
 logger = logging.getLogger(__name__)
 MAX_OPENCLAW_MESSAGE_CHARS = int(os.environ.get("PINCHBENCH_MAX_MSG_CHARS", "4000"))
+OPENCLAW_ROOT = Path.home() / ".openclaw"
+OPENCLAW_GLOBAL_CONFIG = OPENCLAW_ROOT / "openclaw.json"
+OPENCLAW_AGENTS_DIR = OPENCLAW_ROOT / "agents"
+AUTODL_API_KEY_PATH = Path("/root/autodlAPIKEY")
+AUTODL_PROVIDER_ID = "autodl"
+AUTODL_PROVIDER_CONFIG = {
+    "baseUrl": "https://www.autodl.art/api/v1",
+    "api": "openai-responses",
+    "authHeader": True,
+    "models": [
+        {
+            "id": "Kimi-K2.5",
+            "name": "Kimi-K2.5",
+            "reasoning": True,
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 32768,
+            "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+            },
+            "api": "openai-responses",
+        }
+    ],
+}
 
 
 def slugify_model(model_id: str) -> str:
     return model_id.replace("/", "-").replace(".", "-")
+
+
+def _load_json_file(path: Path) -> Dict[str, Any] | None:
+    if not path.exists():
+        return None
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError) as exc:
+        logger.warning("Failed to read JSON from %s: %s", path, exc)
+        return None
+    if not isinstance(payload, dict):
+        logger.warning("Expected JSON object in %s, got %s", path, type(payload).__name__)
+        return None
+    return payload
+
+
+def _write_json_file(path: Path, payload: Dict[str, Any]) -> bool:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2)
+            handle.write("\n")
+        return True
+    except OSError as exc:
+        logger.warning("Failed to write JSON to %s: %s", path, exc)
+        return False
+
+
+def _build_autodl_provider_config() -> Dict[str, Any] | None:
+    api_key = os.environ.get("AUTODL_API_KEY")
+    if not api_key and AUTODL_API_KEY_PATH.exists():
+        try:
+            api_key = AUTODL_API_KEY_PATH.read_text(encoding="utf-8").strip()
+        except OSError as exc:
+            logger.warning("Failed to read %s: %s", AUTODL_API_KEY_PATH, exc)
+            return None
+    if not api_key:
+        return None
+
+    provider = json.loads(json.dumps(AUTODL_PROVIDER_CONFIG))
+    provider["apiKey"] = api_key
+    return provider
+
+
+def _sync_provider_into_models_payload(payload: Dict[str, Any], provider_id: str, provider: Dict[str, Any]) -> bool:
+    providers = payload.get("providers")
+    if providers is None:
+        providers = {}
+        payload["providers"] = providers
+    if not isinstance(providers, dict):
+        logger.warning("Skipping provider sync due to unexpected providers shape: %r", type(providers))
+        return False
+
+    current = providers.get(provider_id)
+    if current == provider:
+        return False
+
+    providers[provider_id] = provider
+    return True
+
+
+def _sync_autodl_global_config(provider: Dict[str, Any]) -> bool:
+    payload = _load_json_file(OPENCLAW_GLOBAL_CONFIG)
+    if payload is None:
+        return False
+
+    changed = False
+    models = payload.get("models")
+    if not isinstance(models, dict):
+        models = {"mode": "merge", "providers": {}}
+        payload["models"] = models
+        changed = True
+
+    if _sync_provider_into_models_payload(models, AUTODL_PROVIDER_ID, provider):
+        changed = True
+
+    auth = payload.get("auth")
+    if not isinstance(auth, dict):
+        auth = {}
+        payload["auth"] = auth
+        changed = True
+    profiles = auth.get("profiles")
+    if not isinstance(profiles, dict):
+        profiles = {}
+        auth["profiles"] = profiles
+        changed = True
+    autodl_profile = profiles.get(f"{AUTODL_PROVIDER_ID}:default")
+    desired_profile = {"provider": AUTODL_PROVIDER_ID, "mode": "api_key"}
+    if autodl_profile != desired_profile:
+        profiles[f"{AUTODL_PROVIDER_ID}:default"] = desired_profile
+        changed = True
+
+    agent_defaults = payload.get("agents", {}).get("defaults", {}).get("models")
+    if isinstance(agent_defaults, dict):
+        alias_key = f"{AUTODL_PROVIDER_ID}/Kimi-K2.5"
+        if agent_defaults.get(alias_key) != {"alias": "Kimi-K2.5"}:
+            agent_defaults[alias_key] = {"alias": "Kimi-K2.5"}
+            changed = True
+
+    return _write_json_file(OPENCLAW_GLOBAL_CONFIG, payload) if changed else False
+
+
+def _sync_autodl_agent_models(provider: Dict[str, Any]) -> int:
+    updated = 0
+    if not OPENCLAW_AGENTS_DIR.exists():
+        return updated
+
+    for path in OPENCLAW_AGENTS_DIR.glob("*/agent/models.json"):
+        payload = _load_json_file(path)
+        if payload is None:
+            continue
+        if _sync_provider_into_models_payload(payload, AUTODL_PROVIDER_ID, provider):
+            if _write_json_file(path, payload):
+                updated += 1
+    return updated
+
+
+def ensure_optional_model_providers(model_id: str) -> None:
+    provider_id = model_id.split("/", 1)[0] if "/" in model_id else ""
+    if provider_id != AUTODL_PROVIDER_ID:
+        return
+
+    provider = _build_autodl_provider_config()
+    if provider is None:
+        logger.warning(
+            "Model %s requested but no autodl API key was found in AUTODL_API_KEY or %s",
+            model_id,
+            AUTODL_API_KEY_PATH,
+        )
+        return
+
+    global_changed = _sync_autodl_global_config(provider)
+    updated_agents = _sync_autodl_agent_models(provider)
+    if global_changed or updated_agents:
+        logger.info(
+            "Synchronized autodl provider into OpenClaw config (global_changed=%s, agent_models_updated=%s)",
+            global_changed,
+            updated_agents,
+        )
 
 
 
@@ -68,6 +235,7 @@ def ensure_agent_exists(agent_id: str, model_id: str, workspace_dir: Path) -> bo
     deleted and recreated so that the new workspace takes effect.
     Returns True if the agent was (re)created.
     """
+    ensure_optional_model_providers(model_id)
     workspace_dir.mkdir(parents=True, exist_ok=True)
 
     try:
@@ -349,15 +517,33 @@ def _load_transcript(agent_id: str, session_id: str, started_at: float) -> List[
             )
         return []
 
+    raw_text = transcript_path.read_text(encoding="utf-8")
     transcript: List[Dict[str, Any]] = []
-    for line in transcript_path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
+    decoder = json.JSONDecoder()
+    idx = 0
+    text_len = len(raw_text)
+
+    # Some OpenClaw transcripts are not strict JSONL: a single JSON object can
+    # span multiple lines. Parse the file as a stream of JSON values instead of
+    # assuming one object per physical line.
+    while idx < text_len:
+        while idx < text_len and raw_text[idx].isspace():
+            idx += 1
+        if idx >= text_len:
+            break
         try:
-            transcript.append(json.loads(line))
+            entry, next_idx = decoder.raw_decode(raw_text, idx)
+            transcript.append(entry)
+            idx = next_idx
         except json.JSONDecodeError as exc:
-            logger.warning("Failed to parse transcript line: %s", exc)
-            transcript.append({"raw": line, "parse_error": str(exc)})
+            remaining = raw_text[idx:]
+            snippet = remaining.splitlines()[0][:500] if remaining else ""
+            logger.warning("Failed to parse transcript entry: %s", exc)
+            transcript.append({"raw": snippet, "parse_error": str(exc)})
+            next_newline = raw_text.find("\n", idx)
+            if next_newline == -1:
+                break
+            idx = next_newline + 1
     return transcript
 
 

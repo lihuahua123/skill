@@ -7,7 +7,7 @@ set -e
 export PATH="${HOME}/.local/bin:${PATH}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/.."
-exec uv run scripts/benchmark.py "$@"
+exec ./scripts/run_with_gateway.sh "$@"
 
 
 # --max-task-attempts 3

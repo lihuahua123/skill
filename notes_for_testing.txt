@@ -1,0 +1,14 @@
+Library: /app/skill
+Important functions to test (auto-discovered):
+- fuzz.py:22 -> fuzz_task_loading()
+- scripts/benchmark.py:84 -> load_tasks()
+- scripts/generate_token_cost_maps.py:67 -> parse_args()
+- scripts/lib_agent.py:702 -> execute_openclaw_task()
+- scripts/lib_agent.py:806 -> run_openclaw_prompt()
+- scripts/lib_grading.py:39 -> load_default_judge_api_key()
+- scripts/lib_tasks.py:83 -> load_all_tasks()
+- scripts/lib_tasks.py:101 -> load_task()
+- scripts/lib_upload.py:38 -> upload_results()
+- scripts/lib_upload.py:130 -> register_token()
+- scripts/lib_upload.py:166 -> save_token_config()
+Fuzzing strategy: feed bytes and UTF-8 text to parser/loader-like APIs; catch expected exceptions; allow unexpected crashes.

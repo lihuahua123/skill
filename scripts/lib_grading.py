@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import time
 import urllib.error
@@ -24,16 +25,28 @@ logger = logging.getLogger(__name__)
 DEFAULT_JUDGE_MODEL = "openrouter/anthropic/claude-opus-4.5"
 DEFAULT_JUDGE_AGENT_PREFIX = "bench-judge"
 DEFAULT_JUDGE_TIMEOUT_SECONDS = 180
+AUTODL_API_KEY_PATH = Path("/root/autodlAPIKEY")
 
-# Kimi (Moonshot) judge defaults; override with env PINCHBENCH_KIMI_JUDGE_API_KEY in production
-KIMI_JUDGE_API_BASE = "https://api.moonshot.cn/v1"
-KIMI_JUDGE_MODEL = "kimi-k2.5"
-# Default key for development; prefer env PINCHBENCH_KIMI_JUDGE_API_KEY
-KIMI_JUDGE_API_KEY_DEFAULT = "sk-ccNgMEVLZvvhMAgMVl8H7l3YHUlwUjelCGeDDZWR1vpTS3jh"
+# AutoDL judge defaults; override with env PINCHBENCH_KIMI_JUDGE_API_KEY or AUTODL_API_KEY
+KIMI_JUDGE_API_BASE = "https://www.autodl.art/api/v1"
+KIMI_JUDGE_MODEL = "Kimi-K2.5"
 # Kimi K2.5 pricing USD per 1M tokens (input $0.60, output $2.00)
 KIMI_JUDGE_PRICE_INPUT_PER_1M = 0.60
 KIMI_JUDGE_PRICE_OUTPUT_PER_1M = 2.00
 KIMI_JUDGE_MAX_RETRIES = 3
+
+
+def load_default_judge_api_key() -> Optional[str]:
+    for env_name in ("PINCHBENCH_KIMI_JUDGE_API_KEY", "AUTODL_API_KEY"):
+        value = os.environ.get(env_name)
+        if value:
+            return value
+    try:
+        if AUTODL_API_KEY_PATH.exists():
+            return AUTODL_API_KEY_PATH.read_text(encoding="utf-8").strip() or None
+    except OSError as exc:
+        logger.warning("Failed to read judge API key from %s: %s", AUTODL_API_KEY_PATH, exc)
+    return None
 
 
 def _is_retryable_kimi_error(exc: Exception) -> bool:

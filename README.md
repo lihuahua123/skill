@@ -32,6 +32,9 @@ cd skill
 # Run benchmarks with your model of choice
 ./scripts/run.sh --model openrouter/anthropic/claude-sonnet-4
 
+# Or use the local autodl-backed responses endpoint
+./scripts/run.sh --model autodl/gpt-5.3-codex
+
 # Or run specific tasks
 ./scripts/run.sh --model openrouter/openai/gpt-4o --suite task_01_calendar,task_02_stock
 
@@ -43,6 +46,7 @@ cd skill
 ```
 
 > **Note:** Model IDs must include their provider prefix (e.g. `openrouter/`, `anthropic/`). [OpenRouter](https://openrouter.ai) is the default provider used for routing.
+> Local autodl-backed models can be configured through `/root/autodlAPIKEY` and used with provider prefix `autodl/`.
 
 **Requirements:**
 
@@ -103,7 +107,7 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 | `--suite SUITE`          | `all`, `automated-only`, or comma-separated task IDs                          |
 | `--runs N`               | Number of runs per task for averaging                                         |
 | `--max-task-attempts N`  | Retry a task in-place with validator feedback until it passes or hits `N` attempts |
-| `--feedback-policy P`    | Retry feedback style: `vague`, `error-localized`, or `actionable-path`        |
+| `--feedback-policy P`    | Retry feedback style: `vague`, `error-localized`, `actionable-path`, or `actionable-path-file` |
 | `--feedback-format F`    | Retry prompt format: `full-refresh` or cache-friendly `stable-prefix` (default) |
 | `--stop-rule R`          | Retry stopping rule: `no-improvement` or `max-attempts-only`                  |
 | `--timeout-multiplier N` | Scale timeouts for slower models                                              |
@@ -117,7 +121,8 @@ export PINCHBENCH_OFFICIAL_KEY=your_official_key
 
 - `--feedback-policy vague` provides minimal retry guidance.
 - `--feedback-policy error-localized` includes validator failures and notes.
-- `--feedback-policy actionable-path` adds a targeted repair plan.
+- `--feedback-policy actionable-path` adds a targeted repair plan and pauses for interactive human guidance during retries.
+- `--feedback-policy actionable-path-file` adds the same targeted repair plan, but uses the configured task repair steps directly without interactive pauses.
 - `--feedback-format stable-prefix` keeps most of the retry prompt fixed across attempts to improve prompt-cache reuse.
 
 ## Contributing Tasks

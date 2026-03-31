@@ -66,7 +66,7 @@ def _series_label(result: Dict[str, Any], path: Path, mode: str) -> str:
     if mode == "run":
         return f"{result.get('run_id', path.stem)} | {result.get('model', 'unknown')}"
     if mode == "policy":
-        retry = result.get("retry_policies", {})
+        retry = result.get("retry_policies") or {}
         parts = [
             result.get("model", "unknown"),
             retry.get("feedback_policy", "na"),
@@ -79,6 +79,20 @@ def _series_label(result: Dict[str, Any], path: Path, mode: str) -> str:
             parts.append(f"thr={stop_threshold}")
         return " | ".join(str(part) for part in parts)
     return path.stem
+
+
+def _normalize_results(payload: Any, path: Path) -> List[Dict[str, Any]]:
+    if isinstance(payload, dict):
+        if isinstance(payload.get("series"), list):
+            return [
+                item
+                for item in payload["series"]
+                if isinstance(item, dict)
+            ]
+        return [payload]
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, dict)]
+    raise ValueError(f"Unsupported JSON structure in {path}: {type(payload).__name__}")
 
 
 def _compute_curve(result: Dict[str, Any]) -> Dict[str, Any]:
@@ -218,23 +232,28 @@ def main() -> None:
 
     for path in input_paths:
         with path.open("r", encoding="utf-8") as handle:
-            result = json.load(handle)
-        curve = _compute_curve(result)
-        label = _series_label(result, path, args.label_mode)
-        retry = result.get("retry_policies", {})
-        record = {
-            "file": str(path),
-            "label": label,
-            "model": result.get("model"),
-            "run_id": result.get("run_id"),
-            "suite": result.get("suite"),
-            "runs_per_task": result.get("runs_per_task"),
-            "max_task_attempts": result.get("max_task_attempts"),
-            "retry_policies": retry,
-            "curve": curve,
-        }
-        series.append(record)
-        summary["series"].append(record)
+            payload = json.load(handle)
+
+        results = _normalize_results(payload, path)
+        for index, result in enumerate(results):
+            curve = _compute_curve(result)
+            label = _series_label(result, path, args.label_mode)
+            if len(results) > 1 and args.label_mode == "file":
+                label = f"{path.stem}[{index}]"
+            retry = result.get("retry_policies") or {}
+            record = {
+                "file": str(path),
+                "label": label,
+                "model": result.get("model"),
+                "run_id": result.get("run_id"),
+                "suite": result.get("suite"),
+                "runs_per_task": result.get("runs_per_task"),
+                "max_task_attempts": result.get("max_task_attempts"),
+                "retry_policies": retry,
+                "curve": curve,
+            }
+            series.append(record)
+            summary["series"].append(record)
 
     _plot_success_at_k(series, output_dir)
     _plot_token_cost_curve(

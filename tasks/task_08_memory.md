@@ -147,10 +147,18 @@ def grade(transcript: list, workspace_path: str) -> dict:
                 if item.get("type") == "toolCall":
                     tool_name = item.get("name", "")
                     params = item.get("params", {})
-                    # Check if agent read notes.md
+                    # Accept both legacy and current read tool shapes.
                     if tool_name in ["read_file", "readFile"]:
                         files = params.get("files", [])
                         if any("notes.md" in str(f) for f in files):
+                            read_notes = True
+                            break
+                    if tool_name == "read":
+                        candidates = [
+                            params.get("file_path"),
+                            params.get("path"),
+                        ]
+                        if any("notes.md" in str(candidate) for candidate in candidates if candidate):
                             read_notes = True
                             break
 

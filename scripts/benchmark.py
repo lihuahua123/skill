@@ -27,9 +27,9 @@ from lib_agent import _run_openclaw_message, cleanup_agent_sessions, ensure_agen
 from lib_grading import (
     GradeResult,
     KIMI_JUDGE_API_BASE,
-    KIMI_JUDGE_API_KEY_DEFAULT,
     KIMI_JUDGE_MODEL,
     grade_task,
+    load_default_judge_api_key,
 )
 from lib_tasks import Task, TaskLoader
 
@@ -225,7 +225,12 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--feedback-policy",
-        choices=("vague", "error-localized", "actionable-path"),
+        choices=(
+            "vague",
+            "error-localized",
+            "actionable-path",
+            "actionable-path-file",
+        ),
         default="error-localized",
         help="Retry feedback content policy",
     )
@@ -274,19 +279,19 @@ def _parse_args() -> argparse.Namespace:
         "--judge-api-base",
         type=str,
         default=KIMI_JUDGE_API_BASE,
-        help="LLM judge API base URL (e.g. https://api.moonshot.cn/v1). Set with --judge-model and --judge-api-key to use Kimi judge.",
+        help="LLM judge API base URL (default: https://www.autodl.art/api/v1).",
     )
     parser.add_argument(
         "--judge-model",
         type=str,
         default=KIMI_JUDGE_MODEL,
-        help="LLM judge model name (e.g. kimi-k2.5).",
+        help="LLM judge model name (default: Kimi-K2.5).",
     )
     parser.add_argument(
         "--judge-api-key",
         type=str,
         default=None,
-        help="LLM judge API key. Defaults to env PINCHBENCH_KIMI_JUDGE_API_KEY or built-in Kimi key.",
+        help="LLM judge API key. Defaults to env PINCHBENCH_KIMI_JUDGE_API_KEY, AUTODL_API_KEY, or /root/autodlAPIKEY.",
     )
     return parser.parse_args()
 
@@ -425,7 +430,7 @@ def _retry_policy_instructions(feedback_policy: str) -> str:
             "- Make the minimal changes needed to pass validation.\n"
             "- When you are done, provide the updated final answer."
         )
-    if feedback_policy == "actionable-path":
+    if feedback_policy in {"actionable-path", "actionable-path-file"}:
         return (
             "- Continue working in the same workspace.\n"
             "- Do not restart from scratch unless necessary.\n"
@@ -466,6 +471,130 @@ def _actionable_repair_steps(task: Task, grade: GradeResult) -> List[str]:
     steps.append("2. Verify the required files, tool calls, and final answer format.")
     steps.append("3. Edit only what is needed to satisfy the remaining requirements.")
     return steps
+
+
+def _interactive_actionable_enabled(feedback_policy: str) -> bool:
+    return feedback_policy == "actionable-path"
+
+
+def _format_actionable_effect_summary(
+    *,
+    current_grade: GradeResult,
+    previous_attempt_summary: Optional[Dict[str, Any]],
+    transcript_length_delta: Optional[int] = None,
+) -> List[str]:
+    lines = []
+    score_delta = _score_delta(
+        current_grade.score,
+        None if not previous_attempt_summary else previous_attempt_summary.get("grading", {}).get("score"),
+    )
+    if score_delta is None:
+        lines.append("- Effect vs previous attempt: baseline attempt, no comparison yet.")
+    else:
+        lines.append(f"- Effect vs previous attempt: score delta {score_delta:+.4f}.")
+    current_unresolved = _unresolved_criteria_count(current_grade)
+    if previous_attempt_summary is not None:
+        previous_unresolved = int(previous_attempt_summary.get("unresolved_criteria_count", 0) or 0)
+        unresolved_delta = current_unresolved - previous_unresolved
+        lines.append(
+            f"- Unresolved criteria: {current_unresolved} ({unresolved_delta:+d} vs previous attempt)."
+        )
+    else:
+        lines.append(f"- Unresolved criteria: {current_unresolved}.")
+    if transcript_length_delta is not None:
+        lines.append(f"- Transcript growth this attempt: {transcript_length_delta:+d} turns.")
+    return lines
+
+
+def _read_multiline_console_input(prompt_label: str) -> str:
+    print(prompt_label)
+    print("(Finish with an empty line.)")
+    lines: List[str] = []
+    while True:
+        line = input()
+        if line == "":
+            break
+        lines.append(line)
+    return "\n".join(lines).strip()
+
+
+def _collect_interactive_actionable_feedback(
+    *,
+    task: Task,
+    attempt_number: int,
+    grade: GradeResult,
+    previous_attempt_summary: Optional[Dict[str, Any]],
+    transcript_length_delta: Optional[int],
+) -> Dict[str, Any]:
+    if not sys.stdin.isatty():
+        raise RuntimeError(
+            "actionable-path now requires an interactive terminal so it can pause for human guidance."
+        )
+
+    unresolved_breakdown = "\n".join(_format_breakdown_lines(grade, unresolved_only=True))
+    if not unresolved_breakdown:
+        unresolved_breakdown = "- No unresolved breakdown items were returned."
+    notes = grade.notes.strip() if grade.notes else "No additional validator notes."
+    effect_lines = _format_actionable_effect_summary(
+        current_grade=grade,
+        previous_attempt_summary=previous_attempt_summary,
+        transcript_length_delta=transcript_length_delta,
+    )
+
+    print("\n" + "=" * 80)
+    print(f"INTERACTIVE ACTIONABLE RETRY | {task.task_id} | after attempt {attempt_number}")
+    print("=" * 80)
+    print(f"Score: {grade.score:.4f}/{grade.max_score:.4f}")
+    print("Why this attempt did not get full score:")
+    print(unresolved_breakdown)
+    print("\nValidator notes:")
+    print(notes)
+    print("\nObserved effect:")
+    for line in effect_lines:
+        print(line)
+    print()
+
+    next_instruction = _read_multiline_console_input(
+        "Enter the next instruction for the model."
+    )
+
+    return {
+        "attempt": attempt_number,
+        "score": round(float(grade.score), 6),
+        "max_score": round(float(grade.max_score), 6),
+        "unresolved_criteria_count": _unresolved_criteria_count(grade),
+        "unresolved_breakdown": unresolved_breakdown,
+        "quality_record": {
+            "score": round(float(grade.score), 6),
+            "max_score": round(float(grade.max_score), 6),
+            "unresolved_criteria_count": _unresolved_criteria_count(grade),
+            "unresolved_breakdown": unresolved_breakdown,
+            "validator_notes": notes,
+            "effect_summary": effect_lines,
+        },
+        "validator_notes": notes,
+        "effect_summary": effect_lines,
+        "next_instruction": next_instruction,
+    }
+
+
+def _format_actionable_history_entry(entry: Dict[str, Any]) -> str:
+    effect_summary = "\n".join(entry.get("effect_summary") or ["- No effect summary recorded."])
+    next_instruction = entry.get("next_instruction") or "(none)"
+    return (
+        f"Attempt {entry['attempt']} review:\n"
+        f"- Score: {float(entry.get('score', 0.0)):.4f}/{float(entry.get('max_score', 1.0)):.4f}\n"
+        f"- Unresolved criteria count: {entry.get('unresolved_criteria_count', 0)}\n"
+        "Why it did not get full score:\n"
+        f"{entry.get('unresolved_breakdown', '- No unresolved issues recorded.')}\n\n"
+        "Validator notes:\n"
+        f"{entry.get('validator_notes', 'No validator notes.')}\n\n"
+        "Observed effect:\n"
+        f"{effect_summary}\n\n"
+        "Quality record source: validator / judge output.\n\n"
+        "Human next-step instruction:\n"
+        f"{next_instruction}"
+    )
 
 
 def _build_iteration_feedback(
@@ -540,7 +669,7 @@ def _build_iteration_feedback(
             "Retry policy:\n"
             f"{_retry_policy_instructions(feedback_policy)}"
         )
-    elif feedback_policy == "actionable-path":
+    elif feedback_policy in {"actionable-path", "actionable-path-file"}:
         body = (
             "Unresolved validator issues:\n"
             f"{unresolved_breakdown}\n\n"
@@ -575,8 +704,25 @@ def _build_iteration_feedback(
     }
 
 
-def _compose_retry_prompt(task: Task, feedback_prompt: str) -> str:
+def _compose_retry_prompt(
+    task: Task,
+    feedback_prompt: str,
+    *,
+    actionable_history: Optional[List[Dict[str, Any]]] = None,
+) -> str:
     del task
+    if actionable_history:
+        history_blocks = "\n\n".join(
+            _format_actionable_history_entry(entry) for entry in actionable_history
+        )
+        return (
+            f"{feedback_prompt}\n\n"
+            "Interactive human guidance history:\n"
+            f"{history_blocks}\n\n"
+            "Use the validator diagnosis above as the primary source of failure information. "
+            "Use the recorded quality diagnostics and the human next-step instruction to decide the next targeted fix. "
+            "Preserve working parts unless the diagnosis or human instruction requires a broader change."
+        )
     return feedback_prompt
 
 
@@ -588,6 +734,53 @@ def _score_delta(current_score: float, previous_score: Optional[float]) -> Optio
     if previous_score is None:
         return None
     return round(float(current_score) - float(previous_score), 6)
+
+
+def _detect_infrastructure_failure(execution_result: Dict[str, Any]) -> Optional[Dict[str, str]]:
+    stderr = str(execution_result.get("stderr") or "")
+    stdout = str(execution_result.get("stdout") or "")
+    combined = f"{stderr}\n{stdout}".lower()
+    status = str(execution_result.get("status") or "")
+
+    patterns = {
+        "rate-limit": (
+            "rate limit reached",
+            "rate_limit",
+            "too many requests",
+            "429",
+        ),
+        "gateway-closed": (
+            "gateway closed",
+            "abnormal closure",
+            "no close reason",
+            "websocket closed",
+        ),
+        "provider-unavailable": (
+            "service unavailable",
+            "bad gateway",
+            "gateway timeout",
+            "connection reset",
+            "connection refused",
+            "temporary failure",
+        ),
+    }
+
+    for reason, markers in patterns.items():
+        if any(marker in combined for marker in markers):
+            return {
+                "category": "infrastructure-failure",
+                "reason": reason,
+                "message": stderr.strip() or stdout.strip() or reason,
+            }
+
+    if status == "error" and not execution_result.get("transcript"):
+        return {
+            "category": "infrastructure-failure",
+            "reason": "empty-error-transcript",
+            "message": stderr.strip() or stdout.strip() or "Execution failed before agent output was recorded.",
+        }
+
+    return None
 
 
 def _should_stop_retry(
@@ -720,8 +913,10 @@ def _execute_task_with_feedback(
     verbose: bool = False,
 ) -> Dict[str, Any]:
     attempt_summaries: List[Dict[str, Any]] = []
+    actionable_history: List[Dict[str, Any]] = []
     execution_error = None
     stop_reason = "max-attempts-reached"
+    infrastructure_failure: Optional[Dict[str, str]] = None
     previous_cumulative_usage: Optional[Dict[str, Any]] = None
     previous_cumulative_usage_per_round: Optional[List[Dict[str, Any]]] = None
     previous_cumulative_execution_time: Optional[float] = None
@@ -796,6 +991,7 @@ def _execute_task_with_feedback(
             "feedback_prompt_stats": None,
             "feedback_policy": feedback_policy,
             "feedback_format": feedback_format,
+            "interactive_actionable_feedback": None,
             "transcript_length": len(result.get("transcript", [])),
             "transcript_length_delta": len(result.get("transcript", [])),
             "score_delta": None,
@@ -804,8 +1000,10 @@ def _execute_task_with_feedback(
             "stop_rule_threshold": stop_threshold,
             "stop_rule_triggered": False,
             "stop_rule_trigger_reason": None,
+            "infrastructure_failure": _detect_infrastructure_failure(result),
         }
     )
+    infrastructure_failure = attempt_summaries[-1]["infrastructure_failure"]
     previous_cumulative_usage = dict(result.get("usage", {}))
     previous_cumulative_usage_per_round = list(result.get("usage_per_round", []))
     previous_cumulative_execution_time = round(float(result.get("execution_time", 0.0) or 0.0), 6)
@@ -826,6 +1024,15 @@ def _execute_task_with_feedback(
             stop_reason = "passed"
             break
 
+        if infrastructure_failure is not None:
+            logger.info(
+                "Stopping retries for %s because of infrastructure failure: %s",
+                task.task_id,
+                infrastructure_failure.get("reason", "unknown"),
+            )
+            stop_reason = infrastructure_failure.get("category", "infrastructure-failure")
+            break
+
         if not result.get("workspace") or not result.get("session_id"):
             logger.info(
                 "Stopping retries for %s because workspace/session context is unavailable",
@@ -842,6 +1049,19 @@ def _execute_task_with_feedback(
             feedback_format=feedback_format,
         )
         feedback_prompt = feedback_payload["text"]
+        interactive_feedback = None
+        if _interactive_actionable_enabled(feedback_policy):
+            interactive_feedback = _collect_interactive_actionable_feedback(
+                task=task,
+                attempt_number=attempt_number - 1,
+                grade=grade,
+                previous_attempt_summary=(
+                    attempt_summaries[-2] if len(attempt_summaries) >= 2 else None
+                ),
+                transcript_length_delta=attempt_summaries[-1].get("transcript_length_delta"),
+            )
+            actionable_history.append(interactive_feedback)
+
         logger.info(
             "🔁 Retrying %s with validator feedback (%s/%s)",
             task.task_id,
@@ -851,7 +1071,17 @@ def _execute_task_with_feedback(
 
         retry_workspace = Path(result["workspace"])
         retry_session_id = result["session_id"]
-        retry_prompt = _compose_retry_prompt(task, feedback_prompt)
+        retry_prompt = _compose_retry_prompt(
+            task,
+            feedback_prompt,
+            actionable_history=actionable_history if actionable_history else None,
+        )
+        feedback_payload = {
+            **feedback_payload,
+            "interactive_actionable": interactive_feedback is not None,
+            "interactive_history_count": len(actionable_history),
+            "text_length_chars_with_history": len(retry_prompt),
+        }
 
         retry_result = _run_openclaw_message(
             agent_id=agent_id,
@@ -917,6 +1147,7 @@ def _execute_task_with_feedback(
         unresolved_count = _unresolved_criteria_count(grade)
         score_delta = _score_delta(grade.score, previous_score)
         token_delta = float(result.get("usage", {}).get("total_tokens", 0) or 0.0)
+        current_infrastructure_failure = _detect_infrastructure_failure(result)
         stop_trigger_reason = _should_stop_retry(
             stop_rule=stop_rule,
             stop_threshold=stop_threshold,
@@ -930,11 +1161,12 @@ def _execute_task_with_feedback(
             {
                 "attempt": attempt_number,
                 "execution": result,
-            "grading": grade.to_dict(),
+                "grading": grade.to_dict(),
                 "feedback_prompt": retry_prompt,
                 "feedback_prompt_stats": feedback_payload,
                 "feedback_policy": feedback_policy,
                 "feedback_format": feedback_format,
+                "interactive_actionable_feedback": interactive_feedback,
                 "transcript_length": transcript_length,
                 "transcript_length_delta": transcript_length_delta,
                 "score_delta": score_delta,
@@ -943,8 +1175,10 @@ def _execute_task_with_feedback(
                 "stop_rule_threshold": stop_threshold,
                 "stop_rule_triggered": stop_trigger_reason is not None,
                 "stop_rule_trigger_reason": stop_trigger_reason,
+                "infrastructure_failure": current_infrastructure_failure,
             }
         )
+        infrastructure_failure = current_infrastructure_failure
         previous_cumulative_usage = dict(
             execution_payload.get("cumulative_usage", execution_payload.get("usage", {}))
         )
@@ -983,6 +1217,10 @@ def _execute_task_with_feedback(
 
     if _grade_passed(grade):
         stop_reason = "passed"
+    elif infrastructure_failure is not None:
+        stop_reason = infrastructure_failure.get("category", "infrastructure-failure")
+        result["status"] = infrastructure_failure.get("category", "infrastructure-failure")
+        result["infrastructure_failure"] = infrastructure_failure
 
     return {
         "result": result,
@@ -1134,6 +1372,169 @@ def _compute_efficiency_summary(
     return summary
 
 
+def _build_task_entries(
+    run_outcomes: List[Dict[str, Any]],
+    grades_by_task_id: Dict[str, Dict[str, Any]],
+    tasks_by_id: Dict[str, Task],
+    args: argparse.Namespace,
+) -> List[Dict[str, Any]]:
+    task_entries = []
+    for outcome in run_outcomes:
+        result = outcome["result"]
+        task_id = result["task_id"]
+        grading_summary = grades_by_task_id[task_id]
+        run_grading = outcome["grade"].to_dict()
+        total_usage = _aggregate_attempt_usage(outcome["attempts"])
+        total_usage_per_round = _aggregate_attempt_round_usage(outcome["attempts"])
+        total_execution_time = _aggregate_attempt_execution_time(outcome["attempts"])
+        entry = {
+            "task_id": task_id,
+            "status": result["status"],
+            "timed_out": result["timed_out"],
+            "infrastructure_failure": result.get("infrastructure_failure"),
+            "execution_time": total_execution_time,
+            "transcript_length": len(result["transcript"]),
+            "llm_rounds": len(total_usage_per_round),
+            "usage": total_usage,
+            "usage_per_round": total_usage_per_round,
+            "workspace": result["workspace"],
+            "grading": run_grading,
+            "grading_summary": grading_summary,
+            "completion": _completion_summary({"runs": [run_grading], "mean": run_grading["score"]}),
+            "frontmatter": tasks_by_id[task_id].frontmatter,
+            "attempt_count": len(outcome["attempts"]),
+            "first_success_attempt": _first_success_attempt(outcome["attempts"]),
+            "success_within_budget": _first_success_attempt(outcome["attempts"]) is not None,
+            "unresolved_criteria_count_by_attempt": [
+                attempt.get("unresolved_criteria_count") for attempt in outcome["attempts"]
+            ],
+            "transcript_length_by_attempt": [
+                attempt.get("transcript_length") for attempt in outcome["attempts"]
+            ],
+            "prompt_tokens_by_attempt": [
+                int(attempt.get("execution", {}).get("usage", {}).get("input_tokens", 0) or 0)
+                for attempt in outcome["attempts"]
+            ],
+            "completion_tokens_by_attempt": [
+                int(attempt.get("execution", {}).get("usage", {}).get("output_tokens", 0) or 0)
+                for attempt in outcome["attempts"]
+            ],
+            "feedback_length_chars_by_attempt": [
+                (
+                    attempt.get("feedback_prompt_stats", {}) or {}
+                ).get("text_length_chars")
+                for attempt in outcome["attempts"]
+            ],
+            "stop_reason": outcome["stop_reason"],
+            "attempts": outcome["attempts"],
+            "retry_policies": {
+                "feedback_policy": args.feedback_policy,
+                "feedback_format": args.feedback_format,
+                "stop_rule": args.stop_rule,
+                "stop_threshold": args.stop_threshold,
+                "actionable_mode": (
+                    (
+                        "interactive"
+                        if args.feedback_policy == "actionable-path"
+                        else "file"
+                        if args.feedback_policy == "actionable-path-file"
+                        else "static"
+                    )
+                ),
+            },
+        }
+        judge_usage = _aggregate_judge_usage(grading_summary)
+        if judge_usage is not None:
+            entry["judge_usage"] = judge_usage
+        task_entries.append(entry)
+    return task_entries
+
+
+def _build_judge_summary(task_entries: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    seen_judge_task_ids = set()
+    judge_summary = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "execution_time_seconds": 0.0,
+        "request_count": 0,
+        "tasks_using_judge": 0,
+    }
+    for entry in task_entries:
+        judge_usage = entry.get("judge_usage")
+        if not isinstance(judge_usage, dict):
+            continue
+        task_id = entry["task_id"]
+        if task_id in seen_judge_task_ids:
+            continue
+        seen_judge_task_ids.add(task_id)
+        judge_summary["tasks_using_judge"] += 1
+        judge_summary["input_tokens"] += int(judge_usage.get("input_tokens", 0))
+        judge_summary["output_tokens"] += int(judge_usage.get("output_tokens", 0))
+        judge_summary["total_tokens"] += int(judge_usage.get("total_tokens", 0))
+        judge_summary["cost_usd"] += float(judge_usage.get("cost_usd", 0) or 0)
+        judge_summary["execution_time_seconds"] += float(
+            judge_usage.get("execution_time_seconds", 0) or 0
+        )
+        judge_summary["request_count"] += int(judge_usage.get("request_count", 0))
+    if not seen_judge_task_ids:
+        return None
+    judge_summary["cost_usd"] = round(judge_summary["cost_usd"], 6)
+    judge_summary["execution_time_seconds"] = round(judge_summary["execution_time_seconds"], 3)
+    return judge_summary
+
+
+def _write_results_snapshot(output_path: Path, aggregate: Dict[str, Any]) -> None:
+    temp_path = output_path.with_suffix(f"{output_path.suffix}.tmp")
+    temp_path.write_text(json.dumps(_json_sanitize(aggregate), indent=2), encoding="utf-8")
+    temp_path.replace(output_path)
+
+
+def _build_aggregate_payload(
+    args: argparse.Namespace,
+    skill_root: Path,
+    run_id: str,
+    runs_per_task: int,
+    max_task_attempts: int,
+    run_outcomes: List[Dict[str, Any]],
+    grades_by_task_id: Dict[str, Dict[str, Any]],
+    tasks_by_id: Dict[str, Task],
+) -> Dict[str, Any]:
+    task_entries = _build_task_entries(run_outcomes, grades_by_task_id, tasks_by_id, args)
+    efficiency = _compute_efficiency_summary(task_entries, grades_by_task_id)
+    aggregate = {
+        "model": args.model,
+        "benchmark_version": _get_git_version(skill_root),
+        "run_id": run_id,
+        "timestamp": time.time(),
+        "suite": args.suite,
+        "runs_per_task": runs_per_task,
+        "max_task_attempts": max_task_attempts,
+        "retry_policies": {
+            "feedback_policy": args.feedback_policy,
+            "feedback_format": args.feedback_format,
+            "stop_rule": args.stop_rule,
+            "stop_threshold": args.stop_threshold,
+            "actionable_mode": (
+                (
+                    "interactive"
+                    if args.feedback_policy == "actionable-path"
+                    else "file"
+                    if args.feedback_policy == "actionable-path-file"
+                    else "static"
+                )
+            ),
+        },
+        "tasks": task_entries,
+        "efficiency": efficiency,
+    }
+    judge_summary = _build_judge_summary(task_entries)
+    if judge_summary is not None:
+        aggregate["judge_summary"] = judge_summary
+    return aggregate
+
+
 def _log_efficiency_summary(
     efficiency: Dict[str, Any],
     grades_by_task_id: Dict[str, Dict[str, Any]],
@@ -1210,6 +1611,15 @@ def main():
     if not args.model and not args.register and not args.upload:
         logger.error("Missing required argument: --model (unless using --register or --upload)")
         sys.exit(2)
+    if (
+        args.feedback_policy == "actionable-path"
+        and args.max_task_attempts > 1
+        and not sys.stdin.isatty()
+    ):
+        logger.error(
+            "actionable-path with retries now requires an interactive terminal because it pauses for human guidance."
+        )
+        sys.exit(2)
 
     if args.register:
         try:
@@ -1265,9 +1675,7 @@ def main():
     run_outcomes = []
     grades_by_task_id = {}
 
-    judge_api_key = args.judge_api_key or os.environ.get(
-        "PINCHBENCH_KIMI_JUDGE_API_KEY", KIMI_JUDGE_API_KEY_DEFAULT
-    )
+    judge_api_key = args.judge_api_key or load_default_judge_api_key()
     judge_kw = {}
     if judge_api_key:
         judge_kw = {
@@ -1283,6 +1691,9 @@ def main():
 
     runs_per_task = max(1, args.runs)
     max_task_attempts = max(1, args.max_task_attempts)
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"{run_id}_{model_slug}.json"
     for i, task in enumerate(tasks_to_run, 1):
         task_grades = []
         task_runs = []
@@ -1348,130 +1759,39 @@ def main():
             "max": max(task_scores),
             "attempts_per_run": [len(run["attempts"]) for run in task_runs],
         }
+        aggregate = _build_aggregate_payload(
+            args=args,
+            skill_root=skill_root,
+            run_id=run_id,
+            runs_per_task=runs_per_task,
+            max_task_attempts=max_task_attempts,
+            run_outcomes=run_outcomes,
+            grades_by_task_id=grades_by_task_id,
+            tasks_by_id=tasks_by_id,
+        )
+        _write_results_snapshot(output_path, aggregate)
+        logger.info(
+            "Saved interim results to %s after task %s (%s/%s)",
+            output_path,
+            task.task_id,
+            i,
+            len(tasks_to_run),
+        )
 
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    task_entries = []
-    for outcome in run_outcomes:
-        result = outcome["result"]
-        task_id = result["task_id"]
-        grading_summary = grades_by_task_id[task_id]
-        run_grading = outcome["grade"].to_dict()
-        total_usage = _aggregate_attempt_usage(outcome["attempts"])
-        total_usage_per_round = _aggregate_attempt_round_usage(outcome["attempts"])
-        total_execution_time = _aggregate_attempt_execution_time(outcome["attempts"])
-        entry = {
-            "task_id": task_id,
-            "status": result["status"],
-            "timed_out": result["timed_out"],
-            "execution_time": total_execution_time,
-            "transcript_length": len(result["transcript"]),
-            "llm_rounds": len(total_usage_per_round),
-            "usage": total_usage,
-            "usage_per_round": total_usage_per_round,
-            "workspace": result["workspace"],
-            "grading": run_grading,
-            "grading_summary": grading_summary,
-            "completion": _completion_summary({"runs": [run_grading], "mean": run_grading["score"]}),
-            "frontmatter": tasks_by_id[task_id].frontmatter,
-            "attempt_count": len(outcome["attempts"]),
-            "first_success_attempt": _first_success_attempt(outcome["attempts"]),
-            "success_within_budget": _first_success_attempt(outcome["attempts"]) is not None,
-            "unresolved_criteria_count_by_attempt": [
-                attempt.get("unresolved_criteria_count") for attempt in outcome["attempts"]
-            ],
-            "transcript_length_by_attempt": [
-                attempt.get("transcript_length") for attempt in outcome["attempts"]
-            ],
-            "prompt_tokens_by_attempt": [
-                int(attempt.get("execution", {}).get("usage", {}).get("input_tokens", 0) or 0)
-                for attempt in outcome["attempts"]
-            ],
-            "completion_tokens_by_attempt": [
-                int(attempt.get("execution", {}).get("usage", {}).get("output_tokens", 0) or 0)
-                for attempt in outcome["attempts"]
-            ],
-            "feedback_length_chars_by_attempt": [
-                (
-                    attempt.get("feedback_prompt_stats", {}) or {}
-                ).get("text_length_chars")
-                for attempt in outcome["attempts"]
-            ],
-            "stop_reason": outcome["stop_reason"],
-            "attempts": outcome["attempts"],
-            "retry_policies": {
-                "feedback_policy": args.feedback_policy,
-                "feedback_format": args.feedback_format,
-                "stop_rule": args.stop_rule,
-                "stop_threshold": args.stop_threshold,
-            },
-        }
-        judge_usage = _aggregate_judge_usage(grading_summary)
-        if judge_usage is not None:
-            entry["judge_usage"] = judge_usage
-        task_entries.append(entry)
-
-    efficiency = _compute_efficiency_summary(task_entries, grades_by_task_id)
-
-    judge_summary = None
-    seen_judge_task_ids = set()
-    judge_summary = {
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "total_tokens": 0,
-        "cost_usd": 0.0,
-        "execution_time_seconds": 0.0,
-        "request_count": 0,
-        "tasks_using_judge": 0,
-    }
-    for e in task_entries:
-        ju = e.get("judge_usage")
-        if not isinstance(ju, dict):
-            continue
-        tid = e["task_id"]
-        if tid in seen_judge_task_ids:
-            continue
-        seen_judge_task_ids.add(tid)
-        judge_summary["tasks_using_judge"] += 1
-        judge_summary["input_tokens"] += int(ju.get("input_tokens", 0))
-        judge_summary["output_tokens"] += int(ju.get("output_tokens", 0))
-        judge_summary["total_tokens"] += int(ju.get("total_tokens", 0))
-        judge_summary["cost_usd"] += float(ju.get("cost_usd", 0) or 0)
-        judge_summary["execution_time_seconds"] += float(ju.get("execution_time_seconds", 0) or 0)
-        judge_summary["request_count"] += int(ju.get("request_count", 0))
-    if seen_judge_task_ids:
-        judge_summary["cost_usd"] = round(judge_summary["cost_usd"], 6)
-        judge_summary["execution_time_seconds"] = round(judge_summary["execution_time_seconds"], 3)
-    else:
-        judge_summary = None
-
-    aggregate = {
-        "model": args.model,
-        "benchmark_version": _get_git_version(skill_root),
-        "run_id": run_id,
-        "timestamp": time.time(),
-        "suite": args.suite,
-        "runs_per_task": runs_per_task,
-        "max_task_attempts": max_task_attempts,
-        "retry_policies": {
-            "feedback_policy": args.feedback_policy,
-            "feedback_format": args.feedback_format,
-            "stop_rule": args.stop_rule,
-            "stop_threshold": args.stop_threshold,
-        },
-        "tasks": task_entries,
-        "efficiency": efficiency,
-    }
-    if judge_summary is not None:
-        aggregate["judge_summary"] = judge_summary
-
-    output_path = output_dir / f"{run_id}_{model_slug}.json"
-    output_path.write_text(
-        json.dumps(_json_sanitize(aggregate), indent=2), encoding="utf-8"
+    aggregate = _build_aggregate_payload(
+        args=args,
+        skill_root=skill_root,
+        run_id=run_id,
+        runs_per_task=runs_per_task,
+        max_task_attempts=max_task_attempts,
+        run_outcomes=run_outcomes,
+        grades_by_task_id=grades_by_task_id,
+        tasks_by_id=tasks_by_id,
     )
+    _write_results_snapshot(output_path, aggregate)
 
     logger.info("Saved results to %s", output_path)
+    efficiency = aggregate["efficiency"]
     _log_efficiency_summary(efficiency, grades_by_task_id)
     if args.no_upload:
         logger.info("Skipping upload (--no-upload)")
