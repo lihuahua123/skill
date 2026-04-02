@@ -1,0 +1,37 @@
+{
+  "program_id": "structured_workspace_demo",
+  "mode": "template_reuse",
+  "slots": {
+    "workspace": "/tmp/reuse_router_demo",
+    "readme_path": "/tmp/reuse_router_demo/README.md",
+    "title": "Pinned Reuse Workflow"
+  },
+  "compiled_steps": [
+    {
+      "action": "mkdir",
+      "params": {
+        "path": "${workspace}"
+      }
+    },
+    {
+      "action": "write_text",
+      "params": {
+        "path": "${readme_path}",
+        "content": "# ${title}\n\nThis file was produced by direct cached-action execution.\n"
+      }
+    },
+    {
+      "action": "assert_exists",
+      "params": {
+        "path": "${readme_path}"
+      }
+    },
+    {
+      "action": "assert_contains",
+      "params": {
+        "path": "${readme_path}",
+        "needle": "direct cached-action execution"
+      }
+    }
+  ]
+}

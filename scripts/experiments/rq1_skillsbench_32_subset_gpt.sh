@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AUTODL_KEY_FILE="/root/autodlAPIKEY"
+AUTODL_KEY_FILE="/root/AUTODLAPIKEY"
 
 MODEL="${1:-openai/gpt-5.3-codex}"
 if [[ $# -gt 0 ]]; then

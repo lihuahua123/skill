@@ -1,0 +1,14 @@
+{
+  "skill_id": "skillsbench-setup-fuzzing-py-captured__eeb484c4",
+  "skill_name": "skillsbench-setup-fuzzing-py-captured",
+  "origin": "captured",
+  "parent_skill_ids": [],
+  "source_task_id": "setup-fuzzing-py",
+  "source_analysis_id": "skillsbench::setup-fuzzing-py::skillsbench-openai-gpt-5-3-codex-2026-03-28-19-58-04",
+  "change_summary": "Capture a reusable task-family playbook from setup-fuzzing-py, including verifier-first repair and artifact validation.",
+  "generated_path": "/root/skill/evo_skill/generated_skills/skillsbench-setup-fuzzing-py-captured/SKILL.md",
+  "content_snapshot": {
+    "SKILL.md": "---\nname: skillsbench-setup-fuzzing-py-captured\ndescription: Offline-evolved skill generated from historical benchmark data.\ncategory: workflow\nskill_id: skillsbench-setup-fuzzing-py-captured__eeb484c4\norigin: captured\nparent_skill_ids:\n  []\nsource_task_id: setup-fuzzing-py\nsource_analysis_id: skillsbench::setup-fuzzing-py::skillsbench-openai-gpt-5-3-codex-2026-03-28-19-58-04\n---\n\n# skillsbench setup fuzzing py captured\n\n## Why this exists\n\nThis skill was generated using an OpenSpace-style evolution flow:\n\n1. historical execution records were analyzed\n2. an evolution suggestion was created\n3. the suggestion was materialized as a versioned skill\n\n## Evolution Type\n\n`captured`\n\n## Parent Skills\n\n(none)\n\n## Direction\n\nCapture a reusable task-family playbook from setup-fuzzing-py, including verifier-first repair and artifact validation.\n\n## Rationale\n\nThe task shows a reusable workflow pattern that should exist as a standalone skill rather than only as a retry tweak.\n\n## Source Evidence\n\n- benchmark: `skillsbench`\n- task: `setup-fuzzing-py`\n- note: `benchmark=skillsbench; attempt_count=6; first_success_attempt=None; last_unresolved_criteria=1`\n\n## Workflow\n\n1. Read the verifier-visible failure before changing strategy.\n2. Check output-contract and artifact existence before broad rewrites.\n3. Preserve successful intermediate artifacts and only patch the narrow mismatch.\n4. Stop repeated retries when the failure class is unchanged.\n5. Escalate to a new task-family-specific method when the loop is not converging.\n\n## Task-Family Guidance\n\n- If the task touches structured artifacts such as PDFs, XLSX, or generated reports, validate the artifact first.\n- If the task is planning-heavy or search-heavy, avoid repeating the same long-horizon strategy after two similar failures.\n- If the verifier identifies one narrow mismatch, patch that mismatch instead of restarting the whole task.\n"
+  },
+  "created_at": "2026-04-01T12:16:15.157181+00:00"
+}

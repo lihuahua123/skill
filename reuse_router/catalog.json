@@ -1,0 +1,244 @@
+{
+  "families": [
+    {
+      "family_id": "pinchbench_document_qa",
+      "mode": "template_reuse",
+      "score_bias": 2,
+      "tasks": [
+        "task_20_eli5_pdf_summary",
+        "task_21_openclaw_comprehension",
+        "court-form-filling",
+        "latex-formula-extraction"
+      ],
+      "keywords": [
+        "pdf",
+        "paper",
+        "report",
+        "extract",
+        "answer questions",
+        "fill form",
+        "form",
+        "fields"
+      ],
+      "template": {
+        "name": "document_extract_or_fill",
+        "slots": [
+          "input_document",
+          "target_fields",
+          "output_file",
+          "format_constraints"
+        ],
+        "steps": [
+          "Inspect input document and identify required output schema.",
+          "Extract or map only the required fields.",
+          "Write output in the required target format.",
+          "Run a narrow validation pass against formatting and missing-field constraints.",
+          "If validation fails, patch only the named fields instead of rewriting the full output."
+        ]
+      }
+    },
+    {
+      "family_id": "pinchbench_structured_workspace",
+      "mode": "template_reuse",
+      "score_bias": 3,
+      "tasks": [
+        "task_09_files",
+        "task_11_clawdhub",
+        "task_12_skill_search",
+        "task_22_second_brain",
+        "threejs-structure-parser",
+        "dialogue-parser"
+      ],
+      "keywords": [
+        "create project structure",
+        "directory",
+        "file structure",
+        "replace config",
+        "search and replace",
+        "memory file",
+        "parse structure",
+        "dialogue graph"
+      ],
+      "template": {
+        "name": "structured_workspace_edit",
+        "slots": [
+          "input_files",
+          "target_structure",
+          "output_paths",
+          "replacement_values"
+        ],
+        "steps": [
+          "Inspect the workspace layout and locate the target files.",
+          "Apply the requested structured edit or generation plan.",
+          "Write outputs to the exact requested paths.",
+          "Verify existence, schema, and naming before finishing."
+        ]
+      }
+    },
+    {
+      "family_id": "pinchbench_summary_generation",
+      "mode": "template_reuse",
+      "score_bias": 2,
+      "tasks": [
+        "task_03_blog",
+        "task_07_email",
+        "task_14_humanizer",
+        "task_15_daily_summary",
+        "offer-letter-generator"
+      ],
+      "keywords": [
+        "blog post",
+        "email",
+        "decline",
+        "meeting request",
+        "email draft",
+        "rewrite",
+        "humanize",
+        "summary",
+        "daily summary",
+        "offer letter"
+      ],
+      "template": {
+        "name": "templated_content_generation",
+        "slots": [
+          "topic",
+          "tone",
+          "required_sections",
+          "output_file"
+        ],
+        "steps": [
+          "Extract requested tone, structure, and deliverable constraints.",
+          "Draft an outline that mirrors the requested structure.",
+          "Generate the final content with the required formatting.",
+          "Run a quick pass for length, section coverage, and output filename."
+        ]
+      }
+    },
+    {
+      "family_id": "data_analysis_reporting",
+      "mode": "macro_reuse",
+      "score_bias": 1,
+      "tasks": [
+        "task_19_spreadsheet_summary",
+        "task_16_email_triage",
+        "task_17_email_search",
+        "task_18_spreadsheet_summary",
+        "powerlifting-coef-calc",
+        "financial-modeling-qa",
+        "sec-financial-report",
+        "reserves-at-risk-calc",
+        "parallel-tfidf-search"
+      ],
+      "keywords": [
+        "csv",
+        "xlsx",
+        "spreadsheet",
+        "analyze",
+        "triage",
+        "search emails",
+        "top k",
+        "financial report",
+        "report"
+      ],
+      "template": {
+        "name": "analyze_then_report",
+        "slots": [
+          "input_data",
+          "target_metrics",
+          "comparison_axes",
+          "output_format"
+        ],
+        "steps": [
+          "Load the structured data and identify the requested metrics.",
+          "Compute or extract the required aggregates.",
+          "Assemble the requested report format.",
+          "Validate that every requested metric appears in the final output."
+        ]
+      }
+    },
+    {
+      "family_id": "code_transform_or_audit",
+      "mode": "macro_reuse",
+      "score_bias": 0,
+      "tasks": [
+        "task_10_workflow",
+        "task_04_weather",
+        "python-scala-translation",
+        "software-dependency-audit",
+        "find-topk-similiar-chemicals"
+      ],
+      "keywords": [
+        "translate code",
+        "dependency audit",
+        "workflow",
+        "api script",
+        "python script",
+        "chemical search"
+      ],
+      "template": {
+        "name": "inspect_build_transform_validate",
+        "slots": [
+          "source_files",
+          "target_language_or_schema",
+          "validation_command",
+          "output_paths"
+        ],
+        "steps": [
+          "Inspect the source artifact and identify the transformation target.",
+          "Implement the transformation or audit logic.",
+          "Run the most local validation available.",
+          "Patch only the failing segment if validation points to a narrow mismatch."
+        ]
+      }
+    },
+    {
+      "family_id": "repo_debugging_and_migration",
+      "mode": "full_model",
+      "score_bias": -3,
+      "tasks": [
+        "react-performance-debugging",
+        "spring-boot-jakarta-migration",
+        "fix-build-google-auto",
+        "fix-build-agentops",
+        "lean4-proof",
+        "mars-clouds-clustering",
+        "earthquake-phase-association",
+        "r2r-mpc-control",
+        "quantum-numerical-simulation",
+        "shock-analysis-demand",
+        "dapt-intrusion-detection",
+        "suricata-custom-exfil",
+        "manufacturing-equipment-maintenance",
+        "manufacturing-codebook-normalization",
+        "pedestrian-traffic-counting"
+      ],
+      "keywords": [
+        "debug repository",
+        "fix build",
+        "migration",
+        "proof",
+        "cluster optimization",
+        "intrusion detection",
+        "suricata",
+        "scientific simulation"
+      ],
+      "template": {
+        "name": "none",
+        "slots": [],
+        "steps": [
+          "Do not replay a stored trajectory.",
+          "Use a stronger model or full exploration policy from the start."
+        ]
+      }
+    }
+  ],
+  "feature_weights": {
+    "stable_output_format": 2,
+    "stable_tool_sequence": 2,
+    "parameter_substitution": 2,
+    "local_validator_repair": 1,
+    "open_ended_search": -2,
+    "repo_specific_debugging": -3,
+    "long_horizon_reasoning": -3
+  }
+}

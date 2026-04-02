@@ -20,7 +20,10 @@ MAX_OPENCLAW_MESSAGE_CHARS = int(os.environ.get("PINCHBENCH_MAX_MSG_CHARS", "400
 OPENCLAW_ROOT = Path.home() / ".openclaw"
 OPENCLAW_GLOBAL_CONFIG = OPENCLAW_ROOT / "openclaw.json"
 OPENCLAW_AGENTS_DIR = OPENCLAW_ROOT / "agents"
-AUTODL_API_KEY_PATH = Path("/root/autodlAPIKEY")
+AUTODL_API_KEY_PATHS = (
+    Path("/root/autodlAPIKEY"),
+    Path("/root/AUTODLAPIKEY"),
+)
 AUTODL_PROVIDER_ID = "autodl"
 AUTODL_PROVIDER_CONFIG = {
     "baseUrl": "https://www.autodl.art/api/v1",
@@ -79,12 +82,17 @@ def _write_json_file(path: Path, payload: Dict[str, Any]) -> bool:
 
 def _build_autodl_provider_config() -> Dict[str, Any] | None:
     api_key = os.environ.get("AUTODL_API_KEY")
-    if not api_key and AUTODL_API_KEY_PATH.exists():
-        try:
-            api_key = AUTODL_API_KEY_PATH.read_text(encoding="utf-8").strip()
-        except OSError as exc:
-            logger.warning("Failed to read %s: %s", AUTODL_API_KEY_PATH, exc)
-            return None
+    if not api_key:
+        for key_path in AUTODL_API_KEY_PATHS:
+            if not key_path.exists():
+                continue
+            try:
+                api_key = key_path.read_text(encoding="utf-8").strip()
+                if api_key:
+                    break
+            except OSError as exc:
+                logger.warning("Failed to read %s: %s", key_path, exc)
+                return None
     if not api_key:
         return None
 
@@ -176,7 +184,7 @@ def ensure_optional_model_providers(model_id: str) -> None:
         logger.warning(
             "Model %s requested but no autodl API key was found in AUTODL_API_KEY or %s",
             model_id,
-            AUTODL_API_KEY_PATH,
+            ", ".join(str(path) for path in AUTODL_API_KEY_PATHS),
         )
         return
 

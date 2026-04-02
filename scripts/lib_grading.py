@@ -25,7 +25,10 @@ logger = logging.getLogger(__name__)
 DEFAULT_JUDGE_MODEL = "openrouter/anthropic/claude-opus-4.5"
 DEFAULT_JUDGE_AGENT_PREFIX = "bench-judge"
 DEFAULT_JUDGE_TIMEOUT_SECONDS = 180
-AUTODL_API_KEY_PATH = Path("/root/autodlAPIKEY")
+AUTODL_API_KEY_PATHS = (
+    Path("/root/autodlAPIKEY"),
+    Path("/root/AUTODLAPIKEY"),
+)
 
 # AutoDL judge defaults; override with env PINCHBENCH_KIMI_JUDGE_API_KEY or AUTODL_API_KEY
 KIMI_JUDGE_API_BASE = "https://www.autodl.art/api/v1"
@@ -41,11 +44,12 @@ def load_default_judge_api_key() -> Optional[str]:
         value = os.environ.get(env_name)
         if value:
             return value
-    try:
-        if AUTODL_API_KEY_PATH.exists():
-            return AUTODL_API_KEY_PATH.read_text(encoding="utf-8").strip() or None
-    except OSError as exc:
-        logger.warning("Failed to read judge API key from %s: %s", AUTODL_API_KEY_PATH, exc)
+    for key_path in AUTODL_API_KEY_PATHS:
+        try:
+            if key_path.exists():
+                return key_path.read_text(encoding="utf-8").strip() or None
+        except OSError as exc:
+            logger.warning("Failed to read judge API key from %s: %s", key_path, exc)
     return None
 
 

@@ -291,7 +291,7 @@ def _parse_args() -> argparse.Namespace:
         "--judge-api-key",
         type=str,
         default=None,
-        help="LLM judge API key. Defaults to env PINCHBENCH_KIMI_JUDGE_API_KEY, AUTODL_API_KEY, or /root/autodlAPIKEY.",
+        help="LLM judge API key. Defaults to env PINCHBENCH_KIMI_JUDGE_API_KEY, AUTODL_API_KEY, /root/autodlAPIKEY, or /root/AUTODLAPIKEY.",
     )
     return parser.parse_args()
 

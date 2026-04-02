@@ -1,0 +1,93 @@
+{
+  "rules": [
+    {
+      "rule_id": "missing_required_slots",
+      "category": "retrieval_miss",
+      "severity": "high",
+      "description": "Abort reuse when the selected template requires slots that were not extracted from the new request.",
+      "signals": [
+        "missing_slots_count > 0"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "ambiguous_family_match",
+      "category": "retrieval_miss",
+      "severity": "medium",
+      "description": "Abort direct template reuse when the best family score is too low or not clearly separated from alternatives.",
+      "signals": [
+        "family_score < 5",
+        "family_score_gap <= 1"
+      ],
+      "recommended_action": "downgrade_to_macro_or_full_model"
+    },
+    {
+      "rule_id": "output_contract_failed",
+      "category": "execution_miss",
+      "severity": "high",
+      "description": "Abort reuse when the output file, schema, or required fields do not match the requested contract.",
+      "signals": [
+        "output_contract_passed == false"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "missing_intermediate_artifact",
+      "category": "execution_miss",
+      "severity": "high",
+      "description": "Abort reuse when a required intermediate artifact is missing at the checkpoint where it should already exist.",
+      "signals": [
+        "missing_intermediate_artifacts_count > 0"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "unexpected_validator_error_class",
+      "category": "execution_miss",
+      "severity": "high",
+      "description": "Abort reuse when verifier or validator feedback falls outside the failure class covered by the selected template.",
+      "signals": [
+        "validator_error_expected == false"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "trajectory_deviation",
+      "category": "execution_miss",
+      "severity": "medium",
+      "description": "Abort reuse when the observed tool trajectory deviates too far from the family skeleton.",
+      "signals": [
+        "trajectory_deviation_score > 0.45"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "budget_anomaly",
+      "category": "execution_miss",
+      "severity": "medium",
+      "description": "Abort reuse when token or time consumption exceeds the normal range for the selected template before meaningful progress appears.",
+      "signals": [
+        "token_ratio_to_template_mean > 1.8",
+        "time_ratio_to_template_mean > 1.8"
+      ],
+      "recommended_action": "abort_and_fallback"
+    },
+    {
+      "rule_id": "no_progress_across_repairs",
+      "category": "execution_miss",
+      "severity": "medium",
+      "description": "Abort reuse when repeated patch attempts do not improve reward, score, or unresolved failure count.",
+      "signals": [
+        "repair_progress_stalled == true"
+      ],
+      "recommended_action": "abort_and_fallback"
+    }
+  ],
+  "thresholds": {
+    "template_reuse_min_family_score": 5,
+    "max_family_score_gap_for_ambiguity": 1,
+    "max_trajectory_deviation_score": 0.45,
+    "max_token_ratio_to_template_mean": 1.8,
+    "max_time_ratio_to_template_mean": 1.8
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "skill_id": "skillsbench-paper-anonymizer-derived__c3a4ee5b",
+  "skill_name": "skillsbench-paper-anonymizer-derived",
+  "origin": "derived",
+  "parent_skill_ids": [
+    "academic-pdf-redaction",
+    "pdf"
+  ],
+  "source_task_id": "paper-anonymizer",
+  "source_analysis_id": "skillsbench::paper-anonymizer::skillsbench-minimax-cn-minimax-m2-5-recovered-full-87tasks",
+  "change_summary": "Capture the successful repair loop for paper-anonymizer. Emphasize narrowing from full rework to verifier-visible repair.",
+  "generated_path": "/root/skill/evo_skill/generated_skills/skillsbench-paper-anonymizer-derived/SKILL.md",
+  "content_snapshot": {
+    "SKILL.md": "---\nname: skillsbench-paper-anonymizer-derived\ndescription: Offline-evolved skill generated from historical benchmark data.\ncategory: workflow\nskill_id: skillsbench-paper-anonymizer-derived__c3a4ee5b\norigin: derived\nparent_skill_ids:\n  - academic-pdf-redaction\n  - pdf\nsource_task_id: paper-anonymizer\nsource_analysis_id: skillsbench::paper-anonymizer::skillsbench-minimax-cn-minimax-m2-5-recovered-full-87tasks\n---\n\n# skillsbench paper anonymizer derived\n\n## Why this exists\n\nThis skill was generated using an OpenSpace-style evolution flow:\n\n1. historical execution records were analyzed\n2. an evolution suggestion was created\n3. the suggestion was materialized as a versioned skill\n\n## Evolution Type\n\n`derived`\n\n## Parent Skills\n\nacademic-pdf-redaction, pdf\n\n## Direction\n\nCapture the successful repair loop for paper-anonymizer. Emphasize narrowing from full rework to verifier-visible repair.\n\n## Rationale\n\nTask succeeded only after retries, which matches the OpenSpace derived-skill pattern: preserve the parent workflow and add a more specific retry strategy.\n\n## Source Evidence\n\n- benchmark: `skillsbench`\n- task: `paper-anonymizer`\n- note: `benchmark=skillsbench; attempt_count=2; first_success_attempt=2; last_unresolved_criteria=0; parent_candidates=academic-pdf-redaction,pdf`\n\n## Workflow\n\n1. Read the verifier-visible failure before changing strategy.\n2. Check output-contract and artifact existence before broad rewrites.\n3. Preserve successful intermediate artifacts and only patch the narrow mismatch.\n4. Stop repeated retries when the failure class is unchanged.\n5. Escalate to a new task-family-specific method when the loop is not converging.\n\n## Task-Family Guidance\n\n- If the task touches structured artifacts such as PDFs, XLSX, or generated reports, validate the artifact first.\n- If the task is planning-heavy or search-heavy, avoid repeating the same long-horizon strategy after two similar failures.\n- If the verifier identifies one narrow mismatch, patch that mismatch instead of restarting the whole task.\n"
+  },
+  "created_at": "2026-04-01T12:16:15.141263+00:00"
+}

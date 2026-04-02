@@ -1,7 +1,42 @@
 {
   "series": [
     {
-      "file": "results/rq1/0061_autodl-gpt-5-3-codex.json",
+      "file": "results/rq1/0001_kimi-coding-k2p5.json",
+      "label": "kimi-coding/k2p5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "kimi-coding/k2p5",
+      "run_id": "0001",
+      "suite": "task_00_sanity",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "actionable_mode": "static"
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 9878.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 11.674005,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 9878.0,
+            "success_per_1k_tokens": 0.101235,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 98.78
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/pinchbench_autodl-gpt-5-3-codex.json",
       "label": "autodl/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "autodl/gpt-5.3-codex",
       "run_id": "0061",
@@ -101,7 +136,7 @@
       }
     },
     {
-      "file": "results/rq1/0064_0066_0072_minimax-cn-MiniMax-M2-5.json",
+      "file": "results/rq1/pinchbench_minimax-cn-MiniMax-M2-5.json",
       "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0064",
@@ -201,7 +236,7 @@
       }
     },
     {
-      "file": "results/rq1/0064_0066_0072_minimax-cn-MiniMax-M2-5.json",
+      "file": "results/rq1/pinchbench_minimax-cn-MiniMax-M2-5.json",
       "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0066",
@@ -301,7 +336,7 @@
       }
     },
     {
-      "file": "results/rq1/0064_0066_0072_minimax-cn-MiniMax-M2-5.json",
+      "file": "results/rq1/pinchbench_minimax-cn-MiniMax-M2-5.json",
       "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0072",
@@ -401,7 +436,7 @@
       }
     },
     {
-      "file": "results/rq1/0064_0066_0072_minimax-cn-MiniMax-M2-5.json",
+      "file": "results/rq1/pinchbench_minimax-cn-MiniMax-M2-5.json",
       "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "minimax-cn/MiniMax-M2.5",
       "run_id": "0073",
@@ -494,6 +529,78 @@
             "delta_success_rate": 0.0,
             "delta_tokens_per_task": 54128.5,
             "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__kimi-coding-k2p5__2026-04-01__16-02-01.json",
+      "label": "kimi-coding/k2p5 | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "kimi-coding/k2p5",
+      "run_id": "401ce85d",
+      "suite": "court-form-filling,dapt-intrusion-detection,dialogue-parser,earthquake-phase-association,energy-market-pricing,financial-modeling-qa,find-topk-similiar-chemicals,fix-build-agentops,fix-build-google-auto,glm-lake-mendota,lake-warming-attribution,latex-formula-extraction,lean4-proof,manufacturing-codebook-normalization,manufacturing-equipment-maintenance,mars-clouds-clustering,offer-letter-generator,parallel-tfidf-search,pedestrian-traffic-counting,powerlifting-coef-calc,python-scala-translation,quantum-numerical-simulation,r2r-mpc-control,react-performance-debugging,reserves-at-risk-calc,sec-financial-report,setup-fuzzing-py,shock-analysis-demand,software-dependency-audit,spring-boot-jakarta-migration,suricata-custom-exfil,threejs-structure-parser",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "original",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 32,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 8847.781,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 8847.781,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__kimi-coding-k2p5.json",
+      "label": "kimi-coding/k2p5 | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "kimi-coding/k2p5",
+      "run_id": "bc75cf38",
+      "suite": "offer-letter-generator",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
             "success_per_dollar": null,
             "tokens_per_1pct_success": null
           }
