@@ -85,7 +85,9 @@ class SkillLineageRecord:
     source_analysis_id: Optional[str] = None
     change_summary: str = ""
     generated_path: str = ""
+    backup_path: str = ""
     content_snapshot: Dict[str, str] = field(default_factory=dict)
+    content_diff: str = ""
     created_at: str = field(default_factory=utc_now_iso)
 
     def to_dict(self) -> Dict[str, Any]:

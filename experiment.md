@@ -655,6 +655,8 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
 
   如果你愿意，我下一步可以直接把这个结论落成工程方案：
 
-  - 哪些 task 适合继续做 skill 自进化
-  - 哪些 task 应该升级成 skill + script 自进化
-  - 哪些 task 根本不该走 skill，而该走 deterministic solver / template route
+  - 哪些 task 适合继续做 skill 自进化 这个只改skill.md
+  - 哪些 task 应该升级成 skill + script 自进化 其实是把整个skill 目录都当作可以改的对象，让LLM来决定是否改，改哪些？openspace就是这样的
+  - 哪些 task 根本不该走 skill，而该走 deterministic solver / template route 不是改skill，而是让LLM决定直接走流程
+
+2026/4/2 今天明确了，stable-prefix和full-refresh差别不大，因为固定的前缀不长，full-refresh普遍效果更好一点

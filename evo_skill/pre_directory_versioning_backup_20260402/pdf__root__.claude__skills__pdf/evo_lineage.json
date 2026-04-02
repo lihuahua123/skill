@@ -1,0 +1,17 @@
+{
+  "skill_id": "skillsbench-retry-core-fixed__cbe027e6",
+  "skill_name": "skillsbench-retry-core-fixed",
+  "origin": "fixed",
+  "parent_skill_ids": [
+    "pdf",
+    "xlsx"
+  ],
+  "source_task_id": "financial-modeling-qa",
+  "source_analysis_id": "skillsbench::financial-modeling-qa::skillsbench-minimax-cn-minimax-m2-5-merged-with-token-patch",
+  "change_summary": "Fix retry handling for financial-modeling-qa. Add earlier stop conditions, output-contract checks, and failure-class detection. Replaced original skill in place; backup stored at /root/skill/evo_skill/original_skills_backup/pdf__2f7ef0a2__cbe027e6 for parent pdf.",
+  "generated_path": "/root/.claude/skills/pdf/SKILL.md",
+  "content_snapshot": {
+    "SKILL.md": "---\nname: skillsbench-retry-core-fixed\ndescription: Offline-evolved skill generated from historical benchmark data.\ncategory: workflow\nskill_id: skillsbench-retry-core-fixed__cbe027e6\norigin: fixed\nparent_skill_ids:\n  - pdf\n  - xlsx\nsource_task_id: financial-modeling-qa\nsource_analysis_id: skillsbench::financial-modeling-qa::skillsbench-minimax-cn-minimax-m2-5-merged-with-token-patch\n---\n\n# skillsbench retry core fixed\n\n## Why this exists\n\nThis skill was generated using an OpenSpace-style evolution flow:\n\n1. historical execution records were analyzed\n2. an evolution suggestion was created\n3. the suggestion was materialized as a versioned skill\n\n## Evolution Type\n\n`fix`\n\n## Parent Skills\n\npdf, xlsx\n\n## Direction\n\nFix retry handling for financial-modeling-qa. Add earlier stop conditions, output-contract checks, and failure-class detection.\n\n## Rationale\n\nTask kept retrying without reaching success; this maps to the OpenSpace fix pattern for an existing skill that is applied but not reliably effective.\n\n## Source Evidence\n\n- benchmark: `skillsbench`\n- task: `financial-modeling-qa`\n- note: `benchmark=skillsbench; attempt_count=2; first_success_attempt=None; last_unresolved_criteria=1; parent_candidates=pdf,xlsx`\n\n## Workflow\n\n1. Read the verifier-visible failure before changing strategy.\n2. Check output-contract and artifact existence before broad rewrites.\n3. Preserve successful intermediate artifacts and only patch the narrow mismatch.\n4. Stop repeated retries when the failure class is unchanged.\n5. Escalate to a new task-family-specific method when the loop is not converging.\n\n## Task-Family Guidance\n\n- If the task touches structured artifacts such as PDFs, XLSX, or generated reports, validate the artifact first.\n- If the task is planning-heavy or search-heavy, avoid repeating the same long-horizon strategy after two similar failures.\n- If the verifier identifies one narrow mismatch, patch that mismatch instead of restarting the whole task.\n"
+  },
+  "created_at": "2026-04-01T12:15:24.241164+00:00"
+}

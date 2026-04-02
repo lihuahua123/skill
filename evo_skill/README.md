@@ -11,7 +11,7 @@ It keeps the same logical stages as OpenSpace:
 
 This implementation is intentionally offline-first. It reads historical benchmark
 results from `results/rq1/*.json`, produces candidate evolution records, and
-generates versioned `SKILL.md` drafts without changing the benchmark runners.
+generates versioned skill directories without changing the benchmark runners.
 
 ## Layout
 
@@ -21,7 +21,7 @@ generates versioned `SKILL.md` drafts without changing the benchmark runners.
   Converts historical benchmark results into `ExecutionAnalysis`-style records
   and produces `EvolutionSuggestion`s.
 - `evolver.py`
-  Materializes evolved skills and lineage metadata.
+  Materializes evolved skill directories and lineage metadata.
 - `cli.py`
   Command-line entrypoint.
 - `store/`
@@ -37,6 +37,18 @@ generates versioned `SKILL.md` drafts without changing the benchmark runners.
   `evo_skill/store/skill_lineage.jsonl`
 - Generated skills:
   `evo_skill/generated_skills/<skill-name>/SKILL.md`
+
+## Directory-level versioning
+
+`evo_skill` now versions an entire skill directory, not just `SKILL.md`.
+
+- `derived` and generated `fix` candidates seed the new directory from the
+  parent skill directory when one is known.
+- lineage records store a directory-level `content_snapshot` and unified
+  `content_diff`, so later evolution can touch `scripts/`, `references/`, and
+  other skill files in addition to `SKILL.md`.
+- in-place `fix` materialization backs up the whole original skill directory
+  before replacing files.
 
 ## Usage
 
