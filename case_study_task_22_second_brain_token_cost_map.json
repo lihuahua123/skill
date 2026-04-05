@@ -1,7 +1,7 @@
 {
   "task_id": "task_22_second_brain",
   "task_name": "Second Brain Knowledge Persistence",
-  "source_run": "/root/skill/results/rq1/0061_autodl-gpt-5-3-codex.json",
+  "source_run": "/hy-tmp/skill/results/rq1/0061_autodl-gpt-5-3-codex.json",
   "model": "autodl/gpt-5.3-codex",
   "study_fit": "Revised schema for RQ2-style analysis with attempt-level and round-level cost structure.",
   "schema": {

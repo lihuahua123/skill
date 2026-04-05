@@ -195,8 +195,8 @@ chatgpt推荐
      这个其实两轮就知道了
 
 我让他们写一个重试，codex完全误会我的意思了，这种token浪费是用户的锅，但是他是不是应该先把plan给出来再行动，也就是harness
-你现在就找到@/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json 对应的trace，之后先把需要第二轮以上的尝试的task提取出来，之后把行动+反馈总结抽取出来，指导更新第二版skill，注意不要改原来的skill，而只是新增第二版skill，skill应该是放在了openclaw里，不在当前目录。
-"我已经完成了这三件事：  1. 从 [skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json](/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json) 定位了对应 trace。 2. 提取了所有 `attempt_count > 2` 的任务，并按“救得回来 / 救不回来”做了归纳。 3. 新增了第二版 skill，没有改原来的 [SKILL.md](/root/skill/SKILL.md)。  新 skill 放在： [skillsbench-retry-v2/SKILL.md](/root/.openclaw/skills/skillsbench-retry-v2/SKILL.md)  参考材料放在： [multi-attempt-traces.md](/root/.openclaw/skills/skillsbench-retry-v2/references/multi-attempt-traces.md)  这次提取出来的多轮任务是：  - `azure-bgp-oscillation-route-leak` - `data-to-d3` - `enterprise-information-search` - `gh-repo-analytics` - `lab-unit-harmonization` - `pddl-tpp-planning` - `virtualhome-agent-planning` - `xlsx-recover-data`  对应 trace 目录我已经写进 reference 文件里了。   核心结论也已经固化进 v2 skill：  - 能被后续 retry 救回来的任务，后几轮都会明显“变窄”，从全量重做转成修一个 verifier-visible failure。 - 救不回来的任务，往往在重复同一类失败：缺输出文件、范围爆炸、长规划循环、超时。 - v2 skill 重点新增了 `retry triage + output-contract-first + environment-once + same-class-failure-stop` 这几条规则。  如果你要，我下一步可以继续把这个 v2 skill 再拆成： - 一个更短的 `core SKILL.md` - 一个更细的 `task-family playbook` 这样触发时更省 token。"
+你现在就找到@/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json 对应的trace，之后先把需要第二轮以上的尝试的task提取出来，之后把行动+反馈总结抽取出来，指导更新第二版skill，注意不要改原来的skill，而只是新增第二版skill，skill应该是放在了openclaw里，不在当前目录。
+"我已经完成了这三件事：  1. 从 [skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json](/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__merged_with_token_patch.json) 定位了对应 trace。 2. 提取了所有 `attempt_count > 2` 的任务，并按“救得回来 / 救不回来”做了归纳。 3. 新增了第二版 skill，没有改原来的 [SKILL.md](/hy-tmp/skill/SKILL.md)。  新 skill 放在： [skillsbench-retry-v2/SKILL.md](/root/.openclaw/skills/skillsbench-retry-v2/SKILL.md)  参考材料放在： [multi-attempt-traces.md](/root/.openclaw/skills/skillsbench-retry-v2/references/multi-attempt-traces.md)  这次提取出来的多轮任务是：  - `azure-bgp-oscillation-route-leak` - `data-to-d3` - `enterprise-information-search` - `gh-repo-analytics` - `lab-unit-harmonization` - `pddl-tpp-planning` - `virtualhome-agent-planning` - `xlsx-recover-data`  对应 trace 目录我已经写进 reference 文件里了。   核心结论也已经固化进 v2 skill：  - 能被后续 retry 救回来的任务，后几轮都会明显“变窄”，从全量重做转成修一个 verifier-visible failure。 - 救不回来的任务，往往在重复同一类失败：缺输出文件、范围爆炸、长规划循环、超时。 - v2 skill 重点新增了 `retry triage + output-contract-first + environment-once + same-class-failure-stop` 这几条规则。  如果你要，我下一步可以继续把这个 v2 skill 再拆成： - 一个更短的 `core SKILL.md` - 一个更细的 `task-family playbook` 这样触发时更省 token。"
 
 自进化的skill https://clawhub.ai/pskoett/self-improving-agent
 它的工作原理是
@@ -642,7 +642,7 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
       - 可替代/可回滚的 skill versioning
       - 更重要的是，skill 之外还有脚本、模板、patch、store、selection
 
-  你现在 /root/skill 缺的不是“有没有自进化概念”，而是缺后半段：
+  你现在 /hy-tmp/skill 缺的不是“有没有自进化概念”，而是缺后半段：
 
   - skill 选择器不够硬
   - skill 载荷大多还是文字，不是可执行资产

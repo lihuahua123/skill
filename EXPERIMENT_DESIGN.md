@@ -30,10 +30,10 @@ Task complexity should be treated as a stratification variable rather than a sta
 
 The repository already contains the core append-style retry baseline.
 
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) builds retry prompts from validator outputs.
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) supports repeated validator-feedback attempts in the same task run.
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py) already records attempts, usage, usage-per-round, and grading outputs.
-- [`README.md`](/root/skill/README.md) already exposes `--max-task-attempts`.
+- [`scripts/benchmark.py`](/hy-tmp/skill/scripts/benchmark.py) builds retry prompts from validator outputs.
+- [`scripts/benchmark.py`](/hy-tmp/skill/scripts/benchmark.py) supports repeated validator-feedback attempts in the same task run.
+- [`scripts/benchmark.py`](/hy-tmp/skill/scripts/benchmark.py) already records attempts, usage, usage-per-round, and grading outputs.
+- [`README.md`](/hy-tmp/skill/README.md) already exposes `--max-task-attempts`.
 
 ## Feedback Policy Design
 
@@ -166,7 +166,7 @@ Metrics:
 
 File:
 
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py)
+- [`scripts/benchmark.py`](/hy-tmp/skill/scripts/benchmark.py)
 
 Needed support:
 

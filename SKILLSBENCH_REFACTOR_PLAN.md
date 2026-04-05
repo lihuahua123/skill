@@ -2,7 +2,7 @@
 
 ## Goal
 
-Add `skillsbench` support to the existing `/root/skill` RQ pipeline with the smallest possible code change, while preserving current `pinchbench` behavior and result compatibility.
+Add `skillsbench` support to the existing `/hy-tmp/skill` RQ pipeline with the smallest possible code change, while preserving current `pinchbench` behavior and result compatibility.
 
 The guiding rule is:
 

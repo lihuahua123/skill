@@ -207,7 +207,7 @@ run_benchmark() {
       append_if_present cmd --api-base "$@"
       append_if_present cmd --api-key "$@"
       (
-        cd /root/skillsbench
+        cd /hy-tmp/skillsbench
         "${cmd[@]}"
       )
       ;;

@@ -48,7 +48,7 @@ run_analysis "${RESULTS_DIR}" "${ANALYSIS_DIR}" "policy"
 # --model minimax-cn/MiniMax-M2.5 --suite task_06_events
 # --model autodl/Kimi-K2.5
 # ./scripts/experiments/rq1.sh  --backend pinchbench  --model minimax-cn/MiniMax-M2.5 --suite task_17_email_search,task_16_market_research
-  # cd /root/skill
+  # cd /hy-tmp/skill
   # ./scripts/experiments/rq1.sh minimax-cn/MiniMax-M2.5 --backend skillsbench --skillsbench-task-path tasks/speaker-diarization-subtitles,tasks/video-tutorial-indexer,tasks/xlsx-recover-data --max-task-attempts 6
 # task_06_events,task_07_email,task_08_memory,task_09_files,task_10_workflow,task_11_clawdhub,task_12_skill_search,task_13_image_gen, task_14_humanizer,task_15_daily_summary,task_16_email_triage, task_17_email_search,task_16_market_research,task_18_spreadsheet_summary, task_20_eli5_pdf_summary,task_21_openclaw_comprehension,task_22_second_brain
 

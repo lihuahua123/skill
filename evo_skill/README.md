@@ -1,6 +1,6 @@
 # Evo Skill
 
-`evo_skill` is a minimal OpenSpace-style skill evolution layer for `/root/skill`.
+`evo_skill` is a minimal OpenSpace-style skill evolution layer for `/hy-tmp/skill`.
 
 It keeps the same logical stages as OpenSpace:
 
@@ -56,7 +56,7 @@ Analyze historical RQ1 results and write evolution candidates:
 
 ```bash
 python3 -m evo_skill.cli analyze \
-  --results-dir /root/skill/results/rq1
+  --results-dir /hy-tmp/skill/results/rq1
 ```
 
 Generate evolved skill drafts from those candidates:
@@ -69,7 +69,7 @@ Run both steps:
 
 ```bash
 python3 -m evo_skill.cli run \
-  --results-dir /root/skill/results/rq1
+  --results-dir /hy-tmp/skill/results/rq1
 ```
 
 ## Notes

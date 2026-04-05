@@ -22,7 +22,7 @@ OPENCLAW_GLOBAL_CONFIG = OPENCLAW_ROOT / "openclaw.json"
 OPENCLAW_AGENTS_DIR = OPENCLAW_ROOT / "agents"
 AUTODL_API_KEY_PATHS = (
     Path("/root/autodlAPIKEY"),
-    Path("/root/AUTODLAPIKEY"),
+    Path("/hy-tmp/.autodlapikey"),
 )
 AUTODL_PROVIDER_ID = "autodl"
 AUTODL_PROVIDER_CONFIG = {

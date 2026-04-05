@@ -2,9 +2,9 @@
   "program_id": "task_21_openclaw_comprehension_direct_reuse",
   "mode": "template_reuse",
   "slots": {
-    "input_pdf": "/root/skill/assets/OpenClaw Agent Use Cases and Gap Analysis for PinchBench.pdf",
+    "input_pdf": "/hy-tmp/skill/assets/OpenClaw Agent Use Cases and Gap Analysis for PinchBench.pdf",
     "output_file": "/tmp/task21_direct_reuse/answer.txt",
-    "extractor_script": "/root/skill/reuse_router/programs/task21_cached_extract.py"
+    "extractor_script": "/hy-tmp/skill/reuse_router/programs/task21_cached_extract.py"
   },
   "compiled_steps": [
     {

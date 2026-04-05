@@ -4,7 +4,7 @@
 
 - Task ID: `task_20_eli5_pdf_summary`
 - Name: `ELI5 PDF Summary`
-- Source trace: [/root/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json](/root/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json)
+- Source trace: [/hy-tmp/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json](/hy-tmp/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json)
 - User instruction: `Read the file GPT4.pdf in my workspace. Write an ELI5 summary and save it to eli5_summary.txt.`
 
 This is a useful first-attempt waste case because the agent spent `1,226,263` total tokens in attempt 1 alone:

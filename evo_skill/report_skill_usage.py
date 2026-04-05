@@ -9,9 +9,9 @@ from .skill_usage import extract_skill_usage_from_results
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Extract per-task skill usage from historical results")
-    parser.add_argument("--results-dir", default="/root/skill/results/rq1")
-    parser.add_argument("--output-json", default="/root/skill/evo_skill/store/task_skill_usage.json")
-    parser.add_argument("--output-md", default="/root/skill/evo_skill/store/task_skill_usage.md")
+    parser.add_argument("--results-dir", default="/hy-tmp/skill/results/rq1")
+    parser.add_argument("--output-json", default="/hy-tmp/skill/evo_skill/store/task_skill_usage.json")
+    parser.add_argument("--output-md", default="/hy-tmp/skill/evo_skill/store/task_skill_usage.md")
     return parser
 
 

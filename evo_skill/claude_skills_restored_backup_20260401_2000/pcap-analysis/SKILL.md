@@ -14,7 +14,7 @@ A utility module (`pcap_utils.py`) is available in this folder with **tested, co
 ```python
 # RECOMMENDED: Import and use the helper functions
 import sys
-sys.path.insert(0, '/root/skills/pcap-analysis')  # Add skill folder to path
+sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')  # Add skill folder to path
 from pcap_utils import (
     load_packets, split_by_protocol, graph_metrics,
     detect_port_scan, detect_dos_pattern, detect_beaconing,

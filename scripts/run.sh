@@ -13,5 +13,5 @@ exec ./scripts/run_with_gateway.sh "$@"
 # --max-task-attempts 3
 # --model minimax-cn/MiniMax-M2.5
 # --suite task_01_calendar,task_02_stock
-# cd /root/skill
+# cd /hy-tmp/skill
 # ./scripts/run.sh --model minimax-cn/MiniMax-M2.5 --suite task_13_image_gen --runs 1 --max-task-attempts 2

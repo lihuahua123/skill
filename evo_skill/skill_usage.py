@@ -8,10 +8,10 @@ from typing import Any, Dict, Iterable, List, Tuple
 
 SKILL_PATH_PATTERNS = (
     re.compile(r"(/root/\.openclaw/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
-    re.compile(r"(/root/skillsbench/tasks/[^/\s\"']+/environment/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
+    re.compile(r"(/hy-tmp/skillsbench/tasks/[^/\s\"']+/environment/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
     re.compile(r"(/root/\.codex/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
     re.compile(r"(/root/\.agents/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
-    re.compile(r"(/root/skillsbench/\.claude/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
+    re.compile(r"(/hy-tmp/skillsbench/\.claude/skills/[^/\s\"']+(?:/[^\s\"']+)*)"),
 )
 
 
@@ -86,7 +86,7 @@ def _extract_external_skill_usage(task: Dict[str, Any]) -> Iterable[Tuple[str, s
     source_trial = task.get("source_trial")
     if not source_job or not source_trial:
         return []
-    trial_dir = Path("/root/skillsbench/jobs") / str(source_job) / str(source_trial)
+    trial_dir = Path("/hy-tmp/skillsbench/jobs") / str(source_job) / str(source_trial)
     if not trial_dir.exists():
         return []
     return list(_extract_from_trial_dir(trial_dir))

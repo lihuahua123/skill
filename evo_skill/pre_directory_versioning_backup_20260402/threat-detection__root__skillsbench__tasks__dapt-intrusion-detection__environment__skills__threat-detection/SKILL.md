@@ -36,7 +36,7 @@ Traffic with 1000 unique ports to one target:
 
 ```python
 import sys
-sys.path.insert(0, '/root/skills/pcap-analysis')
+sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')
 from pcap_utils import detect_port_scan
 
 # Returns True ONLY if all three conditions are met
@@ -119,7 +119,7 @@ Ratio = 2372 / 262.9 = 9.02
 
 ```python
 import sys
-sys.path.insert(0, '/root/skills/pcap-analysis')
+sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')
 from pcap_utils import detect_dos_pattern
 
 has_dos = detect_dos_pattern(ppm_avg, ppm_max)  # Returns True/False
@@ -154,7 +154,7 @@ Low CV means consistent timing (robotic/automated). High CV (>1.0) is human/burs
 
 ```python
 import sys
-sys.path.insert(0, '/root/skills/pcap-analysis')
+sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')
 from pcap_utils import detect_beaconing
 
 has_beaconing = detect_beaconing(iat_cv)  # Returns True/False
@@ -174,7 +174,7 @@ Traffic is benign **only if ALL detections are false**:
 
 ```python
 import sys
-sys.path.insert(0, '/root/skills/pcap-analysis')
+sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')
 from pcap_utils import detect_port_scan, detect_dos_pattern, detect_beaconing
 
 has_port_scan = detect_port_scan(tcp_packets)

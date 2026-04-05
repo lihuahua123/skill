@@ -7,7 +7,7 @@ functions. Import and use these directly rather than reimplementing the logic.
 
 QUICK START:
     import sys
-    sys.path.insert(0, '/root/skills/pcap-analysis')
+    sys.path.insert(0, '/hy-tmp/skills/pcap-analysis')
     from pcap_utils import (
         load_packets, split_by_protocol, graph_metrics,
         detect_port_scan, detect_dos_pattern, detect_beaconing,

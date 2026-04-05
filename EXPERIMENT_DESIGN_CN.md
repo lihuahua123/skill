@@ -115,7 +115,7 @@ task_10_workflow
 
 文件：
 
-- [`scripts/benchmark.py`](/root/skill/scripts/benchmark.py)
+- [`scripts/benchmark.py`](/hy-tmp/skill/scripts/benchmark.py)
 
 需要支持：
 

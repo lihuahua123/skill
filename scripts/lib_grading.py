@@ -27,7 +27,7 @@ DEFAULT_JUDGE_AGENT_PREFIX = "bench-judge"
 DEFAULT_JUDGE_TIMEOUT_SECONDS = 180
 AUTODL_API_KEY_PATHS = (
     Path("/root/autodlAPIKEY"),
-    Path("/root/AUTODLAPIKEY"),
+    Path("/hy-tmp/.autodlapikey"),
 )
 
 # AutoDL judge defaults; override with env PINCHBENCH_KIMI_JUDGE_API_KEY or AUTODL_API_KEY

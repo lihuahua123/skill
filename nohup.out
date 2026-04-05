@@ -42,8 +42,8 @@
 }
 [run] powerlifting-coef-calc
 {
-  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
-  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-31-02.json"
+  "aggregate_output_exists": "/hy-tmp/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
+  "aggregate_output_redirected_to": "/hy-tmp/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-31-02.json"
 }
 [run] threejs-structure-parser
 {
@@ -75,8 +75,8 @@
 }
 [run] fix-build-google-auto
 {
-  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
-  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
+  "aggregate_output_exists": "/hy-tmp/skill/results/rq1/skillsbench__openai-gpt-5-3-codex.json",
+  "aggregate_output_redirected_to": "/hy-tmp/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
 }
 [run] threejs-structure-parser
 [run] python-scala-translation
@@ -262,9 +262,9 @@
     "tasks/sec-financial-report",
     "tasks/spring-boot-jakarta-migration"
   ],
-  "aggregate_output": "/root/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
+  "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__openai-gpt-5-3-codex__2026-03-28__19-58-04.json"
 }
-error: Workspace member `/root/skillsbench/tasks/fix-build-agentops/tests` is missing a `pyproject.toml` (matches: `tasks/fix-build-agentops/tests`)
+error: Workspace member `/hy-tmp/skillsbench/tasks/fix-build-agentops/tests` is missing a `pyproject.toml` (matches: `tasks/fix-build-agentops/tests`)
 Using CPython 3.12.13
 Removed virtual environment at: .venv
 Creating virtual environment at: .venv
@@ -285,8 +285,8 @@ Creating virtual environment at: .venv
       (-110): The TLS connection was non-properly terminated.
 
 {
-  "aggregate_output_exists": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json",
-  "aggregate_output_redirected_to": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
+  "aggregate_output_exists": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json",
+  "aggregate_output_redirected_to": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
 }
 [run] threejs-structure-parser
 [run] python-scala-translation
@@ -612,5 +612,5 @@ Creating virtual environment at: .venv
     "tasks/sec-financial-report",
     "tasks/spring-boot-jakarta-migration"
   ],
-  "aggregate_output": "/root/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
+  "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-03-29__11-47-31.json"
 }

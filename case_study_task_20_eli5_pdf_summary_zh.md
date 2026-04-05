@@ -4,7 +4,7 @@
 
 - 任务 ID：`task_20_eli5_pdf_summary`
 - 名称：`ELI5 PDF Summary`
-- 来源 trace：[ /root/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json ](/root/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json)
+- 来源 trace：[ /hy-tmp/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json ](/hy-tmp/skill/results/rq1/0028_minimax-cn-MiniMax-M2-5.json)
 - 用户指令：`读取我工作区里的 GPT4.pdf 文件。写一份 ELI5 风格的总结，并保存到 eli5_summary.txt。`
 
 这是一个很有代表性的“首次尝试就产生大量浪费”的案例，因为 agent 仅在第 1 次 attempt 中就消耗了 `1,226,263` 个 token：

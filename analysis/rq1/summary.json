@@ -1,0 +1,392 @@
+{
+  "series": [
+    {
+      "file": "results/rq1/0001_minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "0001",
+      "suite": "all",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "actionable_mode": "static"
+      },
+      "curve": {
+        "num_tasks": 18,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.333333,
+            "successful_tasks": 6,
+            "avg_tokens_per_task": 77406.278,
+            "avg_cost_usd_per_task": 0.007624,
+            "avg_execution_time_seconds_per_task": 31.955327,
+            "delta_success_rate": 0.333333,
+            "delta_tokens_per_task": 77406.278,
+            "success_per_1k_tokens": 0.004306,
+            "success_per_dollar": 43.721537,
+            "tokens_per_1pct_success": 2322.191
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__autodl-gpt-5-3-codex__2026-04-05__11-53-08.json",
+      "label": "autodl/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=2",
+      "model": "autodl/gpt-5.3-codex",
+      "run_id": "2c782c07",
+      "suite": "3d-scan-calc,adaptive-cruise-control",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 2,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 54919.0,
+            "avg_cost_usd_per_task": 0.007586,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 54919.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": 0.0,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 110727.5,
+            "avg_cost_usd_per_task": 0.007586,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 55808.5,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": 0.0,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__autodl-gpt-5-3-codex__2026-04-05__11-57-50.json",
+      "label": "autodl/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=3",
+      "model": "autodl/gpt-5.3-codex",
+      "run_id": "e2a0e204",
+      "suite": "3d-scan-calc,adaptive-cruise-control,azure-bgp-oscillation-route-leak,citation-check,civ6-adjacency-optimizer,court-form-filling,crystallographic-wyckoff-position-analysis,dapt-intrusion-detection,data-to-d3,dialogue-parser,dynamic-object-aware-egomotion,earthquake-phase-association,earthquake-plate-calculation,econ-detrending-correlation,energy-ac-optimal-power-flow,energy-market-pricing,enterprise-information-search,exceltable-in-ppt,exoplanet-detection-period,financial-modeling-qa,find-topk-similiar-chemicals,fix-build-agentops,fix-build-google-auto",
+      "runs_per_task": 1,
+      "max_task_attempts": 3,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 23,
+        "max_k": 3,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 37775.13,
+            "avg_cost_usd_per_task": 0.019563,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 37775.13,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": 0.0,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 131026.348,
+            "avg_cost_usd_per_task": 0.064703,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 93251.218,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": 0.0,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 148432.522,
+            "avg_cost_usd_per_task": 0.072946,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 17406.174,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": 0.0,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__autodl-gpt-5-3-codex.json",
+      "label": "autodl/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "autodl/gpt-5.3-codex",
+      "run_id": "3ee06c3c",
+      "suite": "3d-scan-calc,adaptive-cruise-control,azure-bgp-oscillation-route-leak,citation-check",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 4,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-05__09-59-35.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "f04a90db",
+      "suite": "3d-scan-calc",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 91232.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 91232.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-05__10-24-29.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=3",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "c7c015ed",
+      "suite": "3d-scan-calc,adaptive-cruise-control,azure-bgp-oscillation-route-leak,citation-check,civ6-adjacency-optimizer,court-form-filling,crystallographic-wyckoff-position-analysis,dapt-intrusion-detection,data-to-d3,dialogue-parser,dynamic-object-aware-egomotion,earthquake-phase-association,earthquake-plate-calculation,econ-detrending-correlation,energy-ac-optimal-power-flow,energy-market-pricing,enterprise-information-search,exceltable-in-ppt,exoplanet-detection-period,financial-modeling-qa,find-topk-similiar-chemicals,fix-build-agentops,fix-build-google-auto,fix-druid-loophole-cve,fix-erlang-ssh-cve,fix-visual-stability,flink-query,flood-risk-analysis,gh-repo-analytics,glm-lake-mendota,gravitational-wave-detection,grid-dispatch-operator,hvac-control,invoice-fraud-detection,jax-computing-basics,jpg-ocr-stat,lab-unit-harmonization,lake-warming-attribution,latex-formula-extraction,lean4-proof,manufacturing-codebook-normalization,manufacturing-equipment-maintenance,manufacturing-fjsp-optimization,mario-coin-counting,mars-clouds-clustering,mhc-layer-impl,multilingual-video-dubbing,offer-letter-generator,organize-messy-files,paper-anonymizer,parallel-tfidf-search,pddl-tpp-planning,pdf-excel-diff,pedestrian-traffic-counting,pg-essay-to-audiobook,powerlifting-coef-calc,pptx-reference-formatting,protein-expression-analysis,python-scala-translation,quantum-numerical-simulation,r2r-mpc-control,react-performance-debugging,reserves-at-risk-calc,sales-pivot-analysis,scheduling-email-assistant,sec-financial-report,seismic-phase-picking,setup-fuzzing-py,shock-analysis-demand,shock-analysis-supply,simpo-code-reproduction,software-dependency-audit,speaker-diarization-subtitles,spring-boot-jakarta-migration,suricata-custom-exfil,syzkaller-ppdev-syzlang,taxonomy-tree-merge,threejs-structure-parser,threejs-to-obj,travel-planning,trend-anomaly-causal-inference,video-filler-word-remover,video-silence-remover,video-tutorial-indexer,virtualhome-agent-planning,weighted-gdp-calc,xlsx-recover-data",
+      "runs_per_task": 1,
+      "max_task_attempts": 3,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 87,
+        "max_k": 3,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 298967.241,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 298967.241,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 672306.667,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 373339.426,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 917500.057,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 245193.39,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "1e73c4f2",
+      "suite": "3d-scan-calc",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 57046.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 57046.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__openai-gpt-5-3-codex__2026-04-05__10-23-24.json",
+      "label": "openai/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "openai/gpt-5.3-codex",
+      "run_id": "db67cd05",
+      "suite": "3d-scan-calc,adaptive-cruise-control,azure-bgp-oscillation-route-leak,citation-check,civ6-adjacency-optimizer,court-form-filling,crystallographic-wyckoff-position-analysis,dapt-intrusion-detection,data-to-d3,dialogue-parser,dynamic-object-aware-egomotion,earthquake-phase-association,earthquake-plate-calculation,econ-detrending-correlation,energy-ac-optimal-power-flow,energy-market-pricing,enterprise-information-search,exceltable-in-ppt,exoplanet-detection-period,financial-modeling-qa,find-topk-similiar-chemicals,fix-build-agentops,fix-build-google-auto,fix-druid-loophole-cve,fix-erlang-ssh-cve,fix-visual-stability,flink-query,flood-risk-analysis,gh-repo-analytics,glm-lake-mendota,gravitational-wave-detection,grid-dispatch-operator,hvac-control,invoice-fraud-detection,jax-computing-basics",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 35,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__openai-gpt-5-3-codex.json",
+      "label": "openai/gpt-5.3-codex | error-localized | full-refresh | max-attempts-only | k=1",
+      "model": "openai/gpt-5.3-codex",
+      "run_id": "db713d13",
+      "suite": "3d-scan-calc,adaptive-cruise-control",
+      "runs_per_task": 1,
+      "max_task_attempts": 1,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "curve": {
+        "num_tasks": 2,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 0.0,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    }
+  ]
+}
