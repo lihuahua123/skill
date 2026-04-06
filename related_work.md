@@ -909,3 +909,36 @@ EvoSkill: Automated Skill Discovery for Multi-Agent Systems
 目标对象 (Target Skill)：如果是修改，需指出具体要修改的现有技能名称 。
 技能方案 (Proposed Skill)：详细描述要构建的新能力、输入输出要求，或者对现有技能的具体修改意见 。
 详细论证 (Justification)：解释做出该提案的原因。这需要引用执行轨迹中的具体失误环节、现有技能为何失效，以及参考过去迭代中被丢弃或采纳的策略 。
+
+
+上述论文包含ground true的反馈吗？
+这是一个非常关键的问题！直接回答你的核心疑问：不包含。这几篇主线论文的 Feedback 中，绝大多数都严格排除了 Ground Truth（最终的正确答案/黄金代码/完美工具调用序列）。
+如果把 Ground Truth 直接放进反馈里让 Agent 抄，在 Agent 和 APR（自动程序修复）领域的 Benchmark 评估中会被视为**Data Leakage（数据泄露）**或作弊。这些论文的核心研究点就在于：Agent 如何在只有“不完整/间接信号”的情况下，通过多轮交互逼近正确答案。
+为了让你在写论文时能准确地做区分（ablation/comparison），我把这几篇代表性论文的 Feedback 构成方式拆解成了以下三类：
+1. 纯执行层面的状态反馈 (Execution / Stateful Feedback)
+这是最基础、最普遍的反馈形式，完全依赖底层环境的客观输出，没有任何答案提示。
+ToolSandbox / Thinking vs. Doing： * 构成： API 返回的 JSON 结果、数据库查询返回的报错字符串、或者网页交互后更新的 HTML DOM 树。
+特点： 环境是冷酷的。如果 Agent 传错了参数，反馈就是一句干巴巴的 {"error": "Invalid token"} 或 404 Not Found。
+ContrastRepair / 传统 APR：
+构成： 编译器报错信息（Traceback）或测试用例的执行结果（比如 Expected output: 5, Actual output: 0）
+注意： 虽然这里出现了 Expected output，但这只是针对某个特定 Test Case 的标量断言，绝不是正确修复代码（Patch）的 Ground Truth。
+
+2. 验证器 / 规则驱动的约束反馈 (Validator / Schema Feedback)
+这是系统主动生成的反馈，它比纯环境报错多了一步“诊断”，但依然不给正确答案。
+
+Gecko (2026)：
+构成： 它的环境内置了 Argument Validator 和 Task State Estimator。如果 Agent 调用工具错误，反馈会是格式诊断，比如：“你遗漏了必填参数 location” 或 “你的输出不符合 JSON Schema”；如果任务没做完，反馈是：“目标 A 已完成，但目标 B 尚未满足”。
+
+RePair / PathFix：
+构成： 将失败的测试转化为下一轮的约束条件（Constraints）。比如反馈不是“你应该写 if x < 0”，而是“你的代码在走这条执行路径时引发了越界，下一轮生成的代码必须满足变量状态 X 的约束”。
+
+3. 语言批判与自我反思 (Language Critique / Self-Reflection)
+这类反馈最像人类语言，包含指导方向（如你提到的 LLF-Bench），但它故意保留了对 Ground Truth 的屏蔽。
+
+Reflexion (2023) / ACE (2025/2026)：
+构成： 它们通常把环境的 Pass/Fail 信号喂给一个“反思大模型（Critic）”，让模型自己生成一段自然语言。比如：“我刚才试图抓取苹果，但失败了，因为我没有先打开冰箱门。下次我应该先执行 open(fridge)。”
+特点： 这是 Agent 基于自己的错误推导出的经验，而不是上帝视角直接塞给它的 Ground Truth。
+
+LLF-Bench (2023)：
+构成： 正如你所说，它提供非常细粒度的自然语言反馈，比如 FP（Forward Positive，你接下来该尝试去厨房） 和 FN（Forward Negative，不要再撞这堵墙了）。
+关键点： 这类 Benchmark 是一个“Teacher-Student”设定。Teacher 知道 Ground Truth，但 Teacher 吐出的 Feedback 被严格限制在“给出局部建议（Hints）”的程度，绝对不会把整个任务的解法直接吐给 Agent。
