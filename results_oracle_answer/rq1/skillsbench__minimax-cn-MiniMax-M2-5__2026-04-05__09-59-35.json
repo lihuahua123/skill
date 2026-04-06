@@ -1,0 +1,365 @@
+{
+  "model": "minimax-cn/MiniMax-M2.5",
+  "benchmark_version": "skillsbench-local-host",
+  "run_id": "f04a90db",
+  "timestamp": 1775354425.970892,
+  "suite": "3d-scan-calc",
+  "runs_per_task": 1,
+  "max_task_attempts": 1,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "enhanced",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6
+  },
+  "tasks": [
+    {
+      "task_id": "3d-scan-calc",
+      "status": "success",
+      "timed_out": false,
+      "execution_time": 42.0,
+      "transcript_length": null,
+      "llm_rounds": 10,
+      "usage": {
+        "input_tokens": 47509,
+        "output_tokens": 2699,
+        "cache_read_tokens": 41024,
+        "cache_write_tokens": 0,
+        "total_tokens": 91232,
+        "cost_usd": 0.0,
+        "request_count": 10
+      },
+      "usage_per_round": [
+        {
+          "input_tokens": 1557,
+          "output_tokens": 430,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0,
+          "total_tokens": 1987,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 3976,
+          "output_tokens": 430,
+          "cache_read_tokens": 1536,
+          "cache_write_tokens": 0,
+          "total_tokens": 4406,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 4228,
+          "output_tokens": 121,
+          "cache_read_tokens": 3968,
+          "cache_write_tokens": 0,
+          "total_tokens": 4349,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 4351,
+          "output_tokens": 129,
+          "cache_read_tokens": 4224,
+          "cache_write_tokens": 0,
+          "total_tokens": 4480,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 4549,
+          "output_tokens": 104,
+          "cache_read_tokens": 4288,
+          "cache_write_tokens": 0,
+          "total_tokens": 4653,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 5156,
+          "output_tokens": 226,
+          "cache_read_tokens": 4544,
+          "cache_write_tokens": 0,
+          "total_tokens": 5382,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 5395,
+          "output_tokens": 602,
+          "cache_read_tokens": 5120,
+          "cache_write_tokens": 0,
+          "total_tokens": 5997,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 5935,
+          "output_tokens": 98,
+          "cache_read_tokens": 5376,
+          "cache_write_tokens": 0,
+          "total_tokens": 6033,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 6127,
+          "output_tokens": 163,
+          "cache_read_tokens": 5888,
+          "cache_write_tokens": 0,
+          "total_tokens": 6290,
+          "cost_usd": 0.0
+        },
+        {
+          "input_tokens": 6235,
+          "output_tokens": 396,
+          "cache_read_tokens": 6080,
+          "cache_write_tokens": 0,
+          "total_tokens": 6631,
+          "cost_usd": 0.0
+        }
+      ],
+      "workspace": null,
+      "grading": {
+        "task_id": "3d-scan-calc",
+        "score": 1.0,
+        "max_score": 1.0,
+        "grading_type": "verifier_reward",
+        "breakdown": {
+          "reward": 1.0
+        },
+        "notes": "Verifier passed with no remaining issues."
+      },
+      "grading_summary": {
+        "reward_by_attempt": [
+          1.0
+        ],
+        "verifier_notes": "Verifier passed with no remaining issues."
+      },
+      "completion": {
+        "runs": [
+          {
+            "score": 1.0
+          }
+        ],
+        "mean": 1.0
+      },
+      "frontmatter": null,
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        null
+      ],
+      "prompt_tokens_by_attempt": [
+        47509
+      ],
+      "completion_tokens_by_attempt": [
+        2699
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-05T09:59:43+08:00",
+          "finished_at": "2026-04-05T10:00:24+08:00",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": null,
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "enhanced",
+          "execution": {
+            "llm_rounds": 10,
+            "usage": {
+              "input_tokens": 47509,
+              "output_tokens": 2699,
+              "cache_tokens": 41024,
+              "cache_read_tokens": 41024,
+              "cache_write_tokens": 0,
+              "total_tokens": 91232,
+              "cost_usd": 0.0
+            },
+            "usage_per_round": [
+              {
+                "input_tokens": 1557,
+                "output_tokens": 430,
+                "cache_read_tokens": 0,
+                "cache_write_tokens": 0,
+                "total_tokens": 1987,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 3976,
+                "output_tokens": 430,
+                "cache_read_tokens": 1536,
+                "cache_write_tokens": 0,
+                "total_tokens": 4406,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 4228,
+                "output_tokens": 121,
+                "cache_read_tokens": 3968,
+                "cache_write_tokens": 0,
+                "total_tokens": 4349,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 4351,
+                "output_tokens": 129,
+                "cache_read_tokens": 4224,
+                "cache_write_tokens": 0,
+                "total_tokens": 4480,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 4549,
+                "output_tokens": 104,
+                "cache_read_tokens": 4288,
+                "cache_write_tokens": 0,
+                "total_tokens": 4653,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 5156,
+                "output_tokens": 226,
+                "cache_read_tokens": 4544,
+                "cache_write_tokens": 0,
+                "total_tokens": 5382,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 5395,
+                "output_tokens": 602,
+                "cache_read_tokens": 5120,
+                "cache_write_tokens": 0,
+                "total_tokens": 5997,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 5935,
+                "output_tokens": 98,
+                "cache_read_tokens": 5376,
+                "cache_write_tokens": 0,
+                "total_tokens": 6033,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 6127,
+                "output_tokens": 163,
+                "cache_read_tokens": 5888,
+                "cache_write_tokens": 0,
+                "total_tokens": 6290,
+                "cost_usd": 0.0
+              },
+              {
+                "input_tokens": 6235,
+                "output_tokens": 396,
+                "cache_read_tokens": 6080,
+                "cache_write_tokens": 0,
+                "total_tokens": 6631,
+                "cost_usd": 0.0
+              }
+            ],
+            "agent_dir": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__09-59-35/3d-scan-calc__A96f9Mr/agent/attempt-1",
+            "error": null
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": 0,
+            "notes": "Verifier passed with no remaining issues.",
+            "feedback": {
+              "notes": "Verifier passed with no remaining issues.",
+              "failure_type": "passed",
+              "priority": "No retry needed.",
+              "likely_root_cause": "Verifier passed.",
+              "minimal_repair_targets": [],
+              "inspect_targets": [],
+              "guardrails": [
+                "Make the smallest change that addresses the failing verifier signal.",
+                "Do not rewrite unrelated outputs unless the verifier points to them."
+              ]
+            },
+            "stdout_path": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__09-59-35/3d-scan-calc__A96f9Mr/verifier/attempt-1/stdout.txt",
+            "stderr_path": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__09-59-35/3d-scan-calc__A96f9Mr/verifier/attempt-1/stderr.txt",
+            "ctrf_path": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__09-59-35/3d-scan-calc__A96f9Mr/verifier/attempt-1/ctrf.json",
+            "reward_path": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__09-59-35/3d-scan-calc__A96f9Mr/verifier/attempt-1/reward.txt",
+            "timed_out": false,
+            "timeout_sec": 900,
+            "timeout_message": null,
+            "started_at": "2026-04-05T10:00:24+08:00",
+            "finished_at": "2026-04-05T10:00:25+08:00"
+          },
+          "transcript_length": null,
+          "transcript_length_delta": null,
+          "score_delta": null,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": 0.0,
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "judge_usage": null,
+      "workspace_changed_by_attempt": [],
+      "source_job": "skillsbench-rq1-2026-04-05__09-59-35",
+      "source_trial": "3d-scan-calc__A96f9Mr"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 91232,
+    "total_input_tokens": 47509,
+    "total_output_tokens": 2699,
+    "total_cache_tokens": 41024,
+    "total_cache_read_tokens": 41024,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 10,
+    "total_execution_time_seconds": 42.0,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 91232.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.010961,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.010961,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "3d-scan-calc",
+        "score": 1.0,
+        "passed": true,
+        "total_tokens": 91232,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": 91232.0,
+        "tokens_per_success": 91232.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "tasks_requiring_retry_rate": 0.0,
+    "success_after_retry_rate": 0.0,
+    "average_attempts_per_task": 1.0,
+    "average_retry_attempts_per_task": 0.0,
+    "first_attempt_token_share": 1.0,
+    "retry_token_share": 0.0
+  },
+  "source": {
+    "jobs_root": "/hy-tmp/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-2026-04-05__09-59-35",
+    "agent": "terminus-2",
+    "trial_count": 1
+  }
+}

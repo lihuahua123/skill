@@ -30,4 +30,6 @@ if [[ -n "${AUTODL_BASE}" ]] && ! printf '%s\0' "${EXTRA_ARGS[@]}" | grep -zq --
   EXTRA_ARGS=(--api-base "${AUTODL_BASE}" "${EXTRA_ARGS[@]}")
 fi
 
-exec "${SCRIPT_DIR}/rq1_skillsbench_32_subset.sh" "${MODEL}" "${EXTRA_ARGS[@]}"
+exec "${SCRIPT_DIR}/rq1_skillsbench_32_subset.sh" "${MODEL}" \
+  --feedback-answer-safety no-answers \
+  "${EXTRA_ARGS[@]}"

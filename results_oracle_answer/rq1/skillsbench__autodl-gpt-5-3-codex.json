@@ -1,0 +1,554 @@
+{
+  "model": "autodl/gpt-5.3-codex",
+  "benchmark_version": "skillsbench-local-host",
+  "run_id": "3ee06c3c",
+  "timestamp": 1775360174.496202,
+  "suite": "3d-scan-calc,adaptive-cruise-control,azure-bgp-oscillation-route-leak,citation-check",
+  "runs_per_task": 1,
+  "max_task_attempts": 1,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "enhanced",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6
+  },
+  "tasks": [
+    {
+      "task_id": "3d-scan-calc",
+      "status": "error",
+      "timed_out": false,
+      "execution_time": 10.0,
+      "transcript_length": null,
+      "llm_rounds": 0,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0
+      },
+      "usage_per_round": [],
+      "workspace": null,
+      "grading": {
+        "task_id": "3d-scan-calc",
+        "score": 0.0,
+        "max_score": 1.0,
+        "grading_type": "verifier_reward",
+        "breakdown": {
+          "reward": 0.0
+        },
+        "notes": null
+      },
+      "grading_summary": {
+        "reward_by_attempt": [
+          0.0
+        ],
+        "verifier_notes": null
+      },
+      "completion": {
+        "runs": [
+          {
+            "score": 0.0
+          }
+        ],
+        "mean": 0.0
+      },
+      "frontmatter": null,
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1
+      ],
+      "transcript_length_by_attempt": [
+        null
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "exception",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-05T11:34:55+08:00",
+          "finished_at": "2026-04-05T11:35:05+08:00",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": null,
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "enhanced",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "total_tokens": 0,
+              "cost_usd": 0.0
+            },
+            "usage_per_round": [],
+            "agent_dir": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__11-34-47/3d-scan-calc__AiDwK6K/agent/attempt-1",
+            "error": {
+              "exception_type": "RetryError",
+              "exception_message": "RetryError[<Future at 0x7facc1b01be0 state=finished raised BadRequestError>]",
+              "exception_traceback": "Traceback (most recent call last):\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 480, in __call__\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 407, in call\n    raise e\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 390, in call\n    response = litellm.completion(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1381, in wrapper\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1250, in wrapper\n    result = original_function(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 3772, in completion\n    raise exception_type(\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 1177, in completion\n    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(\n                                                            ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 421, in get_llm_provider\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 398, in get_llm_provider\n    raise litellm.exceptions.BadRequestError(  # type: ignore\nlitellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=autodl/gpt-5.3-codex\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 1321, in main\n    context = asyncio.run(\n              ^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 592, in run_agent\n    await asyncio.wait_for(agent.run(instruction, environment, context), timeout=timeout_sec)\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/agents/terminus_2/harbor_terminus_2_skills.py\", line 401, in run\n    response = chat.chat(prompt)\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/chat.py\", line 63, in chat\n    response = self._model.call(\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 581, in logged_call\n    return original_call(*call_args, **call_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 338, in wrapped_f\n    return copy(f, *args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 477, in __call__\n    do = self.iter(retry_state=retry_state)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 378, in iter\n    result = action(retry_state)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 421, in exc_check\n    raise retry_exc from fut.exception()\ntenacity.RetryError: RetryError[<Future at 0x7facc1b01be0 state=finished raised BadRequestError>]\n"
+            }
+          },
+          "verifier": null,
+          "transcript_length": null,
+          "transcript_length_delta": null,
+          "score_delta": null,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": 0.0,
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "judge_usage": null,
+      "workspace_changed_by_attempt": [],
+      "source_job": "skillsbench-rq1-2026-04-05__11-34-47",
+      "source_trial": "3d-scan-calc__AiDwK6K"
+    },
+    {
+      "task_id": "adaptive-cruise-control",
+      "status": "error",
+      "timed_out": false,
+      "execution_time": 9.0,
+      "transcript_length": null,
+      "llm_rounds": 0,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0
+      },
+      "usage_per_round": [],
+      "workspace": null,
+      "grading": {
+        "task_id": "adaptive-cruise-control",
+        "score": 0.0,
+        "max_score": 1.0,
+        "grading_type": "verifier_reward",
+        "breakdown": {
+          "reward": 0.0
+        },
+        "notes": null
+      },
+      "grading_summary": {
+        "reward_by_attempt": [
+          0.0
+        ],
+        "verifier_notes": null
+      },
+      "completion": {
+        "runs": [
+          {
+            "score": 0.0
+          }
+        ],
+        "mean": 0.0
+      },
+      "frontmatter": null,
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1
+      ],
+      "transcript_length_by_attempt": [
+        null
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "exception",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-05T11:35:18+08:00",
+          "finished_at": "2026-04-05T11:35:27+08:00",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": null,
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "enhanced",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "total_tokens": 0,
+              "cost_usd": 0.0
+            },
+            "usage_per_round": [],
+            "agent_dir": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__11-34-47/adaptive-cruise-control__dYkUmE2/agent/attempt-1",
+            "error": {
+              "exception_type": "RetryError",
+              "exception_message": "RetryError[<Future at 0x7f34b3651fa0 state=finished raised BadRequestError>]",
+              "exception_traceback": "Traceback (most recent call last):\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 480, in __call__\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 407, in call\n    raise e\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 390, in call\n    response = litellm.completion(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1381, in wrapper\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1250, in wrapper\n    result = original_function(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 3772, in completion\n    raise exception_type(\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 1177, in completion\n    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(\n                                                            ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 421, in get_llm_provider\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 398, in get_llm_provider\n    raise litellm.exceptions.BadRequestError(  # type: ignore\nlitellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=autodl/gpt-5.3-codex\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 1321, in main\n    context = asyncio.run(\n              ^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 592, in run_agent\n    await asyncio.wait_for(agent.run(instruction, environment, context), timeout=timeout_sec)\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/agents/terminus_2/harbor_terminus_2_skills.py\", line 401, in run\n    response = chat.chat(prompt)\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/chat.py\", line 63, in chat\n    response = self._model.call(\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 581, in logged_call\n    return original_call(*call_args, **call_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 338, in wrapped_f\n    return copy(f, *args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 477, in __call__\n    do = self.iter(retry_state=retry_state)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 378, in iter\n    result = action(retry_state)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 421, in exc_check\n    raise retry_exc from fut.exception()\ntenacity.RetryError: RetryError[<Future at 0x7f34b3651fa0 state=finished raised BadRequestError>]\n"
+            }
+          },
+          "verifier": null,
+          "transcript_length": null,
+          "transcript_length_delta": null,
+          "score_delta": null,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": 0.0,
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "judge_usage": null,
+      "workspace_changed_by_attempt": [],
+      "source_job": "skillsbench-rq1-2026-04-05__11-34-47",
+      "source_trial": "adaptive-cruise-control__dYkUmE2"
+    },
+    {
+      "task_id": "azure-bgp-oscillation-route-leak",
+      "status": "error",
+      "timed_out": false,
+      "execution_time": 9.0,
+      "transcript_length": null,
+      "llm_rounds": 0,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0
+      },
+      "usage_per_round": [],
+      "workspace": null,
+      "grading": {
+        "task_id": "azure-bgp-oscillation-route-leak",
+        "score": 0.0,
+        "max_score": 1.0,
+        "grading_type": "verifier_reward",
+        "breakdown": {
+          "reward": 0.0
+        },
+        "notes": null
+      },
+      "grading_summary": {
+        "reward_by_attempt": [
+          0.0
+        ],
+        "verifier_notes": null
+      },
+      "completion": {
+        "runs": [
+          {
+            "score": 0.0
+          }
+        ],
+        "mean": 0.0
+      },
+      "frontmatter": null,
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1
+      ],
+      "transcript_length_by_attempt": [
+        null
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "exception",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-05T11:35:41+08:00",
+          "finished_at": "2026-04-05T11:35:50+08:00",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": null,
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "enhanced",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "total_tokens": 0,
+              "cost_usd": 0.0
+            },
+            "usage_per_round": [],
+            "agent_dir": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__11-34-47/azure-bgp-oscillation-route-leak__ehwjDKd/agent/attempt-1",
+            "error": {
+              "exception_type": "RetryError",
+              "exception_message": "RetryError[<Future at 0x7f2ac0379b50 state=finished raised BadRequestError>]",
+              "exception_traceback": "Traceback (most recent call last):\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 480, in __call__\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 407, in call\n    raise e\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 390, in call\n    response = litellm.completion(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1381, in wrapper\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1250, in wrapper\n    result = original_function(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 3772, in completion\n    raise exception_type(\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 1177, in completion\n    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(\n                                                            ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 421, in get_llm_provider\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 398, in get_llm_provider\n    raise litellm.exceptions.BadRequestError(  # type: ignore\nlitellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=autodl/gpt-5.3-codex\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 1321, in main\n    context = asyncio.run(\n              ^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 592, in run_agent\n    await asyncio.wait_for(agent.run(instruction, environment, context), timeout=timeout_sec)\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/agents/terminus_2/harbor_terminus_2_skills.py\", line 401, in run\n    response = chat.chat(prompt)\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/chat.py\", line 63, in chat\n    response = self._model.call(\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 581, in logged_call\n    return original_call(*call_args, **call_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 338, in wrapped_f\n    return copy(f, *args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 477, in __call__\n    do = self.iter(retry_state=retry_state)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 378, in iter\n    result = action(retry_state)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 421, in exc_check\n    raise retry_exc from fut.exception()\ntenacity.RetryError: RetryError[<Future at 0x7f2ac0379b50 state=finished raised BadRequestError>]\n"
+            }
+          },
+          "verifier": null,
+          "transcript_length": null,
+          "transcript_length_delta": null,
+          "score_delta": null,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": 0.0,
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "judge_usage": null,
+      "workspace_changed_by_attempt": [],
+      "source_job": "skillsbench-rq1-2026-04-05__11-34-47",
+      "source_trial": "azure-bgp-oscillation-route-leak__ehwjDKd"
+    },
+    {
+      "task_id": "citation-check",
+      "status": "error",
+      "timed_out": false,
+      "execution_time": 10.0,
+      "transcript_length": null,
+      "llm_rounds": 0,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "request_count": 0
+      },
+      "usage_per_round": [],
+      "workspace": null,
+      "grading": {
+        "task_id": "citation-check",
+        "score": 0.0,
+        "max_score": 1.0,
+        "grading_type": "verifier_reward",
+        "breakdown": {
+          "reward": 0.0
+        },
+        "notes": null
+      },
+      "grading_summary": {
+        "reward_by_attempt": [
+          0.0
+        ],
+        "verifier_notes": null
+      },
+      "completion": {
+        "runs": [
+          {
+            "score": 0.0
+          }
+        ],
+        "mean": 0.0
+      },
+      "frontmatter": null,
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1
+      ],
+      "transcript_length_by_attempt": [
+        null
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "exception",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-05T11:36:04+08:00",
+          "finished_at": "2026-04-05T11:36:14+08:00",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": null,
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "enhanced",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "total_tokens": 0,
+              "cost_usd": 0.0
+            },
+            "usage_per_round": [],
+            "agent_dir": "/hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-05__11-34-47/citation-check__VaeDmAZ/agent/attempt-1",
+            "error": {
+              "exception_type": "RetryError",
+              "exception_message": "RetryError[<Future at 0x7f1b804e9d60 state=finished raised BadRequestError>]",
+              "exception_traceback": "Traceback (most recent call last):\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 480, in __call__\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 407, in call\n    raise e\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/lite_llm.py\", line 390, in call\n    response = litellm.completion(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1381, in wrapper\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/utils.py\", line 1250, in wrapper\n    result = original_function(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 3772, in completion\n    raise exception_type(\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/main.py\", line 1177, in completion\n    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(\n                                                            ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 421, in get_llm_provider\n    raise e\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/get_llm_provider_logic.py\", line 398, in get_llm_provider\n    raise litellm.exceptions.BadRequestError(  # type: ignore\nlitellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=autodl/gpt-5.3-codex\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 1321, in main\n    feedback_format=args.feedback_format,\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 592, in run_agent\n    await asyncio.wait_for(agent.run(instruction, environment, context), timeout=timeout_sec)\n  File \"/root/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/agents/terminus_2/harbor_terminus_2_skills.py\", line 401, in run\n    response = chat.chat(prompt)\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/libs/terminus_agent/llms/chat.py\", line 63, in chat\n    response = self._model.call(\n               ^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/scripts/run_terminus_local_host.py\", line 581, in logged_call\n    return original_call(*call_args, **call_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 338, in wrapped_f\n    return copy(f, *args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 477, in __call__\n    do = self.iter(retry_state=retry_state)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 378, in iter\n    result = action(retry_state)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/hy-tmp/skillsbench/.venv/lib/python3.12/site-packages/tenacity/__init__.py\", line 421, in exc_check\n    raise retry_exc from fut.exception()\ntenacity.RetryError: RetryError[<Future at 0x7f1b804e9d60 state=finished raised BadRequestError>]\n"
+            }
+          },
+          "verifier": null,
+          "transcript_length": null,
+          "transcript_length_delta": null,
+          "score_delta": null,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": 0.0,
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "enhanced",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": 0.0,
+        "max_task_attempts": 6
+      },
+      "judge_usage": null,
+      "workspace_changed_by_attempt": [],
+      "source_job": "skillsbench-rq1-2026-04-05__11-34-47",
+      "source_trial": "citation-check__VaeDmAZ"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_cache_tokens": 0,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 0,
+    "total_execution_time_seconds": 38.0,
+    "tasks_with_usage_data": 4,
+    "tokens_per_task": 0.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": null,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": null,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "3d-scan-calc",
+        "score": 0.0,
+        "passed": false,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null,
+        "tokens_per_success": null
+      },
+      {
+        "task_id": "adaptive-cruise-control",
+        "score": 0.0,
+        "passed": false,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null,
+        "tokens_per_success": null
+      },
+      {
+        "task_id": "azure-bgp-oscillation-route-leak",
+        "score": 0.0,
+        "passed": false,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null,
+        "tokens_per_success": null
+      },
+      {
+        "task_id": "citation-check",
+        "score": 0.0,
+        "passed": false,
+        "total_tokens": 0,
+        "cost_usd": 0.0,
+        "tokens_per_score_point": null,
+        "tokens_per_success": null
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "tasks_requiring_retry_rate": 0.0,
+    "success_after_retry_rate": 0.0,
+    "average_attempts_per_task": 1.0,
+    "average_retry_attempts_per_task": 0.0,
+    "first_attempt_token_share": 0.0,
+    "retry_token_share": 0.0
+  },
+  "source": {
+    "jobs_root": "/hy-tmp/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-2026-04-05__11-34-47",
+    "agent": "terminus-2",
+    "trial_count": 4
+  }
+}

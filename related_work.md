@@ -900,3 +900,12 @@ Agent literature 开始研究 feedback、memory、context evolution、interactio
 如果想做出区别于常规工程优化的研究或高阶方案，**“多轮交互中的动态上下文剪枝 (Dynamic Context Pruning)”** 和 **“基于置信度的模型动态路由 (Confidence-based Dynamic Routing)”** 是两个最容易出成果的方向。
 
 针对你目前的困境，我们可以先聚焦一个点深入：**你目前分析 Token 浪费时，遇到“任务类型不一”的具体瓶颈是什么？是无法量化哪些 Token 属于“有效推进”，还是无法在不同任务（比如写代码 vs 搜信息）中提取统一的状态特征？**
+
+
+EvoSkill: Automated Skill Discovery for Multi-Agent Systems
+反馈的具体输出形态
+提案者智能体在分析后，会输出一份结构化的文本描述提案（即前向反馈），用于指导下游的技能构建。根据论文附录中的 Prompt，这份反馈提案包含以下具体要素：
+动作指令 (Action)：明确是创建一个新技能 (create) 还是编辑修改现有技能 (edit) 。
+目标对象 (Target Skill)：如果是修改，需指出具体要修改的现有技能名称 。
+技能方案 (Proposed Skill)：详细描述要构建的新能力、输入输出要求，或者对现有技能的具体修改意见 。
+详细论证 (Justification)：解释做出该提案的原因。这需要引用执行轨迹中的具体失误环节、现有技能为何失效，以及参考过去迭代中被丢弃或采纳的策略 。

@@ -41,6 +41,7 @@ run_benchmark "${RESULTS_DIR}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ1_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ1_FEEDBACK_FORMAT:-full-refresh}" \
+  --feedback-answer-safety "no-answers" \
   --stop-rule "max-attempts-only" \
   "${EXTRA_ARGS[@]}"
 

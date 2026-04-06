@@ -202,6 +202,12 @@ run_benchmark() {
       append_if_present cmd --feedback-policy "$@"
       append_if_present cmd --feedback-format "$@"
       append_if_present cmd --feedback-strategy "$@"
+      append_if_present cmd --feedback-answer-safety "$@"
+      if ! option_supplied --feedback-answer-safety "$@"; then
+        cmd+=(
+          --feedback-answer-safety no-answers
+        )
+      fi
       append_if_present cmd --stop-rule "$@"
       append_if_present cmd --stop-threshold "$@"
       append_if_present cmd --api-base "$@"

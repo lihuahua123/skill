@@ -241,6 +241,12 @@ def _parse_args() -> argparse.Namespace:
         help="Retry feedback formatting policy (default: cache-friendly stable-prefix)",
     )
     parser.add_argument(
+        "--feedback-answer-safety",
+        choices=("permissive", "no-answers"),
+        default="no-answers",
+        help="Hide validator details that may reveal expected answers in retry feedback.",
+    )
+    parser.add_argument(
         "--stop-rule",
         choices=(
             "max-attempts-only",
@@ -395,6 +401,42 @@ def _format_breakdown_lines(grade: GradeResult, unresolved_only: bool = False) -
     return lines
 
 
+def _safe_validator_notes(grade: GradeResult, *, answer_safety: str) -> str:
+    if answer_safety != "no-answers":
+        return grade.notes.strip() if grade.notes else "No additional validator notes."
+
+    unresolved_count = _unresolved_criteria_count(grade)
+    if unresolved_count <= 0:
+        return "Validator passed with no remaining issues."
+    return (
+        "Validator found remaining issues. Inspect the failing output artifacts and repair the "
+        "smallest set of changes needed to satisfy the unresolved checks."
+    )
+
+
+def _safe_breakdown_lines(
+    grade: GradeResult,
+    *,
+    unresolved_only: bool = False,
+    answer_safety: str,
+) -> List[str]:
+    if answer_safety != "no-answers":
+        return _format_breakdown_lines(grade, unresolved_only=unresolved_only)
+
+    unresolved_keys = [key for key, value in grade.breakdown.items() if value < 1.0]
+    if unresolved_only:
+        if not unresolved_keys:
+            return ["- There are no unresolved validator criteria."]
+        return [f"- Unresolved validator criterion: {key}" for key in unresolved_keys[:8]]
+
+    lines = [
+        f"- Total validator criteria: {len(grade.breakdown)}",
+        f"- Unresolved validator criteria: {len(unresolved_keys)}",
+    ]
+    lines.extend(f"- Unresolved validator criterion: {key}" for key in unresolved_keys[:8])
+    return lines
+
+
 def _load_task_specific_repair_steps() -> Dict[str, Any]:
     global _TASK_SPECIFIC_REPAIR_STEPS_CACHE
     if _TASK_SPECIFIC_REPAIR_STEPS_CACHE is not None:
@@ -525,16 +567,23 @@ def _collect_interactive_actionable_feedback(
     grade: GradeResult,
     previous_attempt_summary: Optional[Dict[str, Any]],
     transcript_length_delta: Optional[int],
+    answer_safety: str,
 ) -> Dict[str, Any]:
     if not sys.stdin.isatty():
         raise RuntimeError(
             "actionable-path now requires an interactive terminal so it can pause for human guidance."
         )
 
-    unresolved_breakdown = "\n".join(_format_breakdown_lines(grade, unresolved_only=True))
+    unresolved_breakdown = "\n".join(
+        _safe_breakdown_lines(
+            grade,
+            unresolved_only=True,
+            answer_safety=answer_safety,
+        )
+    )
     if not unresolved_breakdown:
         unresolved_breakdown = "- No unresolved breakdown items were returned."
-    notes = grade.notes.strip() if grade.notes else "No additional validator notes."
+    notes = _safe_validator_notes(grade, answer_safety=answer_safety)
     effect_lines = _format_actionable_effect_summary(
         current_grade=grade,
         previous_attempt_summary=previous_attempt_summary,
@@ -604,11 +653,24 @@ def _build_iteration_feedback(
     *,
     feedback_policy: str,
     feedback_format: str,
+    feedback_answer_safety: str,
 ) -> Dict[str, Any]:
-    notes = grade.notes.strip() if grade.notes else "No additional validator notes."
+    notes = _safe_validator_notes(grade, answer_safety=feedback_answer_safety)
     criteria = "\n".join(f"- {item}" for item in task.grading_criteria) or "- None provided."
-    full_breakdown = "\n".join(_format_breakdown_lines(grade))
-    unresolved_breakdown = "\n".join(_format_breakdown_lines(grade, unresolved_only=True))
+    full_breakdown = "\n".join(
+        _safe_breakdown_lines(
+            grade,
+            unresolved_only=False,
+            answer_safety=feedback_answer_safety,
+        )
+    )
+    unresolved_breakdown = "\n".join(
+        _safe_breakdown_lines(
+            grade,
+            unresolved_only=True,
+            answer_safety=feedback_answer_safety,
+        )
+    )
     unresolved_count = sum(1 for value in grade.breakdown.values() if value < 1.0)
 
     if feedback_format == "stable-prefix":
@@ -907,6 +969,7 @@ def _execute_task_with_feedback(
     max_task_attempts: int,
     feedback_policy: str,
     feedback_format: str,
+    feedback_answer_safety: str,
     stop_rule: str,
     stop_threshold: float,
     judge_kw: Dict[str, Any],
@@ -1047,6 +1110,7 @@ def _execute_task_with_feedback(
             attempt_number - 1,
             feedback_policy=feedback_policy,
             feedback_format=feedback_format,
+            feedback_answer_safety=feedback_answer_safety,
         )
         feedback_prompt = feedback_payload["text"]
         interactive_feedback = None
@@ -1059,6 +1123,7 @@ def _execute_task_with_feedback(
                     attempt_summaries[-2] if len(attempt_summaries) >= 2 else None
                 ),
                 transcript_length_delta=attempt_summaries[-1].get("transcript_length_delta"),
+                answer_safety=feedback_answer_safety,
             )
             actionable_history.append(interactive_feedback)
 
@@ -1717,6 +1782,7 @@ def main():
                 max_task_attempts=max_task_attempts,
                 feedback_policy=args.feedback_policy,
                 feedback_format=args.feedback_format,
+                feedback_answer_safety=args.feedback_answer_safety,
                 stop_rule=args.stop_rule,
                 stop_threshold=args.stop_threshold,
                 judge_kw=judge_kw,

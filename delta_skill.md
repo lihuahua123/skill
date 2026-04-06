@@ -100,3 +100,13 @@
 3.  **系统的扩展与维护成本** (胜过 Baseline 2)
 
 你目前用来测试 Agent 的任务（Task）是什么类型的？是代码生成、数据提取，还是某种游戏/环境交互？了解具体的任务类型，我可以帮你设计出更具说服力的具体对比指标。
+
+skillsbench 这些任务都是minimax和GPT超过两次才成功的
+azure-bgp-oscillation-route-leak
+  court-form-filling
+  dapt-intrusion-detection
+  dialogue-parser
+  dynamic-object-aware-egomotion
+  enterprise-information-search
+  exceltable-in-ppt
+  exoplanet-detection-period

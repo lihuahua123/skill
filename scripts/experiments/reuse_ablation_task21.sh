@@ -17,6 +17,7 @@ cd "${REPO_ROOT}"
   --suite task_21_openclaw_comprehension \
   --runs 1 \
   --max-task-attempts "${MAX_ATTEMPTS}" \
+  --feedback-answer-safety "no-answers" \
   --output-dir "${BASELINE_DIR}" \
   --no-upload
 
@@ -25,6 +26,7 @@ cd "${REPO_ROOT}"
   --suite task_21_openclaw_comprehension_reuse \
   --runs 1 \
   --max-task-attempts "${MAX_ATTEMPTS}" \
+  --feedback-answer-safety "no-answers" \
   --output-dir "${REUSE_DIR}" \
   --no-upload
 

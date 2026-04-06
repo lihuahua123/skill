@@ -48,4 +48,5 @@ exec "${SCRIPT_DIR}/rq1.sh" "${MODEL}" \
   --feedback-policy error-localized \
   --feedback-format full-refresh \
   --feedback-strategy original \
+  --feedback-answer-safety no-answers \
   "$@"

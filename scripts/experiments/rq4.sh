@@ -44,6 +44,7 @@ for feedback_policy in  vague error-localized actionable-path-file; do
       --max-task-attempts "${RQ4_MAX_ATTEMPTS:-2}" \
       --feedback-policy "${feedback_policy}" \
       --feedback-format "${feedback_format}" \
+      --feedback-answer-safety "no-answers" \
       --stop-rule "${STOP_RULE_VALUE}" \
       --stop-threshold "${RQ4_STOP_THRESHOLD:-0.0}" \
       "${EXTRA_ARGS[@]}"
