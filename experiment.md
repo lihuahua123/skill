@@ -660,3 +660,135 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
   - 哪些 task 根本不该走 skill，而该走 deterministic solver / template route 不是改skill，而是让LLM决定直接走流程
 
 2026/4/2 今天明确了，stable-prefix和full-refresh差别不大，因为固定的前缀不长，full-refresh普遍效果更好一点
+
+
+找到了 7 个。这些任务在 skillsbench__minimax-cn-MiniMax-M2-5.json 里是“超时”且已经实际请
+  求过 LLM 的：
+
+  - adaptive-cruise-control
+  - civ6-adjacency-optimizer
+  - dapt-intrusion-detection
+  - earthquake-phase-association
+  - energy-ac-optimal-power-flow
+  - energy-market-pricing
+  - find-topk-similiar-chemicals
+
+  其中最夸张的是：
+
+  - adaptive-cruise-control: 175 次请求，29,784,562 total tokens
+  - earthquake-phase-association: 58 次请求，5,866,142 total tokens
+  - find-topk-similiar-chemicals: 145 次请求，4,408,241 total tokens
+
+  这些都来自 job skillsbench-rq1-2026-04-06__13-09-43。
+  如果你要，我可以继续把这 7 个按 token 消耗从高到低整理成表。
+
+
+   其中最关键的是 fix-build-google-auto 的轨迹前几轮已经明确出现：
+  New Terminal Output: unshare: unshare failed: Operation not permitted
+  所以这批任务超时的真实原因不是“最后一条 shell 命令太慢”，而是我加的 unshare -m 隔离在你当前环
+  简单说：
+  这 3 个 task 是被 unshare 失败拖死的。
+  如果你要，我下一步可以直接把这个隔离方案改掉，换成不依赖 unshare 的做法。
+› 1. 命令没跑起来，那直接退出不就好。2. 命令没跑起来，agent不会纠错吗？3. 如果你把隔离方案改
+  掉，你打算改哪里？改哪个文件夹？回答我先不需要写代码
+• 1. 不会直接退出，因为现在的失败点不在“命令返回非 0 后立刻终止”，而是在 agent 主循环里。
+     unshare failed 被当成一次终端输出喂回模型了，agent继续尝试下一轮，所以最后是 agent 总超
+     时，不是首条命令立即 hard fail。
+  2. 会纠错，但这里没纠正成功。因为 agent 把它当成普通命令失败，尝试换路径、换命令继续探测；可
+     底层执行器本身坏了，所有命令都会先撞上 unshare，所以它纠错不了，只会反复试。导致用了我很多token！！！可恶！！
+  3. 如果改隔离方案，我会改 skillsbench 里的这两个文件：
+  - /hy-tmp/skillsbench/scripts/run_terminus_local_host.py
+    这里是我加 unshare -m 和 sandbox /root 绑定的地方，问题核心在这。
+  - 可能顺带改 /hy-tmp/skillsbench/scripts/run_skillsbench_experiment.py
+    但主要只是调度，不是根因。真正需要改的是前一个文件。
+
+以后要避免这种烧 token，核心不是“让 agent 更聪明”，而是“让底层执行器一坏就立刻硬失败”。
+  应该做这几件事：
+  - 在 runner 里把执行器错误设成 fatal
+    像 unshare failed, operation not permitted, mount failed 这种，不要再把它当普通终端输出喂
+    回模型，直接终止 task。
+  - 加启动自检
+    在真正跑 agent 前，先跑一个极小探针命令，验证执行环境是否可用；失败就直接退出，不进入 LLM
+    主循环。
+  - 区分“任务失败”和“基础设施失败”
+    基础设施失败不应该消耗 retry，也不该继续让 agent探索。（重中之重！！）
+  - 给 agent 加“环境坏了就停”的保护
+    如果连续 1-2 次出现同类系统级错误，直接 stop，而不是继续试路径/命令。
+  - 限制单 task 的无效探索
+    比如连续 N 次命令都是同类 stderr、且没有有效 stdout，就提前中止。 但这个也很难说，没准只是没找到正确方案
+  - 记录并聚合基础设施错误
+    一旦发现某类错误是 runner 层问题，后续同批任务直接 fail-fast，不要全量重烧。
+
+  最重要的一条：
+  runner / sandbox / shell 这类错误，必须在 LLM 之前拦截掉。
+  否则模型会把“系统坏了”误判成“任务没做对”，然后疯狂试错烧 token。
+  如果你要，我下一步可以直接帮你在 run_terminus_local_host.py 里补一个“执行器健康检查 + fatal
+  error pattern”机制。
+
+目前已经很多烧token的行为了，比如调用错工具的，一直试错其实是权限问题的。
+  1. fix-erlang-ssh-cve
+     原因是 agent 整体超时，不是 verifier 本身挂掉。单任务结果里是 TimeoutError。
+     但 verifier 暴露了更具体的问题：构建脚本 /tests/build.sh 执行失败，returncode: 127，关键报错是：
+     /tests/build.sh: line 40: ./otp_build: No such file or directory
+     也就是 Erlang/OTP 的构建步骤没跑起来，导致 test_ssh_works、test_exploit、test_00_build_sh_output 都失
+     败。
+  2. fix-druid-loophole-cve
+     不是环境超时导致的最终失败点，真正失败原因是 verifier 断言：
+     Druid source directory not found
+     它检查的是：
+     /hy-tmp/skillsbench/jobs/skillsbench-rq1-2026-04-06__21-14-23/fix-druid-loophole-cve__hZzEFZ7/rootfs/
+     druid
+     这个目录不存在，所以 test_patches_applied 失败。
+     注意：安全相关测试其实通过了，日志里显示 6/6 exploit 都被拦截了，失败点是“补丁产物位置/目录结构不符合
+     预期”。
+  3. flink-query
+     这是模型调用失败，不是任务代码失败。result.json 里是：
+     RetryError -> 底层 openai.BadRequestError: 400
+     核心报错：
+     invalid params, context window exceeds limit (2013)
+     也就是请求上下文超出模型限制，LLM API 直接拒绝了，所以 verifier 根本没机会正常跑。
+  4. fix-visual-stability
+     原因是 agent 执行超时，exception_info 是 TimeoutError。
+     从结果看 verifier 没有有效输出，说明任务还没走到稳定完成和验收阶段，就在执行命令时卡住/超时了。更像是
+     前端构建、运行或测试过程耗时过长。
+  5. flood-risk-analysis
+     同样是 agent 执行超时，exception_info 是 TimeoutError。
+     这个任务加载了正确的 skill：flood-detection、nws-flood-thresholds、usgs-data-download，但在 15 分钟左
+     右仍未完成，verifier 也没有产出结果，说明卡在数据下载、处理或命令执行阶段。
+
+    这些超时不是同一种“系统卡死”，而是几类不同的问题叠加，最后都撞到了 benchmark 的任务时
+  限。统一特征是：它们都在各自 trial.log 里跑到了接近上限才被 TimeoutError 杀掉，比如
+  seismic-phase-picking trial.log、react-performance-debugging trial.log。对应异常也都落
+  在各自的 result.json 的 exception_info.exception_type = TimeoutError。
+
+  按原因拆开看：
+
+  - seismic-phase-picking 是“探索过多 + 现场下载模型 + 脚本调试”型超时。轨迹里先花轮次理
+    解 npz 字段含义，又临时下载 PhaseNet，接着因为 channels.split 之类的数据格式问题重写
+    脚本，最后还没完成批处理就超时了。见 trajectory.json。
+  - reserves-at-risk-calc 是“手工 Excel 探查/填表流程过长”型超时。它没有卡在某个外部依
+    赖，而是在 workbook 里一列列检查、计算、回填 Step 1/2/3，期间还出现多次 JSON 响应格
+    式错误，导致额外回合浪费。这个任务总 token 已经到 401 万，说明主要成本是 agent 自己
+    来回试。见 result.json。
+  - react-performance-debugging 是“先改错，再安装依赖，再构建，再修构建错误”的典型前端耗
+    时链。轨迹显示它先把 lodash/std、lodash/median、lodash/variance 这种不存在的模块写进
+    去了，随后为了验证又执行了 npm install，这一步 alone 花了约 5 分钟；再 build，发现
+    webpack 报错，继续修，最后时间不够。见 trajectory.json。
+  - sec-financial-report 是“数据路径错误 + 解析格式错误 + 大表反复重跑”型超时。它多次因
+    为 Q2/Q3 文件路径不对报 FileNotFoundError，又多次触发 agent 自己的 JSON 解析错误，导
+    致明明已经接近答案，还在不停补救和重跑 pandas 分析。见 trajectory.json。
+  - shock-analysis-demand 是“外部数据源不可用后，改走替代路径并手工造完整 Excel 模型”型
+    超时。轨迹里有外部接口返回 401 Missing JWT token，之后 agent 转去抓 World Bank 数
+    据、自己构造工作簿和多个 sheet，这条 fallback 路径太长，最终超时。见
+    trajectory.json。
+  - scheduling-email-assistant 最严重，不像是单纯慢，而是“任务漂移”。它的轨迹后半段明显
+    在做 Berkshire / Renaissance 的 13F 分析，这其实是 sec-financial-report 的工作，不是
+    邮件排程任务。也就是说它在高轮次过程中跑偏到了完全错误的任务域，55 轮、238 万 token
+    基本都烧在错误方向上了。见 trajectory.json。
+
+  整体上，这批超时的主因不是额度限制，而是三件事：
+
+  - agent 在复杂任务上前期探索过长，没有尽快收敛到最短执行路径；
+  - 多个任务出现响应 JSON 格式错误或脚本/路径错误，导致重复回合；
+  - 少数任务还叠加了重操作或任务漂移，尤其 npm install、模型下载、以及 scheduling-email-
+    assistant 的跑题。

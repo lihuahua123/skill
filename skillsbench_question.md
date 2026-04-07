@@ -104,3 +104,19 @@
   - task_19_spreadsheet_summary.md
   - task_22_second_brain.md
 合计 14 个任务带 LLM 判分。
+
+如何查看skillsbenc的命令以及如何续跑
+最近一次的 minimax job_name 是：
+
+  skillsbench-rq1-2026-04-06__13-09-43
+
+  你可以从 /hy-tmp/skillsbench/jobs 下面反查出来；我刚确认这个目录里的 result.json 确实
+  对应 model_name: minimax-cn/MiniMax-M2.5。
+
+  所以续跑命令可以写成：
+
+  cd /hy-tmp/skill
+  SKILLSBENCH_APPEND_OUTPUT=1 ./scripts/experiments/rq1.sh minimax-cn/MiniMax-M2.5 \
+    --backend skillsbench \
+    --job-name skillsbench-rq1-2026-04-06__13-09-43 \
+    --max-parallel-tasks 8

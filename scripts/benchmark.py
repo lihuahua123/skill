@@ -46,6 +46,7 @@ TASK_SPECIFIC_REPAIR_STEPS_PATH = (
     Path(__file__).resolve().parent.parent / "analysis" / "task_specific_repair_steps.json"
 )
 _TASK_SPECIFIC_REPAIR_STEPS_CACHE: Optional[Dict[str, Any]] = None
+QUOTA_LIMIT_EXIT_CODE = 3
 
 
 class OpenClawAgent:
@@ -810,6 +811,10 @@ def _detect_infrastructure_failure(execution_result: Dict[str, Any]) -> Optional
             "rate_limit",
             "too many requests",
             "429",
+            "usage limit exceeded",
+            "quota exceeded",
+            "insufficient_quota",
+            "exceeded your current quota",
         ),
         "gateway-closed": (
             "gateway closed",
@@ -841,6 +846,32 @@ def _detect_infrastructure_failure(execution_result: Dict[str, Any]) -> Optional
             "reason": "empty-error-transcript",
             "message": stderr.strip() or stdout.strip() or "Execution failed before agent output was recorded.",
         }
+
+    return None
+
+
+def _extract_quota_limit_failure(outcome: Dict[str, Any]) -> Optional[Dict[str, str]]:
+    result = outcome.get("result", {})
+    infrastructure_failure = result.get("infrastructure_failure")
+    if (
+        isinstance(infrastructure_failure, dict)
+        and infrastructure_failure.get("reason") == "rate-limit"
+    ):
+        return infrastructure_failure
+
+    attempts = outcome.get("attempts", [])
+    for attempt in attempts:
+        infrastructure_failure = attempt.get("infrastructure_failure")
+        if (
+            isinstance(infrastructure_failure, dict)
+            and infrastructure_failure.get("reason") == "rate-limit"
+        ):
+            return infrastructure_failure
+
+        execution = attempt.get("execution", {})
+        detected = _detect_infrastructure_failure(execution)
+        if detected is not None and detected.get("reason") == "rate-limit":
+            return detected
 
     return None
 
@@ -1815,6 +1846,44 @@ def main():
                 len(outcome["attempts"]),
                 max_task_attempts,
             )
+
+            quota_limit_failure = _extract_quota_limit_failure(outcome)
+            if quota_limit_failure is not None:
+                grades_by_task_id[task.task_id] = {
+                    "runs": [grade.to_dict() for grade in task_grades],
+                    "mean": statistics.mean([task_grade.score for task_grade in task_grades]),
+                    "std": (
+                        statistics.stdev([task_grade.score for task_grade in task_grades])
+                        if len(task_grades) > 1
+                        else 0.0
+                    ),
+                    "min": min(task_grade.score for task_grade in task_grades),
+                    "max": max(task_grade.score for task_grade in task_grades),
+                    "attempts_per_run": [len(run["attempts"]) for run in task_runs],
+                }
+                aggregate = _build_aggregate_payload(
+                    args=args,
+                    skill_root=skill_root,
+                    run_id=run_id,
+                    runs_per_task=runs_per_task,
+                    max_task_attempts=max_task_attempts,
+                    run_outcomes=run_outcomes,
+                    grades_by_task_id=grades_by_task_id,
+                    tasks_by_id=tasks_by_id,
+                )
+                _write_results_snapshot(output_path, aggregate)
+                logger.error(
+                    "Quota limit hit on task %s (run %s/%s). Saved partial results to %s and exiting immediately.",
+                    task.task_id,
+                    run_index + 1,
+                    runs_per_task,
+                    output_path,
+                )
+                logger.error(
+                    "Quota-limit detail: %s",
+                    quota_limit_failure.get("message") or quota_limit_failure.get("reason"),
+                )
+                sys.exit(QUOTA_LIMIT_EXIT_CODE)
 
         task_scores = [grade.score for grade in task_grades]
         grades_by_task_id[task.task_id] = {

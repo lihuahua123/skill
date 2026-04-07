@@ -942,3 +942,55 @@ Reflexion (2023) / ACE (2025/2026)：
 LLF-Bench (2023)：
 构成： 正如你所说，它提供非常细粒度的自然语言反馈，比如 FP（Forward Positive，你接下来该尝试去厨房） 和 FN（Forward Negative，不要再撞这堵墙了）。
 关键点： 这类 Benchmark 是一个“Teacher-Student”设定。Teacher 知道 Ground Truth，但 Teacher 吐出的 Feedback 被严格限制在“给出局部建议（Hints）”的程度，绝对不会把整个任务的解法直接吐给 Agent。
+
+
+
+Agent 实现“技能自进化（Skill Self-Evolution）”并从错误中学习（Learning from Mistakes/Failures）是目前大模型和智能体领域非常核心且前沿的研究方向。这类研究通常涉及**技能库（Skill Library）的构建、自我反思（Self-Reflection）机制以及基于失败轨迹的反馈修正**。
+
+为你整理了该领域最新（2025-2026年）的前沿研究以及几篇奠基性的经典论文，希望能为你的研究或项目提供参考：
+
+### 一、 最新前沿论文（2025 - 2026）
+
+**1. Just Talk: An Agent That Meta-Learns and Evolves in the Wild (2026)**
+* **核心机制：** 这篇论文非常直接地切中了“从错误中进化”。它提出了一种“技能驱动的快速适应”机制（Skill-driven fast adaptation）。Agent 会收集并分析**失败的交互轨迹（Failure Trajectories）**，将其作为支持数据，通过 LLM 进化器（Evolver）去合成新的行为指令（即新技能），从而实现免梯度的技能库自进化。
+* **亮点：** 强调在真实环境（in the wild）中，将失败经验转化为新技能，并且可以做到零停机时间更新。
+《MetaClaw》论文本身就提供了一个很好的跨模型对比视角。他们在实验中对比了 GPT-5.2 和 Kimi-K2.5 。研究得出了一个很重要的结论：基础能力较弱的模型获益更大：像 Kimi-K2.5 这种相对较弱的模型，由于本身缺乏隐含的程序性知识，从显式的技能注入中获得了巨大的提升（在 Part I 中准确率提升了 32.2%） 。协同进化可以弥合模型代差：当结合了强化学习的底层策略优化后，Kimi-K2.5 的准确率达到了 40.6%，几乎追平了未经进化的 GPT-5.2 基线水平（41.1%） 。
+
+**2. Co-Evolving Agents: Learning from Failures as Hard Negatives (2025/2026)**
+* **核心机制：** 论文提出了一种“双 Agent 协同进化”框架。它没有单纯地把失败当成废弃数据，而是将失败轨迹系统性地转化为“困难负样本（Hard Negatives）”。
+* **亮点：** 通过引入一个专门学习失败环境的辅助 Agent，配合目标 Agent 进行偏好优化（Preference Optimization）。这种从“接近成功但最终失败”的经验中学习的机制，极大地提高了 Agent 技能的鲁棒性和泛化能力。
+
+**3. EvoSkills: Self-Evolving Agent Skills via Co-Evolutionary Verification (2026)**
+* **核心机制：** 现有的工具自进化方法很难直接迁移到复杂的技能（Skills）上。这篇论文提出了 EvoSkills 框架，使 Agent 能够通过与环境的交互和“协同进化验证”，自主地构建和修正复杂的多文件技能包。
+* **亮点：** 重点解决了机器生成技能时可能存在的“人类-机器认知偏差”导致的错误，通过不断验证和修正来进化技能。
+
+**4. Reinforcement Learning for Self-Improving Agent with Skill Library (SAGE) (2026)**
+* **核心机制：** 结合了技能库（Skill Library）与强化学习（如 GRPO 算法）。研究发现，如果 Agent 只是单纯挂载技能库，有时会因为技能调用不当（Inappropriate skill applications）导致任务失败。
+* **亮点：** SAGE 框架让 Agent 将这些失败的调用作为经验回放，通过强化学习系统性地内化技能的正确使用时机，实现技能调度能力的自进化。
+
+---
+
+### 二、 必读的基石与经典论文（2023 - 2024）
+
+如果你刚开始调研这个方向，以下几篇高引用的经典论文是构建相关认知的必读基石：
+
+**1. Voyager: An Open-Ended Embodied Agent with Large Language Models (2023)**
+* **核心机制：** 技能库自进化领域的绝对标杆。Voyager 在《我的世界》（Minecraft）中通过编写代码来执行动作。当代码执行报错（Error）或任务失败时，它会将**环境反馈和错误日志**作为 Prompt 输入给 LLM，LLM 借此修正代码。一旦执行成功，这段修正后的代码就会作为新技能（Skill）被固化到技能库中，供未来复用。
+
+**2. Reflexion: Language Agents with Verbal Reinforcement Learning (2023)**
+* **核心机制：** 引入了“语言反思（Verbal Reflection）”的概念。当 Agent 执行任务失败时，Reflexion 框架会提示 LLM 写下一段自我反思（例如：“我刚才在哪一步做错了，因为我没有考虑到 XYZ”）。这段基于错误的经验会被存入记忆中，在下一次尝试时作为上下文，从而指导行为的改进。
+
+**3. LeMa: Learning From Mistakes Makes LLM Better Reasoner (2023/2024)**
+* **核心机制：** 聚焦于模型底层推理能力的纠错进化。研究者收集了大量 LLM 的错误推理轨迹，利用高阶模型（如 GPT-4）指出错误步骤、解释犯错原因并给出正确解法。使用这些“错误-纠正”的数据对模型进行微调，证明了从错误中反向学习能显著提升能力。
+
+**4. GITM: Ghost in the Minecraft (2023)**
+* **核心机制：** 虽然同样是在 Minecraft 环境中，GITM 也强调了“子目标失败”时的重新规划机制。它通过分解任务，如果在某个子技能执行时遇到物理障碍或逻辑错误，Agent 会总结失败原因并动态调整技能图谱。
+
+AutoSkill: Experience-Driven Lifelong Learning via Skill Self-Evolution (2026)
+
+核心内容： 这篇论文提出了一种经验驱动的终身学习框架。Agent 会从过去的对话和交互错误中提取经验，并自我进化出新的技能。
+与不同模型的关系： 它的最大亮点是将技能库设计为一个模型无关（Model-Agnostic）的插件层。这意味着它不仅兼容现有的各种 LLMs，还引入了标准化的技能表示方法。Model A（例如大参数模型）在复杂环境中试错并进化出的技能，可以直接 Transfer（迁移）给 Model B（例如端侧小模型）使用，无需重新训练底层模型。
+
+LEMMA: Learning from Errors for MatheMatical Advancement in LLMs (2026)
+核心内容： 专注于从错误中学习的机制。它构建了包含“错误-反思-修正”的轨迹数据集。
+与不同模型的关系： 论文中明确探讨了不同模型之间的配合：利用**高级/强模型（Advanced Models）去指导生成和分析代表性的错误类型，然后用这些数据去增强目标模型（Target Models）**的自我纠错（Self-correct）能力。这提供了一种“跨模型师生范式”的技能进化思路。

@@ -199,6 +199,7 @@ run_benchmark() {
       append_if_present cmd --benchmark-version "$@"
       append_if_present cmd --run-id "$@"
       append_if_present cmd --max-task-attempts "$@"
+      append_if_present cmd --max-parallel-tasks "$@"
       append_if_present cmd --feedback-policy "$@"
       append_if_present cmd --feedback-format "$@"
       append_if_present cmd --feedback-strategy "$@"
