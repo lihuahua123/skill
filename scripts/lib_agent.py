@@ -378,9 +378,12 @@ def prepare_task_workspace(skill_dir: Path, run_id: str, task: Task, agent_id: s
 
         source = skill_dir / "assets" / file_spec["source"]
         dest = workspace / file_spec["dest"]
-        dest.parent.mkdir(parents=True, exist_ok=True)
         try:
-            dest.write_bytes(source.read_bytes())
+            if source.is_dir():
+                shutil.copytree(source, dest, dirs_exist_ok=True)
+            else:
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_bytes(source.read_bytes())
         except FileNotFoundError:
             logger.error("Workspace file not found: %s", source)
             raise

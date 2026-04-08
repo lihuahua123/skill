@@ -30,6 +30,11 @@ if ! option_supplied --runs "${EXTRA_ARGS[@]}"; then
   RUNS_ARGS=(--runs "$(default_runs)")
 fi
 
+PARALLEL_ARGS=()
+if ! option_supplied --max-parallel-tasks "${EXTRA_ARGS[@]}"; then
+  PARALLEL_ARGS=(--max-parallel-tasks "${RQ1_MAX_PARALLEL_TASKS:-2}")
+fi
+
 RESULTS_DIR="${RQ1_RESULTS_DIR:-results/rq1}"
 ANALYSIS_DIR="${RQ1_ANALYSIS_DIR:-analysis/rq1}"
 MAX_ATTEMPTS_VALUE="${RQ1_MAX_ATTEMPTS:-6}"
@@ -38,6 +43,7 @@ run_benchmark "${RESULTS_DIR}" \
   "${MODEL_ARGS[@]}" \
   "${SUITE_ARGS[@]}" \
   "${RUNS_ARGS[@]}" \
+  "${PARALLEL_ARGS[@]}" \
   --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
   --feedback-policy "${RQ1_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ1_FEEDBACK_FORMAT:-full-refresh}" \

@@ -792,3 +792,11 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
   - 多个任务出现响应 JSON 格式错误或脚本/路径错误，导致重复回合；
   - 少数任务还叠加了重操作或任务漂移，尤其 npm install、模型下载、以及 scheduling-email-
     assistant 的跑题。
+
+
+1.  所以这批任务超时的真实原因不是“最后一条 shell 命令太慢”，而是我加的 unshare -m 隔离在你当前环 这个需要解决
+2.  还有一些任务是没有完全拷贝，只拷贝了test.py 啥的，其他文件没拷贝，应该拷贝整个目录的，整个也要解决
+3.  还要限制attempt内的请求次数
+要先执行
+curl -LsSf https://astral.sh/uv/install.sh | sh
+export PATH="/root/.local/bin:$PATH"

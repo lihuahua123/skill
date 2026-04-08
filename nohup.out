@@ -640,3 +640,1218 @@ Creating virtual environment at: .venv
   ],
   "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-06__21-00-15.json"
 }
+env: ‘uv’: No such file or directory
+Downloading cpython-3.12.13-linux-x86_64-gnu (download) (32.9MiB)
+ Downloaded cpython-3.12.13-linux-x86_64-gnu (download)
+Using CPython 3.12.13
+Creating virtual environment at: .venv
+   Updating https://github.com/laude-institute/harbor.git (HEAD)
+   Updating https://github.com/agentskills/agentskills.git (7f094a2f794fbf6ccf805f601cdc497110b8a8cd)
+Downloading tokenizers (3.1MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading pygments (1.2MiB)
+Downloading tiktoken (1.1MiB)
+Downloading pandas (11.8MiB)
+Downloading virtualenv (5.7MiB)
+Downloading numpy (15.6MiB)
+Downloading obstore (3.6MiB)
+Downloading kubernetes (1.9MiB)
+Downloading litellm (10.0MiB)
+Downloading cryptography (4.3MiB)
+Downloading hf-xet (3.2MiB)
+Downloading mypy (13.0MiB)
+Downloading ruff (13.6MiB)
+Downloading aiohttp (1.7MiB)
+Downloading pyroaring (2.0MiB)
+Downloading pyarrow (45.5MiB)
+Downloading claude-agent-sdk (67.2MiB)
+Downloading pyiceberg (1.3MiB)
+    Updated https://github.com/agentskills/agentskills.git (7f094a2f794fbf6ccf805f601cdc497110b8a8cd)
+   Building skills-ref @ git+https://github.com/agentskills/agentskills.git@7f094a2f794fbf6ccf805f601cdc497110b8a8cd#subdirectory=skills-ref
+    Updated https://github.com/laude-institute/harbor.git (3f28e5ce2acbff36d8b5df431e35e050ac13bef6)
+   Building harbor @ git+https://github.com/laude-institute/harbor.git@3f28e5ce2acbff36d8b5df431e35e050ac13bef6
+Terminated
+env: ‘uv’: No such file or directory
+   Building skills-ref @ git+https://github.com/agentskills/agentskills.git@7f094a2f794fbf6ccf805f601cdc497110b8a8cd#subdirectory=skills-ref
+   Building harbor @ git+https://github.com/laude-institute/harbor.git@3f28e5ce2acbff36d8b5df431e35e050ac13bef6
+Downloading tokenizers (3.1MiB)
+Downloading pygments (1.2MiB)
+Downloading virtualenv (5.7MiB)
+Downloading litellm (10.0MiB)
+Downloading pandas (11.8MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading cryptography (4.3MiB)
+Downloading tiktoken (1.1MiB)
+Downloading hf-xet (3.2MiB)
+Downloading obstore (3.6MiB)
+Downloading pyroaring (2.0MiB)
+Downloading aiohttp (1.7MiB)
+Downloading ruff (13.6MiB)
+Downloading pyiceberg (1.3MiB)
+Downloading kubernetes (1.9MiB)
+Downloading numpy (15.6MiB)
+Downloading claude-agent-sdk (67.2MiB)
+Downloading mypy (13.0MiB)
+Downloading pyarrow (45.5MiB)
+ Downloaded tiktoken
+ Downloaded pygments
+ Downloaded pyiceberg
+ Downloaded aiohttp
+ Downloaded pydantic-core
+ Downloaded pyroaring
+ Downloaded kubernetes
+ Downloaded tokenizers
+ Downloaded hf-xet
+ Downloaded obstore
+      Built skills-ref @ git+https://github.com/agentskills/agentskills.git@7f094a2f794fbf6ccf805f601cdc497110b8a8cd#subdirectory=skills-ref
+ Downloaded cryptography
+      Built harbor @ git+https://github.com/laude-institute/harbor.git@3f28e5ce2acbff36d8b5df431e35e050ac13bef6
+ Downloaded virtualenv
+ Downloaded litellm
+ Downloaded pandas
+ Downloaded mypy
+ Downloaded ruff
+ Downloaded numpy
+ Downloaded pyarrow
+ Downloaded claude-agent-sdk
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 152 packages in 953ms
+usage: run_skillsbench_experiment.py [-h] --model MODEL [--backend BACKEND]
+                                     [--skillsbench-task-path SKILLSBENCH_TASK_PATH]
+                                     [--pinchbench-task-id PINCHBENCH_TASK_ID]
+                                     [--agent-name AGENT_NAME]
+                                     [--job-name JOB_NAME]
+                                     [--jobs-root JOBS_ROOT]
+                                     [--aggregate-output AGGREGATE_OUTPUT]
+                                     [--benchmark-version BENCHMARK_VERSION]
+                                     [--run-id RUN_ID] [--runs RUNS]
+                                     [--max-task-attempts MAX_TASK_ATTEMPTS]
+                                     [--append-aggregate-output]
+                                     [--feedback-policy FEEDBACK_POLICY]
+                                     [--feedback-format FEEDBACK_FORMAT]
+                                     [--feedback-strategy FEEDBACK_STRATEGY]
+                                     [--feedback-answer-safety FEEDBACK_ANSWER_SAFETY]
+                                     [--stop-rule STOP_RULE]
+                                     [--stop-threshold STOP_THRESHOLD]
+                                     [--api-base API_BASE] [--api-key API_KEY]
+                                     [--early-stop-intra-attempt]
+run_skillsbench_experiment.py: error: unrecognized arguments: --max-parallel-tasks 8
+env: ‘uv’: No such file or directory
+[run] 3d-scan-calc
+{
+  "task": "3d-scan-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] adaptive-cruise-control
+{
+  "task": "adaptive-cruise-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] azure-bgp-oscillation-route-leak
+{
+  "task": "azure-bgp-oscillation-route-leak",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] citation-check
+{
+  "task": "citation-check",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] civ6-adjacency-optimizer
+{
+  "task": "civ6-adjacency-optimizer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] court-form-filling
+{
+  "task": "court-form-filling",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] crystallographic-wyckoff-position-analysis
+{
+  "task": "crystallographic-wyckoff-position-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dapt-intrusion-detection
+{
+  "task": "dapt-intrusion-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] data-to-d3
+{
+  "task": "data-to-d3",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dialogue-parser
+{
+  "task": "dialogue-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] dynamic-object-aware-egomotion
+{
+  "task": "dynamic-object-aware-egomotion",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] earthquake-phase-association
+{
+  "task": "earthquake-phase-association",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] earthquake-plate-calculation
+{
+  "task": "earthquake-plate-calculation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] econ-detrending-correlation
+{
+  "task": "econ-detrending-correlation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] energy-ac-optimal-power-flow
+{
+  "task": "energy-ac-optimal-power-flow",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] energy-market-pricing
+{
+  "task": "energy-market-pricing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] enterprise-information-search
+{
+  "task": "enterprise-information-search",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] exceltable-in-ppt
+{
+  "task": "exceltable-in-ppt",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] exoplanet-detection-period
+{
+  "task": "exoplanet-detection-period",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] financial-modeling-qa
+{
+  "task": "financial-modeling-qa",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] find-topk-similiar-chemicals
+{
+  "task": "find-topk-similiar-chemicals",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-agentops
+{
+  "task": "fix-build-agentops",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-google-auto
+{
+  "task": "fix-build-google-auto",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-druid-loophole-cve
+{
+  "task": "fix-druid-loophole-cve",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-erlang-ssh-cve
+{
+  "task": "fix-erlang-ssh-cve",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-visual-stability
+{
+  "task": "fix-visual-stability",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] flink-query
+{
+  "task": "flink-query",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] flood-risk-analysis
+{
+  "task": "flood-risk-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] gh-repo-analytics
+{
+  "task": "gh-repo-analytics",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] glm-lake-mendota
+{
+  "task": "glm-lake-mendota",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] gravitational-wave-detection
+{
+  "task": "gravitational-wave-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] grid-dispatch-operator
+{
+  "task": "grid-dispatch-operator",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] hvac-control
+{
+  "task": "hvac-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] invoice-fraud-detection
+{
+  "task": "invoice-fraud-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] jax-computing-basics
+{
+  "task": "jax-computing-basics",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] jpg-ocr-stat
+{
+  "task": "jpg-ocr-stat",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lab-unit-harmonization
+{
+  "task": "lab-unit-harmonization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lake-warming-attribution
+{
+  "task": "lake-warming-attribution",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] latex-formula-extraction
+{
+  "task": "latex-formula-extraction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lean4-proof
+{
+  "task": "lean4-proof",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-codebook-normalization
+{
+  "task": "manufacturing-codebook-normalization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-equipment-maintenance
+{
+  "task": "manufacturing-equipment-maintenance",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-fjsp-optimization
+{
+  "task": "manufacturing-fjsp-optimization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mario-coin-counting
+{
+  "task": "mario-coin-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mars-clouds-clustering
+{
+  "task": "mars-clouds-clustering",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mhc-layer-impl
+{
+  "task": "mhc-layer-impl",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] multilingual-video-dubbing
+{
+  "task": "multilingual-video-dubbing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] offer-letter-generator
+{
+  "task": "offer-letter-generator",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] organize-messy-files
+{
+  "task": "organize-messy-files",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] paper-anonymizer
+{
+  "task": "paper-anonymizer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] parallel-tfidf-search
+{
+  "task": "parallel-tfidf-search",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pddl-tpp-planning
+{
+  "task": "pddl-tpp-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pdf-excel-diff
+{
+  "task": "pdf-excel-diff",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pedestrian-traffic-counting
+{
+  "task": "pedestrian-traffic-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pg-essay-to-audiobook
+{
+  "task": "pg-essay-to-audiobook",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] powerlifting-coef-calc
+{
+  "task": "powerlifting-coef-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pptx-reference-formatting
+{
+  "task": "pptx-reference-formatting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] protein-expression-analysis
+{
+  "task": "protein-expression-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] python-scala-translation
+{
+  "task": "python-scala-translation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] quantum-numerical-simulation
+{
+  "task": "quantum-numerical-simulation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] r2r-mpc-control
+{
+  "task": "r2r-mpc-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] react-performance-debugging
+{
+  "task": "react-performance-debugging",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] reserves-at-risk-calc
+{
+  "task": "reserves-at-risk-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] sales-pivot-analysis
+{
+  "task": "sales-pivot-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] scheduling-email-assistant
+{
+  "task": "scheduling-email-assistant",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] sec-financial-report
+{
+  "task": "sec-financial-report",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] seismic-phase-picking
+{
+  "task": "seismic-phase-picking",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] setup-fuzzing-py
+{
+  "task": "setup-fuzzing-py",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-demand
+{
+  "task": "shock-analysis-demand",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-supply
+{
+  "task": "shock-analysis-supply",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] simpo-code-reproduction
+{
+  "task": "simpo-code-reproduction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] software-dependency-audit
+{
+  "task": "software-dependency-audit",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] speaker-diarization-subtitles
+{
+  "task": "speaker-diarization-subtitles",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] spring-boot-jakarta-migration
+{
+  "task": "spring-boot-jakarta-migration",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] suricata-custom-exfil
+{
+  "task": "suricata-custom-exfil",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] syzkaller-ppdev-syzlang
+{
+  "task": "syzkaller-ppdev-syzlang",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] taxonomy-tree-merge
+{
+  "task": "taxonomy-tree-merge",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] threejs-structure-parser
+{
+  "task": "threejs-structure-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] threejs-to-obj
+{
+  "task": "threejs-to-obj",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] travel-planning
+{
+  "task": "travel-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] trend-anomaly-causal-inference
+{
+  "task": "trend-anomaly-causal-inference",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-filler-word-remover
+{
+  "task": "video-filler-word-remover",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-silence-remover
+{
+  "task": "video-silence-remover",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-tutorial-indexer
+{
+  "task": "video-tutorial-indexer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] virtualhome-agent-planning
+{
+  "task": "virtualhome-agent-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] weighted-gdp-calc
+{
+  "task": "weighted-gdp-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] xlsx-recover-data
+{
+  "task": "xlsx-recover-data",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "backend": "skillsbench",
+  "job_name": "skillsbench-rq1-2026-04-08__01-43-57",
+  "task_count": 87,
+  "completed_task_count": 0,
+  "failed_task_count": 87,
+  "failed_tasks": [
+    {
+      "task": "3d-scan-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "adaptive-cruise-control",
+      "exit_code": 1
+    },
+    {
+      "task": "azure-bgp-oscillation-route-leak",
+      "exit_code": 1
+    },
+    {
+      "task": "citation-check",
+      "exit_code": 1
+    },
+    {
+      "task": "civ6-adjacency-optimizer",
+      "exit_code": 1
+    },
+    {
+      "task": "court-form-filling",
+      "exit_code": 1
+    },
+    {
+      "task": "crystallographic-wyckoff-position-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "dapt-intrusion-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "data-to-d3",
+      "exit_code": 1
+    },
+    {
+      "task": "dialogue-parser",
+      "exit_code": 1
+    },
+    {
+      "task": "dynamic-object-aware-egomotion",
+      "exit_code": 1
+    },
+    {
+      "task": "earthquake-phase-association",
+      "exit_code": 1
+    },
+    {
+      "task": "earthquake-plate-calculation",
+      "exit_code": 1
+    },
+    {
+      "task": "econ-detrending-correlation",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-ac-optimal-power-flow",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-market-pricing",
+      "exit_code": 1
+    },
+    {
+      "task": "enterprise-information-search",
+      "exit_code": 1
+    },
+    {
+      "task": "exceltable-in-ppt",
+      "exit_code": 1
+    },
+    {
+      "task": "exoplanet-detection-period",
+      "exit_code": 1
+    },
+    {
+      "task": "financial-modeling-qa",
+      "exit_code": 1
+    },
+    {
+      "task": "find-topk-similiar-chemicals",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-agentops",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-google-auto",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-druid-loophole-cve",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-erlang-ssh-cve",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-visual-stability",
+      "exit_code": 1
+    },
+    {
+      "task": "flink-query",
+      "exit_code": 1
+    },
+    {
+      "task": "flood-risk-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "gh-repo-analytics",
+      "exit_code": 1
+    },
+    {
+      "task": "glm-lake-mendota",
+      "exit_code": 1
+    },
+    {
+      "task": "gravitational-wave-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "grid-dispatch-operator",
+      "exit_code": 1
+    },
+    {
+      "task": "hvac-control",
+      "exit_code": 1
+    },
+    {
+      "task": "invoice-fraud-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "jax-computing-basics",
+      "exit_code": 1
+    },
+    {
+      "task": "jpg-ocr-stat",
+      "exit_code": 1
+    },
+    {
+      "task": "lab-unit-harmonization",
+      "exit_code": 1
+    },
+    {
+      "task": "lake-warming-attribution",
+      "exit_code": 1
+    },
+    {
+      "task": "latex-formula-extraction",
+      "exit_code": 1
+    },
+    {
+      "task": "lean4-proof",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-codebook-normalization",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-equipment-maintenance",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-fjsp-optimization",
+      "exit_code": 1
+    },
+    {
+      "task": "mario-coin-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "mars-clouds-clustering",
+      "exit_code": 1
+    },
+    {
+      "task": "mhc-layer-impl",
+      "exit_code": 1
+    },
+    {
+      "task": "multilingual-video-dubbing",
+      "exit_code": 1
+    },
+    {
+      "task": "offer-letter-generator",
+      "exit_code": 1
+    },
+    {
+      "task": "organize-messy-files",
+      "exit_code": 1
+    },
+    {
+      "task": "paper-anonymizer",
+      "exit_code": 1
+    },
+    {
+      "task": "parallel-tfidf-search",
+      "exit_code": 1
+    },
+    {
+      "task": "pddl-tpp-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "pdf-excel-diff",
+      "exit_code": 1
+    },
+    {
+      "task": "pedestrian-traffic-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "pg-essay-to-audiobook",
+      "exit_code": 1
+    },
+    {
+      "task": "powerlifting-coef-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "pptx-reference-formatting",
+      "exit_code": 1
+    },
+    {
+      "task": "protein-expression-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "python-scala-translation",
+      "exit_code": 1
+    },
+    {
+      "task": "quantum-numerical-simulation",
+      "exit_code": 1
+    },
+    {
+      "task": "r2r-mpc-control",
+      "exit_code": 1
+    },
+    {
+      "task": "react-performance-debugging",
+      "exit_code": 1
+    },
+    {
+      "task": "reserves-at-risk-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "sales-pivot-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "scheduling-email-assistant",
+      "exit_code": 1
+    },
+    {
+      "task": "sec-financial-report",
+      "exit_code": 1
+    },
+    {
+      "task": "seismic-phase-picking",
+      "exit_code": 1
+    },
+    {
+      "task": "setup-fuzzing-py",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-demand",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-supply",
+      "exit_code": 1
+    },
+    {
+      "task": "simpo-code-reproduction",
+      "exit_code": 1
+    },
+    {
+      "task": "software-dependency-audit",
+      "exit_code": 1
+    },
+    {
+      "task": "speaker-diarization-subtitles",
+      "exit_code": 1
+    },
+    {
+      "task": "spring-boot-jakarta-migration",
+      "exit_code": 1
+    },
+    {
+      "task": "suricata-custom-exfil",
+      "exit_code": 1
+    },
+    {
+      "task": "syzkaller-ppdev-syzlang",
+      "exit_code": 1
+    },
+    {
+      "task": "taxonomy-tree-merge",
+      "exit_code": 1
+    },
+    {
+      "task": "threejs-structure-parser",
+      "exit_code": 1
+    },
+    {
+      "task": "threejs-to-obj",
+      "exit_code": 1
+    },
+    {
+      "task": "travel-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "trend-anomaly-causal-inference",
+      "exit_code": 1
+    },
+    {
+      "task": "video-filler-word-remover",
+      "exit_code": 1
+    },
+    {
+      "task": "video-silence-remover",
+      "exit_code": 1
+    },
+    {
+      "task": "video-tutorial-indexer",
+      "exit_code": 1
+    },
+    {
+      "task": "virtualhome-agent-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "weighted-gdp-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "xlsx-recover-data",
+      "exit_code": 1
+    }
+  ],
+  "tasks": [
+    "tasks/3d-scan-calc",
+    "tasks/adaptive-cruise-control",
+    "tasks/azure-bgp-oscillation-route-leak",
+    "tasks/citation-check",
+    "tasks/civ6-adjacency-optimizer",
+    "tasks/court-form-filling",
+    "tasks/crystallographic-wyckoff-position-analysis",
+    "tasks/dapt-intrusion-detection",
+    "tasks/data-to-d3",
+    "tasks/dialogue-parser",
+    "tasks/dynamic-object-aware-egomotion",
+    "tasks/earthquake-phase-association",
+    "tasks/earthquake-plate-calculation",
+    "tasks/econ-detrending-correlation",
+    "tasks/energy-ac-optimal-power-flow",
+    "tasks/energy-market-pricing",
+    "tasks/enterprise-information-search",
+    "tasks/exceltable-in-ppt",
+    "tasks/exoplanet-detection-period",
+    "tasks/financial-modeling-qa",
+    "tasks/find-topk-similiar-chemicals",
+    "tasks/fix-build-agentops",
+    "tasks/fix-build-google-auto",
+    "tasks/fix-druid-loophole-cve",
+    "tasks/fix-erlang-ssh-cve",
+    "tasks/fix-visual-stability",
+    "tasks/flink-query",
+    "tasks/flood-risk-analysis",
+    "tasks/gh-repo-analytics",
+    "tasks/glm-lake-mendota",
+    "tasks/gravitational-wave-detection",
+    "tasks/grid-dispatch-operator",
+    "tasks/hvac-control",
+    "tasks/invoice-fraud-detection",
+    "tasks/jax-computing-basics",
+    "tasks/jpg-ocr-stat",
+    "tasks/lab-unit-harmonization",
+    "tasks/lake-warming-attribution",
+    "tasks/latex-formula-extraction",
+    "tasks/lean4-proof",
+    "tasks/manufacturing-codebook-normalization",
+    "tasks/manufacturing-equipment-maintenance",
+    "tasks/manufacturing-fjsp-optimization",
+    "tasks/mario-coin-counting",
+    "tasks/mars-clouds-clustering",
+    "tasks/mhc-layer-impl",
+    "tasks/multilingual-video-dubbing",
+    "tasks/offer-letter-generator",
+    "tasks/organize-messy-files",
+    "tasks/paper-anonymizer",
+    "tasks/parallel-tfidf-search",
+    "tasks/pddl-tpp-planning",
+    "tasks/pdf-excel-diff",
+    "tasks/pedestrian-traffic-counting",
+    "tasks/pg-essay-to-audiobook",
+    "tasks/powerlifting-coef-calc",
+    "tasks/pptx-reference-formatting",
+    "tasks/protein-expression-analysis",
+    "tasks/python-scala-translation",
+    "tasks/quantum-numerical-simulation",
+    "tasks/r2r-mpc-control",
+    "tasks/react-performance-debugging",
+    "tasks/reserves-at-risk-calc",
+    "tasks/sales-pivot-analysis",
+    "tasks/scheduling-email-assistant",
+    "tasks/sec-financial-report",
+    "tasks/seismic-phase-picking",
+    "tasks/setup-fuzzing-py",
+    "tasks/shock-analysis-demand",
+    "tasks/shock-analysis-supply",
+    "tasks/simpo-code-reproduction",
+    "tasks/software-dependency-audit",
+    "tasks/speaker-diarization-subtitles",
+    "tasks/spring-boot-jakarta-migration",
+    "tasks/suricata-custom-exfil",
+    "tasks/syzkaller-ppdev-syzlang",
+    "tasks/taxonomy-tree-merge",
+    "tasks/threejs-structure-parser",
+    "tasks/threejs-to-obj",
+    "tasks/travel-planning",
+    "tasks/trend-anomaly-causal-inference",
+    "tasks/video-filler-word-remover",
+    "tasks/video-silence-remover",
+    "tasks/video-tutorial-indexer",
+    "tasks/virtualhome-agent-planning",
+    "tasks/weighted-gdp-calc",
+    "tasks/xlsx-recover-data"
+  ],
+  "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json"
+}
+Traceback (most recent call last):
+  File "/hy-tmp/skill/scripts/analyze_retries.py", line 17, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+{
+  "aggregate_output_exists": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5.json",
+  "aggregate_output_redirected_to": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-08__10-00-32.json"
+}
+{
+  "backend": "skillsbench",
+  "job_name": "skillsbench-rq1-2026-04-08__10-00-32",
+  "pending_task_count": 87,
+  "max_parallel_tasks": 8,
+  "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-08__10-00-32.json"
+}
+[run] 3d-scan-calc
+[run] adaptive-cruise-control
+[run] azure-bgp-oscillation-route-leak
+[run] citation-check
+[run] civ6-adjacency-optimizer
+[run] court-form-filling
+[run] crystallographic-wyckoff-position-analysis
+[run] dapt-intrusion-detection
+{
+  "task": "3d-scan-calc",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] data-to-d3
+{
+  "task": "citation-check",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] dialogue-parser
+{
+  "task": "dapt-intrusion-detection",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] dynamic-object-aware-egomotion
+{
+  "task": "azure-bgp-oscillation-route-leak",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] earthquake-phase-association
+{
+  "task": "crystallographic-wyckoff-position-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] earthquake-plate-calculation
+{
+  "task": "court-form-filling",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] econ-detrending-correlation
