@@ -1873,3 +1873,936 @@ ModuleNotFoundError: No module named 'matplotlib'
   "note": "Refreshing aggregate output after task completion."
 }
 [run] enterprise-information-search
+{
+  "task": "dialogue-parser",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] exceltable-in-ppt
+{
+  "task": "dynamic-object-aware-egomotion",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] exoplanet-detection-period
+{
+  "task": "civ6-adjacency-optimizer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] financial-modeling-qa
+{
+  "task": "enterprise-information-search",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] find-topk-similiar-chemicals
+{
+  "task": "earthquake-phase-association",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-agentops
+{
+  "task": "energy-ac-optimal-power-flow",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-build-google-auto
+{
+  "task": "exceltable-in-ppt",
+  "status": "completed",
+  "note": "Refreshing aggregate output after task completion."
+}
+[run] fix-druid-loophole-cve
+{
+  "task": "energy-market-pricing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-erlang-ssh-cve
+{
+  "task": "fix-build-agentops",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] fix-visual-stability
+{
+  "task": "find-topk-similiar-chemicals",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] flink-query
+{
+  "task": "financial-modeling-qa",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] flood-risk-analysis
+{
+  "task": "fix-build-google-auto",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] gh-repo-analytics
+{
+  "task": "adaptive-cruise-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] glm-lake-mendota
+{
+  "task": "fix-erlang-ssh-cve",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] gravitational-wave-detection
+{
+  "task": "exoplanet-detection-period",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] grid-dispatch-operator
+{
+  "task": "flink-query",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] hvac-control
+{
+  "task": "grid-dispatch-operator",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] invoice-fraud-detection
+{
+  "task": "gh-repo-analytics",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] jax-computing-basics
+{
+  "task": "glm-lake-mendota",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] jpg-ocr-stat
+{
+  "task": "gravitational-wave-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lab-unit-harmonization
+{
+  "task": "fix-druid-loophole-cve",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lake-warming-attribution
+{
+  "task": "flood-risk-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] latex-formula-extraction
+{
+  "task": "hvac-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] lean4-proof
+{
+  "task": "invoice-fraud-detection",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-codebook-normalization
+{
+  "task": "jpg-ocr-stat",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-equipment-maintenance
+{
+  "task": "jax-computing-basics",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] manufacturing-fjsp-optimization
+{
+  "task": "lab-unit-harmonization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mario-coin-counting
+{
+  "task": "lake-warming-attribution",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mars-clouds-clustering
+{
+  "task": "latex-formula-extraction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] mhc-layer-impl
+{
+  "task": "lean4-proof",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] multilingual-video-dubbing
+{
+  "task": "manufacturing-codebook-normalization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] offer-letter-generator
+{
+  "task": "manufacturing-equipment-maintenance",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] organize-messy-files
+{
+  "task": "manufacturing-fjsp-optimization",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] paper-anonymizer
+{
+  "task": "mario-coin-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] parallel-tfidf-search
+{
+  "task": "mars-clouds-clustering",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pddl-tpp-planning
+{
+  "task": "mhc-layer-impl",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pdf-excel-diff
+{
+  "task": "multilingual-video-dubbing",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pedestrian-traffic-counting
+{
+  "task": "offer-letter-generator",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pg-essay-to-audiobook
+{
+  "task": "organize-messy-files",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] powerlifting-coef-calc
+{
+  "task": "paper-anonymizer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] pptx-reference-formatting
+{
+  "task": "parallel-tfidf-search",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] protein-expression-analysis
+{
+  "task": "pddl-tpp-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] python-scala-translation
+{
+  "task": "pdf-excel-diff",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] quantum-numerical-simulation
+{
+  "task": "pedestrian-traffic-counting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] r2r-mpc-control
+{
+  "task": "pg-essay-to-audiobook",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] react-performance-debugging
+{
+  "task": "powerlifting-coef-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] reserves-at-risk-calc
+{
+  "task": "pptx-reference-formatting",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] sales-pivot-analysis
+{
+  "task": "protein-expression-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] scheduling-email-assistant
+{
+  "task": "python-scala-translation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] sec-financial-report
+{
+  "task": "quantum-numerical-simulation",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] seismic-phase-picking
+{
+  "task": "r2r-mpc-control",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] setup-fuzzing-py
+{
+  "task": "react-performance-debugging",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-demand
+{
+  "task": "reserves-at-risk-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] shock-analysis-supply
+{
+  "task": "sales-pivot-analysis",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] simpo-code-reproduction
+{
+  "task": "scheduling-email-assistant",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] software-dependency-audit
+{
+  "task": "sec-financial-report",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] speaker-diarization-subtitles
+{
+  "task": "seismic-phase-picking",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] spring-boot-jakarta-migration
+{
+  "task": "setup-fuzzing-py",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] suricata-custom-exfil
+{
+  "task": "shock-analysis-demand",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] syzkaller-ppdev-syzlang
+{
+  "task": "shock-analysis-supply",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] taxonomy-tree-merge
+{
+  "task": "simpo-code-reproduction",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] threejs-structure-parser
+{
+  "task": "software-dependency-audit",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] threejs-to-obj
+{
+  "task": "speaker-diarization-subtitles",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] travel-planning
+{
+  "task": "spring-boot-jakarta-migration",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] trend-anomaly-causal-inference
+{
+  "task": "suricata-custom-exfil",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-filler-word-remover
+{
+  "task": "syzkaller-ppdev-syzlang",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-silence-remover
+{
+  "task": "threejs-structure-parser",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] video-tutorial-indexer
+{
+  "task": "taxonomy-tree-merge",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] virtualhome-agent-planning
+{
+  "task": "virtualhome-agent-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] weighted-gdp-calc
+{
+  "task": "threejs-to-obj",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+[run] xlsx-recover-data
+{
+  "task": "fix-visual-stability",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "travel-planning",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "trend-anomaly-causal-inference",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "video-filler-word-remover",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "video-silence-remover",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "weighted-gdp-calc",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "video-tutorial-indexer",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "task": "xlsx-recover-data",
+  "status": "failed",
+  "exit_code": 1,
+  "note": "Recorded failure and continuing; aggregated result.json will determine score/tokens."
+}
+{
+  "backend": "skillsbench",
+  "job_name": "skillsbench-rq1-2026-04-08__10-00-32",
+  "task_count": 87,
+  "completed_task_count": 0,
+  "failed_task_count": 75,
+  "failed_tasks": [
+    {
+      "task": "crystallographic-wyckoff-position-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "civ6-adjacency-optimizer",
+      "exit_code": 1
+    },
+    {
+      "task": "earthquake-phase-association",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-ac-optimal-power-flow",
+      "exit_code": 1
+    },
+    {
+      "task": "energy-market-pricing",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-agentops",
+      "exit_code": 1
+    },
+    {
+      "task": "find-topk-similiar-chemicals",
+      "exit_code": 1
+    },
+    {
+      "task": "financial-modeling-qa",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-build-google-auto",
+      "exit_code": 1
+    },
+    {
+      "task": "adaptive-cruise-control",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-erlang-ssh-cve",
+      "exit_code": 1
+    },
+    {
+      "task": "exoplanet-detection-period",
+      "exit_code": 1
+    },
+    {
+      "task": "flink-query",
+      "exit_code": 1
+    },
+    {
+      "task": "grid-dispatch-operator",
+      "exit_code": 1
+    },
+    {
+      "task": "gh-repo-analytics",
+      "exit_code": 1
+    },
+    {
+      "task": "glm-lake-mendota",
+      "exit_code": 1
+    },
+    {
+      "task": "gravitational-wave-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-druid-loophole-cve",
+      "exit_code": 1
+    },
+    {
+      "task": "flood-risk-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "hvac-control",
+      "exit_code": 1
+    },
+    {
+      "task": "invoice-fraud-detection",
+      "exit_code": 1
+    },
+    {
+      "task": "jpg-ocr-stat",
+      "exit_code": 1
+    },
+    {
+      "task": "jax-computing-basics",
+      "exit_code": 1
+    },
+    {
+      "task": "lab-unit-harmonization",
+      "exit_code": 1
+    },
+    {
+      "task": "lake-warming-attribution",
+      "exit_code": 1
+    },
+    {
+      "task": "latex-formula-extraction",
+      "exit_code": 1
+    },
+    {
+      "task": "lean4-proof",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-codebook-normalization",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-equipment-maintenance",
+      "exit_code": 1
+    },
+    {
+      "task": "manufacturing-fjsp-optimization",
+      "exit_code": 1
+    },
+    {
+      "task": "mario-coin-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "mars-clouds-clustering",
+      "exit_code": 1
+    },
+    {
+      "task": "mhc-layer-impl",
+      "exit_code": 1
+    },
+    {
+      "task": "multilingual-video-dubbing",
+      "exit_code": 1
+    },
+    {
+      "task": "offer-letter-generator",
+      "exit_code": 1
+    },
+    {
+      "task": "organize-messy-files",
+      "exit_code": 1
+    },
+    {
+      "task": "paper-anonymizer",
+      "exit_code": 1
+    },
+    {
+      "task": "parallel-tfidf-search",
+      "exit_code": 1
+    },
+    {
+      "task": "pddl-tpp-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "pdf-excel-diff",
+      "exit_code": 1
+    },
+    {
+      "task": "pedestrian-traffic-counting",
+      "exit_code": 1
+    },
+    {
+      "task": "pg-essay-to-audiobook",
+      "exit_code": 1
+    },
+    {
+      "task": "powerlifting-coef-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "pptx-reference-formatting",
+      "exit_code": 1
+    },
+    {
+      "task": "protein-expression-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "python-scala-translation",
+      "exit_code": 1
+    },
+    {
+      "task": "quantum-numerical-simulation",
+      "exit_code": 1
+    },
+    {
+      "task": "r2r-mpc-control",
+      "exit_code": 1
+    },
+    {
+      "task": "react-performance-debugging",
+      "exit_code": 1
+    },
+    {
+      "task": "reserves-at-risk-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "sales-pivot-analysis",
+      "exit_code": 1
+    },
+    {
+      "task": "scheduling-email-assistant",
+      "exit_code": 1
+    },
+    {
+      "task": "sec-financial-report",
+      "exit_code": 1
+    },
+    {
+      "task": "seismic-phase-picking",
+      "exit_code": 1
+    },
+    {
+      "task": "setup-fuzzing-py",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-demand",
+      "exit_code": 1
+    },
+    {
+      "task": "shock-analysis-supply",
+      "exit_code": 1
+    },
+    {
+      "task": "simpo-code-reproduction",
+      "exit_code": 1
+    },
+    {
+      "task": "software-dependency-audit",
+      "exit_code": 1
+    },
+    {
+      "task": "speaker-diarization-subtitles",
+      "exit_code": 1
+    },
+    {
+      "task": "spring-boot-jakarta-migration",
+      "exit_code": 1
+    },
+    {
+      "task": "suricata-custom-exfil",
+      "exit_code": 1
+    },
+    {
+      "task": "syzkaller-ppdev-syzlang",
+      "exit_code": 1
+    },
+    {
+      "task": "threejs-structure-parser",
+      "exit_code": 1
+    },
+    {
+      "task": "taxonomy-tree-merge",
+      "exit_code": 1
+    },
+    {
+      "task": "virtualhome-agent-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "threejs-to-obj",
+      "exit_code": 1
+    },
+    {
+      "task": "fix-visual-stability",
+      "exit_code": 1
+    },
+    {
+      "task": "travel-planning",
+      "exit_code": 1
+    },
+    {
+      "task": "trend-anomaly-causal-inference",
+      "exit_code": 1
+    },
+    {
+      "task": "video-filler-word-remover",
+      "exit_code": 1
+    },
+    {
+      "task": "video-silence-remover",
+      "exit_code": 1
+    },
+    {
+      "task": "weighted-gdp-calc",
+      "exit_code": 1
+    },
+    {
+      "task": "video-tutorial-indexer",
+      "exit_code": 1
+    },
+    {
+      "task": "xlsx-recover-data",
+      "exit_code": 1
+    }
+  ],
+  "tasks": [
+    "tasks/3d-scan-calc",
+    "tasks/adaptive-cruise-control",
+    "tasks/azure-bgp-oscillation-route-leak",
+    "tasks/citation-check",
+    "tasks/civ6-adjacency-optimizer",
+    "tasks/court-form-filling",
+    "tasks/crystallographic-wyckoff-position-analysis",
+    "tasks/dapt-intrusion-detection",
+    "tasks/data-to-d3",
+    "tasks/dialogue-parser",
+    "tasks/dynamic-object-aware-egomotion",
+    "tasks/earthquake-phase-association",
+    "tasks/earthquake-plate-calculation",
+    "tasks/econ-detrending-correlation",
+    "tasks/energy-ac-optimal-power-flow",
+    "tasks/energy-market-pricing",
+    "tasks/enterprise-information-search",
+    "tasks/exceltable-in-ppt",
+    "tasks/exoplanet-detection-period",
+    "tasks/financial-modeling-qa",
+    "tasks/find-topk-similiar-chemicals",
+    "tasks/fix-build-agentops",
+    "tasks/fix-build-google-auto",
+    "tasks/fix-druid-loophole-cve",
+    "tasks/fix-erlang-ssh-cve",
+    "tasks/fix-visual-stability",
+    "tasks/flink-query",
+    "tasks/flood-risk-analysis",
+    "tasks/gh-repo-analytics",
+    "tasks/glm-lake-mendota",
+    "tasks/gravitational-wave-detection",
+    "tasks/grid-dispatch-operator",
+    "tasks/hvac-control",
+    "tasks/invoice-fraud-detection",
+    "tasks/jax-computing-basics",
+    "tasks/jpg-ocr-stat",
+    "tasks/lab-unit-harmonization",
+    "tasks/lake-warming-attribution",
+    "tasks/latex-formula-extraction",
+    "tasks/lean4-proof",
+    "tasks/manufacturing-codebook-normalization",
+    "tasks/manufacturing-equipment-maintenance",
+    "tasks/manufacturing-fjsp-optimization",
+    "tasks/mario-coin-counting",
+    "tasks/mars-clouds-clustering",
+    "tasks/mhc-layer-impl",
+    "tasks/multilingual-video-dubbing",
+    "tasks/offer-letter-generator",
+    "tasks/organize-messy-files",
+    "tasks/paper-anonymizer",
+    "tasks/parallel-tfidf-search",
+    "tasks/pddl-tpp-planning",
+    "tasks/pdf-excel-diff",
+    "tasks/pedestrian-traffic-counting",
+    "tasks/pg-essay-to-audiobook",
+    "tasks/powerlifting-coef-calc",
+    "tasks/pptx-reference-formatting",
+    "tasks/protein-expression-analysis",
+    "tasks/python-scala-translation",
+    "tasks/quantum-numerical-simulation",
+    "tasks/r2r-mpc-control",
+    "tasks/react-performance-debugging",
+    "tasks/reserves-at-risk-calc",
+    "tasks/sales-pivot-analysis",
+    "tasks/scheduling-email-assistant",
+    "tasks/sec-financial-report",
+    "tasks/seismic-phase-picking",
+    "tasks/setup-fuzzing-py",
+    "tasks/shock-analysis-demand",
+    "tasks/shock-analysis-supply",
+    "tasks/simpo-code-reproduction",
+    "tasks/software-dependency-audit",
+    "tasks/speaker-diarization-subtitles",
+    "tasks/spring-boot-jakarta-migration",
+    "tasks/suricata-custom-exfil",
+    "tasks/syzkaller-ppdev-syzlang",
+    "tasks/taxonomy-tree-merge",
+    "tasks/threejs-structure-parser",
+    "tasks/threejs-to-obj",
+    "tasks/travel-planning",
+    "tasks/trend-anomaly-causal-inference",
+    "tasks/video-filler-word-remover",
+    "tasks/video-silence-remover",
+    "tasks/video-tutorial-indexer",
+    "tasks/virtualhome-agent-planning",
+    "tasks/weighted-gdp-calc",
+    "tasks/xlsx-recover-data"
+  ],
+  "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-08__10-00-32.json"
+}

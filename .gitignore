@@ -22,7 +22,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 results_*
-# Virtual Environment
+Virtual Environment
 .venv/
 venv/
 ENV/
@@ -62,7 +62,6 @@ dmypy.json
 
 # Project specific
 uv.lock
-results/
 .pinchbench/
 
 # Vultr deployment

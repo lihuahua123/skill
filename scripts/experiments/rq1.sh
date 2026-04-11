@@ -39,6 +39,39 @@ RESULTS_DIR="${RQ1_RESULTS_DIR:-results/rq1}"
 ANALYSIS_DIR="${RQ1_ANALYSIS_DIR:-analysis/rq1}"
 MAX_ATTEMPTS_VALUE="${RQ1_MAX_ATTEMPTS:-6}"
 
+SKILLSBENCH_EXCLUDED_TASKS=(
+  data-to-d3
+  fix-druid-loophole-cve
+  fix-erlang-ssh-cve
+  latex-formula-extraction
+  multilingual-video-dubbing
+  setup-fuzzing-py
+  spring-boot-jakarta-migration
+  suricata-custom-exfil
+  syzkaller-ppdev-syzlang
+)
+
+SKILLSBENCH_TASK_ARGS=()
+BACKEND="$(selected_backend "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
+if [[ "${BACKEND}" == "skillsbench" ]] && ! option_supplied --skillsbench-task-path "${EXTRA_ARGS[@]}"; then
+  mapfile -t discovered_task_dirs < <(
+    find /hy-tmp/skillsbench/tasks -mindepth 1 -maxdepth 1 -type d | sort
+  )
+  for task_dir in "${discovered_task_dirs[@]}"; do
+    task_name="$(basename "${task_dir}")"
+    skip_task=0
+    for excluded_task in "${SKILLSBENCH_EXCLUDED_TASKS[@]}"; do
+      if [[ "${task_name}" == "${excluded_task}" ]]; then
+        skip_task=1
+        break
+      fi
+    done
+    if [[ ${skip_task} -eq 0 ]]; then
+      SKILLSBENCH_TASK_ARGS+=(--skillsbench-task-path "tasks/${task_name}")
+    fi
+  done
+fi
+
 run_benchmark "${RESULTS_DIR}" \
   "${MODEL_ARGS[@]}" \
   "${SUITE_ARGS[@]}" \
@@ -49,6 +82,7 @@ run_benchmark "${RESULTS_DIR}" \
   --feedback-format "${RQ1_FEEDBACK_FORMAT:-full-refresh}" \
   --feedback-answer-safety "no-answers" \
   --stop-rule "max-attempts-only" \
+  "${SKILLSBENCH_TASK_ARGS[@]}" \
   "${EXTRA_ARGS[@]}"
 
 run_analysis "${RESULTS_DIR}" "${ANALYSIS_DIR}" "policy"
