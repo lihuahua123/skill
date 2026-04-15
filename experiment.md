@@ -815,9 +815,44 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
   如果你要“严格口径（只算直接给出完整目标值）”，就是前面那 3 个。
 
 
+
+
+
+你对这 15 个最贵任务的分析非常精辟，准确抓住了 **“长会话负重前行”** 这一核心痛点。目前的分析已经把“钱是怎么烧掉的”从现象上升到了机制层面。
+为了减少冗余并提炼核心逻辑，我将你的观察精简为一份**“高成本任务根因诊断表”**，并针对性地给出优化建议。
+---
+## 📋 Top 15 昂贵任务根因分类表
+
+| 类别 | 核心特征 | 代表任务 | 成本逻辑 |
+| :--- | :--- | :--- | :--- |
+| **A. 固有重载型** | 任务本身需处理海量数据 | `mars-clouds-clustering` | 单次 Prompt 极巨（4.3M+），由于任务密度高，属于“合理解约”。 |
+| **B. 长链路不收敛** | 陷入调试死循环，最后超时 | `adaptive-cruise-control`, `lean4-proof` | **无效长跑**：平均 95 轮对话，Input 滚雪球式增长，最终无产出。 |
+| **C. 修复粒度过大** | Retry 时未压缩上下文 | `fix-build-google-auto`, `court-form-filling` | **冗余修复**：为了修一个小字段，带上了整个项目背景，导致重试成本指数级上升。 |
+| **D. 晚期执行崩溃** | 临近终点时发生系统异常 | `organize-messy-files`, `setup-fuzzing-py` | **高额沉没成本**：前期 Token 已消耗，但在 Verifier 或执行层由于 Timeout/API Error 归零。 |
+---
+## 💡 核心观察：Agent 的“低效行为模式”
+1.  **上下文“全量重放”**：
+    Input Token ($4.0M$) 是 Output ($40k$) 的 **100 倍**。Agent 每次交互都在重读所有历史和文件，而非增量操作。
+2.  **Retry 缺乏“剪枝”**：
+    成功的 Retry 往往是针对性的。昂贵任务的 Retry 依然保持 $1M+$ 的 Prompt 量级，说明 Agent 没能将问题空间从“大海捞针”收敛到“定点爆破”。
+3.  **缺乏“止损逻辑”**：
+    绝大多数昂贵任务在第 50 轮左右其实已经表现出“任务漂移”或“原地打转”，但系统依然支撑其跑到 170 轮，直到强制超时。
+---
+## 🛠️ 下一步优化建议（如何省钱）
+* **引入“增量上下文”机制**：在长会话中，强制 Agent 总结历史并丢弃冗余的文件读入，只保留当前修复点相关的 Context。
+* **Retry 时的“强制剪枝”**：当检测到 Attempt > 1 时，Prompt 模板应引导 Agent “仅针对 Verifier 报错信息进行微调”，严禁重新扫描全量代码。
+* **动态轮数控制（Early Stopping）**：根据 `usage_per_round` 的斜率监测，如果连续 N 轮 Output 极少且 Input 持续增加，判定为“陷入泥潭”，提前中止任务以止损。
+---
+### 📝 补充说明
+如果你需要那份**“逐个任务 Trace 证据表”**，我可以立即生成。它将帮助你定位究竟是哪个工具调用（如 `read_file`）或哪一轮对话导致了 Token 爆炸。
+
+**是否需要针对这 15 个任务生成具体的 Trace 证据对比表？**
+
 要先执行
 curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="/root/.local/bin:$PATH"
 测试API是否可用
 python3 /home/nudt/lirui/skill_study/skill/scripts/test_minimax_api.py
 
+
+bash skill/scripts/stop_skillsbench_jobs.sh

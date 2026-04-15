@@ -1,0 +1,215 @@
+{
+  "model": "minimax-cn/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-04-15__11-10-01",
+  "timestamp": "2026-04-15T03:11:19.520907+00:00",
+  "suite": "xlsx-recover-data",
+  "runs_per_task": 1,
+  "max_task_attempts": 2,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "xlsx-recover-data",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 35.420432,
+      "transcript_length": 1,
+      "llm_rounds": 0,
+      "usage": {
+        "total_tokens": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1
+      ],
+      "transcript_length_by_attempt": [
+        1
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "trial_finished",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-15T03:10:43.444746Z",
+          "finished_at": "2026-04-15T03:11:18.865178Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "09d2ff2c-fe4c-4573-bcda-1a4fbe9cdc7a",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "total_tokens": 0,
+              "prompt_tokens": 0,
+              "completion_tokens": 0,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 35.420432,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-15__11-10-01/xlsx-recover-data__vQyn6aD/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "reward=0.0",
+            "feedback": [],
+            "stdout_path": "",
+            "stderr_path": "",
+            "ctrf_path": "",
+            "reward_path": "",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-15T03:11:18.865178Z",
+            "finished_at": "2026-04-15T03:11:18.865178Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 1,
+          "transcript_length_delta": 1,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-15__11-10-01",
+      "source_trial": "xlsx-recover-data__vQyn6aD"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_cache_tokens": 0,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 35.420432,
+    "tasks_with_usage_data": 0,
+    "tokens_per_task": 0.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": null,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": null,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "xlsx-recover-data",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 1,
+        "total_tokens": 0,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-04-15__11-10-01",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

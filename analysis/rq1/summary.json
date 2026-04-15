@@ -1,6 +1,106 @@
 {
   "series": [
     {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-15__11-13-02.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=2",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "2026-04-15__11-13-02",
+      "suite": "xlsx-recover-data",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 583079.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 489.337043,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 583079.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 583079.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 512.114573,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-15__11-52-30.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=2",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "2026-04-15__11-52-30",
+      "suite": "xlsx-recover-data",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 237912.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 260.018316,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 237912.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 336994.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 430.800868,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 99082.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
       "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-7__2026-04-14__09-44-12.json",
       "label": "anthropic/MiniMax-M2.7 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "anthropic/MiniMax-M2.7",
@@ -749,6 +849,43 @@
             "avg_tokens_per_task": 0.0,
             "avg_cost_usd_per_task": 0.0,
             "avg_execution_time_seconds_per_task": 682.776725,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-15__11-10-01.json",
+      "label": "minimax-cn/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=2",
+      "model": "minimax-cn/MiniMax-M2.5",
+      "run_id": "2026-04-15__11-10-01",
+      "suite": "xlsx-recover-data",
+      "runs_per_task": 1,
+      "max_task_attempts": 2,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 35.420432,
             "delta_success_rate": 0.0,
             "delta_tokens_per_task": 0.0,
             "success_per_1k_tokens": null,
