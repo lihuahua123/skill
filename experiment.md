@@ -797,6 +797,27 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
 1.  所以这批任务超时的真实原因不是“最后一条 shell 命令太慢”，而是我加的 unshare -m 隔离在你当前环 这个需要解决
 2.  还有一些任务是没有完全拷贝，只拷贝了test.py 啥的，其他文件没拷贝，应该拷贝整个目录的，整个也要解决
 3.  还要限制attempt内的请求次数
+2026/4/14 原来新增输入是tool的输出，就会导致没能命中缓存
+哪些有答案泄露的
+• 基于 skill/analysis/rq1/aggregated_results.json 中 status=success 且 first_success_attempt=2 的 21 个任务，我
+  按“反馈里是否直接出现目标答案值”做了筛查。
+  明确属于“答案泄露”的是这 3 个：
+  - azure-bgp-oscillation-route-leak
+    反馈直接给出了 solution_name 对应的 expected_osc / expected_leak（等于给分类答案表）。
+  - earthquake-plate-calculation
+    反馈直接给出目标数值：Expected 3878.27 ± 0.01 km。
+  - exceltable-in-ppt
+    反馈直接给出目标单元格值：Expected: 0.142（CNY->USD 逆汇率）。
+  另外这 3 个有“答案片段泄露”（不是完整答案）：
+  - enterprise-information-search（日志里打印了 EXPECTED_ANSWERS 列表的部分 eid_*）
+  - dialogue-parser（日志给出缺失的具体节点 ID 和边文本片段）
+  - trend-anomaly-causal-inference（日志给出某条记录的期望聚合值 Expected 0.00）
+  如果你要“严格口径（只算直接给出完整目标值）”，就是前面那 3 个。
+
+
 要先执行
 curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="/root/.local/bin:$PATH"
+测试API是否可用
+python3 /home/nudt/lirui/skill_study/skill/scripts/test_minimax_api.py
+

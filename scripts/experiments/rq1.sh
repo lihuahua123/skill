@@ -20,6 +20,44 @@ else
 fi
 EXTRA_ARGS=("$@")
 
+resolve_model_id() {
+  local arg
+  for arg in "${MODEL_ARGS[@]}"; do
+    if [[ "${arg}" != "--model" ]]; then
+      printf '%s\n' "${arg}"
+      return 0
+    fi
+  done
+  return 1
+}
+
+configure_minimax_anthropic_env() {
+  local model_id="${1:-}"
+  case "${model_id}" in
+    anthropic/MiniMax-*)
+      ;;
+    *)
+      return 0
+      ;;
+  esac
+
+  local key_file="${MINIMAX_API_KEY_FILE:-/home/nudt/lirui/skill_study/.minimaxapikey}"
+  if [[ -z "${ANTHROPIC_API_KEY:-}" ]]; then
+    if [[ ! -f "${key_file}" ]]; then
+      echo "Missing MiniMax API key file: ${key_file}" >&2
+      echo "Set ANTHROPIC_API_KEY or MINIMAX_API_KEY_FILE before running ${model_id}." >&2
+      exit 2
+    fi
+    export ANTHROPIC_API_KEY
+    ANTHROPIC_API_KEY="$(tr -d '\r\n' < "${key_file}")"
+  fi
+
+  # MiniMax uses an Anthropic-compatible API, but any unrelated ANTHROPIC_BASE_URL
+  # from the caller would route requests to the wrong backend. Force the correct
+  # endpoint whenever the selected model is a MiniMax Anthropic-compatible model.
+  export ANTHROPIC_BASE_URL="${MINIMAX_ANTHROPIC_BASE_URL:-https://api.minimaxi.com/anthropic}"
+}
+
 SUITE_ARGS=()
 if ! option_supplied --suite "${EXTRA_ARGS[@]}"; then
   SUITE_ARGS=(--suite "$(default_suite)")
@@ -39,23 +77,16 @@ RESULTS_DIR="${RQ1_RESULTS_DIR:-results/rq1}"
 ANALYSIS_DIR="${RQ1_ANALYSIS_DIR:-analysis/rq1}"
 MAX_ATTEMPTS_VALUE="${RQ1_MAX_ATTEMPTS:-6}"
 
-SKILLSBENCH_EXCLUDED_TASKS=(
-  data-to-d3
-  fix-druid-loophole-cve
-  fix-erlang-ssh-cve
-  latex-formula-extraction
-  multilingual-video-dubbing
-  setup-fuzzing-py
-  spring-boot-jakarta-migration
-  suricata-custom-exfil
-  syzkaller-ppdev-syzlang
-)
+SKILLSBENCH_EXCLUDED_TASKS=()
 
 SKILLSBENCH_TASK_ARGS=()
 BACKEND="$(selected_backend "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
 if [[ "${BACKEND}" == "skillsbench" ]] && ! option_supplied --skillsbench-task-path "${EXTRA_ARGS[@]}"; then
+  SKILLSBENCH_MODE="$(skillsbench_mode_from_args "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
+  SKILLSBENCH_TASKS_ROOT="$(skillsbench_tasks_root "${SKILLSBENCH_MODE}")"
+  SKILLSBENCH_TASKS_PREFIX="$(skillsbench_tasks_prefix "${SKILLSBENCH_MODE}")"
   mapfile -t discovered_task_dirs < <(
-    find /hy-tmp/skillsbench/tasks -mindepth 1 -maxdepth 1 -type d | sort
+    find "${SKILLSBENCH_TASKS_ROOT}" -mindepth 1 -maxdepth 1 -type d | sort
   )
   for task_dir in "${discovered_task_dirs[@]}"; do
     task_name="$(basename "${task_dir}")"
@@ -67,10 +98,13 @@ if [[ "${BACKEND}" == "skillsbench" ]] && ! option_supplied --skillsbench-task-p
       fi
     done
     if [[ ${skip_task} -eq 0 ]]; then
-      SKILLSBENCH_TASK_ARGS+=(--skillsbench-task-path "tasks/${task_name}")
+      SKILLSBENCH_TASK_ARGS+=(--skillsbench-task-path "${SKILLSBENCH_TASKS_PREFIX}/${task_name}")
     fi
   done
 fi
+
+MODEL_ID="$(resolve_model_id)"
+configure_minimax_anthropic_env "${MODEL_ID}"
 
 run_benchmark "${RESULTS_DIR}" \
   "${MODEL_ARGS[@]}" \
@@ -157,3 +191,6 @@ run_analysis "${RESULTS_DIR}" "${ANALYSIS_DIR}" "policy"
   # - “本机最值得跑的 5 个”
   # - “最可能 first fail / second pass 的 5 个”
   # - “最不适合无 Docker 本地跑的任务”
+# sudo systemctl start docker
+# sudo usermod -aG docker nudt
+# newgrp docker

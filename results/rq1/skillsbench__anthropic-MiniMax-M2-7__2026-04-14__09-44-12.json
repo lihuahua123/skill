@@ -1,0 +1,585 @@
+{
+  "model": "anthropic/MiniMax-M2.7",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-04-14__09-44-12",
+  "timestamp": "2026-04-14T02:13:40.868716+00:00",
+  "suite": "adaptive-cruise-control",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0"
+  },
+  "tasks": [
+    {
+      "task_id": "adaptive-cruise-control",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 6316.248808,
+      "transcript_length": 314,
+      "llm_rounds": 308,
+      "usage": {
+        "total_tokens": 14134193,
+        "prompt_tokens": 13917655,
+        "completion_tokens": 216538,
+        "input_tokens": 13917655,
+        "output_tokens": 216538,
+        "cache_tokens": 13124974,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "transcript_length_by_attempt": [
+        123,
+        37,
+        76,
+        35,
+        21,
+        22
+      ],
+      "prompt_tokens_by_attempt": [
+        6961470,
+        1377504,
+        3367704,
+        1278466,
+        319797,
+        612714
+      ],
+      "completion_tokens_by_attempt": [
+        56859,
+        44139,
+        37860,
+        39987,
+        14731,
+        22962
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stop_reason": "max-attempts-reached",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-14T01:44:20.665029Z",
+          "finished_at": "2026-04-14T02:13:40.301278Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 122,
+            "usage": {
+              "total_tokens": 7018329,
+              "prompt_tokens": 6961470,
+              "completion_tokens": 56859,
+              "input_tokens": 6961470,
+              "output_tokens": 56859,
+              "cache_tokens": 6733937,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1662.462178,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__zGsTRbD/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__zGsTRbD/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__zGsTRbD/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__zGsTRbD/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__zGsTRbD/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T02:13:22.532263Z",
+            "finished_at": "2026-04-14T02:13:29.835787Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 123,
+          "transcript_length_delta": 123,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-04-14T01:44:20.667631Z",
+          "finished_at": "2026-04-14T02:02:29.054690Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 36,
+            "usage": {
+              "total_tokens": 1421643,
+              "prompt_tokens": 1377504,
+              "completion_tokens": 44139,
+              "input_tokens": 1377504,
+              "output_tokens": 44139,
+              "cache_tokens": 1214422,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 987.785785,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__dzwj2Cr/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__dzwj2Cr/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__dzwj2Cr/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__dzwj2Cr/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__dzwj2Cr/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T02:02:10.801863Z",
+            "finished_at": "2026-04-14T02:02:18.574697Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 37,
+          "transcript_length_delta": -86,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "started_at": "2026-04-14T01:44:20.668969Z",
+          "finished_at": "2026-04-14T02:04:48.207944Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 75,
+            "usage": {
+              "total_tokens": 3405564,
+              "prompt_tokens": 3367704,
+              "completion_tokens": 37860,
+              "input_tokens": 3367704,
+              "output_tokens": 37860,
+              "cache_tokens": 3201997,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1132.648335,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__nhgzzaL/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__nhgzzaL/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__nhgzzaL/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__nhgzzaL/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__nhgzzaL/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T02:04:32.966682Z",
+            "finished_at": "2026-04-14T02:04:37.691248Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 76,
+          "transcript_length_delta": 39,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "started_at": "2026-04-14T01:44:20.670248Z",
+          "finished_at": "2026-04-14T02:06:20.834160Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 34,
+            "usage": {
+              "total_tokens": 1318453,
+              "prompt_tokens": 1278466,
+              "completion_tokens": 39987,
+              "input_tokens": 1278466,
+              "output_tokens": 39987,
+              "cache_tokens": 1207936,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1224.141543,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__M2o3FbV/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__M2o3FbV/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__M2o3FbV/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__M2o3FbV/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__M2o3FbV/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T02:06:05.258185Z",
+            "finished_at": "2026-04-14T02:06:10.372156Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 35,
+          "transcript_length_delta": -41,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "started_at": "2026-04-14T01:44:20.671595Z",
+          "finished_at": "2026-04-14T01:53:44.042536Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 20,
+            "usage": {
+              "total_tokens": 334528,
+              "prompt_tokens": 319797,
+              "completion_tokens": 14731,
+              "input_tokens": 319797,
+              "output_tokens": 14731,
+              "cache_tokens": 258570,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 459.092169,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__jot5YSn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__jot5YSn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__jot5YSn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__jot5YSn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__jot5YSn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T01:53:29.037701Z",
+            "finished_at": "2026-04-14T01:53:33.551460Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 21,
+          "transcript_length_delta": -14,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "started_at": "2026-04-14T01:44:20.672854Z",
+          "finished_at": "2026-04-14T02:00:02.835248Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "execution": {
+            "llm_rounds": 21,
+            "usage": {
+              "total_tokens": 635676,
+              "prompt_tokens": 612714,
+              "completion_tokens": 22962,
+              "input_tokens": 612714,
+              "output_tokens": 22962,
+              "cache_tokens": 508112,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 850.118798,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__BZaQ9M4/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__BZaQ9M4/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__BZaQ9M4/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__BZaQ9M4/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12/adaptive-cruise-control__BZaQ9M4/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-14T01:59:45.300526Z",
+            "finished_at": "2026-04-14T01:59:52.342229Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 22,
+          "transcript_length_delta": 1,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-14__09-44-12",
+      "source_trial": "adaptive-cruise-control__zGsTRbD"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 14134193,
+    "total_input_tokens": 13917655,
+    "total_output_tokens": 216538,
+    "total_cache_tokens": 13124974,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 6316.248808,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 14134193.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "adaptive-cruise-control",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 14134193,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-04-14__09-44-12",
+    "agent": "terminus-2",
+    "trial_count": 6,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}
