@@ -1006,3 +1006,6 @@ SkillReducer: Optimizing LLM Agent Skills for Token Efficiency
 
 Agentic Plan Caching: Test-Time Memory for Fast and Cost-Efficient LLM Agents
 这个跟王贵良想法一样
+
+More with Less: An Empirical Study of Turn-Control Strategies for Efficient Coding Agents 
+这个动态停止轮次，是基于统计的将固定轮次限制设定在基准分布的第75百分位是一个“最佳平衡点（sweet spot）”

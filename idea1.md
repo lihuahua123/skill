@@ -242,3 +242,39 @@
 - 输出模板
 - stop rule  
 给你列出来。
+
+
+
+
+ 我会建议的最小方案
+
+  A. 一个任务族路由器
+  输入：task 静态信息
+  输出：
+
+  - aggressive-stop-safe
+  - conservative-stop
+  - drift-only-stop
+
+  这个完全可以手工规则。
+
+  B. 做 case-based retrieval，不做参数学习
+  你现在的数据量其实更适合“找相似例子”，不适合“拟合模型”。
+
+  即：
+  给一个新 task / attempt，先找历史上最像的几个任务：
+
+  - verifier 形态像不像
+  - 输出契约像不像
+  - 是否 repo/debug
+  - 是否 data-heavy
+  - 是否 simulation-heavy
+  - 历史上这类任务是不是天然长
+
+  然后根据最近邻任务的行为，决定：
+
+  - 该不该宽松
+  - 该不该保守
+  - 哪类 early-stop 信号可信
+
+  这本质上不是训练，而是经验检索器。

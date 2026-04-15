@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 
 from lib_agent import _run_openclaw_message, cleanup_agent_sessions, ensure_agent_exists, execute_openclaw_task, slugify_model
+from early_stop_policy import decide_inter_attempt_stop
 from lib_grading import (
     GradeResult,
     KIMI_JUDGE_API_BASE,
@@ -255,6 +256,7 @@ def _parse_args() -> argparse.Namespace:
             "score-stall",
             "unresolved-stall",
             "low-return",
+            "verifier-narrowing",
         ),
         default="max-attempts-only",
         help="Rule for stopping validator-feedback retries",
@@ -885,8 +887,18 @@ def _should_stop_retry(
     current_unresolved_count: int,
     previous_unresolved_count: Optional[int],
     token_delta: float,
+    previous_attempt_summary: Optional[Dict[str, Any]] = None,
+    current_attempt_summary: Optional[Dict[str, Any]] = None,
 ) -> Optional[str]:
     if stop_rule == "max-attempts-only":
+        return None
+
+    if stop_rule == "verifier-narrowing":
+        if previous_attempt_summary is None or current_attempt_summary is None:
+            return None
+        decision = decide_inter_attempt_stop(previous_attempt_summary, current_attempt_summary)
+        if decision.should_stop:
+            return "verifier-not-narrowing"
         return None
 
     score_delta = _score_delta(current_score, previous_score)
@@ -1252,6 +1264,17 @@ def _execute_task_with_feedback(
             current_unresolved_count=unresolved_count,
             previous_unresolved_count=attempt_summaries[-1].get("unresolved_criteria_count"),
             token_delta=token_delta,
+            previous_attempt_summary=attempt_summaries[-1],
+            current_attempt_summary={
+                "attempt": attempt_number,
+                "grading": grade.to_dict(),
+                "unresolved_criteria_count": unresolved_count,
+                "verifier": {
+                    "reward": grade.score,
+                    "notes": grade.notes,
+                    "feedback": list(grade.breakdown.keys()),
+                },
+            },
         )
         attempt_summaries.append(
             {

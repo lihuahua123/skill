@@ -14,10 +14,23 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from early_stop_policy import (
+    TASK_POLICY_AGGRESSIVE,
+    TASK_POLICY_CONSERVATIVE,
+    TASK_POLICY_DRIFT_ONLY,
+    TaskStaticInfo,
+    load_historical_tasks,
+    recommend_intra_attempt_mode,
+)
+
 
 PLAN_MARKER_RE = re.compile(
     r"\b(plan:|need to|let me|next i|now i need|i need to|all required|created successfully|"
     r"deliverables have been created|verify the final outputs)\b",
+    re.IGNORECASE,
+)
+DRIFT_MARKER_RE = re.compile(
+    r"\b(wrong task|unrelated|different task|13f|berkshire|renaissance|sec-financial-report)\b",
     re.IGNORECASE,
 )
 
@@ -36,6 +49,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-window", type=int, default=int(os.environ.get("SKILLSBENCH_EARLY_STOP_RECENT_WINDOW", "8")))
     parser.add_argument("--recent-plan-ratio", type=float, default=float(os.environ.get("SKILLSBENCH_EARLY_STOP_RECENT_PLAN_RATIO", "0.75")))
     parser.add_argument("--grace-seconds", type=float, default=20.0)
+    parser.add_argument(
+        "--historical-tasks-path",
+        type=Path,
+        default=Path(__file__).resolve().parent.parent / "analysis" / "rq1" / "aggregated_results.json",
+    )
     parser.add_argument("harbor_args", nargs=argparse.REMAINDER)
     return parser.parse_args()
 
@@ -106,6 +124,24 @@ def _verifier_started(trial_dir: Path) -> bool:
         if (verifier / name).exists():
             return True
     return False
+
+
+def _load_intra_attempt_context(args: argparse.Namespace) -> dict[str, Any]:
+    historical_tasks: list[dict[str, Any]] = []
+    if args.historical_tasks_path.exists():
+        try:
+            historical_tasks = load_historical_tasks(args.historical_tasks_path)
+        except Exception:
+            historical_tasks = []
+
+    task_info = TaskStaticInfo(task_id=args.task_name)
+    recommendation = recommend_intra_attempt_mode(task_info, historical_tasks, top_k=5)
+    return {
+        "task_info": task_info,
+        "historical_tasks": historical_tasks,
+        "recommendation": recommendation,
+        "policy": recommendation["policy"],
+    }
 
 
 def _build_synthetic_result(trial_dir: Path, reason: str) -> dict[str, Any]:
@@ -188,7 +224,11 @@ def _mark_trial_early_stopped(trial_dir: Path, reason: str) -> None:
         _write_json(result_path, _build_synthetic_result(trial_dir, reason))
 
 
-def _should_early_stop(trial_dir: Path, args: argparse.Namespace) -> tuple[bool, str | None]:
+def _should_early_stop(
+    trial_dir: Path,
+    args: argparse.Namespace,
+    intra_context: dict[str, Any],
+) -> tuple[bool, str | None]:
     if (trial_dir / "result.json").exists():
         return False, None
     if _verifier_started(trial_dir):
@@ -208,10 +248,32 @@ def _should_early_stop(trial_dir: Path, args: argparse.Namespace) -> tuple[bool,
 
     agent_messages = [str(s.get("message") or "") for s in agent_steps]
     recent_ratio = _recent_plan_ratio(agent_messages, args.recent_window)
+    recent_messages = agent_messages[-args.recent_window :]
+    drift_hits = [msg for msg in recent_messages if DRIFT_MARKER_RE.search(msg or "")]
     repeated_deliverable_claims = sum(
         1 for msg in agent_messages[-args.recent_window :]
         if re.search(r"all required|deliverables have been created|created successfully", msg, re.IGNORECASE)
     )
+    policy = intra_context["policy"]
+    guidance = intra_context["recommendation"].get("guidance", "")
+
+    if drift_hits:
+        return True, f"intra-attempt early stop ({policy}): detected task drift markers; {guidance}"
+
+    if policy == TASK_POLICY_DRIFT_ONLY:
+        return False, None
+
+    if (
+        repeated_deliverable_claims >= 2
+        and len(agent_steps) >= max(6, args.recent_window)
+    ):
+        return True, (
+            f"intra-attempt early stop ({policy}): repeated completion claims without verifier; "
+            f"{guidance}"
+        )
+
+    if policy == TASK_POLICY_CONSERVATIVE:
+        return False, None
 
     if (
         len(agent_steps) >= args.max_agent_steps
@@ -256,6 +318,13 @@ def _terminate_process_tree(proc: subprocess.Popen[Any], grace_seconds: float) -
 
 def main() -> int:
     args = parse_args()
+    intra_context = _load_intra_attempt_context(args)
+    print(
+        f"[early-stop-policy] task={args.task_name} policy={intra_context['policy']} "
+        f"guidance={intra_context['recommendation'].get('guidance','')}",
+        file=sys.stderr,
+        flush=True,
+    )
     harbor_args = list(args.harbor_args)
     if harbor_args and harbor_args[0] == "--":
         harbor_args = harbor_args[1:]
@@ -294,7 +363,7 @@ def main() -> int:
                     key=lambda p: p.name,
                 )
                 for trial_dir in active_trials:
-                    should_stop, reason = _should_early_stop(trial_dir, args)
+                    should_stop, reason = _should_early_stop(trial_dir, args, intra_context)
                     if should_stop and reason:
                         triggered_reason = reason
                         triggered_trial = trial_dir
