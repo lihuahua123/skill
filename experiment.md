@@ -848,6 +848,8 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
 
 **是否需要针对这 15 个任务生成具体的 Trace 证据对比表？**
 
+2026/4/16 我发现minimax模型并没有触发skill，可恶啊，先是数据丢失，之后发现是docker环境问题，最后又发现根本没有skill的事情，那我用这个数据集干嘛，当然可以在prompt强制要求它输出skill或者输出no skill load 改 terminus 提示词/协议，让第一轮必须先返回 load_skill 或明确声明 no_matching_skill
+
 要先执行
 curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="/root/.local/bin:$PATH"

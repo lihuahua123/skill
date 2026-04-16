@@ -62,6 +62,108 @@
           }
         ]
       }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-16__16-07-12.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "2026-04-16__16-07-12",
+      "suite": "energy-market-pricing,fix-visual-stability,flink-query,grid-dispatch-operator,invoice-fraud-detection,jax-computing-basics,manufacturing-fjsp-optimization,python-scala-translation,react-performance-debugging,shock-analysis-demand,threejs-to-obj,virtualhome-agent-planning,weighted-gdp-calc",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 13,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 56636.077,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 876.218519,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 56636.077,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.076923,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 157652.077,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1003.55116,
+            "delta_success_rate": 0.076923,
+            "delta_tokens_per_task": 101016.0,
+            "success_per_1k_tokens": 0.000488,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 13132.093
+          },
+          {
+            "k": 3,
+            "success_rate": 0.076923,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 227834.231,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1208.795008,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 70182.154,
+            "success_per_1k_tokens": 0.000338,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.076923,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 327490.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1454.59044,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 99655.769,
+            "success_per_1k_tokens": 0.000235,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.076923,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 403992.538,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1659.641175,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 76502.538,
+            "success_per_1k_tokens": 0.00019,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.076923,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 411681.615,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1770.290623,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 7689.077,
+            "success_per_1k_tokens": 0.000187,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
     }
   ]
 }

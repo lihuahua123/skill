@@ -7,11 +7,8 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 TASK_PATHS=(
-  # Cancelled trials from skillsbench-2026-04-15__23-21-22
-  tasks/shock-analysis-supply
-  tasks/mario-coin-counting
-
-  # Configured but not started before the job stopped
+  # Network failures in skillsbench-2026-04-16__08-46-05
+  # Pattern: docker image metadata fetch failed with proxyconnect i/o timeout
   tasks/energy-market-pricing
   tasks/fix-visual-stability
   tasks/flink-query
@@ -19,7 +16,6 @@ TASK_PATHS=(
   tasks/invoice-fraud-detection
   tasks/jax-computing-basics
   tasks/manufacturing-fjsp-optimization
-  tasks/parallel-tfidf-search
   tasks/python-scala-translation
   tasks/react-performance-debugging
   tasks/shock-analysis-demand

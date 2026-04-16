@@ -144,6 +144,78 @@ def _load_intra_attempt_context(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def should_early_stop_for_steps(
+    steps: list[dict[str, Any]],
+    args: argparse.Namespace,
+    intra_context: dict[str, Any],
+    *,
+    current_ts: float | None = None,
+    verifier_started: bool = False,
+) -> tuple[bool, str | None]:
+    if verifier_started:
+        return False, None
+    if not steps:
+        return False, None
+
+    agent_steps = [s for s in steps if s.get("source") == "agent"]
+    if len(agent_steps) < max(4, min(args.max_agent_steps, args.recent_window)):
+        return False, None
+
+    first_ts = _iso_to_ts(agent_steps[0].get("timestamp"))
+    runtime_minutes = 0.0
+    if first_ts is not None and current_ts is not None:
+        runtime_minutes = max(0.0, current_ts - first_ts) / 60.0
+
+    agent_messages = [str(s.get("message") or "") for s in agent_steps]
+    recent_ratio = _recent_plan_ratio(agent_messages, args.recent_window)
+    recent_messages = agent_messages[-args.recent_window :]
+    drift_hits = [msg for msg in recent_messages if DRIFT_MARKER_RE.search(msg or "")]
+    repeated_deliverable_claims = sum(
+        1
+        for msg in recent_messages
+        if re.search(r"all required|deliverables have been created|created successfully", msg, re.IGNORECASE)
+    )
+    policy = intra_context["policy"]
+    guidance = intra_context["recommendation"].get("guidance", "")
+
+    if drift_hits:
+        return True, f"intra-attempt early stop ({policy}): detected task drift markers; {guidance}"
+
+    if policy == TASK_POLICY_DRIFT_ONLY:
+        return False, None
+
+    if repeated_deliverable_claims >= 2 and len(agent_steps) >= max(6, args.recent_window):
+        return True, (
+            f"intra-attempt early stop ({policy}): repeated completion claims without verifier; "
+            f"{guidance}"
+        )
+
+    if policy == TASK_POLICY_CONSERVATIVE:
+        return False, None
+
+    if (
+        len(agent_steps) >= args.max_agent_steps
+        and runtime_minutes >= args.max_minutes_without_verifier
+        and recent_ratio >= args.recent_plan_ratio
+    ):
+        return True, (
+            f"intra-attempt early stop: {len(agent_steps)} agent steps, "
+            f"{runtime_minutes:.1f}m without verifier, recent plan ratio {recent_ratio:.2f}"
+        )
+
+    if (
+        len(agent_steps) >= args.max_agent_steps + 6
+        and runtime_minutes >= args.max_minutes_without_verifier / 2
+        and repeated_deliverable_claims >= 2
+    ):
+        return True, (
+            f"intra-attempt early stop: repeated completion claims without verifier "
+            f"after {len(agent_steps)} agent steps"
+        )
+
+    return False, None
+
+
 def _build_synthetic_result(trial_dir: Path, reason: str) -> dict[str, Any]:
     config = _read_json(trial_dir / "config.json") or {}
     task_cfg = config.get("task") if isinstance(config.get("task"), dict) else {}
@@ -236,66 +308,20 @@ def _should_early_stop(
     steps = _load_steps(trial_dir)
     if not steps:
         return False, None
-
-    agent_steps = [s for s in steps if s.get("source") == "agent"]
-    if len(agent_steps) < max(4, min(args.max_agent_steps, args.recent_window)):
-        return False, None
-
-    first_ts = _iso_to_ts(agent_steps[0].get("timestamp"))
-    runtime_minutes = 0.0
-    if first_ts is not None:
-        runtime_minutes = (time.time() - first_ts) / 60.0
-
-    agent_messages = [str(s.get("message") or "") for s in agent_steps]
-    recent_ratio = _recent_plan_ratio(agent_messages, args.recent_window)
-    recent_messages = agent_messages[-args.recent_window :]
-    drift_hits = [msg for msg in recent_messages if DRIFT_MARKER_RE.search(msg or "")]
-    repeated_deliverable_claims = sum(
-        1 for msg in agent_messages[-args.recent_window :]
-        if re.search(r"all required|deliverables have been created|created successfully", msg, re.IGNORECASE)
+    last_agent_ts = None
+    for step in reversed(steps):
+        if step.get("source") == "agent":
+            last_agent_ts = _iso_to_ts(step.get("timestamp"))
+            break
+    if last_agent_ts is None:
+        last_agent_ts = time.time()
+    return should_early_stop_for_steps(
+        steps,
+        args,
+        intra_context,
+        current_ts=last_agent_ts,
+        verifier_started=False,
     )
-    policy = intra_context["policy"]
-    guidance = intra_context["recommendation"].get("guidance", "")
-
-    if drift_hits:
-        return True, f"intra-attempt early stop ({policy}): detected task drift markers; {guidance}"
-
-    if policy == TASK_POLICY_DRIFT_ONLY:
-        return False, None
-
-    if (
-        repeated_deliverable_claims >= 2
-        and len(agent_steps) >= max(6, args.recent_window)
-    ):
-        return True, (
-            f"intra-attempt early stop ({policy}): repeated completion claims without verifier; "
-            f"{guidance}"
-        )
-
-    if policy == TASK_POLICY_CONSERVATIVE:
-        return False, None
-
-    if (
-        len(agent_steps) >= args.max_agent_steps
-        and runtime_minutes >= args.max_minutes_without_verifier
-        and recent_ratio >= args.recent_plan_ratio
-    ):
-        return True, (
-            f"intra-attempt early stop: {len(agent_steps)} agent steps, "
-            f"{runtime_minutes:.1f}m without verifier, recent plan ratio {recent_ratio:.2f}"
-        )
-
-    if (
-        len(agent_steps) >= args.max_agent_steps + 6
-        and runtime_minutes >= args.max_minutes_without_verifier / 2
-        and repeated_deliverable_claims >= 2
-    ):
-        return True, (
-            f"intra-attempt early stop: repeated completion claims without verifier "
-            f"after {len(agent_steps)} agent steps"
-        )
-
-    return False, None
 
 
 def _terminate_process_tree(proc: subprocess.Popen[Any], grace_seconds: float) -> None:
