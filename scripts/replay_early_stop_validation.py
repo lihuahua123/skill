@@ -58,6 +58,25 @@ def attempt_cost_cny(attempt: dict[str, Any], prices: dict[str, float]) -> float
     return compute_cost_cny(usage, prices)
 
 
+def execution_was_intra_attempt_early_stopped(execution: dict[str, Any]) -> bool:
+    if not isinstance(execution, dict):
+        return False
+    if bool(execution.get("intra_attempt_early_stop")):
+        return True
+    metadata = execution.get("metadata")
+    if isinstance(metadata, dict) and bool(metadata.get("intra_attempt_early_stop")):
+        return True
+    agent_result = execution.get("agent_result")
+    if isinstance(agent_result, dict):
+        agent_metadata = agent_result.get("metadata")
+        if isinstance(agent_metadata, dict) and bool(agent_metadata.get("intra_attempt_early_stop")):
+            return True
+    exception = execution.get("exception_info")
+    if isinstance(exception, dict) and exception.get("exception_type") == "IntraAttemptEarlyStop":
+        return True
+    return False
+
+
 def replay_task(task: dict[str, Any], historical_tasks: list[dict[str, Any]], prices: dict[str, float]) -> dict[str, Any]:
     task_id = str(task.get("task_id") or "")
     recommendation = recommend_intra_attempt_mode(TaskStaticInfo(task_id=task_id), historical_tasks)
@@ -70,6 +89,10 @@ def replay_task(task: dict[str, Any], historical_tasks: list[dict[str, Any]], pr
         kept_attempts.append(attempts[0])
 
     for idx in range(1, len(attempts)):
+        if kept_attempts and execution_was_intra_attempt_early_stopped((kept_attempts[-1].get("execution") or {})):
+            stop_reason = "intra-attempt-early-stop"
+            break
+
         previous_attempt = attempts[idx - 1]
         current_attempt = attempts[idx]
         decision = decide_inter_attempt_stop(previous_attempt, current_attempt)

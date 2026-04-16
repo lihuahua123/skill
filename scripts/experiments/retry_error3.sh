@@ -7,18 +7,11 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 TASK_PATHS=(
-  # Network-related failures from skillsbench-2026-04-15__16-39-03
-  tasks/fix-erlang-ssh-cve
-  tasks/lean4-proof
-  tasks/setup-fuzzing-py
-  tasks/software-dependency-audit
+  # Cancelled trials from skillsbench-2026-04-15__23-21-22
   tasks/shock-analysis-supply
-
-  # Cancelled trials from skillsbench-2026-04-15__16-39-03
-  tasks/glm-lake-mendota
   tasks/mario-coin-counting
 
-  # Configured but no result.json was produced before the run stopped
+  # Configured but not started before the job stopped
   tasks/energy-market-pricing
   tasks/fix-visual-stability
   tasks/flink-query

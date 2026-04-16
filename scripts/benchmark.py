@@ -926,6 +926,30 @@ def _should_stop_retry(
     return None
 
 
+def _execution_was_intra_attempt_early_stopped(execution: Dict[str, Any]) -> bool:
+    if not isinstance(execution, dict):
+        return False
+
+    if bool(execution.get("intra_attempt_early_stop")):
+        return True
+
+    metadata = execution.get("metadata")
+    if isinstance(metadata, dict) and bool(metadata.get("intra_attempt_early_stop")):
+        return True
+
+    agent_result = execution.get("agent_result")
+    if isinstance(agent_result, dict):
+        agent_metadata = agent_result.get("metadata")
+        if isinstance(agent_metadata, dict) and bool(agent_metadata.get("intra_attempt_early_stop")):
+            return True
+
+    exception = execution.get("exception_info")
+    if isinstance(exception, dict) and exception.get("exception_type") == "IntraAttemptEarlyStop":
+        return True
+
+    return False
+
+
 def _usage_delta(current: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     if not previous:
         return dict(current)
@@ -1128,6 +1152,14 @@ def _execute_task_with_feedback(
     for attempt_number in range(2, max_attempts + 1):
         if _grade_passed(grade):
             stop_reason = "passed"
+            break
+
+        if _execution_was_intra_attempt_early_stopped(attempt_summaries[-1].get("execution", {})):
+            logger.info(
+                "Stopping retries for %s because the previous attempt triggered intra-attempt early stop",
+                task.task_id,
+            )
+            stop_reason = "intra-attempt-early-stop"
             break
 
         if infrastructure_failure is not None:

@@ -853,6 +853,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="/root/.local/bin:$PATH"
 测试API是否可用
 python3 /home/nudt/lirui/skill_study/skill/scripts/test_minimax_api.py
-
+cat /etc/docker/daemon.json 查看镜像加速器，防止503错误
 
 bash skill/scripts/stop_skillsbench_jobs.sh
