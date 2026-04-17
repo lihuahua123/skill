@@ -7,16 +7,9 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 TASK_PATHS=(
-  tasks/3d-scan-calc
   tasks/azure-bgp-oscillation-route-leak
   tasks/citation-check
   tasks/civ6-adjacency-optimizer
-  tasks/court-form-filling
-  tasks/crystallographic-wyckoff-position-analysis
-  tasks/dapt-intrusion-detection
-  tasks/data-to-d3
-  tasks/dialogue-parser
-  tasks/dynamic-object-aware-egomotion
   tasks/earthquake-plate-calculation
   tasks/econ-detrending-correlation
   tasks/enterprise-information-search
@@ -28,18 +21,10 @@ TASK_PATHS=(
   tasks/mars-clouds-clustering
   tasks/multilingual-video-dubbing
   tasks/offer-letter-generator
-  tasks/paper-anonymizer
-  tasks/pdf-excel-diff
   tasks/pg-essay-to-audiobook
-  tasks/powerlifting-coef-calc
-  tasks/protein-expression-analysis
-  tasks/r2r-mpc-control
   tasks/sec-financial-report
   tasks/simpo-code-reproduction
   tasks/speaker-diarization-subtitles
-  tasks/spring-boot-jakarta-migration
-  tasks/threejs-structure-parser
-  tasks/travel-planning
   tasks/trend-anomaly-causal-inference
   tasks/video-filler-word-remover
   tasks/video-tutorial-indexer
