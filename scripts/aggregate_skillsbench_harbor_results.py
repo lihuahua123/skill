@@ -277,6 +277,94 @@ def _extract_failed_reasons(trial_dir: Path) -> list[str]:
     return [line for line in lines if line][:20]
 
 
+_NOISE_PREFIXES = (
+    "Hit:",
+    "Get:",
+    "Ign:",
+    "Fetched ",
+    "Reading package lists",
+    "Building dependency tree",
+    "Reading state information",
+    "curl is already the newest version",
+    "0 upgraded,",
+    "Selecting previously unselected",
+)
+
+_ERROR_MARKERS = (
+    "error:",
+    "failed",
+    "not found",
+    "no such file",
+    "command not found",
+    "traceback",
+    "exception",
+    "assertionerror",
+    "modulenotfounderror",
+    "filenotfounderror",
+    "curl:",
+)
+
+
+def _extract_error_lines(text: str, *, limit: int = 8) -> list[str]:
+    items: list[str] = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        lower = line.lower()
+        if any(lower.startswith(prefix.lower()) for prefix in _NOISE_PREFIXES):
+            continue
+        if any(marker in lower for marker in _ERROR_MARKERS):
+            items.append(line)
+    return items[:limit]
+
+
+def _is_noise_line(text: str) -> bool:
+    line = text.strip()
+    if not line:
+        return True
+    lower = line.lower()
+    return any(lower.startswith(prefix.lower()) for prefix in _NOISE_PREFIXES)
+
+
+def _has_meaningful_error_text(text: str) -> bool:
+    line = text.strip().lower()
+    if not line:
+        return False
+    if _is_noise_line(line):
+        return False
+    return any(marker in line for marker in _ERROR_MARKERS)
+
+
+def _is_low_signal_feedback(feedback_items: list[str]) -> bool:
+    if not feedback_items:
+        return True
+    return all(_is_noise_line(item) for item in feedback_items if isinstance(item, str))
+
+
+def _summarize_verifier_logs(stdout_path: str, stderr_path: str) -> tuple[list[str], str]:
+    stderr_text = _read_text(Path(stderr_path), limit=4000) if stderr_path else ""
+    stdout_text = _read_text(Path(stdout_path), limit=4000) if stdout_path else ""
+
+    stderr_items = _extract_error_lines(stderr_text)
+    if stderr_items:
+        return stderr_items[:5], "\n".join(stderr_items[:5])
+
+    stdout_items = _extract_error_lines(stdout_text)
+    if stdout_items:
+        return stdout_items[:5], "\n".join(stdout_items[:5])
+
+    for text in (stderr_text, stdout_text):
+        if not text.strip():
+            continue
+        non_empty_lines = [line.strip() for line in text.splitlines() if line.strip()]
+        if non_empty_lines:
+            tail = "\n".join(non_empty_lines[-5:])
+            return [], tail
+
+    return [], ""
+
+
 def _build_verifier_payload(
     verifier_result: dict[str, Any],
     trial_dir: Path,
@@ -303,19 +391,25 @@ def _build_verifier_payload(
     reward = max(0.0, min(1.0, reward))
 
     feedback_items = verifier_result.get("feedback_items")
-    if not isinstance(feedback_items, list) or not feedback_items:
+    if not isinstance(feedback_items, list):
+        feedback_items = []
+    if not feedback_items:
         feedback_items = _extract_feedback_items_from_ctrf(Path(ctrf_path)) if ctrf_path else []
     if not feedback_items:
         feedback_items = _extract_failed_reasons(trial_dir)
 
+    log_feedback_items, log_notes = _summarize_verifier_logs(stdout_path, stderr_path)
+    if _is_low_signal_feedback(feedback_items) and log_feedback_items:
+        feedback_items = log_feedback_items
+
     notes = verifier_result.get("notes")
-    if not isinstance(notes, str) or not notes.strip():
+    if not isinstance(notes, str):
+        notes = ""
+    if (not notes.strip()) or (not _has_meaningful_error_text(notes) and log_notes):
         if exception_info and exception_info.get("exception_message"):
             notes = str(exception_info.get("exception_message") or "")
-        elif stdout_path:
-            notes = _read_text(Path(stdout_path), limit=1200)
-        elif stderr_path:
-            notes = _read_text(Path(stderr_path), limit=1200)
+        elif log_notes:
+            notes = log_notes
         elif not feedback_items:
             notes = f"reward={reward}"
         else:
