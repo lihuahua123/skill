@@ -1,0 +1,230 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__02-16-02-travel-planning",
+  "timestamp": "2026-04-16T23:22:10.501155+00:00",
+  "suite": "travel-planning",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "travel-planning",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 223.534466,
+      "transcript_length": 47,
+      "llm_rounds": 46,
+      "usage": {
+        "total_tokens": 806304,
+        "prompt_tokens": 792837,
+        "completion_tokens": 13467,
+        "input_tokens": 792837,
+        "output_tokens": 13467,
+        "cache_tokens": 729136,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        47
+      ],
+      "prompt_tokens_by_attempt": [
+        792837
+      ],
+      "completion_tokens_by_attempt": [
+        13467
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-16T23:18:15.632651Z",
+          "finished_at": "2026-04-16T23:21:59.167117Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "503006b4-f5b2-4b1a-86aa-9d2783f76827",
+          "execution": {
+            "llm_rounds": 46,
+            "usage": {
+              "total_tokens": 806304,
+              "prompt_tokens": 792837,
+              "completion_tokens": 13467,
+              "input_tokens": 792837,
+              "output_tokens": 13467,
+              "cache_tokens": 729136,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 223.534466,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning/travel-planning__QV77ket/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "PASSED ../tests/test_outputs.py::test_plan_required_fields_and_days\nPASSED ../tests/test_outputs.py::test_no_flights_in_transportation\nPASSED ../tests/test_outputs.py::test_starts_in_minneapolis\nPASSED ../tests/test_outputs.py::test_visits_at_least_three_cities\nPASSED ../tests/test_outputs.py::test_visits_ohio_cities",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::test_plan_required_fields_and_days",
+              "PASSED ../tests/test_outputs.py::test_no_flights_in_transportation",
+              "PASSED ../tests/test_outputs.py::test_starts_in_minneapolis",
+              "PASSED ../tests/test_outputs.py::test_visits_at_least_three_cities",
+              "PASSED ../tests/test_outputs.py::test_visits_ohio_cities",
+              "PASSED ../tests/test_outputs.py::test_pet_friendly_accommodation_hint",
+              "PASSED ../tests/test_outputs.py::test_meals_include_requested_cuisines",
+              "PASSED ../tests/test_outputs.py::test_attractions_non_empty",
+              "PASSED ../tests/test_outputs.py::test_tool_calls_present",
+              "============================== 11 passed in 0.03s =============================="
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning/travel-planning__QV77ket/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning/travel-planning__QV77ket/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning/travel-planning__QV77ket/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning/travel-planning__QV77ket/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-16T23:21:59.167117Z",
+            "finished_at": "2026-04-16T23:21:59.167117Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 47,
+          "transcript_length_delta": 47,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-travel-planning",
+      "source_trial": "travel-planning__QV77ket"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 806304,
+    "total_input_tokens": 792837,
+    "total_output_tokens": 13467,
+    "total_cache_tokens": 729136,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 223.534466,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 806304.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00124023,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00124023,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "travel-planning",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 806304,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__02-16-02-travel-planning",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

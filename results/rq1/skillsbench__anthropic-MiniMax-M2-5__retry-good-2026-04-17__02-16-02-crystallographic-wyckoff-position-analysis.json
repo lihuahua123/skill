@@ -1,0 +1,221 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis",
+  "timestamp": "2026-04-16T19:09:43.748674+00:00",
+  "suite": "crystallographic-wyckoff-position-analysis",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "crystallographic-wyckoff-position-analysis",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 173.61993,
+      "transcript_length": 22,
+      "llm_rounds": 21,
+      "usage": {
+        "total_tokens": 228071,
+        "prompt_tokens": 219483,
+        "completion_tokens": 8588,
+        "input_tokens": 219483,
+        "output_tokens": 8588,
+        "cache_tokens": 199808,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        22
+      ],
+      "prompt_tokens_by_attempt": [
+        219483
+      ],
+      "completion_tokens_by_attempt": [
+        8588
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-16T19:06:38.420532Z",
+          "finished_at": "2026-04-16T19:09:32.040462Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2071932-cf56-4d94-8e10-55e1d21a2502",
+          "execution": {
+            "llm_rounds": 21,
+            "usage": {
+              "total_tokens": 228071,
+              "prompt_tokens": 219483,
+              "completion_tokens": 8588,
+              "input_tokens": 219483,
+              "output_tokens": 8588,
+              "cache_tokens": 199808,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 173.61993,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis/crystallographic-wyckoff-positio__rFKdzj4/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "Failed: 0",
+            "feedback": [
+              "Failed: 0"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis/crystallographic-wyckoff-positio__rFKdzj4/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis/crystallographic-wyckoff-positio__rFKdzj4/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis/crystallographic-wyckoff-positio__rFKdzj4/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-16T19:09:32.040462Z",
+            "finished_at": "2026-04-16T19:09:32.040462Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 22,
+          "transcript_length_delta": 22,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis",
+      "source_trial": "crystallographic-wyckoff-positio__rFKdzj4"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 228071,
+    "total_input_tokens": 219483,
+    "total_output_tokens": 8588,
+    "total_cache_tokens": 199808,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 173.61993,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 228071.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0043846,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.0043846,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "crystallographic-wyckoff-position-analysis",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 228071,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__02-16-02-crystallographic-wyckoff-position-analysis",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

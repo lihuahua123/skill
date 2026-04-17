@@ -24,7 +24,7 @@ stop_matching_processes() {
     fi
   done < <(
     ps -eo pid=,args= | awk '
-      /retry_error\.sh|rq1\.sh|harbor run|run_skillsbench_with_early_stop/ {
+      /retry_error\.sh|retry_good\.sh|rq1\.sh|harbor run|run_skillsbench_with_early_stop/ {
         print $1 "\t" substr($0, index($0, $2))
       }
     '
@@ -42,7 +42,7 @@ stop_matching_processes() {
 }
 
 collect_compose_projects() {
-  docker ps --format '{{.Label "com.docker.compose.project"}} {{.Names}}' | while read -r project name; do
+  docker ps -a --format '{{.Label "com.docker.compose.project"}} {{.Names}}' | while read -r project name; do
     [[ -n "${project}" ]] || continue
     if matches_job_name "${project} ${name}"; then
       printf '%s\n' "${project}"
