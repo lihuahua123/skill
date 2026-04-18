@@ -280,3 +280,5 @@
   这本质上不是训练，而是经验检索器。
 
   你说，intra-attempt早停，之后再用verify这类的进行重试，会有效果吗？不行，直接停止inter-attempt
+
+  还有就是skillsbench 并没有调用skill！！！！

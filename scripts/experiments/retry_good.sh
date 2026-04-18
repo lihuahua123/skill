@@ -7,29 +7,17 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 TASK_PATHS=(
-  tasks/azure-bgp-oscillation-route-leak
-  tasks/citation-check
-  tasks/civ6-adjacency-optimizer
-  tasks/earthquake-plate-calculation
-  tasks/econ-detrending-correlation
-  tasks/enterprise-information-search
-  tasks/exceltable-in-ppt
-  tasks/flood-risk-analysis
-  tasks/gravitational-wave-detection
-  tasks/hvac-control
-  tasks/latex-formula-extraction
+  # tasks/azure-bgp-oscillation-route-leak
+  # tasks/earthquake-plate-calculation
+  # tasks/exceltable-in-ppt
+  # tasks/hvac-control
+  # tasks/latex-formula-extraction
   tasks/mars-clouds-clustering
-  tasks/multilingual-video-dubbing
-  tasks/offer-letter-generator
-  tasks/pg-essay-to-audiobook
-  tasks/sec-financial-report
-  tasks/simpo-code-reproduction
-  tasks/speaker-diarization-subtitles
-  tasks/trend-anomaly-causal-inference
-  tasks/video-filler-word-remover
-  tasks/video-tutorial-indexer
+  # tasks/pg-essay-to-audiobook
+  # tasks/speaker-diarization-subtitles
+  # tasks/trend-anomaly-causal-inference
+  #tasks/multilingual-video-dubbing
 )
-
 if [[ -z "${MODAL_TOKEN_ID:-}" || -z "${MODAL_TOKEN_SECRET:-}" ]]; then
   FILTERED_TASKS=()
   for task in "${TASK_PATHS[@]}"; do

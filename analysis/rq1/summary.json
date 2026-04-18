@@ -1,406 +1,6 @@
 {
   "series": [
     {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-16__08-46-05.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-16__08-46-05",
-      "suite": "shock-analysis-supply,mario-coin-counting,energy-market-pricing,fix-visual-stability,flink-query,grid-dispatch-operator,invoice-fraud-detection,jax-computing-basics,manufacturing-fjsp-optimization,parallel-tfidf-search,python-scala-translation,react-performance-debugging,shock-analysis-demand,threejs-to-obj,virtualhome-agent-planning,weighted-gdp-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 16,
-        "max_k": 3,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 86650.375,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 261.006982,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 86650.375,
-            "success_per_1k_tokens": 0.0,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 2,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 176253.375,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 424.382328,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 89603.0,
-            "success_per_1k_tokens": 0.0,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 3,
-            "success_rate": 0.0625,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 201959.5,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 566.027069,
-            "delta_success_rate": 0.0625,
-            "delta_tokens_per_task": 25706.125,
-            "success_per_1k_tokens": 0.000309,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": 4112.98
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-16__16-07-12.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-16__16-07-12",
-      "suite": "energy-market-pricing,fix-visual-stability,flink-query,grid-dispatch-operator,invoice-fraud-detection,jax-computing-basics,manufacturing-fjsp-optimization,python-scala-translation,react-performance-debugging,shock-analysis-demand,threejs-to-obj,virtualhome-agent-planning,weighted-gdp-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 13,
-        "max_k": 6,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 56636.077,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 876.218519,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 56636.077,
-            "success_per_1k_tokens": 0.0,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 2,
-            "success_rate": 0.076923,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 157652.077,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1003.55116,
-            "delta_success_rate": 0.076923,
-            "delta_tokens_per_task": 101016.0,
-            "success_per_1k_tokens": 0.000488,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": 13132.093
-          },
-          {
-            "k": 3,
-            "success_rate": 0.076923,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 227834.231,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1208.795008,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 70182.154,
-            "success_per_1k_tokens": 0.000338,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 4,
-            "success_rate": 0.076923,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 327490.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1454.59044,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 99655.769,
-            "success_per_1k_tokens": 0.000235,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 5,
-            "success_rate": 0.076923,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 403992.538,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1659.641175,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 76502.538,
-            "success_per_1k_tokens": 0.00019,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 6,
-            "success_rate": 0.076923,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 411681.615,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1770.290623,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 7689.077,
-            "success_per_1k_tokens": 0.000187,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__10-19-41.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__10-19-41",
-      "suite": "sec-financial-report",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 1,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 0.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 219.32912,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 0.0,
-            "success_per_1k_tokens": null,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__10-29-56.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__10-29-56",
-      "suite": "sec-financial-report",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 1,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 0.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 197.783002,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 0.0,
-            "success_per_1k_tokens": null,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__10-40-33.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__10-40-33",
-      "suite": "3d-scan-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 1,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 0.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 121.720386,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 0.0,
-            "success_per_1k_tokens": null,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__11-03-42.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__11-03-42",
-      "suite": "3d-scan-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 1,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 0.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 173.296882,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 0.0,
-            "success_per_1k_tokens": null,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__11-37-59.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__11-37-59",
-      "suite": "3d-scan-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 1,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 0.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 57.366395,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 0.0,
-            "success_per_1k_tokens": null,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          }
-        ]
-      }
-    },
-    {
-      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-17__11-42-32.json",
-      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
-      "model": "anthropic/MiniMax-M2.5",
-      "run_id": "2026-04-17__11-42-32",
-      "suite": "3d-scan-calc",
-      "runs_per_task": 1,
-      "max_task_attempts": 6,
-      "retry_policies": {
-        "feedback_policy": "error-localized",
-        "feedback_format": "full-refresh",
-        "feedback_strategy": "none",
-        "feedback_answer_safety": "no-answers",
-        "stop_rule": "max-attempts-only",
-        "stop_threshold": "0.0",
-        "early_stop_intra_attempt": false
-      },
-      "curve": {
-        "num_tasks": 1,
-        "max_k": 2,
-        "points": [
-          {
-            "k": 1,
-            "success_rate": 0.0,
-            "successful_tasks": 0,
-            "avg_tokens_per_task": 35058.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 154.40833,
-            "delta_success_rate": 0.0,
-            "delta_tokens_per_task": 35058.0,
-            "success_per_1k_tokens": 0.0,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": null
-          },
-          {
-            "k": 2,
-            "success_rate": 1.0,
-            "successful_tasks": 1,
-            "avg_tokens_per_task": 305462.0,
-            "avg_cost_usd_per_task": 0.0,
-            "avg_execution_time_seconds_per_task": 1055.278824,
-            "delta_success_rate": 1.0,
-            "delta_tokens_per_task": 270404.0,
-            "success_per_1k_tokens": 0.003274,
-            "success_per_dollar": null,
-            "tokens_per_1pct_success": 2704.04
-          }
-        ]
-      }
-    },
-    {
       "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-azure-bgp-oscillation-route-leak.json",
       "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
       "model": "anthropic/MiniMax-M2.5",
@@ -433,6 +33,1451 @@
             "success_per_1k_tokens": null,
             "success_per_dollar": null,
             "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-citation-check.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-citation-check",
+      "suite": "citation-check",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 3,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 173433.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 607.839476,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 173433.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1110358.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1193.662371,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 936925.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 1299505.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1544.272505,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 189147.0,
+            "success_per_1k_tokens": 0.00077,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 1891.47
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-civ6-adjacency-optimizer.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-civ6-adjacency-optimizer",
+      "suite": "civ6-adjacency-optimizer",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1068755.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 911.840642,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1068755.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2360786.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1353.832451,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1292031.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-earthquake-plate-calculation.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-earthquake-plate-calculation",
+      "suite": "earthquake-plate-calculation",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1201.314237,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-econ-detrending-correlation.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-econ-detrending-correlation",
+      "suite": "econ-detrending-correlation",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 160697.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 332.726365,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 160697.0,
+            "success_per_1k_tokens": 0.006223,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 1606.97
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-enterprise-information-search.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-enterprise-information-search",
+      "suite": "enterprise-information-search",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 4,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 527348.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 446.206022,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 527348.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1711227.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1045.506765,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1183879.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2590244.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2172.282095,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 879017.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 3383428.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3010.885208,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 793184.0,
+            "success_per_1k_tokens": 0.000296,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 7931.84
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-exceltable-in-ppt.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-exceltable-in-ppt",
+      "suite": "exceltable-in-ppt",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1201.334427,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-flood-risk-analysis.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-flood-risk-analysis",
+      "suite": "flood-risk-analysis",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 605941.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 911.460092,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 605941.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1342073.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1561.349881,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 736132.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1746071.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2462.388715,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 403998.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 4258810.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3363.353565,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 2512739.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 5484875.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4264.27888,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1226065.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 5702566.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4513.975975,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 217691.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-gravitational-wave-detection.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-gravitational-wave-detection",
+      "suite": "gravitational-wave-detection",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 1008451.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1543.473565,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 1008451.0,
+            "success_per_1k_tokens": 0.000992,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 10084.51
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-hvac-control.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-hvac-control",
+      "suite": "hvac-control",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1201.411274,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-latex-formula-extraction.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-latex-formula-extraction",
+      "suite": "latex-formula-extraction",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1201.271399,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-mars-clouds-clustering.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-mars-clouds-clustering",
+      "suite": "mars-clouds-clustering",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1801.35256,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-multilingual-video-dubbing.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-multilingual-video-dubbing",
+      "suite": "multilingual-video-dubbing",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 405.114714,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-offer-letter-generator.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-offer-letter-generator",
+      "suite": "offer-letter-generator",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 3,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 80768.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 166.426857,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 80768.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 151478.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1810.631133,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 70710.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 546465.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2408.363344,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 394987.0,
+            "success_per_1k_tokens": 0.00183,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 3949.87
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-sec-financial-report.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-sec-financial-report",
+      "suite": "sec-financial-report",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 236104.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 290.828828,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 236104.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 1309807.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 921.500819,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 1073703.0,
+            "success_per_1k_tokens": 0.000763,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 10737.03
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-simpo-code-reproduction.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-simpo-code-reproduction",
+      "suite": "simpo-code-reproduction",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1176140.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1644.972418,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1176140.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1675705.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2559.926706,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 499565.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1692430.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2699.730141,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 16725.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2333112.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3686.224822,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 640682.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2717406.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4447.026337,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 384294.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 3568879.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 5369.709907,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 851473.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-speaker-diarization-subtitles.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-speaker-diarization-subtitles",
+      "suite": "speaker-diarization-subtitles",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 184.928616,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-video-filler-word-remover.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-video-filler-word-remover",
+      "suite": "video-filler-word-remover",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 728709.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1687.095754,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 728709.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1524516.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3488.132104,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 795807.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2676314.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 5333.379051,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1151798.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 3223521.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 7180.078525,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 547207.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 4192710.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 9019.079829,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 969189.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 4773094.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 10858.384163,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 580384.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-17__16-13-45-video-tutorial-indexer.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-17__16-13-45-video-tutorial-indexer",
+      "suite": "video-tutorial-indexer",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 5,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 835119.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3607.467192,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 835119.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2350141.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 7208.756812,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1515022.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2754405.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 9014.864892,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 404264.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 3717222.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 10367.955238,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 962817.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 4279314.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 10587.450343,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 562092.0,
+            "success_per_1k_tokens": 0.000234,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 5620.92
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-azure-bgp-oscillation-route-leak.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-azure-bgp-oscillation-route-leak",
+      "suite": "azure-bgp-oscillation-route-leak",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 60783.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 85.732452,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 60783.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 433449.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 268.702052,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 372666.0,
+            "success_per_1k_tokens": 0.002307,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 3726.66
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-earthquake-plate-calculation.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-earthquake-plate-calculation",
+      "suite": "earthquake-plate-calculation",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 6,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 85452.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 128.461299,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 85452.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1505468.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1037.257951,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1420016.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2495060.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2033.035193,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 989592.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 5287944.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 2941.737968,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 2792884.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 5,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 5760800.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 3865.25346,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 472856.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 6,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 6335495.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4924.451096,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 574695.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-exceltable-in-ppt.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-exceltable-in-ppt",
+      "suite": "exceltable-in-ppt",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 2,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 68081.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 104.698165,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 68081.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 534774.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 626.154175,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 466693.0,
+            "success_per_1k_tokens": 0.00187,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 4666.93
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-hvac-control.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-hvac-control",
+      "suite": "hvac-control",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 279352.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 193.802674,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 279352.0,
+            "success_per_1k_tokens": 0.00358,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 2793.52
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-latex-formula-extraction.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-latex-formula-extraction",
+      "suite": "latex-formula-extraction",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 4,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1079474.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 347.485398,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1079474.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1344312.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 689.184553,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 264838.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 2001875.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1102.839983,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 657563.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 4,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 2740006.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 1544.107159,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 738131.0,
+            "success_per_1k_tokens": 0.000365,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 7381.31
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__08-54-10-speaker-diarization-subtitles.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__08-54-10-speaker-diarization-subtitles",
+      "suite": "speaker-diarization-subtitles",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 1,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 0.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 104.235666,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 0.0,
+            "success_per_1k_tokens": null,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          }
+        ]
+      }
+    },
+    {
+      "file": "results/rq1/skillsbench__anthropic-MiniMax-M2-5__retry-good-2026-04-18__17-00-55-mars-clouds-clustering.json",
+      "label": "anthropic/MiniMax-M2.5 | error-localized | full-refresh | max-attempts-only | k=6",
+      "model": "anthropic/MiniMax-M2.5",
+      "run_id": "retry-good-2026-04-18__17-00-55-mars-clouds-clustering",
+      "suite": "mars-clouds-clustering",
+      "runs_per_task": 1,
+      "max_task_attempts": 6,
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "curve": {
+        "num_tasks": 1,
+        "max_k": 3,
+        "points": [
+          {
+            "k": 1,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 756215.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 630.305998,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 756215.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 2,
+            "success_rate": 0.0,
+            "successful_tasks": 0,
+            "avg_tokens_per_task": 1883033.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4231.402817,
+            "delta_success_rate": 0.0,
+            "delta_tokens_per_task": 1126818.0,
+            "success_per_1k_tokens": 0.0,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": null
+          },
+          {
+            "k": 3,
+            "success_rate": 1.0,
+            "successful_tasks": 1,
+            "avg_tokens_per_task": 2280841.0,
+            "avg_cost_usd_per_task": 0.0,
+            "avg_execution_time_seconds_per_task": 4913.20355,
+            "delta_success_rate": 1.0,
+            "delta_tokens_per_task": 397808.0,
+            "success_per_1k_tokens": 0.000438,
+            "success_per_dollar": null,
+            "tokens_per_1pct_success": 3978.08
           }
         ]
       }

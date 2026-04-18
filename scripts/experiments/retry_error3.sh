@@ -7,21 +7,19 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 TASK_PATHS=(
-  # Network failures in skillsbench-2026-04-16__08-46-05
-  # Pattern: docker image metadata fetch failed with proxyconnect i/o timeout
-  tasks/energy-market-pricing
-  tasks/fix-visual-stability
-  tasks/flink-query
-  tasks/grid-dispatch-operator
-  tasks/invoice-fraud-detection
-  tasks/jax-computing-basics
-  tasks/manufacturing-fjsp-optimization
-  tasks/python-scala-translation
-  tasks/react-performance-debugging
-  tasks/shock-analysis-demand
-  tasks/threejs-to-obj
-  tasks/virtualhome-agent-planning
-  tasks/weighted-gdp-calc
+  # Retry tasks after verifier/env fixes from skillsbench__anthropic-MiniMax-M2-5__2026-04-15__16-39-03
+  tasks/financial-modeling-qa
+  tasks/fix-build-agentops
+  tasks/fix-druid-loophole-cve
+  tasks/organize-messy-files
+  tasks/pptx-reference-formatting
+  tasks/seismic-phase-picking
+  tasks/shock-analysis-supply
+  tasks/xlsx-recover-data
+  tasks/fix-erlang-ssh-cve
+  tasks/lean4-proof
+  tasks/setup-fuzzing-py
+  tasks/software-dependency-audit
 )
 
 TASKS_CSV="$(IFS=,; echo "${TASK_PATHS[*]}")"

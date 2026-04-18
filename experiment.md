@@ -858,3 +858,67 @@ python3 /home/nudt/lirui/skill_study/skill/scripts/test_minimax_api.py
 cat /etc/docker/daemon.json 查看镜像加速器，防止503错误
 
 bash skill/scripts/stop_skillsbench_jobs.sh
+
+
+ 失败任务和原因如下，基于结果文件 skill/results/rq1_new/skillsbench__anthropic-
+  MiniMax-M2-5__2026-04-15__16-39-03.json 和对应 job 目录里的 exception.txt /
+  verifier 输出整理：
+
+  - exoplanet-detection-period：测试断言失败。周期值算错，1.40141 不符合期望
+    5.35699
+  - financial-modeling-qa：verifier 失败，uv 下载/初始化没成功，后续 uvx: command
+    not found
+  - find-topk-similiar-chemicals：AgentTimeoutError，agent 执行超时 900s
+  - fix-build-agentops：verifier 失败，uv: command not found
+  - fix-build-google-auto：AgentTimeoutError，agent 执行超时 900s
+  - fix-druid-loophole-cve：verifier 失败，uv/uvx 安装链路异常，最终 uvx: command
+    not found
+  - fix-erlang-ssh-cve：环境构建失败，Docker build 里从 GitHub 下载 Erlang OTP 源
+    码时 curl 503
+  - glm-lake-mendota：运行时异常，CancelledError，发生在 agent/LLM 调用过程中
+  - jpg-ocr-stat：AgentTimeoutError，agent 执行超时 600s
+  - lake-warming-attribution：测试断言失败
+  - lean4-proof：环境构建阶段 RuntimeError
+  - manufacturing-codebook-normalization：AgentTimeoutError，agent 执行超时 600s
+  - manufacturing-equipment-maintenance：AgentTimeoutError，agent 执行超时 600s
+  - mario-coin-counting：运行时异常，环境启动阶段 CancelledError
+  - organize-messy-files：verifier 失败，uv 下载/初始化没成功，最终 uvx: command
+    not found
+  - pddl-tpp-planning：测试失败，TestNumericalCorrectness.test_allclose 没通过
+  - pptx-reference-formatting：verifier 失败，下载 uv 时遇到 HTTP 503，最终 uvx:
+    command not found
+  - quantum-numerical-simulation：AgentTimeoutError，agent 执行超时 1500s
+  - reserves-at-risk-calc：AgentTimeoutError，agent 执行超时 600s
+  - sales-pivot-analysis：测试断言失败，pivot table 配置检查没通过
+  - seismic-phase-picking：verifier 失败，下载 uv 时遇到 HTTP 503，最终 uvx:
+    command not found
+  - setup-fuzzing-py：环境构建阶段 RuntimeError
+  - shock-analysis-supply：verifier 失败，下载 uv 时网络中断，最终 uvx: command
+    not found
+  - software-dependency-audit：环境构建阶段 RuntimeError
+  - suricata-custom-exfil：测试断言失败
+  - syzkaller-ppdev-syzlang：测试断言失败，
+    TestFilesAndIncludes::test_files_exist_and_have_includes 没通过
+  - taxonomy-tree-merge：AgentTimeoutError，agent 执行超时 500s
+  - video-silence-remover：AgentTimeoutError，agent 执行超时 900s
+  - xlsx-recover-data：verifier 失败，uv 下载/初始化没成功，最终 uvx: command not
+    found
+
+  按类型归类，大致是：
+
+  - AgentTimeoutError
+    find-topk-similiar-chemicals, fix-build-google-auto, jpg-ocr-stat,
+    manufacturing-codebook-normalization, manufacturing-equipment-maintenance,
+    quantum-numerical-simulation, reserves-at-risk-calc, taxonomy-tree-merge,
+    video-silence-remover
+  - verifier / 依赖安装失败，主要是 uv/uvx 问题
+    financial-modeling-qa, fix-build-agentops, fix-druid-loophole-cve, organize-
+    messy-files, pptx-reference-formatting, seismic-phase-picking, shock-
+    analysis-supply, xlsx-recover-data
+  - 环境构建失败
+    fix-erlang-ssh-cve, lean4-proof, setup-fuzzing-py, software-dependency-audit
+  - 纯测试没过
+    exoplanet-detection-period, lake-warming-attribution, pddl-tpp-planning,
+    sales-pivot-analysis, suricata-custom-exfil, syzkaller-ppdev-syzlang
+  - 运行中断 / 取消
+    glm-lake-mendota, mario-coin-counting

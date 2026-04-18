@@ -1,0 +1,613 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-flood-risk-analysis",
+  "timestamp": "2026-04-17T10:49:50.495033+00:00",
+  "suite": "flood-risk-analysis",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "flood-risk-analysis",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 4513.975975,
+      "transcript_length": 17,
+      "llm_rounds": 407,
+      "usage": {
+        "total_tokens": 5702566,
+        "prompt_tokens": 5587900,
+        "completion_tokens": 114666,
+        "input_tokens": 5587900,
+        "output_tokens": 114666,
+        "cache_tokens": 5343408,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        2,
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        17
+      ],
+      "prompt_tokens_by_attempt": [
+        592677,
+        714604,
+        392945,
+        2480518,
+        1201822,
+        205334
+      ],
+      "completion_tokens_by_attempt": [
+        13264,
+        21528,
+        11053,
+        32221,
+        24243,
+        12357
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        400,
+        412,
+        283,
+        283,
+        283
+      ],
+      "stop_reason": "attempt_budget_exhausted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T09:34:25.097943Z",
+          "finished_at": "2026-04-17T09:49:36.558035Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 38,
+            "usage": {
+              "total_tokens": 605941,
+              "prompt_tokens": 592677,
+              "completion_tokens": 13264,
+              "input_tokens": 592677,
+              "output_tokens": 13264,
+              "cache_tokens": 562240,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 911.460092,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestFloodDetection::test_csv_output_exists: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T09:49:36.558035Z",
+            "finished_at": "2026-04-17T09:49:36.558035Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T09:49:36.558108Z",
+          "finished_at": "2026-04-17T10:00:26.447897Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestFloodDetection::test_csv_output_exists: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 400,
+            "tokens_estimate": 100
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 74,
+            "usage": {
+              "total_tokens": 736132,
+              "prompt_tokens": 714604,
+              "completion_tokens": 21528,
+              "input_tokens": 714604,
+              "output_tokens": 21528,
+              "cache_tokens": 668960,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 649.889789,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestFloodDetection::test_csv_output_exists: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T10:00:26.447897Z",
+            "finished_at": "2026-04-17T10:00:26.447897Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T10:00:26.447982Z",
+          "finished_at": "2026-04-17T10:15:27.486816Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestFloodDetection::test_csv_output_exists: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 412,
+            "tokens_estimate": 103
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 50,
+            "usage": {
+              "total_tokens": 403998,
+              "prompt_tokens": 392945,
+              "completion_tokens": 11053,
+              "input_tokens": 392945,
+              "output_tokens": 11053,
+              "cache_tokens": 373696,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.038834,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T10:15:27.486816Z",
+            "finished_at": "2026-04-17T10:15:27.486816Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T10:15:27.486891Z",
+          "finished_at": "2026-04-17T10:30:28.451741Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 283,
+            "tokens_estimate": 70
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 135,
+            "usage": {
+              "total_tokens": 2512739,
+              "prompt_tokens": 2480518,
+              "completion_tokens": 32221,
+              "input_tokens": 2480518,
+              "output_tokens": 32221,
+              "cache_tokens": 2373024,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 900.96485,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T10:30:28.451741Z",
+            "finished_at": "2026-04-17T10:30:28.451741Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T10:30:28.451829Z",
+          "finished_at": "2026-04-17T10:45:29.377144Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 283,
+            "tokens_estimate": 70
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 94,
+            "usage": {
+              "total_tokens": 1226065,
+              "prompt_tokens": 1201822,
+              "completion_tokens": 24243,
+              "input_tokens": 1201822,
+              "output_tokens": 24243,
+              "cache_tokens": 1172352,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 900.925315,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T10:45:29.377144Z",
+            "finished_at": "2026-04-17T10:45:29.377144Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T10:45:29.377242Z",
+          "finished_at": "2026-04-17T10:49:39.074337Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 283,
+            "tokens_estimate": 70
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "673de8d5-fe3e-42e6-bd0f-986315e61f78",
+          "execution": {
+            "llm_rounds": 16,
+            "usage": {
+              "total_tokens": 217691,
+              "prompt_tokens": 205334,
+              "completion_tokens": 12357,
+              "input_tokens": 205334,
+              "output_tokens": 12357,
+              "cache_tokens": 193136,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 249.697095,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestFloodDetection::test_correct_stations_and_flood_days: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis/flood-risk-analysis__EvEZrXx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T10:49:39.074337Z",
+            "finished_at": "2026-04-17T10:49:39.074337Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 17,
+          "transcript_length_delta": 17,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis",
+      "source_trial": "flood-risk-analysis__EvEZrXx"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 5702566,
+    "total_input_tokens": 5587900,
+    "total_output_tokens": 114666,
+    "total_cache_tokens": 5343408,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 4513.975975,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 5702566.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "flood-risk-analysis",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 5702566,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-flood-risk-analysis",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

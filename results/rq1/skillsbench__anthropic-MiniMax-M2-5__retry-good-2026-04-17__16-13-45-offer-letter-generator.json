@@ -1,0 +1,385 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-offer-letter-generator",
+  "timestamp": "2026-04-17T12:17:59.880693+00:00",
+  "suite": "offer-letter-generator",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "offer-letter-generator",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 2408.363344,
+      "transcript_length": 39,
+      "llm_rounds": 67,
+      "usage": {
+        "total_tokens": 546465,
+        "prompt_tokens": 525059,
+        "completion_tokens": 21406,
+        "input_tokens": 525059,
+        "output_tokens": 21406,
+        "cache_tokens": 486880,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 3
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 3,
+      "first_success_attempt": 3,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        1,
+        2,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        39
+      ],
+      "prompt_tokens_by_attempt": [
+        74196,
+        64990,
+        385873
+      ],
+      "completion_tokens_by_attempt": [
+        6572,
+        5720,
+        9114
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        169,
+        367
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T11:37:39.925395Z",
+          "finished_at": "2026-04-17T11:40:26.352252Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "b56e422d-5815-4f57-a5ca-8b636abf3bcd",
+          "execution": {
+            "llm_rounds": 14,
+            "usage": {
+              "total_tokens": 80768,
+              "prompt_tokens": 74196,
+              "completion_tokens": 6572,
+              "input_tokens": 74196,
+              "output_tokens": 6572,
+              "cache_tokens": 64032,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 166.426857,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "PASSED ../tests/test_outputs.py::test_nested_table_value[SIGNING_BONUS]\nPASSED ../tests/test_outputs.py::test_nested_table_value[EQUITY_SHARES]\nPASSED ../tests/test_outputs.py::test_nested_table_value[MANAGER_NAME]\nPASSED ../tests/test_outputs.py::test_conditional_section\n============================== 18 passed in 0.08s ==============================",
+            "feedback": [],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T11:40:26.352252Z",
+            "finished_at": "2026-04-17T11:40:26.352252Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T11:40:26.352501Z",
+          "finished_at": "2026-04-17T12:07:50.556777Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\nVerifier rewards: reward=0.0",
+          "feedback_prompt_stats": {
+            "chars": 169,
+            "tokens_estimate": 42
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "b56e422d-5815-4f57-a5ca-8b636abf3bcd",
+          "execution": {
+            "llm_rounds": 15,
+            "usage": {
+              "total_tokens": 70710,
+              "prompt_tokens": 64990,
+              "completion_tokens": 5720,
+              "input_tokens": 64990,
+              "output_tokens": 5720,
+              "cache_tokens": 57728,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1644.204276,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_no_remaining_placeholders: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::test_nested_table_value: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:07:50.556777Z",
+            "finished_at": "2026-04-17T12:07:50.556777Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T12:07:50.556850Z",
+          "finished_at": "2026-04-17T12:17:48.289061Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::test_no_remaining_placeholders: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::test_nested_table_value: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 367,
+            "tokens_estimate": 91
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "b56e422d-5815-4f57-a5ca-8b636abf3bcd",
+          "execution": {
+            "llm_rounds": 38,
+            "usage": {
+              "total_tokens": 394987,
+              "prompt_tokens": 385873,
+              "completion_tokens": 9114,
+              "input_tokens": 385873,
+              "output_tokens": 9114,
+              "cache_tokens": 365120,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 597.732211,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "PASSED ../tests/test_outputs.py::test_nested_table_value[SIGNING_BONUS]\nPASSED ../tests/test_outputs.py::test_nested_table_value[EQUITY_SHARES]\nPASSED ../tests/test_outputs.py::test_nested_table_value[MANAGER_NAME]\nPASSED ../tests/test_outputs.py::test_conditional_section\n============================== 18 passed in 0.08s ==============================",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::test_split_placeholder_replaced[HR_NAME]",
+              "PASSED ../tests/test_outputs.py::test_split_placeholder_replaced[PTO_DAYS]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[POSITION]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[DEPARTMENT]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[BASE_SALARY]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[SIGNING_BONUS]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[EQUITY_SHARES]",
+              "PASSED ../tests/test_outputs.py::test_nested_table_value[MANAGER_NAME]",
+              "PASSED ../tests/test_outputs.py::test_conditional_section",
+              "============================== 18 passed in 0.08s =============================="
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator/offer-letter-generator__zCgftrx/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:17:48.289061Z",
+            "finished_at": "2026-04-17T12:17:48.289061Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 39,
+          "transcript_length_delta": 39,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator",
+      "source_trial": "offer-letter-generator__zCgftrx"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 546465,
+    "total_input_tokens": 525059,
+    "total_output_tokens": 21406,
+    "total_cache_tokens": 486880,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 3,
+    "total_execution_time_seconds": 2408.363344,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 546465.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00182994,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00182994,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "offer-letter-generator",
+        "success": true,
+        "first_success_attempt": 3,
+        "attempt_count": 3,
+        "total_tokens": 546465,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 3.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-offer-letter-generator",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

@@ -1,0 +1,475 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-enterprise-information-search",
+  "timestamp": "2026-04-17T10:00:04.768925+00:00",
+  "suite": "enterprise-information-search",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "enterprise-information-search",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 3010.885208,
+      "transcript_length": 51,
+      "llm_rounds": 196,
+      "usage": {
+        "total_tokens": 3383428,
+        "prompt_tokens": 3318105,
+        "completion_tokens": 65323,
+        "input_tokens": 3318105,
+        "output_tokens": 65323,
+        "cache_tokens": 3141840,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 4
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 4,
+      "first_success_attempt": 4,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        10,
+        2,
+        2,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        51
+      ],
+      "prompt_tokens_by_attempt": [
+        517360,
+        1155486,
+        864174,
+        781085
+      ],
+      "completion_tokens_by_attempt": [
+        9988,
+        28393,
+        14843,
+        12099
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        692,
+        381,
+        393
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T09:09:42.597924Z",
+          "finished_at": "2026-04-17T09:17:08.803946Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "dc36972d-23e5-46a9-b548-d9ccce3229ea",
+          "execution": {
+            "llm_rounds": 32,
+            "usage": {
+              "total_tokens": 527348,
+              "prompt_tokens": 517360,
+              "completion_tokens": 9988,
+              "input_tokens": 517360,
+              "output_tokens": 9988,
+              "cache_tokens": 486720,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 446.206022,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "downloading uv 0.9.7 x86_64-unknown-linux-gnu",
+            "feedback": [
+              "Setting up libkrb5support0:amd64 (1.20.1-6ubuntu2.6) ...",
+              "Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...",
+              "Setting up libk5crypto3:amd64 (1.20.1-6ubuntu2.6) ...",
+              "Setting up libkrb5-3:amd64 (1.20.1-6ubuntu2.6) ...",
+              "Setting up publicsuffix (20231001.0357-0.1) ...",
+              "Setting up libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.6) ...",
+              "Setting up libssh-4:amd64 (0.10.6-2ubuntu0.4) ...",
+              "Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.8) ...",
+              "Setting up curl (8.5.0-2ubuntu10.8) ...",
+              "Processing triggers for libc-bin (2.39-0ubuntu8.7) ..."
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T09:17:08.803946Z",
+            "finished_at": "2026-04-17T09:17:08.803946Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T09:17:08.804171Z",
+          "finished_at": "2026-04-17T09:27:08.104914Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Setting up libkrb5support0:amd64 (1.20.1-6ubuntu2.6) ...\n- Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...\n- Setting up libk5crypto3:amd64 (1.20.1-6ubuntu2.6) ...\n- Setting up libkrb5-3:amd64 (1.20.1-6ubuntu2.6) ...\n- Setting up publicsuffix (20231001.0357-0.1) ...\n- Setting up libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.6) ...\n- Setting up libssh-4:amd64 (0.10.6-2ubuntu0.4) ...\n- Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.8) ...\n- Setting up curl (8.5.0-2ubuntu10.8) ...\n- Processing triggers for libc-bin (2.39-0ubuntu8.7) ...",
+          "feedback_prompt_stats": {
+            "chars": 692,
+            "tokens_estimate": 173
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "dc36972d-23e5-46a9-b548-d9ccce3229ea",
+          "execution": {
+            "llm_rounds": 64,
+            "usage": {
+              "total_tokens": 1183879,
+              "prompt_tokens": 1155486,
+              "completion_tokens": 28393,
+              "input_tokens": 1155486,
+              "output_tokens": 28393,
+              "cache_tokens": 1072976,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 599.300743,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestOutputs::test_answer_structure_and_values: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestOutputs::test_tokens_efficient: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T09:27:08.104914Z",
+            "finished_at": "2026-04-17T09:27:08.104914Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T09:27:08.105007Z",
+          "finished_at": "2026-04-17T09:45:54.880337Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestOutputs::test_answer_structure_and_values: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestOutputs::test_tokens_efficient: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 381,
+            "tokens_estimate": 95
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "dc36972d-23e5-46a9-b548-d9ccce3229ea",
+          "execution": {
+            "llm_rounds": 50,
+            "usage": {
+              "total_tokens": 879017,
+              "prompt_tokens": 864174,
+              "completion_tokens": 14843,
+              "input_tokens": 864174,
+              "output_tokens": 14843,
+              "cache_tokens": 830976,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1126.77533,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_answer_structure_and_values: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_tokens_efficient: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T09:45:54.880337Z",
+            "finished_at": "2026-04-17T09:45:54.880337Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T09:45:54.880414Z",
+          "finished_at": "2026-04-17T09:59:53.483527Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestOutputs::test_answer_structure_and_values: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestOutputs::test_tokens_efficient: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 393,
+            "tokens_estimate": 98
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "dc36972d-23e5-46a9-b548-d9ccce3229ea",
+          "execution": {
+            "llm_rounds": 50,
+            "usage": {
+              "total_tokens": 793184,
+              "prompt_tokens": 781085,
+              "completion_tokens": 12099,
+              "input_tokens": 781085,
+              "output_tokens": 12099,
+              "cache_tokens": 751168,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 838.603113,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "downloading uv 0.9.7 x86_64-unknown-linux-gnu",
+            "feedback": [
+              "collected 5 items",
+              "../tests/test_outputs.py .....                                           [100%]",
+              "==================================== PASSES ====================================",
+              "=========================== short test summary info ============================",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_inputs_exist",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_answer_structure_and_values",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_tokens_efficient[q1]",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_tokens_efficient[q2]",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_tokens_efficient[q3]",
+              "============================== 5 passed in 0.01s ==============================="
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search/enterprise-information-search__szAiLSe/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T09:59:53.483527Z",
+            "finished_at": "2026-04-17T09:59:53.483527Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 51,
+          "transcript_length_delta": 51,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search",
+      "source_trial": "enterprise-information-search__szAiLSe"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 3383428,
+    "total_input_tokens": 3318105,
+    "total_output_tokens": 65323,
+    "total_cache_tokens": 3141840,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 4,
+    "total_execution_time_seconds": 3010.885208,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 3383428.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00029556,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00029556,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "enterprise-information-search",
+        "success": true,
+        "first_success_attempt": 4,
+        "attempt_count": 4,
+        "total_tokens": 3383428,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 4.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-enterprise-information-search",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

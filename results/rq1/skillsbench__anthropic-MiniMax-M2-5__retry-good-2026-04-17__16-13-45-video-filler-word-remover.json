@@ -1,0 +1,618 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-video-filler-word-remover",
+  "timestamp": "2026-04-17T15:24:02.648819+00:00",
+  "suite": "video-filler-word-remover",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "video-filler-word-remover",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 10858.384163,
+      "transcript_length": 83,
+      "llm_rounds": 496,
+      "usage": {
+        "total_tokens": 4773094,
+        "prompt_tokens": 4688138,
+        "completion_tokens": 84956,
+        "input_tokens": 4688138,
+        "output_tokens": 84956,
+        "cache_tokens": 4534576,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        83
+      ],
+      "prompt_tokens_by_attempt": [
+        720157,
+        782416,
+        1135224,
+        534609,
+        947620,
+        568112
+      ],
+      "completion_tokens_by_attempt": [
+        8552,
+        13391,
+        16574,
+        12598,
+        21569,
+        12272
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        389,
+        401,
+        401,
+        401,
+        401
+      ],
+      "stop_reason": "attempt_budget_exhausted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T12:22:51.055427Z",
+          "finished_at": "2026-04-17T12:50:58.151181Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 64,
+            "usage": {
+              "total_tokens": 728709,
+              "prompt_tokens": 720157,
+              "completion_tokens": 8552,
+              "input_tokens": 720157,
+              "output_tokens": 8552,
+              "cache_tokens": 693120,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1687.095754,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:50:58.151181Z",
+            "finished_at": "2026-04-17T12:50:58.151181Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T12:50:58.151285Z",
+          "finished_at": "2026-04-17T13:20:59.187635Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 389,
+            "tokens_estimate": 97
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 80,
+            "usage": {
+              "total_tokens": 795807,
+              "prompt_tokens": 782416,
+              "completion_tokens": 13391,
+              "input_tokens": 782416,
+              "output_tokens": 13391,
+              "cache_tokens": 761600,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.03635,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T13:20:59.187635Z",
+            "finished_at": "2026-04-17T13:20:59.187635Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T13:20:59.187706Z",
+          "finished_at": "2026-04-17T13:51:44.434653Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 401,
+            "tokens_estimate": 100
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 95,
+            "usage": {
+              "total_tokens": 1151798,
+              "prompt_tokens": 1135224,
+              "completion_tokens": 16574,
+              "input_tokens": 1135224,
+              "output_tokens": 16574,
+              "cache_tokens": 1110592,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1845.246947,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T13:51:44.434653Z",
+            "finished_at": "2026-04-17T13:51:44.434653Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T13:51:44.434728Z",
+          "finished_at": "2026-04-17T14:22:31.134202Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 401,
+            "tokens_estimate": 100
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 75,
+            "usage": {
+              "total_tokens": 547207,
+              "prompt_tokens": 534609,
+              "completion_tokens": 12598,
+              "input_tokens": 534609,
+              "output_tokens": 12598,
+              "cache_tokens": 494192,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1846.699474,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T14:22:31.134202Z",
+            "finished_at": "2026-04-17T14:22:31.134202Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T14:22:31.134290Z",
+          "finished_at": "2026-04-17T14:53:10.135594Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 401,
+            "tokens_estimate": 100
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 99,
+            "usage": {
+              "total_tokens": 969189,
+              "prompt_tokens": 947620,
+              "completion_tokens": 21569,
+              "input_tokens": 947620,
+              "output_tokens": 21569,
+              "cache_tokens": 925184,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1839.001304,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T14:53:10.135594Z",
+            "finished_at": "2026-04-17T14:53:10.135594Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T14:53:10.135838Z",
+          "finished_at": "2026-04-17T15:23:49.440172Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error\n- tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 401,
+            "tokens_estimate": 100
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "4fe3c41e-7181-4cb8-9fab-2fed322145f9",
+          "execution": {
+            "llm_rounds": 83,
+            "usage": {
+              "total_tokens": 580384,
+              "prompt_tokens": 568112,
+              "completion_tokens": 12272,
+              "input_tokens": 568112,
+              "output_tokens": 12272,
+              "cache_tokens": 549888,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1839.304334,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestOutputs::test_output_video_duration: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_format: The test failed in the call phase due to an assertion error",
+              "tests/test_outputs.py::TestOutputs::test_annotations_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover/video-filler-word-remover__Nuqmojn/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T15:23:49.440172Z",
+            "finished_at": "2026-04-17T15:23:49.440172Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 83,
+          "transcript_length_delta": 83,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 3,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover",
+      "source_trial": "video-filler-word-remover__Nuqmojn"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 4773094,
+    "total_input_tokens": 4688138,
+    "total_output_tokens": 84956,
+    "total_cache_tokens": 4534576,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 10858.384163,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 4773094.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "video-filler-word-remover",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 4773094,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-video-filler-word-remover",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

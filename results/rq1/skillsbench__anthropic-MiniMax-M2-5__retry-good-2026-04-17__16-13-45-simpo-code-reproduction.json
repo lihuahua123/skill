@@ -1,0 +1,611 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-simpo-code-reproduction",
+  "timestamp": "2026-04-17T13:39:28.999803+00:00",
+  "suite": "simpo-code-reproduction",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "simpo-code-reproduction",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 5369.709907,
+      "transcript_length": 48,
+      "llm_rounds": 226,
+      "usage": {
+        "total_tokens": 3568879,
+        "prompt_tokens": 3520819,
+        "completion_tokens": 48060,
+        "input_tokens": 3520819,
+        "output_tokens": 48060,
+        "cache_tokens": 3277808,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        48
+      ],
+      "prompt_tokens_by_attempt": [
+        1162847,
+        490751,
+        15359,
+        630327,
+        379257,
+        842278
+      ],
+      "completion_tokens_by_attempt": [
+        13293,
+        8814,
+        1366,
+        10355,
+        5037,
+        9195
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        233,
+        239,
+        239,
+        239,
+        239
+      ],
+      "stop_reason": "attempt_budget_exhausted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T12:09:45.472525Z",
+          "finished_at": "2026-04-17T12:37:10.444943Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 58,
+            "usage": {
+              "total_tokens": 1176140,
+              "prompt_tokens": 1162847,
+              "completion_tokens": 13293,
+              "input_tokens": 1162847,
+              "output_tokens": 13293,
+              "cache_tokens": 1029872,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1644.972418,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:37:10.444943Z",
+            "finished_at": "2026-04-17T12:37:10.444943Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T12:37:10.445054Z",
+          "finished_at": "2026-04-17T12:52:25.399342Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 233,
+            "tokens_estimate": 58
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 38,
+            "usage": {
+              "total_tokens": 499565,
+              "prompt_tokens": 490751,
+              "completion_tokens": 8814,
+              "input_tokens": 490751,
+              "output_tokens": 8814,
+              "cache_tokens": 466496,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 914.954288,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:52:25.399342Z",
+            "finished_at": "2026-04-17T12:52:25.399342Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T12:52:25.399417Z",
+          "finished_at": "2026-04-17T12:54:45.202852Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 239,
+            "tokens_estimate": 59
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 6,
+            "usage": {
+              "total_tokens": 16725,
+              "prompt_tokens": 15359,
+              "completion_tokens": 1366,
+              "input_tokens": 15359,
+              "output_tokens": 1366,
+              "cache_tokens": 11456,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 139.803435,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T12:54:45.202852Z",
+            "finished_at": "2026-04-17T12:54:45.202852Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T12:54:45.202902Z",
+          "finished_at": "2026-04-17T13:11:11.697583Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 239,
+            "tokens_estimate": 59
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 41,
+            "usage": {
+              "total_tokens": 640682,
+              "prompt_tokens": 630327,
+              "completion_tokens": 10355,
+              "input_tokens": 630327,
+              "output_tokens": 10355,
+              "cache_tokens": 600256,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 986.494681,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T13:11:11.697583Z",
+            "finished_at": "2026-04-17T13:11:11.697583Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T13:11:11.697641Z",
+          "finished_at": "2026-04-17T13:23:52.499156Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 239,
+            "tokens_estimate": 59
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 35,
+            "usage": {
+              "total_tokens": 384294,
+              "prompt_tokens": 379257,
+              "completion_tokens": 5037,
+              "input_tokens": 379257,
+              "output_tokens": 5037,
+              "cache_tokens": 360640,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 760.801515,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T13:23:52.499156Z",
+            "finished_at": "2026-04-17T13:23:52.499156Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T13:23:52.499226Z",
+          "finished_at": "2026-04-17T13:39:15.182796Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 239,
+            "tokens_estimate": 59
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ac90469e-f083-43f0-a202-7699541c6767",
+          "execution": {
+            "llm_rounds": 48,
+            "usage": {
+              "total_tokens": 851473,
+              "prompt_tokens": 842278,
+              "completion_tokens": 9195,
+              "input_tokens": 842278,
+              "output_tokens": 9195,
+              "cache_tokens": 809088,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 922.68357,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::test_outputs: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction/simpo-code-reproduction__VEpV97f/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T13:39:15.182796Z",
+            "finished_at": "2026-04-17T13:39:15.182796Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 48,
+          "transcript_length_delta": 48,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction",
+      "source_trial": "simpo-code-reproduction__VEpV97f"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 3568879,
+    "total_input_tokens": 3520819,
+    "total_output_tokens": 48060,
+    "total_cache_tokens": 3277808,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 5369.709907,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 3568879.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "simpo-code-reproduction",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 3568879,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-simpo-code-reproduction",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

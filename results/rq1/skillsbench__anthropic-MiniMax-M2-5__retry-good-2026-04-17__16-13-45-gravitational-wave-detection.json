@@ -1,0 +1,221 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-gravitational-wave-detection",
+  "timestamp": "2026-04-17T11:21:15.166272+00:00",
+  "suite": "gravitational-wave-detection",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "gravitational-wave-detection",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 1543.473565,
+      "transcript_length": 66,
+      "llm_rounds": 65,
+      "usage": {
+        "total_tokens": 1008451,
+        "prompt_tokens": 995194,
+        "completion_tokens": 13257,
+        "input_tokens": 995194,
+        "output_tokens": 13257,
+        "cache_tokens": 970176,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        66
+      ],
+      "prompt_tokens_by_attempt": [
+        995194
+      ],
+      "completion_tokens_by_attempt": [
+        13257
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T10:55:19.949475Z",
+          "finished_at": "2026-04-17T11:21:03.423040Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "adaa2b93-120a-4cb3-bf9b-6c5fde5bc6c1",
+          "execution": {
+            "llm_rounds": 65,
+            "usage": {
+              "total_tokens": 1008451,
+              "prompt_tokens": 995194,
+              "completion_tokens": 13257,
+              "input_tokens": 995194,
+              "output_tokens": 13257,
+              "cache_tokens": 970176,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1543.473565,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection/gravitational-wave-detection__ASSKaji/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "PASSED ../tests/test_outputs.py::TestGravitationalWaveDetection::test_total_mass_values\nPASSED ../tests/test_outputs.py::TestGravitationalWaveDetection::test_all_approximants_tested\nPASSED ../tests/test_outputs.py::TestGravitationalWaveDetection::test_result_satisfies_grid_search_constraints\nPASSED ../tests/test_outputs.py::TestGravitationalWaveDetection::test_matches_expected_result\n============================== 9 passed in 2.33s ===============================",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::TestGravitationalWaveDetection::test_matches_expected_result"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection/gravitational-wave-detection__ASSKaji/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection/gravitational-wave-detection__ASSKaji/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection/gravitational-wave-detection__ASSKaji/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection/gravitational-wave-detection__ASSKaji/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T11:21:03.423040Z",
+            "finished_at": "2026-04-17T11:21:03.423040Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 66,
+          "transcript_length_delta": 66,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection",
+      "source_trial": "gravitational-wave-detection__ASSKaji"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 1008451,
+    "total_input_tokens": 995194,
+    "total_output_tokens": 13257,
+    "total_cache_tokens": 970176,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 1543.473565,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 1008451.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00099162,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00099162,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "gravitational-wave-detection",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 1008451,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-gravitational-wave-detection",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

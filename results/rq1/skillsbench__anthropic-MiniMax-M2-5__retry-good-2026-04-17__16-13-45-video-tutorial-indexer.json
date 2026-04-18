@@ -1,0 +1,536 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "retry-good-2026-04-17__16-13-45-video-tutorial-indexer",
+  "timestamp": "2026-04-17T16:40:20.821461+00:00",
+  "suite": "video-tutorial-indexer",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false
+  },
+  "tasks": [
+    {
+      "task_id": "video-tutorial-indexer",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 10587.450343,
+      "transcript_length": 31,
+      "llm_rounds": 335,
+      "usage": {
+        "total_tokens": 4279314,
+        "prompt_tokens": 4195355,
+        "completion_tokens": 83959,
+        "input_tokens": 4195355,
+        "output_tokens": 83959,
+        "cache_tokens": 3779328,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 5
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 5,
+      "first_success_attempt": 5,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        2,
+        2,
+        1,
+        1,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        31
+      ],
+      "prompt_tokens_by_attempt": [
+        827217,
+        1493828,
+        390906,
+        937365,
+        546039
+      ],
+      "completion_tokens_by_attempt": [
+        7902,
+        21194,
+        13358,
+        25452,
+        16053
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        736,
+        736,
+        458,
+        458
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-17T13:43:41.982503Z",
+          "finished_at": "2026-04-17T14:43:49.449695Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "963738c7-8d53-4334-9dbd-57bbb5ad8351",
+          "execution": {
+            "llm_rounds": 77,
+            "usage": {
+              "total_tokens": 835119,
+              "prompt_tokens": 827217,
+              "completion_tokens": 7902,
+              "input_tokens": 827217,
+              "output_tokens": 7902,
+              "cache_tokens": 802112,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 3607.467192,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_output_structure: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError",
+              "test_temporal_alignment: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T14:43:49.449695Z",
+            "finished_at": "2026-04-17T14:43:49.449695Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T14:43:49.449782Z",
+          "finished_at": "2026-04-17T15:43:50.739402Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_output_structure: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError\n- test_temporal_alignment: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError",
+          "feedback_prompt_stats": {
+            "chars": 736,
+            "tokens_estimate": 184
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "963738c7-8d53-4334-9dbd-57bbb5ad8351",
+          "execution": {
+            "llm_rounds": 125,
+            "usage": {
+              "total_tokens": 1515022,
+              "prompt_tokens": 1493828,
+              "completion_tokens": 21194,
+              "input_tokens": 1493828,
+              "output_tokens": 21194,
+              "cache_tokens": 1472096,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 3601.28962,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_output_structure: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError",
+              "test_temporal_alignment: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T15:43:50.739402Z",
+            "finished_at": "2026-04-17T15:43:50.739402Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T15:43:50.739479Z",
+          "finished_at": "2026-04-17T16:13:56.847559Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_output_structure: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError\n- test_temporal_alignment: @pytest.fixture(scope=\"session\")\n    def pred_data():\n        \"\"\"Load predicted tutorial index.\"\"\"\n>       with open(PRED_FILE) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/tutorial_index.json'\n\n/tests/test_outputs.py:66: FileNotFoundError",
+          "feedback_prompt_stats": {
+            "chars": 736,
+            "tokens_estimate": 184
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "963738c7-8d53-4334-9dbd-57bbb5ad8351",
+          "execution": {
+            "llm_rounds": 57,
+            "usage": {
+              "total_tokens": 404264,
+              "prompt_tokens": 390906,
+              "completion_tokens": 13358,
+              "input_tokens": 390906,
+              "output_tokens": 13358,
+              "cache_tokens": 269776,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1806.10808,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_temporal_alignment: pred_data = {'chapters': [{'time': 0, 'title': \"What we'll do\"}, {'time': 30, 'title': \"How we'll get there\"}, {'time': 75, 'title...ur plan into Blender'}, ...], 'video_info': {'duration_seconds': 1382, 'title': 'In-Depth Floor Plan Tutorial Part 1'}}\ngt_data = {'chapters':\n...[truncated]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T16:13:56.847559Z",
+            "finished_at": "2026-04-17T16:13:56.847559Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T16:13:56.847615Z",
+          "finished_at": "2026-04-17T16:36:29.937961Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_temporal_alignment: pred_data = {'chapters': [{'time': 0, 'title': \"What we'll do\"}, {'time': 30, 'title': \"How we'll get there\"}, {'time': 75, 'title...ur plan into Blender'}, ...], 'video_info': {'duration_seconds': 1382, 'title': 'In-Depth Floor Plan Tutorial Part 1'}}\ngt_data = {'chapters':\n...[truncated]",
+          "feedback_prompt_stats": {
+            "chars": 458,
+            "tokens_estimate": 114
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "963738c7-8d53-4334-9dbd-57bbb5ad8351",
+          "execution": {
+            "llm_rounds": 46,
+            "usage": {
+              "total_tokens": 962817,
+              "prompt_tokens": 937365,
+              "completion_tokens": 25452,
+              "input_tokens": 937365,
+              "output_tokens": 25452,
+              "cache_tokens": 719984,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1353.090346,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_temporal_alignment: pred_data = {'chapters': [{'time': 0, 'title': \"What we'll do\"}, {'time': 30, 'title': \"How we'll get there\"}, {'time': 75, 'title...ur plan into Blender'}, ...], 'video_info': {'duration_seconds': 1382, 'title': 'In-Depth Floor Plan Tutorial Part 1'}}\ngt_data = {'chapters':\n...[truncated]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T16:36:29.937961Z",
+            "finished_at": "2026-04-17T16:36:29.937961Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-17T16:36:29.938016Z",
+          "finished_at": "2026-04-17T16:40:09.433121Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_temporal_alignment: pred_data = {'chapters': [{'time': 0, 'title': \"What we'll do\"}, {'time': 30, 'title': \"How we'll get there\"}, {'time': 75, 'title...ur plan into Blender'}, ...], 'video_info': {'duration_seconds': 1382, 'title': 'In-Depth Floor Plan Tutorial Part 1'}}\ngt_data = {'chapters':\n...[truncated]",
+          "feedback_prompt_stats": {
+            "chars": 458,
+            "tokens_estimate": 114
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "963738c7-8d53-4334-9dbd-57bbb5ad8351",
+          "execution": {
+            "llm_rounds": 30,
+            "usage": {
+              "total_tokens": 562092,
+              "prompt_tokens": 546039,
+              "completion_tokens": 16053,
+              "input_tokens": 546039,
+              "output_tokens": 16053,
+              "cache_tokens": 515360,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 219.495105,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "Max error: 0.00s\nMin error: 0.00s",
+            "feedback": [
+              "Max error: 0.00s",
+              "Min error: 0.00s"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer/video-tutorial-indexer__fdtaQec/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-17T16:40:09.433121Z",
+            "finished_at": "2026-04-17T16:40:09.433121Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 31,
+          "transcript_length_delta": 31,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer",
+      "source_trial": "video-tutorial-indexer__fdtaQec"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 4279314,
+    "total_input_tokens": 4195355,
+    "total_output_tokens": 83959,
+    "total_cache_tokens": 3779328,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 5,
+    "total_execution_time_seconds": 10587.450343,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 4279314.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00023368,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00023368,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "video-tutorial-indexer",
+        "success": true,
+        "first_success_attempt": 5,
+        "attempt_count": 5,
+        "total_tokens": 4279314,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 5.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-retry-good-2026-04-17__16-13-45-video-tutorial-indexer",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

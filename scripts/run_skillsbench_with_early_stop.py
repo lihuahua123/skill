@@ -29,10 +29,6 @@ PLAN_MARKER_RE = re.compile(
     r"deliverables have been created|verify the final outputs)\b",
     re.IGNORECASE,
 )
-DRIFT_MARKER_RE = re.compile(
-    r"\b(wrong task|unrelated|different task|13f|berkshire|renaissance|sec-financial-report)\b",
-    re.IGNORECASE,
-)
 
 
 def parse_args() -> argparse.Namespace:
@@ -168,27 +164,10 @@ def should_early_stop_for_steps(
 
     agent_messages = [str(s.get("message") or "") for s in agent_steps]
     recent_ratio = _recent_plan_ratio(agent_messages, args.recent_window)
-    recent_messages = agent_messages[-args.recent_window :]
-    drift_hits = [msg for msg in recent_messages if DRIFT_MARKER_RE.search(msg or "")]
-    repeated_deliverable_claims = sum(
-        1
-        for msg in recent_messages
-        if re.search(r"all required|deliverables have been created|created successfully", msg, re.IGNORECASE)
-    )
     policy = intra_context["policy"]
-    guidance = intra_context["recommendation"].get("guidance", "")
-
-    if drift_hits:
-        return True, f"intra-attempt early stop ({policy}): detected task drift markers; {guidance}"
 
     if policy == TASK_POLICY_DRIFT_ONLY:
         return False, None
-
-    if repeated_deliverable_claims >= 2 and len(agent_steps) >= max(6, args.recent_window):
-        return True, (
-            f"intra-attempt early stop ({policy}): repeated completion claims without verifier; "
-            f"{guidance}"
-        )
 
     if policy == TASK_POLICY_CONSERVATIVE:
         return False, None
@@ -201,16 +180,6 @@ def should_early_stop_for_steps(
         return True, (
             f"intra-attempt early stop: {len(agent_steps)} agent steps, "
             f"{runtime_minutes:.1f}m without verifier, recent plan ratio {recent_ratio:.2f}"
-        )
-
-    if (
-        len(agent_steps) >= args.max_agent_steps + 6
-        and runtime_minutes >= args.max_minutes_without_verifier / 2
-        and repeated_deliverable_claims >= 2
-    ):
-        return True, (
-            f"intra-attempt early stop: repeated completion claims without verifier "
-            f"after {len(agent_steps)} agent steps"
         )
 
     return False, None
