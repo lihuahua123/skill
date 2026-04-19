@@ -183,6 +183,30 @@ class InterAttemptDecision:
     evidence: list[str] = field(default_factory=list)
 
 
+EARLY_STOP_STRATEGY_HEURISTIC = "heuristic"
+EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN = "paper-dynamic-turn"
+
+
+@dataclass(frozen=True)
+class PaperDynamicTurnConfig:
+    initial_turn_limit: int
+    extension_turn_limit: int
+
+    @property
+    def total_turn_limit(self) -> int:
+        return self.initial_turn_limit + self.extension_turn_limit
+
+
+@dataclass(frozen=True)
+class PaperDynamicTurnDecision:
+    should_stop: bool
+    phase: str
+    turns_used: int
+    turns_remaining_in_phase: int
+    total_turn_limit: int
+    reason: str
+
+
 def _normalize_text(value: Any) -> str:
     if value is None:
         return ""
@@ -540,7 +564,83 @@ def load_historical_tasks(path: str | Path) -> list[dict[str, Any]]:
     return []
 
 
+def validate_paper_dynamic_turn_config(
+    initial_turn_limit: int,
+    extension_turn_limit: int,
+) -> PaperDynamicTurnConfig:
+    if int(initial_turn_limit) <= 0:
+        raise ValueError("initial_turn_limit must be a positive integer")
+    if int(extension_turn_limit) <= 0:
+        raise ValueError("extension_turn_limit must be a positive integer")
+    return PaperDynamicTurnConfig(
+        initial_turn_limit=int(initial_turn_limit),
+        extension_turn_limit=int(extension_turn_limit),
+    )
+
+
+def decide_paper_dynamic_turn(
+    turns_used: int,
+    *,
+    patch_detected: bool,
+    config: PaperDynamicTurnConfig,
+) -> PaperDynamicTurnDecision:
+    used = max(0, int(turns_used))
+    total_limit = config.total_turn_limit
+
+    if patch_detected:
+        return PaperDynamicTurnDecision(
+            should_stop=False,
+            phase="patch-detected",
+            turns_used=used,
+            turns_remaining_in_phase=max(total_limit - used, 0),
+            total_turn_limit=total_limit,
+            reason="workspace already has a non-empty patch; do not early-stop",
+        )
+
+    if used < config.initial_turn_limit:
+        return PaperDynamicTurnDecision(
+            should_stop=False,
+            phase="initial-budget",
+            turns_used=used,
+            turns_remaining_in_phase=config.initial_turn_limit - used,
+            total_turn_limit=total_limit,
+            reason=(
+                "still within initial dynamic-turn budget "
+                f"({used}/{config.initial_turn_limit} turns used)"
+            ),
+        )
+
+    if used < total_limit:
+        return PaperDynamicTurnDecision(
+            should_stop=False,
+            phase="extension-budget",
+            turns_used=used,
+            turns_remaining_in_phase=total_limit - used,
+            total_turn_limit=total_limit,
+            reason=(
+                "initial budget exhausted without patch; using one-time extension "
+                f"({used}/{total_limit} total turns used)"
+            ),
+        )
+
+    return PaperDynamicTurnDecision(
+        should_stop=True,
+        phase="stop",
+        turns_used=used,
+        turns_remaining_in_phase=0,
+        total_turn_limit=total_limit,
+        reason=(
+            "stop: no non-empty patch after initial budget and one-time extension "
+            f"({used}/{total_limit} total turns used)"
+        ),
+    )
+
+
 __all__ = [
+    "EARLY_STOP_STRATEGY_HEURISTIC",
+    "EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN",
+    "PaperDynamicTurnConfig",
+    "PaperDynamicTurnDecision",
     "TASK_POLICY_AGGRESSIVE",
     "TASK_POLICY_CONSERVATIVE",
     "TASK_POLICY_DRIFT_ONLY",
@@ -551,9 +651,11 @@ __all__ = [
     "build_attempt_verifier_summary",
     "build_task_static_info",
     "compare_verifier_progress",
+    "decide_paper_dynamic_turn",
     "decide_inter_attempt_stop",
     "load_historical_tasks",
     "recommend_intra_attempt_mode",
     "retrieve_similar_cases",
     "route_task_family",
+    "validate_paper_dynamic_turn_config",
 ]

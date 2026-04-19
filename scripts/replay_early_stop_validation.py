@@ -13,11 +13,14 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from early_stop_policy import (  # noqa: E402
+    EARLY_STOP_STRATEGY_HEURISTIC,
+    EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN,
     build_attempt_verifier_summary,
     TaskStaticInfo,
     decide_inter_attempt_stop,
     load_historical_tasks,
     recommend_intra_attempt_mode,
+    validate_paper_dynamic_turn_config,
 )
 from run_skillsbench_with_early_stop import (  # noqa: E402
     _iso_to_ts,
@@ -68,6 +71,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-minutes-without-verifier", type=float, default=15.0)
     parser.add_argument("--recent-window", type=int, default=8)
     parser.add_argument("--recent-plan-ratio", type=float, default=0.75)
+    parser.add_argument(
+        "--early-stop-strategy",
+        choices=(EARLY_STOP_STRATEGY_HEURISTIC, EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN),
+        default=EARLY_STOP_STRATEGY_HEURISTIC,
+    )
+    parser.add_argument("--paper-initial-turn-limit", type=int, default=14)
+    parser.add_argument("--paper-extension-turn-limit", type=int, default=14)
     return parser.parse_args()
 
 
@@ -107,10 +117,13 @@ def execution_was_intra_attempt_early_stopped(execution: dict[str, Any]) -> bool
 
 def _build_replay_policy_args(args: argparse.Namespace) -> SimpleNamespace:
     return SimpleNamespace(
+        early_stop_strategy=args.early_stop_strategy,
         max_agent_steps=args.max_agent_steps,
         max_minutes_without_verifier=args.max_minutes_without_verifier,
         recent_window=args.recent_window,
         recent_plan_ratio=args.recent_plan_ratio,
+        paper_initial_turn_limit=args.paper_initial_turn_limit,
+        paper_extension_turn_limit=args.paper_extension_turn_limit,
     )
 
 
@@ -183,6 +196,11 @@ def replay_intra_attempt_stop(
         "historical_tasks": historical_tasks,
         "recommendation": recommendation,
         "policy": recommendation["policy"],
+        "strategy": args.early_stop_strategy,
+        "paper_config": validate_paper_dynamic_turn_config(
+            args.paper_initial_turn_limit,
+            args.paper_extension_turn_limit,
+        ),
     }
     replay_args = _build_replay_policy_args(args)
     total_agent_steps = sum(1 for step in steps if step.get("source") == "agent")
@@ -197,6 +215,7 @@ def replay_intra_attempt_stop(
             intra_context,
             current_ts=current_ts,
             verifier_started=False,
+            patch_detected=None if args.early_stop_strategy == EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN else False,
         )
         if should_stop:
             triggered_after_agent_steps = sum(1 for item in steps[:end_idx] if item.get("source") == "agent")
@@ -279,6 +298,11 @@ def replay_local_trial(
         "historical_tasks": historical_tasks,
         "recommendation": recommendation,
         "policy": recommendation["policy"],
+        "strategy": args.early_stop_strategy,
+        "paper_config": validate_paper_dynamic_turn_config(
+            args.paper_initial_turn_limit,
+            args.paper_extension_turn_limit,
+        ),
     }
     replay_args = _build_replay_policy_args(args)
     stop_reason = None
@@ -295,6 +319,7 @@ def replay_local_trial(
             intra_context,
             current_ts=current_ts,
             verifier_started=False,
+            patch_detected=None if args.early_stop_strategy == EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN else False,
         )
         if should_stop:
             stop_reason = reason

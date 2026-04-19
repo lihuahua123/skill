@@ -15,12 +15,17 @@ from pathlib import Path
 from typing import Any
 
 from early_stop_policy import (
+    EARLY_STOP_STRATEGY_HEURISTIC,
+    EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN,
+    PaperDynamicTurnConfig,
     TASK_POLICY_AGGRESSIVE,
     TASK_POLICY_CONSERVATIVE,
     TASK_POLICY_DRIFT_ONLY,
     TaskStaticInfo,
+    decide_paper_dynamic_turn,
     load_historical_tasks,
     recommend_intra_attempt_mode,
+    validate_paper_dynamic_turn_config,
 )
 
 
@@ -40,10 +45,25 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--job-name", required=True)
     parser.add_argument("--task-name", required=True, help="Single SkillsBench task name")
     parser.add_argument("--poll-seconds", type=float, default=10.0)
+    parser.add_argument(
+        "--early-stop-strategy",
+        choices=(EARLY_STOP_STRATEGY_HEURISTIC, EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN),
+        default=EARLY_STOP_STRATEGY_HEURISTIC,
+    )
     parser.add_argument("--max-agent-steps", type=int, default=int(os.environ.get("SKILLSBENCH_EARLY_STOP_MAX_AGENT_STEPS", "28")))
     parser.add_argument("--max-minutes-without-verifier", type=float, default=float(os.environ.get("SKILLSBENCH_EARLY_STOP_MAX_MINUTES_WITHOUT_VERIFIER", "15")))
     parser.add_argument("--recent-window", type=int, default=int(os.environ.get("SKILLSBENCH_EARLY_STOP_RECENT_WINDOW", "8")))
     parser.add_argument("--recent-plan-ratio", type=float, default=float(os.environ.get("SKILLSBENCH_EARLY_STOP_RECENT_PLAN_RATIO", "0.75")))
+    parser.add_argument(
+        "--paper-initial-turn-limit",
+        type=int,
+        default=int(os.environ.get("SKILLSBENCH_PAPER_DYNAMIC_TURN_INITIAL", "14")),
+    )
+    parser.add_argument(
+        "--paper-extension-turn-limit",
+        type=int,
+        default=int(os.environ.get("SKILLSBENCH_PAPER_DYNAMIC_TURN_EXTENSION", "14")),
+    )
     parser.add_argument("--grace-seconds", type=float, default=20.0)
     parser.add_argument(
         "--historical-tasks-path",
@@ -122,6 +142,114 @@ def _verifier_started(trial_dir: Path) -> bool:
     return False
 
 
+def _load_trial_config(trial_dir: Path) -> dict[str, Any]:
+    payload = _read_json(trial_dir / "config.json")
+    return payload if isinstance(payload, dict) else {}
+
+
+def _task_environment_dir_from_trial(trial_dir: Path) -> Path | None:
+    config = _load_trial_config(trial_dir)
+    task_cfg = config.get("task")
+    if not isinstance(task_cfg, dict):
+        return None
+    task_path = task_cfg.get("path")
+    if not task_path:
+        return None
+    return Path(str(task_path)) / "environment"
+
+
+def _compose_project_name(trial_dir: Path) -> str:
+    return trial_dir.name.lower()
+
+
+def _infer_repo_candidates_from_dockerfile(task_env_dir: Path | None) -> list[str]:
+    if task_env_dir is None:
+        return ["/app", "/app/workspace", "/workspace", "/root", "/root/workspace", "/home/travis", "/home/github/build"]
+    dockerfile = task_env_dir / "Dockerfile"
+    if not dockerfile.exists():
+        return ["/app", "/app/workspace", "/workspace", "/root", "/root/workspace", "/home/travis", "/home/github/build"]
+
+    candidates: list[str] = []
+    for raw_line in dockerfile.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if not line.upper().startswith("WORKDIR "):
+            continue
+        value = line.split(None, 1)[1].strip()
+        if value and "$" not in value and value not in candidates:
+            candidates.append(value)
+
+    defaults = ["/app", "/app/workspace", "/workspace", "/root", "/root/workspace", "/home/travis", "/home/github/build"]
+    for value in defaults:
+        if value not in candidates:
+            candidates.append(value)
+    return candidates
+
+
+def _build_patch_probe_script(repo_candidates: list[str]) -> str:
+    quoted = " ".join(json.dumps(path) for path in repo_candidates)
+    return f"""
+set -eu
+for repo in {quoted}; do
+  if [ ! -d "$repo/.git" ]; then
+    continue
+  fi
+  if ! git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    continue
+  fi
+  if [ -n "$(git -C "$repo" status --porcelain --untracked-files=all -- . ':(exclude).codex/**' ':(exclude).claude/**' ':(exclude).cache/**' ':(exclude).config/**' ':(exclude).local/**' ':(exclude).npm/**' ':(exclude).cargo/**' ':(exclude).rustup/**' ':(exclude).bash_history' ':(exclude).zsh_history')" ]; then
+    echo "$repo"
+    exit 0
+  fi
+done
+exit 1
+""".strip()
+
+
+def _workspace_has_non_empty_patch(trial_dir: Path) -> bool | None:
+    task_env_dir = _task_environment_dir_from_trial(trial_dir)
+    if task_env_dir is None:
+        return None
+
+    repo_candidates = _infer_repo_candidates_from_dockerfile(task_env_dir)
+    if not repo_candidates:
+        return None
+
+    project_name = _compose_project_name(trial_dir)
+    ps_cmd = [
+        "docker",
+        "ps",
+        "--filter",
+        f"label=com.docker.compose.project={project_name}",
+        "--filter",
+        "label=com.docker.compose.service=main",
+        "--format",
+        "{{.ID}}",
+    ]
+    ps_proc = subprocess.run(ps_cmd, capture_output=True, text=True, check=False)
+    if ps_proc.returncode != 0:
+        return None
+    container_id = (ps_proc.stdout or "").strip().splitlines()
+    if not container_id:
+        return None
+
+    exec_cmd = [
+        "docker",
+        "exec",
+        container_id[0],
+        "bash",
+        "-lc",
+        _build_patch_probe_script(repo_candidates),
+    ]
+    exec_proc = subprocess.run(exec_cmd, capture_output=True, text=True, check=False)
+    if exec_proc.returncode == 0:
+        return bool((exec_proc.stdout or "").strip())
+    if exec_proc.returncode == 1:
+        return False
+    return None
+
+
 def _load_intra_attempt_context(args: argparse.Namespace) -> dict[str, Any]:
     historical_tasks: list[dict[str, Any]] = []
     if args.historical_tasks_path.exists():
@@ -132,11 +260,17 @@ def _load_intra_attempt_context(args: argparse.Namespace) -> dict[str, Any]:
 
     task_info = TaskStaticInfo(task_id=args.task_name)
     recommendation = recommend_intra_attempt_mode(task_info, historical_tasks, top_k=5)
+    paper_config = validate_paper_dynamic_turn_config(
+        args.paper_initial_turn_limit,
+        args.paper_extension_turn_limit,
+    )
     return {
         "task_info": task_info,
         "historical_tasks": historical_tasks,
         "recommendation": recommendation,
         "policy": recommendation["policy"],
+        "strategy": args.early_stop_strategy,
+        "paper_config": paper_config,
     }
 
 
@@ -147,6 +281,7 @@ def should_early_stop_for_steps(
     *,
     current_ts: float | None = None,
     verifier_started: bool = False,
+    patch_detected: bool | None = False,
 ) -> tuple[bool, str | None]:
     if verifier_started:
         return False, None
@@ -154,6 +289,23 @@ def should_early_stop_for_steps(
         return False, None
 
     agent_steps = [s for s in steps if s.get("source") == "agent"]
+    strategy = intra_context.get("strategy", EARLY_STOP_STRATEGY_HEURISTIC)
+
+    if strategy == EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN:
+        paper_config = intra_context.get("paper_config")
+        if not isinstance(paper_config, PaperDynamicTurnConfig):
+            raise ValueError("paper dynamic-turn strategy requires PaperDynamicTurnConfig")
+        if patch_detected is None:
+            return False, None
+        decision = decide_paper_dynamic_turn(
+            len(agent_steps),
+            patch_detected=bool(patch_detected),
+            config=paper_config,
+        )
+        if decision.should_stop:
+            return True, decision.reason
+        return False, None
+
     if len(agent_steps) < max(4, min(args.max_agent_steps, args.recent_window)):
         return False, None
 
@@ -277,6 +429,9 @@ def _should_early_stop(
     steps = _load_steps(trial_dir)
     if not steps:
         return False, None
+    patch_detected: bool | None = False
+    if intra_context.get("strategy") == EARLY_STOP_STRATEGY_PAPER_DYNAMIC_TURN:
+        patch_detected = _workspace_has_non_empty_patch(trial_dir)
     last_agent_ts = None
     for step in reversed(steps):
         if step.get("source") == "agent":
@@ -290,6 +445,7 @@ def _should_early_stop(
         intra_context,
         current_ts=last_agent_ts,
         verifier_started=False,
+        patch_detected=patch_detected,
     )
 
 
@@ -315,8 +471,8 @@ def main() -> int:
     args = parse_args()
     intra_context = _load_intra_attempt_context(args)
     print(
-        f"[early-stop-policy] task={args.task_name} policy={intra_context['policy']} "
-        f"guidance={intra_context['recommendation'].get('guidance','')}",
+        f"[early-stop-policy] task={args.task_name} strategy={args.early_stop_strategy} "
+        f"policy={intra_context['policy']} guidance={intra_context['recommendation'].get('guidance','')}",
         file=sys.stderr,
         flush=True,
     )

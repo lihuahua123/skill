@@ -34,6 +34,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sandbox", default="docker")
     parser.add_argument("--mode", default="with-skills")
     parser.add_argument("--early-stop-intra-attempt", action="store_true")
+    parser.add_argument("--early-stop-strategy", default="heuristic")
     parser.add_argument("--output", required=True, type=Path)
     return parser.parse_args()
 
@@ -942,6 +943,7 @@ def main() -> None:
         "stop_rule": args.stop_rule,
         "stop_threshold": args.stop_threshold,
         "early_stop_intra_attempt": args.early_stop_intra_attempt,
+        "early_stop_strategy": args.early_stop_strategy,
     }
 
     tasks: list[dict[str, Any]] = []

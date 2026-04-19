@@ -302,9 +302,35 @@ run_benchmark() {
         :
       fi
 
+      local agent_kwargs=()
+      if extract_option_values --ak "$@" >/dev/null; then
+        mapfile -d '' -t agent_kwargs < <(extract_option_values --ak "$@")
+      elif extract_option_values --agent-kwarg "$@" >/dev/null; then
+        mapfile -d '' -t agent_kwargs < <(extract_option_values --agent-kwarg "$@")
+      else
+        agent_kwargs=()
+      fi
+
       local early_stop_intra_attempt=0
       if option_supplied --early-stop-intra-attempt "$@"; then
         early_stop_intra_attempt=1
+      fi
+
+      local early_stop_strategy=""
+      if early_stop_strategy="$(extract_option_value --early-stop-strategy "$@")"; then
+        :
+      else
+        early_stop_strategy="heuristic"
+      fi
+
+      local paper_initial_turn_limit=""
+      if paper_initial_turn_limit="$(extract_option_value --paper-initial-turn-limit "$@")"; then
+        :
+      fi
+
+      local paper_extension_turn_limit=""
+      if paper_extension_turn_limit="$(extract_option_value --paper-extension-turn-limit "$@")"; then
+        :
       fi
 
       local jobs_root
@@ -409,6 +435,10 @@ run_benchmark() {
       if option_supplied --no-delete "$@"; then
         cmd+=(--no-delete)
       fi
+      local agent_kwarg
+      for agent_kwarg in "${agent_kwargs[@]}"; do
+        cmd+=(--ak "${agent_kwarg}")
+      done
       local task_name
       for task_name in "${task_names[@]}"; do
         cmd+=(-i "${task_name}")
@@ -422,6 +452,9 @@ run_benchmark() {
             --jobs-root "${jobs_root}" \
             --job-name "${job_name}" \
             --task-name "${task_names[0]}" \
+            --early-stop-strategy "${early_stop_strategy}" \
+            ${paper_initial_turn_limit:+--paper-initial-turn-limit "${paper_initial_turn_limit}"} \
+            ${paper_extension_turn_limit:+--paper-extension-turn-limit "${paper_extension_turn_limit}"} \
             -- "${cmd[@]}"
         else
           if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
@@ -460,6 +493,7 @@ run_benchmark() {
       if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
         aggregate_cmd+=(--early-stop-intra-attempt)
       fi
+      aggregate_cmd+=(--early-stop-strategy "${early_stop_strategy}")
       aggregate_cmd+=(--output "${output_json}")
       "${aggregate_cmd[@]}"
       ;;
