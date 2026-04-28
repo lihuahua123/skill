@@ -849,6 +849,7 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
 **是否需要针对这 15 个任务生成具体的 Trace 证据对比表？**
 
 2026/4/16 我发现minimax模型并没有触发skill，可恶啊，先是数据丢失，之后发现是docker环境问题，最后又发现根本没有skill的事情，那我用这个数据集干嘛，当然可以在prompt强制要求它输出skill或者输出no skill load 改 terminus 提示词/协议，让第一轮必须先返回 load_skill 或明确声明 no_matching_skill
+2026/4/19 所有skillsbench任务都没有触发skill，我已经加上必须先返回 load_skill 或明确声明 no_matching_skill 但是还是没有调用，因为skill的dir好像没传进去。已经加上more with less的baseline了
 
 要先执行
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -922,3 +923,26 @@ bash skill/scripts/stop_skillsbench_jobs.sh
     sales-pivot-analysis, suricata-custom-exfil, syzkaller-ppdev-syzlang
   - 运行中断 / 取消
     glm-lake-mendota, mario-coin-counting
+
+@/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-54-58 
+这是没有加载skill的
+
+@/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-14-33 
+这个是我让他主动加载skill的 虽然最后score都一样，但是token减少了 --skillsbench-skill-guidance=true
+
+
+ - adaptive-cruise-control__vP4hVEV：第 3 轮成功
+  - data-to-d3__sq6BG4U：第 3 轮成功
+  - threejs-structure-parser__bPepivj：第 4 轮成功
+  - enterprise-information-search__szAiLSe：第 4 轮成功
+  - video-tutorial-indexer__fdtaQec：第 5 轮成功
+  - latex-formula-extraction__hDoGomY：第 4 轮成功
+
+./scripts/experiments/rq1.sh anthropic/MiniMax-M2.5     --backend skillsbench     --skillsbench-task-path tasks/data-to-d3     --runs 1     --max-task-attempts 6     --max-parallel-tasks 1    
+   --force-build     --ak paper_dynamic_turn_enabled=true     --ak paper_dynamic_turn_
+initial_turn_limit=14     --ak paper_dynamic_turn_extension_turn_limit=14     --ak pap
+er_dynamic_turn_remind_every_turn=true --skillsbench-skill-guidance=true
+/home/nudt/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-16-05.json
+
+./scripts/experiments/rq1.sh anthropic/MiniMax-M2.5     --backend skillsbench     --skillsbench-task-path tasks/data-to-d3     --runs 1     --max-task-attempts 6     --max-parallel-tasks 1  --force-build   --skillsbench-skill-guidance=true
+Wrote aggregated SkillsBench result: /home/nudt/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-17-36.json

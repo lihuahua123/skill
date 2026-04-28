@@ -1,0 +1,224 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-04-19__17-36-08",
+  "timestamp": "2026-04-19T09:40:33.209287+00:00",
+  "suite": "dialogue-parser",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "dialogue-parser",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 236.926412,
+      "transcript_length": 31,
+      "llm_rounds": 27,
+      "usage": {
+        "total_tokens": 365395,
+        "prompt_tokens": 353850,
+        "completion_tokens": 11545,
+        "input_tokens": 353850,
+        "output_tokens": 11545,
+        "cache_tokens": 330496,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        31
+      ],
+      "prompt_tokens_by_attempt": [
+        353850
+      ],
+      "completion_tokens_by_attempt": [
+        11545
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T09:36:24.913587Z",
+          "finished_at": "2026-04-19T09:40:21.839999Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ddcb661c-2a07-4986-b7ec-c13c5ce72308",
+          "execution": {
+            "llm_rounds": 27,
+            "usage": {
+              "total_tokens": 365395,
+              "prompt_tokens": 353850,
+              "completion_tokens": 11545,
+              "input_tokens": 353850,
+              "output_tokens": 11545,
+              "cache_tokens": 330496,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 236.926412,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08/dialogue-parser__MSAUGHW/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]\nPASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]",
+            "feedback": [
+              "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]",
+              "PASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08/dialogue-parser__MSAUGHW/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08/dialogue-parser__MSAUGHW/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08/dialogue-parser__MSAUGHW/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08/dialogue-parser__MSAUGHW/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T09:40:21.839999Z",
+            "finished_at": "2026-04-19T09:40:21.839999Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 31,
+          "transcript_length_delta": 31,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-36-08",
+      "source_trial": "dialogue-parser__MSAUGHW"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 365395,
+    "total_input_tokens": 353850,
+    "total_output_tokens": 11545,
+    "total_cache_tokens": 330496,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 236.926412,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 365395.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00273676,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00273676,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "dialogue-parser",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 365395,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-04-19__17-36-08",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

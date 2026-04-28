@@ -1,0 +1,667 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
+  "timestamp": "2026-04-19T18:21:56.343882+00:00",
+  "suite": "adaptive-cruise-control",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "adaptive-cruise-control",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 10807.735561,
+      "transcript_length": 97,
+      "llm_rounds": 630,
+      "usage": {
+        "total_tokens": 20643762,
+        "prompt_tokens": 20410019,
+        "completion_tokens": 233743,
+        "input_tokens": 20410019,
+        "output_tokens": 233743,
+        "cache_tokens": 19619088,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        97
+      ],
+      "prompt_tokens_by_attempt": [
+        2777729,
+        2266110,
+        2468673,
+        2555803,
+        5903820,
+        4437884
+      ],
+      "completion_tokens_by_attempt": [
+        35939,
+        28527,
+        37467,
+        34375,
+        47051,
+        50384
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        822,
+        802,
+        835,
+        837,
+        766
+      ],
+      "stop_reason": "attempt_budget_exhausted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T15:21:37.158066Z",
+          "finished_at": "2026-04-19T15:51:38.506558Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 92,
+            "usage": {
+              "total_tokens": 2813668,
+              "prompt_tokens": 2777729,
+              "completion_tokens": 35939,
+              "input_tokens": 2777729,
+              "output_tokens": 35939,
+              "cache_tokens": 2725552,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.348492,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 1.4007170771319686 m/s\nDistance steady-state error: 3.585550000000005 m\n../tests/test_outputs.py::TestACCSystem::test_acc_system FAILED          [ 25%]\n../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+            "feedback": [
+              "Speed steady-state error: 1.4007170771319686 m/s",
+              "Distance steady-state error: 3.585550000000005 m",
+              "../tests/test_outputs.py::TestACCSystem::test_acc_system FAILED          [ 25%]",
+              "../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+              "../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+              "../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]",
+              "assert hasattr(module, 'AdaptiveCruiseControl')",
+              "assert isinstance(result, tuple)"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T15:51:38.506558Z",
+            "finished_at": "2026-04-19T15:51:38.506558Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T15:51:38.506686Z",
+          "finished_at": "2026-04-19T16:21:39.830651Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Speed steady-state error: 1.4007170771319686 m/s\n- Distance steady-state error: 3.585550000000005 m\n- ../tests/test_outputs.py::TestACCSystem::test_acc_system FAILED          [ 25%]\n- ../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n- ../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n- ../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n- ../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]\n- ../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\n- assert hasattr(module, 'AdaptiveCruiseControl')\n- assert isinstance(result, tuple)",
+          "feedback_prompt_stats": {
+            "chars": 822,
+            "tokens_estimate": 205
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 120,
+            "usage": {
+              "total_tokens": 2294637,
+              "prompt_tokens": 2266110,
+              "completion_tokens": 28527,
+              "input_tokens": 2266110,
+              "output_tokens": 28527,
+              "cache_tokens": 2230848,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.323965,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 1.1661358510204494 m/s\nDistance steady-state error: 5.52340425531915 m\n../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+            "feedback": [
+              "Speed steady-state error: 1.1661358510204494 m/s",
+              "Distance steady-state error: 5.52340425531915 m",
+              "../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+              "../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]",
+              "\"\"\"Speed control: rise time, overshoot, and steady-state error.\"\"\"",
+              "assert len(t10_series) > 0 and len(t90_series) > 0, \"Speed thresholds not reached\"",
+              "assert t90 - t10 < 10.0",
+              ">       assert cruise['ego_speed'].max() < 31.5"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:21:39.830651Z",
+            "finished_at": "2026-04-19T16:21:39.830651Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:21:39.830728Z",
+          "finished_at": "2026-04-19T16:51:41.086873Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Speed steady-state error: 1.1661358510204494 m/s\n- Distance steady-state error: 5.52340425531915 m\n- ../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n- ../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n- ../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n- ../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\n- \"\"\"Speed control: rise time, overshoot, and steady-state error.\"\"\"\n- assert len(t10_series) > 0 and len(t90_series) > 0, \"Speed thresholds not reached\"\n- assert t90 - t10 < 10.0\n- >       assert cruise['ego_speed'].max() < 31.5",
+          "feedback_prompt_stats": {
+            "chars": 802,
+            "tokens_estimate": 200
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 91,
+            "usage": {
+              "total_tokens": 2506140,
+              "prompt_tokens": 2468673,
+              "completion_tokens": 37467,
+              "input_tokens": 2468673,
+              "output_tokens": 37467,
+              "cache_tokens": 2416512,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.256145,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 2.8287214686866307 m/s\nDistance steady-state error: 3.585550000000005 m\n../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+            "feedback": [
+              "Speed steady-state error: 2.8287214686866307 m/s",
+              "Distance steady-state error: 3.585550000000005 m",
+              "../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+              "../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+              "../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]",
+              "\"\"\"Speed control: rise time, overshoot, and steady-state error.\"\"\"",
+              "assert len(t10_series) > 0 and len(t90_series) > 0, \"Speed thresholds not reached\"",
+              "assert t90 - t10 < 10.0"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:51:41.086873Z",
+            "finished_at": "2026-04-19T16:51:41.086873Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:51:41.086966Z",
+          "finished_at": "2026-04-19T17:21:42.366884Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Speed steady-state error: 2.8287214686866307 m/s\n- Distance steady-state error: 3.585550000000005 m\n- ../tests/test_outputs.py::TestSpeedControl::test_speed_control FAILED    [ 58%]\n- ../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n- ../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n- ../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]\n- ../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\n- \"\"\"Speed control: rise time, overshoot, and steady-state error.\"\"\"\n- assert len(t10_series) > 0 and len(t90_series) > 0, \"Speed thresholds not reached\"\n- assert t90 - t10 < 10.0",
+          "feedback_prompt_stats": {
+            "chars": 835,
+            "tokens_estimate": 208
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 88,
+            "usage": {
+              "total_tokens": 2590178,
+              "prompt_tokens": 2555803,
+              "completion_tokens": 34375,
+              "input_tokens": 2555803,
+              "output_tokens": 34375,
+              "cache_tokens": 2369365,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.279918,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 0.007458526825200096 m/s\nDistance steady-state error: 4.602369765066392 m\n../tests/test_outputs.py::TestTuningResults::test_tuning_results FAILED  [ 33%]\n../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+            "feedback": [
+              "Speed steady-state error: 0.007458526825200096 m/s",
+              "Distance steady-state error: 4.602369765066392 m",
+              "../tests/test_outputs.py::TestTuningResults::test_tuning_results FAILED  [ 33%]",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+              "../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]",
+              "assert set(data.keys()) == {'pid_speed', 'pid_distance'}",
+              "assert set(data[ctrl].keys()) == {'kp', 'ki', 'kd'}",
+              "assert isinstance(data[ctrl][gain], (int, float)), f\"{ctrl}.{gain} must be numeric\"",
+              "assert speed_changed, \"Speed gains must differ from initial\""
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:21:42.366884Z",
+            "finished_at": "2026-04-19T17:21:42.366884Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T17:21:42.366958Z",
+          "finished_at": "2026-04-19T17:51:43.658625Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Speed steady-state error: 0.007458526825200096 m/s\n- Distance steady-state error: 4.602369765066392 m\n- ../tests/test_outputs.py::TestTuningResults::test_tuning_results FAILED  [ 33%]\n- ../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n- ../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n- ../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\n- assert set(data.keys()) == {'pid_speed', 'pid_distance'}\n- assert set(data[ctrl].keys()) == {'kp', 'ki', 'kd'}\n- assert isinstance(data[ctrl][gain], (int, float)), f\"{ctrl}.{gain} must be numeric\"\n- assert speed_changed, \"Speed gains must differ from initial\"",
+          "feedback_prompt_stats": {
+            "chars": 837,
+            "tokens_estimate": 209
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 142,
+            "usage": {
+              "total_tokens": 5950871,
+              "prompt_tokens": 5903820,
+              "completion_tokens": 47051,
+              "input_tokens": 5903820,
+              "output_tokens": 47051,
+              "cache_tokens": 5531611,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.291667,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 0.016829652271113105 m/s\nDistance steady-state error: 1.0148292803335472 m\n../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\nmin_d = pd.to_numeric(dist['distance'], errors='coerce').min()",
+            "feedback": [
+              "Speed steady-state error: 0.016829652271113105 m/s",
+              "Distance steady-state error: 1.0148292803335472 m",
+              "../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]",
+              "min_d = pd.to_numeric(dist['distance'], errors='coerce').min()",
+              ">           assert min_d >= 5.0",
+              "E           assert 1.95 >= 5.0",
+              "/tests/test_outputs.py:259: AssertionError",
+              "assert cruise_when_no_lead > 0.95, \"Mode should be 'cruise' when no lead vehicle\"",
+              "assert not_cruise_when_lead > 0.9, \"Mode should be 'follow' or 'emergency' when lead present\""
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:51:43.658625Z",
+            "finished_at": "2026-04-19T17:51:43.658625Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T17:51:43.658712Z",
+          "finished_at": "2026-04-19T18:21:44.894086Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- Speed steady-state error: 0.016829652271113105 m/s\n- Distance steady-state error: 1.0148292803335472 m\n- ../tests/test_outputs.py::TestSafety::test_safety FAILED                 [ 75%]\n- ../tests/test_outputs.py::TestAntiCheat::test_anti_cheat FAILED          [100%]\n- min_d = pd.to_numeric(dist['distance'], errors='coerce').min()\n- >           assert min_d >= 5.0\n- E           assert 1.95 >= 5.0\n- /tests/test_outputs.py:259: AssertionError\n- assert cruise_when_no_lead > 0.95, \"Mode should be 'cruise' when no lead vehicle\"\n- assert not_cruise_when_lead > 0.9, \"Mode should be 'follow' or 'emergency' when lead present\"",
+          "feedback_prompt_stats": {
+            "chars": 766,
+            "tokens_estimate": 191
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "60bd61af-1552-43c1-abc2-7681e899e35d",
+          "execution": {
+            "llm_rounds": 97,
+            "usage": {
+              "total_tokens": 4488268,
+              "prompt_tokens": 4437884,
+              "completion_tokens": 50384,
+              "input_tokens": 4437884,
+              "output_tokens": 50384,
+              "cache_tokens": 4345200,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1801.235374,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Speed steady-state error: 0.4881739428736296 m/s\nDistance steady-state error: 0 m\n../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]\n../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]\n\"\"\"Distance control: steady-state error and minimum distance constraints.\"\"\"",
+            "feedback": [
+              "Speed steady-state error: 0.4881739428736296 m/s",
+              "Distance steady-state error: 0 m",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control FAILED [ 66%]",
+              "../tests/test_outputs.py::TestScenario::test_scenario FAILED             [ 83%]",
+              "\"\"\"Distance control: steady-state error and minimum distance constraints.\"\"\"",
+              "# Steady-state error < 2m from safe distance (at t=50-60s)",
+              "follow = follow[follow['distance_error'].notna() & (follow['distance_error'] != '')]",
+              "errors = pd.to_numeric(follow['distance_error'], errors='coerce').abs()",
+              "assert errors.mean() < 2.0",
+              "distances = pd.to_numeric(follow['distance'], errors='coerce')"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T18:21:44.894086Z",
+            "finished_at": "2026-04-19T18:21:44.894086Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 97,
+          "transcript_length_delta": 97,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
+      "source_trial": "adaptive-cruise-control__yn9jXip"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 20643762,
+    "total_input_tokens": 20410019,
+    "total_output_tokens": 233743,
+    "total_cache_tokens": 19619088,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 10807.735561,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 20643762.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "adaptive-cruise-control",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 20643762,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

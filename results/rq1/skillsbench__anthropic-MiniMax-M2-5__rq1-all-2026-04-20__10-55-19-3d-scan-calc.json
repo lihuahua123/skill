@@ -1,0 +1,310 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-20__10-55-19-3d-scan-calc",
+  "timestamp": "2026-04-20T03:05:35.662405+00:00",
+  "suite": "3d-scan-calc",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "3d-scan-calc",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 551.485159,
+      "transcript_length": 14,
+      "llm_rounds": 21,
+      "usage": {
+        "total_tokens": 125685,
+        "prompt_tokens": 115821,
+        "completion_tokens": 9864,
+        "input_tokens": 115821,
+        "output_tokens": 9864,
+        "cache_tokens": 86997,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 2
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 2,
+      "first_success_attempt": 2,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        1,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        14
+      ],
+      "prompt_tokens_by_attempt": [
+        32131,
+        83690
+      ],
+      "completion_tokens_by_attempt": [
+        4449,
+        5415
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        253
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-20T02:56:12.851952Z",
+          "finished_at": "2026-04-20T03:02:31.441741Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "59164421-5a37-4611-a324-7d22ba4adaeb",
+          "execution": {
+            "llm_rounds": 8,
+            "usage": {
+              "total_tokens": 36580,
+              "prompt_tokens": 32131,
+              "completion_tokens": 4449,
+              "input_tokens": 32131,
+              "output_tokens": 4449,
+              "cache_tokens": 18788,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 378.589789,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestOutputs::test_values_correct: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-20T03:02:31.441741Z",
+            "finished_at": "2026-04-20T03:02:31.441741Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-20T03:02:31.441832Z",
+          "finished_at": "2026-04-20T03:05:24.337202Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestOutputs::test_values_correct: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 253,
+            "tokens_estimate": 63
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "59164421-5a37-4611-a324-7d22ba4adaeb",
+          "execution": {
+            "llm_rounds": 13,
+            "usage": {
+              "total_tokens": 89105,
+              "prompt_tokens": 83690,
+              "completion_tokens": 5415,
+              "input_tokens": 83690,
+              "output_tokens": 5415,
+              "cache_tokens": 68209,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 172.89537,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "WARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv",
+            "feedback": [
+              "rootdir: /",
+              "plugins: json-ctrf-0.3.5",
+              "collecting ... collected 2 items",
+              "../tests/test_outputs.py::TestOutputs::test_file_exists PASSED           [ 50%]",
+              "../tests/test_outputs.py::TestOutputs::test_values_correct PASSED        [100%]",
+              "==================================== PASSES ====================================",
+              "=========================== short test summary info ============================",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_file_exists",
+              "PASSED ../tests/test_outputs.py::TestOutputs::test_values_correct",
+              "============================== 2 passed in 0.01s ==============================="
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc/3d-scan-calc__giuXC6W/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-20T03:05:24.337202Z",
+            "finished_at": "2026-04-20T03:05:24.337202Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 14,
+          "transcript_length_delta": 14,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc",
+      "source_trial": "3d-scan-calc__giuXC6W"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 125685,
+    "total_input_tokens": 115821,
+    "total_output_tokens": 9864,
+    "total_cache_tokens": 86997,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 2,
+    "total_execution_time_seconds": 551.485159,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 125685.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0079564,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.0079564,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "3d-scan-calc",
+        "success": true,
+        "first_success_attempt": 2,
+        "attempt_count": 2,
+        "total_tokens": 125685,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 2.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-20__10-55-19-3d-scan-calc",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

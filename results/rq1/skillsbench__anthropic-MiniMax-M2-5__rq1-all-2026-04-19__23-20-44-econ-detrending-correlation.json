@@ -1,0 +1,223 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
+  "timestamp": "2026-04-19T18:35:24.416997+00:00",
+  "suite": "econ-detrending-correlation",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "econ-detrending-correlation",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 116.416437,
+      "transcript_length": 15,
+      "llm_rounds": 14,
+      "usage": {
+        "total_tokens": 92901,
+        "prompt_tokens": 86789,
+        "completion_tokens": 6112,
+        "input_tokens": 86789,
+        "output_tokens": 6112,
+        "cache_tokens": 59312,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        15
+      ],
+      "prompt_tokens_by_attempt": [
+        86789
+      ],
+      "completion_tokens_by_attempt": [
+        6112
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T18:33:16.760117Z",
+          "finished_at": "2026-04-19T18:35:13.176554Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "bff444b4-d469-4487-a1d7-308de153f020",
+          "execution": {
+            "llm_rounds": 14,
+            "usage": {
+              "total_tokens": 92901,
+              "prompt_tokens": 86789,
+              "completion_tokens": 6112,
+              "input_tokens": 86789,
+              "output_tokens": 6112,
+              "cache_tokens": 59312,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 116.416437,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "downloading uv 0.9.7 x86_64-unknown-linux-gnu\nDownloading pygments (1.2MiB)\nDownloading pygments\nInstalled 11 packages in 29ms",
+            "feedback": [
+              "Expected: 0.68885"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T18:35:13.176554Z",
+            "finished_at": "2026-04-19T18:35:13.176554Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 15,
+          "transcript_length_delta": 15,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
+      "source_trial": "econ-detrending-correlation__StJEWxC"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 92901,
+    "total_input_tokens": 86789,
+    "total_output_tokens": 6112,
+    "total_cache_tokens": 59312,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 116.416437,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 92901.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.01076415,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.01076415,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "econ-detrending-correlation",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 92901,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

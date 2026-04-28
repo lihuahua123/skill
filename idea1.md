@@ -285,4 +285,5 @@
 
 ./scripts/experiments/rq1.sh anthropic/MiniMax-M2.5     --backend skillsbench     --skillsbench-task-path tasks/data-to-d3     --runs 1     --max-task-attempts 1     --max-parallel-tasks 1     --job-name data-to-d3-minimax-paper-dynamic-turn     --force-build     --ak paper_dynamic_turn_enabled=true     --ak paper_dynamic_turn_initial_turn_limit=14     --ak paper_dynamic_turn_extension_turn_limit=14     --ak paper_dynamic_turn_remind_every_turn=true 没有调用skill
 
+查看是否用上skill
 python3 /home/nudt/lirui/skill_study/skillsbench/detect_skill_usage.py /home/nudt/lirui/skill_study/skillsbench/jobs/newjobs

@@ -1,0 +1,617 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-court-form-filling",
+  "timestamp": "2026-04-19T17:13:51.089038+00:00",
+  "suite": "court-form-filling",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "court-form-filling",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 5408.121255,
+      "transcript_length": 75,
+      "llm_rounds": 452,
+      "usage": {
+        "total_tokens": 8034121,
+        "prompt_tokens": 7928547,
+        "completion_tokens": 105574,
+        "input_tokens": 7928547,
+        "output_tokens": 105574,
+        "cache_tokens": 7414909,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        5,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        75
+      ],
+      "prompt_tokens_by_attempt": [
+        651156,
+        2206005,
+        1319724,
+        1474707,
+        464217,
+        1812738
+      ],
+      "completion_tokens_by_attempt": [
+        10099,
+        22228,
+        14210,
+        18986,
+        6999,
+        33052
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        1718,
+        268,
+        268,
+        268,
+        268
+      ],
+      "stop_reason": "attempt_budget_exhausted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T15:43:31.605509Z",
+          "finished_at": "2026-04-19T15:58:34.409633Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 38,
+            "usage": {
+              "total_tokens": 661255,
+              "prompt_tokens": 651156,
+              "completion_tokens": 10099,
+              "input_tokens": 651156,
+              "output_tokens": 10099,
+              "cache_tokens": 624560,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 902.804124,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestPDFValid::test_output_file_valid: @pytest.fixture(scope=\"module\")\n    def pdf_text():\n        \"\"\"Extract text content from the filled PDF using pdftotext.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           Faile\n...[truncated]",
+              "test_outputs.py::TestRequiredContent::test_content_present: @pytest.fixture(scope=\"module\")\n    def pdf_text():\n        \"\"\"Extract text content from the filled PDF using pdftotext.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE\n...[truncated]",
+              "test_outputs.py::TestCheckboxes::test_checkbox_value: @pytest.fixture(scope=\"module\")\n    def checkbox_data():\n        \"\"\"Extract checkbox values from the filled PDF.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           Failed: Output\n...[truncated]",
+              "test_outputs.py::TestUncheckedCheckboxes::test_checkbox_unchecked: @pytest.fixture(scope=\"module\")\n    def checkbox_data():\n        \"\"\"Extract checkbox values from the filled PDF.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           F\n...[truncated]",
+              "test_outputs.py::TestEmptyFields::test_field_empty: @pytest.fixture(scope=\"module\")\n    def pdf_field_values():\n        \"\"\"Extract all field values from the filled PDF using pypdf.\"\"\"\n        from pypdf import PdfReader\n    \n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file\n...[truncated]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T15:58:34.409633Z",
+            "finished_at": "2026-04-19T15:58:34.409633Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 5,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T15:58:34.409708Z",
+          "finished_at": "2026-04-19T16:13:35.575813Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestPDFValid::test_output_file_valid: @pytest.fixture(scope=\"module\")\n    def pdf_text():\n        \"\"\"Extract text content from the filled PDF using pdftotext.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           Faile\n...[truncated]\n- test_outputs.py::TestRequiredContent::test_content_present: @pytest.fixture(scope=\"module\")\n    def pdf_text():\n        \"\"\"Extract text content from the filled PDF using pdftotext.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE\n...[truncated]\n- test_outputs.py::TestCheckboxes::test_checkbox_value: @pytest.fixture(scope=\"module\")\n    def checkbox_data():\n        \"\"\"Extract checkbox values from the filled PDF.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           Failed: Output\n...[truncated]\n- test_outputs.py::TestUncheckedCheckboxes::test_checkbox_unchecked: @pytest.fixture(scope=\"module\")\n    def checkbox_data():\n        \"\"\"Extract checkbox values from the filled PDF.\"\"\"\n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file not found at {OUTPUT_FILE}\")\nE           F\n...[truncated]\n- test_outputs.py::TestEmptyFields::test_field_empty: @pytest.fixture(scope=\"module\")\n    def pdf_field_values():\n        \"\"\"Extract all field values from the filled PDF using pypdf.\"\"\"\n        from pypdf import PdfReader\n    \n        if not OUTPUT_FILE.exists():\n>           pytest.fail(f\"Output file\n...[truncated]",
+          "feedback_prompt_stats": {
+            "chars": 1718,
+            "tokens_estimate": 429
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 79,
+            "usage": {
+              "total_tokens": 2228233,
+              "prompt_tokens": 2206005,
+              "completion_tokens": 22228,
+              "input_tokens": 2206005,
+              "output_tokens": 22228,
+              "cache_tokens": 2044480,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.166105,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:13:35.575813Z",
+            "finished_at": "2026-04-19T16:13:35.575813Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:13:35.575889Z",
+          "finished_at": "2026-04-19T16:28:36.627506Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 268,
+            "tokens_estimate": 67
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 65,
+            "usage": {
+              "total_tokens": 1333934,
+              "prompt_tokens": 1319724,
+              "completion_tokens": 14210,
+              "input_tokens": 1319724,
+              "output_tokens": 14210,
+              "cache_tokens": 1240572,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.051617,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:28:36.627506Z",
+            "finished_at": "2026-04-19T16:28:36.627506Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:28:36.627570Z",
+          "finished_at": "2026-04-19T16:43:37.687477Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 268,
+            "tokens_estimate": 67
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 140,
+            "usage": {
+              "total_tokens": 1493693,
+              "prompt_tokens": 1474707,
+              "completion_tokens": 18986,
+              "input_tokens": 1474707,
+              "output_tokens": 18986,
+              "cache_tokens": 1369122,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.059907,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:43:37.687477Z",
+            "finished_at": "2026-04-19T16:43:37.687477Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:43:37.687585Z",
+          "finished_at": "2026-04-19T16:58:38.708288Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 268,
+            "tokens_estimate": 67
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 55,
+            "usage": {
+              "total_tokens": 471216,
+              "prompt_tokens": 464217,
+              "completion_tokens": 6999,
+              "input_tokens": 464217,
+              "output_tokens": 6999,
+              "cache_tokens": 450400,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.020703,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T16:58:38.708288Z",
+            "finished_at": "2026-04-19T16:58:38.708288Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T16:58:38.708379Z",
+          "finished_at": "2026-04-19T17:13:39.727178Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 268,
+            "tokens_estimate": 67
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "7e4e978d-d28e-465e-840a-5a5326c978bf",
+          "execution": {
+            "llm_rounds": 75,
+            "usage": {
+              "total_tokens": 1845790,
+              "prompt_tokens": 1812738,
+              "completion_tokens": 33052,
+              "input_tokens": 1812738,
+              "output_tokens": 33052,
+              "cache_tokens": 1685775,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 901.018799,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestRequiredContent::test_content_present: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling/court-form-filling__pi6KQcc/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:13:39.727178Z",
+            "finished_at": "2026-04-19T17:13:39.727178Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 75,
+          "transcript_length_delta": 75,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling",
+      "source_trial": "court-form-filling__pi6KQcc"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 8034121,
+    "total_input_tokens": 7928547,
+    "total_output_tokens": 105574,
+    "total_cache_tokens": 7414909,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 5408.121255,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 8034121.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "court-form-filling",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 8034121,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-court-form-filling",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

@@ -1,0 +1,317 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
+  "timestamp": "2026-04-19T17:34:47.903844+00:00",
+  "suite": "dapt-intrusion-detection",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "dapt-intrusion-detection",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 878.270459,
+      "transcript_length": 26,
+      "llm_rounds": 37,
+      "usage": {
+        "total_tokens": 629769,
+        "prompt_tokens": 602059,
+        "completion_tokens": 27710,
+        "input_tokens": 602059,
+        "output_tokens": 27710,
+        "cache_tokens": 528219,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 2
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 2,
+      "first_success_attempt": 2,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        8,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        26
+      ],
+      "prompt_tokens_by_attempt": [
+        83362,
+        518697
+      ],
+      "completion_tokens_by_attempt": [
+        7286,
+        20424
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        1100
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T17:19:58.293918Z",
+          "finished_at": "2026-04-19T17:24:29.667255Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "d0a5ce6e-01da-42f9-a7e4-3071d3a0e587",
+          "execution": {
+            "llm_rounds": 11,
+            "usage": {
+              "total_tokens": 90648,
+              "prompt_tokens": 83362,
+              "completion_tokens": 7286,
+              "input_tokens": 83362,
+              "output_tokens": 7286,
+              "cache_tokens": 60624,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 271.373337,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestTimeSeries::test_time_series_metric: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestSizeStats::test_size_metric: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestEntropyMetrics::test_entropy_metric: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestTemporalMetrics::test_temporal_metric: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestFlowMetrics::test_flow_metric: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestFlowMetrics::test_bidirectional_flows: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestAnalysisQuestions::test_is_traffic_benign: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestAnalysisQuestions::test_has_dos_pattern: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:24:29.667255Z",
+            "finished_at": "2026-04-19T17:24:29.667255Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 8,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T17:24:29.667336Z",
+          "finished_at": "2026-04-19T17:34:36.564458Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestTimeSeries::test_time_series_metric: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestSizeStats::test_size_metric: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestEntropyMetrics::test_entropy_metric: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestTemporalMetrics::test_temporal_metric: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestFlowMetrics::test_flow_metric: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestFlowMetrics::test_bidirectional_flows: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestAnalysisQuestions::test_is_traffic_benign: The test failed in the call phase due to an assertion error\n- test_outputs.py::TestAnalysisQuestions::test_has_dos_pattern: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 1100,
+            "tokens_estimate": 275
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "d0a5ce6e-01da-42f9-a7e4-3071d3a0e587",
+          "execution": {
+            "llm_rounds": 26,
+            "usage": {
+              "total_tokens": 539121,
+              "prompt_tokens": 518697,
+              "completion_tokens": 20424,
+              "input_tokens": 518697,
+              "output_tokens": 20424,
+              "cache_tokens": 467595,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 606.897122,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "downloading uv 0.9.7 x86_64-unknown-linux-gnu",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::TestFlowMetrics::test_flow_metric[unique_flows]",
+              "PASSED ../tests/test_outputs.py::TestFlowMetrics::test_flow_metric[tcp_flows]",
+              "PASSED ../tests/test_outputs.py::TestFlowMetrics::test_flow_metric[udp_flows]",
+              "PASSED ../tests/test_outputs.py::TestFlowMetrics::test_bidirectional_flows",
+              "PASSED ../tests/test_outputs.py::TestAnalysisQuestions::test_is_traffic_benign",
+              "PASSED ../tests/test_outputs.py::TestAnalysisQuestions::test_has_port_scan",
+              "PASSED ../tests/test_outputs.py::TestAnalysisQuestions::test_has_dos_pattern",
+              "PASSED ../tests/test_outputs.py::TestAnalysisQuestions::test_has_beaconing",
+              "============================== 37 passed in 0.03s ==============================",
+              "✅ All tests passed!"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:34:36.564458Z",
+            "finished_at": "2026-04-19T17:34:36.564458Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 26,
+          "transcript_length_delta": 26,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
+      "source_trial": "dapt-intrusion-detection__cmFzs3z"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 629769,
+    "total_input_tokens": 602059,
+    "total_output_tokens": 27710,
+    "total_cache_tokens": 528219,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 2,
+    "total_execution_time_seconds": 878.270459,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 629769.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00158788,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00158788,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "dapt-intrusion-detection",
+        "success": true,
+        "first_success_attempt": 2,
+        "attempt_count": 2,
+        "total_tokens": 629769,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 2.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

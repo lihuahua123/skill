@@ -1,0 +1,224 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-dialogue-parser",
+  "timestamp": "2026-04-19T17:52:47.840954+00:00",
+  "suite": "dialogue-parser",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "dialogue-parser",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 154.812502,
+      "transcript_length": 14,
+      "llm_rounds": 13,
+      "usage": {
+        "total_tokens": 102137,
+        "prompt_tokens": 97200,
+        "completion_tokens": 4937,
+        "input_tokens": 97200,
+        "output_tokens": 4937,
+        "cache_tokens": 84432,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        14
+      ],
+      "prompt_tokens_by_attempt": [
+        97200
+      ],
+      "completion_tokens_by_attempt": [
+        4937
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T17:50:01.733906Z",
+          "finished_at": "2026-04-19T17:52:36.546408Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "8552cde7-a3fa-4969-bce6-3b8726330494",
+          "execution": {
+            "llm_rounds": 13,
+            "usage": {
+              "total_tokens": 102137,
+              "prompt_tokens": 97200,
+              "completion_tokens": 4937,
+              "input_tokens": 97200,
+              "output_tokens": 4937,
+              "cache_tokens": 84432,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 154.812502,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser/dialogue-parser__vTHU7p6/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]\nPASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]",
+            "feedback": [
+              "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]",
+              "PASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser/dialogue-parser__vTHU7p6/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser/dialogue-parser__vTHU7p6/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser/dialogue-parser__vTHU7p6/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser/dialogue-parser__vTHU7p6/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T17:52:36.546408Z",
+            "finished_at": "2026-04-19T17:52:36.546408Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 14,
+          "transcript_length_delta": 14,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser",
+      "source_trial": "dialogue-parser__vTHU7p6"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 102137,
+    "total_input_tokens": 97200,
+    "total_output_tokens": 4937,
+    "total_cache_tokens": 84432,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 154.812502,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 102137.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00979077,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00979077,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "dialogue-parser",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 102137,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-dialogue-parser",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

@@ -20,6 +20,31 @@ else
 fi
 EXTRA_ARGS=("$@")
 
+SKILLSBENCH_SKILL_GUIDANCE="${RQ1_SKILLSBENCH_SKILL_GUIDANCE:-false}"
+FILTERED_EXTRA_ARGS=()
+idx=0
+while [[ ${idx} -lt ${#EXTRA_ARGS[@]} ]]; do
+  arg="${EXTRA_ARGS[${idx}]}"
+  case "${arg}" in
+    --skillsbench-skill-guidance)
+      idx=$((idx + 1))
+      if [[ ${idx} -ge ${#EXTRA_ARGS[@]} ]]; then
+        echo "Missing value for --skillsbench-skill-guidance" >&2
+        exit 2
+      fi
+      SKILLSBENCH_SKILL_GUIDANCE="${EXTRA_ARGS[${idx}]}"
+      ;;
+    --skillsbench-skill-guidance=*)
+      SKILLSBENCH_SKILL_GUIDANCE="${arg#--skillsbench-skill-guidance=}"
+      ;;
+    *)
+      FILTERED_EXTRA_ARGS+=("${arg}")
+      ;;
+  esac
+  idx=$((idx + 1))
+done
+EXTRA_ARGS=("${FILTERED_EXTRA_ARGS[@]}")
+
 resolve_model_id() {
   local arg
   for arg in "${MODEL_ARGS[@]}"; do
@@ -76,6 +101,7 @@ fi
 RESULTS_DIR="${RQ1_RESULTS_DIR:-results/rq1}"
 ANALYSIS_DIR="${RQ1_ANALYSIS_DIR:-analysis/rq1}"
 MAX_ATTEMPTS_VALUE="${RQ1_MAX_ATTEMPTS:-6}"
+NOISE_FILTER='Failed to fetch remote model cost map|Failed to retrieve model info for '\''anthropic/MiniMax-M2.7'\''|Provider List: https://docs.litellm.ai/docs/providers'
 
 SKILLSBENCH_EXCLUDED_TASKS=()
 
@@ -106,6 +132,24 @@ fi
 MODEL_ID="$(resolve_model_id)"
 configure_minimax_anthropic_env "${MODEL_ID}"
 
+SKILLSBENCH_AGENT_KWARGS=()
+if [[ "${BACKEND}" == "skillsbench" ]]; then
+  case "${SKILLSBENCH_SKILL_GUIDANCE,,}" in
+    1|true|yes|on)
+      SKILLSBENCH_AGENT_KWARGS=(--agent-kwarg "skill_guidance_enabled=true")
+      ;;
+    0|false|no|off|"")
+      SKILLSBENCH_AGENT_KWARGS=(--agent-kwarg "skill_guidance_enabled=false")
+      ;;
+    *)
+      echo "Unsupported value for --skillsbench-skill-guidance: ${SKILLSBENCH_SKILL_GUIDANCE}" >&2
+      echo "Supported values: true, false" >&2
+      exit 2
+      ;;
+  esac
+fi
+
+set +o pipefail
 run_benchmark "${RESULTS_DIR}" \
   "${MODEL_ARGS[@]}" \
   "${SUITE_ARGS[@]}" \
@@ -117,7 +161,14 @@ run_benchmark "${RESULTS_DIR}" \
   --feedback-answer-safety "no-answers" \
   --stop-rule "max-attempts-only" \
   "${SKILLSBENCH_TASK_ARGS[@]}" \
-  "${EXTRA_ARGS[@]}"
+  "${SKILLSBENCH_AGENT_KWARGS[@]}" \
+  "${EXTRA_ARGS[@]}" \
+  2>&1 | grep -vE "${NOISE_FILTER}"
+benchmark_status=${PIPESTATUS[0]}
+set -o pipefail
+if [[ ${benchmark_status} -ne 0 ]]; then
+  exit "${benchmark_status}"
+fi
 
 run_analysis "${RESULTS_DIR}" "${ANALYSIS_DIR}" "policy"
 # --model minimax-cn/MiniMax-M2.5 --suite task_06_events

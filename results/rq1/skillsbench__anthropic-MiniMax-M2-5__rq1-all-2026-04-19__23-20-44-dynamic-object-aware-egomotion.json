@@ -1,0 +1,310 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
+  "timestamp": "2026-04-19T18:15:42.779081+00:00",
+  "suite": "dynamic-object-aware-egomotion",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "dynamic-object-aware-egomotion",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 1231.427458,
+      "transcript_length": 34,
+      "llm_rounds": 49,
+      "usage": {
+        "total_tokens": 734188,
+        "prompt_tokens": 709588,
+        "completion_tokens": 24600,
+        "input_tokens": 709588,
+        "output_tokens": 24600,
+        "cache_tokens": 633427,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 2
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 2,
+      "first_success_attempt": 2,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        1,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        34
+      ],
+      "prompt_tokens_by_attempt": [
+        161479,
+        548109
+      ],
+      "completion_tokens_by_attempt": [
+        7489,
+        17111
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        261
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T17:54:59.898946Z",
+          "finished_at": "2026-04-19T18:00:33.453233Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "2f255756-677c-43b4-830f-79859e257404",
+          "execution": {
+            "llm_rounds": 16,
+            "usage": {
+              "total_tokens": 168968,
+              "prompt_tokens": 161479,
+              "completion_tokens": 7489,
+              "input_tokens": 161479,
+              "output_tokens": 7489,
+              "cache_tokens": 119379,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 333.554287,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestMotionAccuracy::test_motion_macro_f1: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T18:00:33.453233Z",
+            "finished_at": "2026-04-19T18:00:33.453233Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 1,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-04-19T18:00:33.453301Z",
+          "finished_at": "2026-04-19T18:15:31.326472Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestMotionAccuracy::test_motion_macro_f1: The test failed in the call phase due to an assertion error",
+          "feedback_prompt_stats": {
+            "chars": 261,
+            "tokens_estimate": 65
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "2f255756-677c-43b4-830f-79859e257404",
+          "execution": {
+            "llm_rounds": 33,
+            "usage": {
+              "total_tokens": 565220,
+              "prompt_tokens": 548109,
+              "completion_tokens": 17111,
+              "input_tokens": 548109,
+              "output_tokens": 17111,
+              "cache_tokens": 514048,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 897.873171,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "Error: Could not write score.json: Object of type int64 is not JSON serializable\nTraceback (most recent call last):\nTypeError: Object of type int64 is not JSON serializable",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::TestOutputFilesExist::test_dyn_masks_exists",
+              "PASSED ../tests/test_outputs.py::TestInstructionsFormat::test_is_dict",
+              "PASSED ../tests/test_outputs.py::TestInstructionsFormat::test_keys_format",
+              "PASSED ../tests/test_outputs.py::TestInstructionsFormat::test_valid_labels",
+              "PASSED ../tests/test_outputs.py::TestDynMasksFormat::test_has_shape",
+              "PASSED ../tests/test_outputs.py::TestDynMasksFormat::test_shape_valid",
+              "PASSED ../tests/test_outputs.py::TestDynMasksFormat::test_frame_components",
+              "PASSED ../tests/test_outputs.py::TestMotionAccuracy::test_motion_macro_f1",
+              "PASSED ../tests/test_outputs.py::TestMaskAccuracy::test_mask_comprehensive",
+              "============================== 10 passed in 0.75s =============================="
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T18:15:31.326472Z",
+            "finished_at": "2026-04-19T18:15:31.326472Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 34,
+          "transcript_length_delta": 34,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
+      "source_trial": "dynamic-object-aware-egomotion__VAoPGcV"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 734188,
+    "total_input_tokens": 709588,
+    "total_output_tokens": 24600,
+    "total_cache_tokens": 633427,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 2,
+    "total_execution_time_seconds": 1231.427458,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 734188.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00136205,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00136205,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "dynamic-object-aware-egomotion",
+        "success": true,
+        "first_success_attempt": 2,
+        "attempt_count": 2,
+        "total_tokens": 734188,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 2.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

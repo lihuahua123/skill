@@ -1,0 +1,224 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-04-19__17-44-24",
+  "timestamp": "2026-04-19T09:46:59.729182+00:00",
+  "suite": "dialogue-parser",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "dialogue-parser",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 130.722878,
+      "transcript_length": 24,
+      "llm_rounds": 15,
+      "usage": {
+        "total_tokens": 90996,
+        "prompt_tokens": 86402,
+        "completion_tokens": 4594,
+        "input_tokens": 86402,
+        "output_tokens": 4594,
+        "cache_tokens": 75360,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        24
+      ],
+      "prompt_tokens_by_attempt": [
+        86402
+      ],
+      "completion_tokens_by_attempt": [
+        4594
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-04-19T09:44:37.699769Z",
+          "finished_at": "2026-04-19T09:46:48.422647Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "9d97c007-f3af-4f4b-a674-7b27fe417eba",
+          "execution": {
+            "llm_rounds": 15,
+            "usage": {
+              "total_tokens": 90996,
+              "prompt_tokens": 86402,
+              "completion_tokens": 4594,
+              "input_tokens": 86402,
+              "output_tokens": 4594,
+              "cache_tokens": 75360,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 130.722878,
+            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24/dialogue-parser__DgocP5h/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]\nPASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]",
+            "feedback": [
+              "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]",
+              "PASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]"
+            ],
+            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24/dialogue-parser__DgocP5h/verifier/test-stdout.txt",
+            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24/dialogue-parser__DgocP5h/verifier/test-stderr.txt",
+            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24/dialogue-parser__DgocP5h/verifier/ctrf.json",
+            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24/dialogue-parser__DgocP5h/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-04-19T09:46:48.422647Z",
+            "finished_at": "2026-04-19T09:46:48.422647Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 24,
+          "transcript_length_delta": 24,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-44-24",
+      "source_trial": "dialogue-parser__DgocP5h"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 90996,
+    "total_input_tokens": 86402,
+    "total_output_tokens": 4594,
+    "total_cache_tokens": 75360,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 130.722878,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 90996.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.01098949,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.01098949,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "dialogue-parser",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 90996,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-04-19__17-44-24",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

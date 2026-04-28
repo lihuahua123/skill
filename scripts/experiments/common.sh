@@ -290,6 +290,13 @@ run_benchmark() {
         agent_name="${SKILLSBENCH_AGENT_NAME:-terminus-2}"
       fi
 
+      local agent_import_path=""
+      if agent_import_path="$(extract_option_value --agent-import-path "$@")"; then
+        :
+      elif [[ "${agent_name}" == "terminus-2" ]]; then
+        agent_import_path="libs.terminus_agent.agents.terminus_2.harbor_terminus_2_skills:HarborTerminus2WithSkills"
+      fi
+
       local max_task_attempts
       if max_task_attempts="$(extract_option_value --max-task-attempts "$@")"; then
         :
@@ -303,13 +310,15 @@ run_benchmark() {
       fi
 
       local agent_kwargs=()
+      local ak_values=()
+      local agent_kwarg_values=()
       if extract_option_values --ak "$@" >/dev/null; then
-        mapfile -d '' -t agent_kwargs < <(extract_option_values --ak "$@")
-      elif extract_option_values --agent-kwarg "$@" >/dev/null; then
-        mapfile -d '' -t agent_kwargs < <(extract_option_values --agent-kwarg "$@")
-      else
-        agent_kwargs=()
+        mapfile -d '' -t ak_values < <(extract_option_values --ak "$@")
       fi
+      if extract_option_values --agent-kwarg "$@" >/dev/null; then
+        mapfile -d '' -t agent_kwarg_values < <(extract_option_values --agent-kwarg "$@")
+      fi
+      agent_kwargs=("${ak_values[@]}" "${agent_kwarg_values[@]}")
 
       local early_stop_intra_attempt=0
       if option_supplied --early-stop-intra-attempt "$@"; then
@@ -426,6 +435,9 @@ run_benchmark() {
         -o "${jobs_root}"
         -y
       )
+      if [[ -n "${agent_import_path}" ]]; then
+        cmd+=(--agent-import-path "${agent_import_path}")
+      fi
       if [[ -n "${max_parallel_tasks}" ]]; then
         cmd+=(-n "${max_parallel_tasks}")
       fi
