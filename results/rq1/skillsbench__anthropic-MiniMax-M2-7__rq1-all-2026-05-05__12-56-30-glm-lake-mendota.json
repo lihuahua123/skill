@@ -1,0 +1,222 @@
+{
+  "model": "anthropic/MiniMax-M2.7",
+  "benchmark_version": "skillsbench",
+  "agent_temperature": 0.0,
+  "run_id": "rq1-all-2026-05-05__12-56-30-glm-lake-mendota",
+  "timestamp": "2026-05-05T14:53:50.700546+00:00",
+  "suite": "glm-lake-mendota",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "glm-lake-mendota",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 1771.973157,
+      "transcript_length": 34,
+      "llm_rounds": 33,
+      "usage": {
+        "total_tokens": 624258,
+        "prompt_tokens": 615618,
+        "completion_tokens": 8640,
+        "input_tokens": 615618,
+        "output_tokens": 8640,
+        "cache_tokens": 587200,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": 1,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        0
+      ],
+      "transcript_length_by_attempt": [
+        34
+      ],
+      "prompt_tokens_by_attempt": [
+        615618
+      ],
+      "completion_tokens_by_attempt": [
+        8640
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-05-05T14:24:06.838901Z",
+          "finished_at": "2026-05-05T14:53:38.812058Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "1d42d30a-fd16-4d25-9a38-f8c4c9d08c74",
+          "execution": {
+            "llm_rounds": 33,
+            "usage": {
+              "total_tokens": 624258,
+              "prompt_tokens": 615618,
+              "completion_tokens": 8640,
+              "input_tokens": 615618,
+              "output_tokens": 8640,
+              "cache_tokens": 587200,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1771.973157,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota/glm-lake-mendota__nFwQrKD/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "/usr/share/python-wheels/urllib3-1.25.8-py2.py3-none-any.whl/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made to host 'pypi.tuna.tsinghua.edu.cn'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings\n/usr/share/python-wheels/urllib3-1.25.8-py2.py3-none-any.whl/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made to host 'pypi.tuna.tsinghua.edu.cn'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings\n/usr/share/python-wheels/urllib3-1.25.8-py2.py3-none-any.whl/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made to host 'pypi.tuna.tsinghua.edu.cn'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings\n/usr/share/python-wheels/urllib3-1.25.8-py2.py3-none-any.whl/urllib3/connectionpool.py:1004: Insecur\n...[truncated]",
+            "feedback": [],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota/glm-lake-mendota__nFwQrKD/verifier/attempt-1/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota/glm-lake-mendota__nFwQrKD/verifier/attempt-1/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota/glm-lake-mendota__nFwQrKD/verifier/attempt-1/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-05T14:53:38.812058Z",
+            "finished_at": "2026-05-05T14:53:38.812058Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 34,
+          "transcript_length_delta": 34,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota",
+      "source_trial": "glm-lake-mendota__nFwQrKD"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 624258,
+    "total_input_tokens": 615618,
+    "total_output_tokens": 8640,
+    "total_cache_tokens": 587200,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 1771.973157,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 624258.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0016019,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.0016019,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "glm-lake-mendota",
+        "success": true,
+        "first_success_attempt": 1,
+        "attempt_count": 1,
+        "total_tokens": 624258,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 1.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-05-05__12-56-30-glm-lake-mendota",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

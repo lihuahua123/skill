@@ -115,7 +115,7 @@
             },
             "usage_per_round": [],
             "execution_time": 333.554287,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -126,10 +126,10 @@
             "feedback": [
               "test_outputs.py::TestMotionAccuracy::test_motion_macro_f1: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -187,7 +187,7 @@
             },
             "usage_per_round": [],
             "execution_time": 897.873171,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -207,10 +207,10 @@
               "PASSED ../tests/test_outputs.py::TestMaskAccuracy::test_mask_comprehensive",
               "============================== 10 passed in 0.75s =============================="
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__VAoPGcV/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -254,7 +254,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
       "source_trial": "dynamic-object-aware-egomotion__VAoPGcV"
     }
   ],
@@ -300,7 +300,7 @@
     "average_attempts_executed": 2.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-dynamic-object-aware-egomotion",
     "agent": "terminus-2",
     "trial_count": 1,

@@ -120,7 +120,7 @@
             },
             "usage_per_round": [],
             "execution_time": 440.055701,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -131,10 +131,10 @@
             "feedback": [
               "test_outputs.py::TestOutputs::test_values_correct: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -192,7 +192,7 @@
             },
             "usage_per_round": [],
             "execution_time": 900.87585,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -203,10 +203,10 @@
             "feedback": [
               "tests/test_outputs.py::TestOutputs::test_values_correct: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -264,7 +264,7 @@
             },
             "usage_per_round": [],
             "execution_time": 242.915648,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -284,10 +284,10 @@
               "PASSED ../tests/test_outputs.py::TestOutputs::test_values_correct",
               "============================== 2 passed in 0.01s ==============================="
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc/3d-scan-calc__poZFfQw/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -332,7 +332,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-recheck-3d-scan-calc",
       "source_trial": "3d-scan-calc__poZFfQw"
     }
   ],
@@ -378,7 +378,7 @@
     "average_attempts_executed": 3.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-recheck-3d-scan-calc",
     "agent": "terminus-2",
     "trial_count": 1,

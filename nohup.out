@@ -2806,3 +2806,14 @@ ModuleNotFoundError: No module named 'matplotlib'
   ],
   "aggregate_output": "/hy-tmp/skill/results/rq1/skillsbench__minimax-cn-MiniMax-M2-5__2026-04-08__10-00-32.json"
 }
+Skipping placeholder env file for MiniMax model: /data/lirui/skill_study/skill/dummy-skillsbench.env
+
+       Missing Environment Variables        
+  Variable            ┃  Phase              
+━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━
+  OPENAI_API_KEY      │  [verifier.env]     
+  MODAL_TOKEN_ID      │  [verifier.env]     
+  MODAL_TOKEN_SECRET  │  [verifier.env]     
+  OPENAI_API_KEY      │  [environment.env]  
+
+Export them in your shell or pass --env-file.

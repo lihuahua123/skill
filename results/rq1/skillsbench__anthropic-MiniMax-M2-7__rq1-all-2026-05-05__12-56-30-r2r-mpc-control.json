@@ -1,0 +1,320 @@
+{
+  "model": "anthropic/MiniMax-M2.7",
+  "benchmark_version": "skillsbench",
+  "agent_temperature": 0.0,
+  "run_id": "rq1-all-2026-05-05__12-56-30-r2r-mpc-control",
+  "timestamp": "2026-05-05T20:59:52.150957+00:00",
+  "suite": "r2r-mpc-control",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "r2r-mpc-control",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 1944.494725,
+      "transcript_length": 39,
+      "llm_rounds": 117,
+      "usage": {
+        "total_tokens": 4600941,
+        "prompt_tokens": 4527899,
+        "completion_tokens": 73042,
+        "input_tokens": 4527899,
+        "output_tokens": 73042,
+        "cache_tokens": 4404416,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 2
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 2,
+      "first_success_attempt": 2,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        10,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        39
+      ],
+      "prompt_tokens_by_attempt": [
+        3749304,
+        778595
+      ],
+      "completion_tokens_by_attempt": [
+        45212,
+        27830
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        766
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-05-05T20:27:14.425996Z",
+          "finished_at": "2026-05-05T20:47:18.068583Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "daddd83b-4104-4e67-8ca7-61eef219eecc",
+          "execution": {
+            "llm_rounds": 79,
+            "usage": {
+              "total_tokens": 3794516,
+              "prompt_tokens": 3749304,
+              "completion_tokens": 45212,
+              "input_tokens": 3749304,
+              "output_tokens": 45212,
+              "cache_tokens": 3671040,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1203.642587,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "../tests/test_outputs.py::TestControllerParams::test_linearization_correctness FAILED [ 33%]\n../tests/test_outputs.py::TestPerformance::test_performance FAILED       [ 83%]\nA_error = np.max(np.abs(A_submitted - A_true))\nB_error = np.max(np.abs(B_submitted - B_true))\n>       assert A_error < 0.01, \\",
+            "feedback": [
+              "../tests/test_outputs.py::TestControllerParams::test_linearization_correctness FAILED [ 33%]",
+              "../tests/test_outputs.py::TestPerformance::test_performance FAILED       [ 83%]",
+              "A_error = np.max(np.abs(A_submitted - A_true))",
+              "B_error = np.max(np.abs(B_submitted - B_true))",
+              ">       assert A_error < 0.01, \\",
+              "f\"A_matrix doesn't match expected linearization (max error: {A_error:.6f})\"",
+              "E       AssertionError: A_matrix doesn't match expected linearization (max error: 48.000000)",
+              "E       assert 48.0 < 0.01",
+              "/tests/test_outputs.py:135: AssertionError",
+              "# Compute errors against GROUND TRUTH references (not logged ones)"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-1/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-1/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-1/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-05T20:47:18.068583Z",
+            "finished_at": "2026-05-05T20:47:18.068583Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-05T20:47:18.068703Z",
+          "finished_at": "2026-05-05T20:59:38.920841Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- ../tests/test_outputs.py::TestControllerParams::test_linearization_correctness FAILED [ 33%]\n- ../tests/test_outputs.py::TestPerformance::test_performance FAILED       [ 83%]\n- A_error = np.max(np.abs(A_submitted - A_true))\n- B_error = np.max(np.abs(B_submitted - B_true))\n- >       assert A_error < 0.01, \\\n- f\"A_matrix doesn't match expected linearization (max error: {A_error:.6f})\"\n- E       AssertionError: A_matrix doesn't match expected linearization (max error: 48.000000)\n- E       assert 48.0 < 0.01\n- /tests/test_outputs.py:135: AssertionError\n- # Compute errors against GROUND TRUTH references (not logged ones)",
+          "feedback_prompt_stats": {
+            "chars": 766,
+            "tokens_estimate": 191
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "daddd83b-4104-4e67-8ca7-61eef219eecc",
+          "execution": {
+            "llm_rounds": 38,
+            "usage": {
+              "total_tokens": 806425,
+              "prompt_tokens": 778595,
+              "completion_tokens": 27830,
+              "input_tokens": 778595,
+              "output_tokens": 27830,
+              "cache_tokens": 733376,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 740.852138,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "WARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv",
+            "feedback": [
+              "PASSED ../tests/test_outputs.py::TestControllerParams::test_controller_params",
+              "PASSED ../tests/test_outputs.py::TestControllerParams::test_linearization_correctness",
+              "PASSED ../tests/test_outputs.py::TestControlLog::test_control_log",
+              "PASSED ../tests/test_outputs.py::TestMetrics::test_metrics",
+              "PASSED ../tests/test_outputs.py::TestPerformance::test_performance",
+              "PASSED ../tests/test_outputs.py::TestSafety::test_safety",
+              "============================== 6 passed in 0.16s ===============================",
+              "Pytest exit code: 0",
+              "All tests passed!",
+              "Test run complete."
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-2/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-2/test-stderr.txt",
+            "ctrf_path": "",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control/r2r-mpc-control__rejD7QB/verifier/attempt-2/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-05T20:59:38.920841Z",
+            "finished_at": "2026-05-05T20:59:38.920841Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 39,
+          "transcript_length_delta": 39,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control",
+      "source_trial": "r2r-mpc-control__rejD7QB"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 4600941,
+    "total_input_tokens": 4527899,
+    "total_output_tokens": 73042,
+    "total_cache_tokens": 4404416,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 2,
+    "total_execution_time_seconds": 1944.494725,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 4600941.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00021735,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00021735,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "r2r-mpc-control",
+        "success": true,
+        "first_success_attempt": 2,
+        "attempt_count": 2,
+        "total_tokens": 4600941,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 2.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-05-05__12-56-30-r2r-mpc-control",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

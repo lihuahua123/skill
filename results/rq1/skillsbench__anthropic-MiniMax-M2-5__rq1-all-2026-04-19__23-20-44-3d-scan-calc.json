@@ -110,7 +110,7 @@
             },
             "usage_per_round": [],
             "execution_time": 195.446388,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -130,10 +130,10 @@
               "PASSED ../tests/test_outputs.py::TestOutputs::test_values_correct",
               "============================== 2 passed in 0.01s ==============================="
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc/3d-scan-calc__2yffzQG/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -176,7 +176,7 @@
       "workspace_changed_by_attempt": [
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc",
       "source_trial": "3d-scan-calc__2yffzQG"
     }
   ],
@@ -222,7 +222,7 @@
     "average_attempts_executed": 1.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-3d-scan-calc",
     "agent": "terminus-2",
     "trial_count": 1,

@@ -7,56 +7,56 @@
 
 **可以在第一次 attempt 内考虑 early stop 的**
 - `data-to-d3`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-data-to-d3/data-to-d3__sq6BG4U/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-data-to-d3/data-to-d3__sq6BG4U/result.json)
   - 首轮前 18 条命令几乎全是读 `/root/output`、读测试、反复看现有 `visualization.js`，直到很后面才真正进入修改。
   - 这类轨迹说明 agent 在“理解已有错误产物”上花了过多预算，首轮更像空转。
   - 我会建议在“已经读过一次输出目录 + 一次测试文件，但仍未开始改代码”时停，大概在第 8 到 10 条命令附近。
 
 - `r2r-mpc-control`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-r2r-mpc-control/r2r-mpc-control__Qsvvoo5/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-r2r-mpc-control/r2r-mpc-control__Qsvvoo5/result.json)
   - 首轮前 18 条命令基本全是 `cat/sed/head` 看配置、看控制器、看测试，没有真正修改。
   - 而且 attempt 1 到 attempt 2 的 verifier failure 基本还是同一类，说明首轮长探索没有换来明显收敛。
   - 这是很适合 heuristic intra-attempt stop 的任务。
 
 - `threejs-structure-parser`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-threejs-structure-parser/threejs-structure-parser__bPepivj/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-threejs-structure-parser/threejs-structure-parser__bPepivj/result.json)
   - 前 16 条命令都在读 `object.js`、读 ground truth、列目录；真正开始生成脚本到第 17 条才发生。
   - 这类任务确实需要先理解结构，但这里前置勘察过长了。
   - 我会在“对象文件 + 测试 + ground truth sample 都看过一轮以后还没开始写导出逻辑”时停。
 
 - `spring-boot-jakarta-migration`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-spring-boot-jakarta-migration/spring-boot-jakarta-migration__wbEPcov/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-spring-boot-jakarta-migration/spring-boot-jakarta-migration__wbEPcov/result.json)
   - 第 5 条命令已经 `mvn clean compile`，本来足够定位主问题；但后面很快滑到证书/ca cert/network detour。
   - attempt 1 和 attempt 2 的 verifier 仍然是同一类 `compile/test` 失败，说明首轮后半段环境折腾收益很低。
   - 这类 repo-debug 任务适合在“拿到第一次编译错误后，若开始陷入 infra 兜圈子”就提前停。
 
 **不建议在第一次 attempt 内 early stop 的**
 - `court-form-filling`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-court-form-filling/court-form-filling__7yfBE9c/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-court-form-filling/court-form-filling__7yfBE9c/result.json)
   - 很快就进入 PDF field dump 和文本抽取，属于直接做任务，不是空转。
 
 - `3d-scan-calc`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-3d-scan-calc/3d-scan-calc__oTMpF5R/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-3d-scan-calc/3d-scan-calc__oTMpF5R/result.json)
   - 第 5 条命令就跑了 `process_stl.py`，随后直接调用 skill 里的 mesh 工具，首轮是在推进。
 
 - `dapt-intrusion-detection`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-dapt-intrusion-detection/dapt-intrusion-detection__SGY63cd/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-dapt-intrusion-detection/dapt-intrusion-detection__SGY63cd/result.json)
   - 第 8 条命令就开始重写分析脚本，后面也在验证数据，不是明显空转。
 
 - `powerlifting-coef-calc`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-powerlifting-coef-calc/powerlifting-coef-calc__a4Z2cHA/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-powerlifting-coef-calc/powerlifting-coef-calc__a4Z2cHA/result.json)
   - 第 3 条命令就进入 workbook 分析和公式检查，属于正常解题。
 
 - `protein-expression-analysis`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-protein-expression-analysis/protein-expression-analysis__UnHmXVV/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-protein-expression-analysis/protein-expression-analysis__UnHmXVV/result.json)
   - 首轮很快开始读工作簿和抽样本字段，也是在做实事。
 
 - `paper-anonymizer`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-paper-anonymizer/paper-anonymizer__SqGcai8/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-paper-anonymizer/paper-anonymizer__SqGcai8/result.json)
   - 第 9 条命令就开始创建 redaction 脚本并跑 targeted tests，首轮值得继续。
 
 - `dynamic-object-aware-egomotion`
-  - 路径：[result.json](/home/nudt/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__Z5ewoXC/result.json)
+  - 路径：[result.json](/data/lirui/skill_study/skillsbench/jobs/newjobs/skillsbench-retry-good-2026-04-17__02-16-02-dynamic-object-aware-egomotion/dynamic-object-aware-egomotion__Z5ewoXC/result.json)
   - 首轮很早就跑 targeted pytest，本质是在快速定位 failure；而且 attempt 2 已经从 2 类失败缩到 1 类，首轮有信息价值。
 
 **第一次 attempt 明显不能 early stop 的**

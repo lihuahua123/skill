@@ -855,7 +855,7 @@ kimi code plan也太坑钱了，一个任务就把所有额度用完了，太可
 curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="/root/.local/bin:$PATH"
 测试API是否可用
-python3 /home/nudt/lirui/skill_study/skill/scripts/test_minimax_api.py
+python3 /data/lirui/skill_study/skill/scripts/test_minimax_api.py
 cat /etc/docker/daemon.json 查看镜像加速器，防止503错误
 
 bash skill/scripts/stop_skillsbench_jobs.sh
@@ -924,10 +924,10 @@ bash skill/scripts/stop_skillsbench_jobs.sh
   - 运行中断 / 取消
     glm-lake-mendota, mario-coin-counting
 
-@/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-54-58 
+@/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-54-58 
 这是没有加载skill的
 
-@/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-14-33 
+@/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__17-14-33 
 这个是我让他主动加载skill的 虽然最后score都一样，但是token减少了 --skillsbench-skill-guidance=true
 
 
@@ -942,7 +942,29 @@ bash skill/scripts/stop_skillsbench_jobs.sh
    --force-build     --ak paper_dynamic_turn_enabled=true     --ak paper_dynamic_turn_
 initial_turn_limit=14     --ak paper_dynamic_turn_extension_turn_limit=14     --ak pap
 er_dynamic_turn_remind_every_turn=true --skillsbench-skill-guidance=true
-/home/nudt/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-16-05.json
+/data/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-16-05.json
 
 ./scripts/experiments/rq1.sh anthropic/MiniMax-M2.5     --backend skillsbench     --skillsbench-task-path tasks/data-to-d3     --runs 1     --max-task-attempts 6     --max-parallel-tasks 1  --force-build   --skillsbench-skill-guidance=true
-Wrote aggregated SkillsBench result: /home/nudt/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-17-36.json
+Wrote aggregated SkillsBench result: /data/lirui/skill_study/skill/results/rq1/skillsbench__anthropic-MiniMax-M2-5__2026-04-19__20-17-36.json
+
+
+ 从你这两个对比里看，token 浪费主要来自三件事：
+
+  1. 首轮失败后修复范围太大
+     19:05:14 里 agent 不是一次修一个明确点，而是反复重改导出逻辑，导致 outer_rim、cabin_14、support_structure 轮流出问题。
+     要降 token，核心是让 retry prompt 强制它“只修 verifier 指到的对象，不要重做整体结构”。
+  2. 反馈还不够“可执行”
+     现在反馈已经比最早强了，但还是测试级描述。
+     更省 token 的做法是把反馈进一步压成：
+  - 错的是哪个 part / mesh
+  - 错误类型是什么：list mismatch / geometry mismatch
+  - 建议动作：preserve existing outputs; only inspect export for wheel_structure/outer_rim.obj
+    这样 agent 不会每轮重新扫描整个 Three.js 文件。
+  3. 缺少早停/止损
+     如果连续两轮还是同一个 mesh 出错，说明当前 repair 策略没变，只是在烧 token。
+     这时应该：
+    而不是继续完整跑一轮大修
+  我会优先做这三件事：
+  - 把 temperature=0 固定下来，先去掉采样噪声
+  - 把 retry prompt 改成“局部修复模式”，明确禁止大范围重构
+  - 加一个 no-improvement stop rule：如果连续两轮失败对象基本一样，就停止，避免无效烧 token

@@ -1,4 +1,4 @@
-基于 [results_visualization_skillbenhmark_full.ipynb](/home/nudt/lirui/skill_study/skill/analysis/rq1/results_visualization_skillbenhmark_full.ipynb) 第 6 个 cell 和 [aggregated_results.json](/home/nudt/lirui/skill_study/skill/analysis/rq1/aggregated_results.json) 里的 `attempts / verifier / execution.error / prompt_tokens_by_attempt / usage_per_round`，这 15 个最贵任务的共性很清楚：
+基于 [results_visualization_skillbenhmark_full.ipynb](/data/lirui/skill_study/skill/analysis/rq1/results_visualization_skillbenhmark_full.ipynb) 第 6 个 cell 和 [aggregated_results.json](/data/lirui/skill_study/skill/analysis/rq1/aggregated_results.json) 里的 `attempts / verifier / execution.error / prompt_tokens_by_attempt / usage_per_round`，这 15 个最贵任务的共性很清楚：
 
 它们贵，核心不是“模型写了很多字”，而是“长会话里反复带着大上下文运行”。Top 15 一共花了约 `106.38 CNY`，占总成本 `45.4%`。它们中位数有 `95` 轮对话，平均每个任务约 `4.0M` input tokens、`3.83M` cache-read tokens，但 output 平均只有 `40k`。也就是说，钱主要烧在反复读上下文、读历史、读文件、重跑长链路，不是烧在最终答案上。
 
@@ -286,4 +286,4 @@
 ./scripts/experiments/rq1.sh anthropic/MiniMax-M2.5     --backend skillsbench     --skillsbench-task-path tasks/data-to-d3     --runs 1     --max-task-attempts 1     --max-parallel-tasks 1     --job-name data-to-d3-minimax-paper-dynamic-turn     --force-build     --ak paper_dynamic_turn_enabled=true     --ak paper_dynamic_turn_initial_turn_limit=14     --ak paper_dynamic_turn_extension_turn_limit=14     --ak paper_dynamic_turn_remind_every_turn=true 没有调用skill
 
 查看是否用上skill
-python3 /home/nudt/lirui/skill_study/skillsbench/detect_skill_usage.py /home/nudt/lirui/skill_study/skillsbench/jobs/newjobs
+python3 /data/lirui/skill_study/skillsbench/detect_skill_usage.py /data/lirui/skill_study/skillsbench/jobs/newjobs

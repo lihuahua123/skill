@@ -1,0 +1,619 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-05-03__21-51-12",
+  "timestamp": "2026-05-03T14:02:58.969979+00:00",
+  "suite": "threejs-structure-parser",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "threejs-structure-parser",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 515.637859,
+      "transcript_length": 91,
+      "llm_rounds": 85,
+      "usage": {
+        "total_tokens": 989515,
+        "prompt_tokens": 939735,
+        "completion_tokens": 49780,
+        "input_tokens": 939735,
+        "output_tokens": 49780,
+        "cache_tokens": 825552,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 6
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 6,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "transcript_length_by_attempt": [
+        13,
+        18,
+        20,
+        9,
+        19,
+        12
+      ],
+      "prompt_tokens_by_attempt": [
+        116440,
+        133864,
+        216764,
+        65958,
+        250078,
+        156631
+      ],
+      "completion_tokens_by_attempt": [
+        6795,
+        7041,
+        8061,
+        4383,
+        13452,
+        10048
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stop_reason": "max-attempts-reached",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T21:51:18.978101",
+          "finished_at": "2026-05-03T21:53:07.366339",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f41e98d7-b7a8-4219-aec3-348496407d9e",
+          "execution": {
+            "llm_rounds": 12,
+            "usage": {
+              "total_tokens": 123235,
+              "prompt_tokens": 116440,
+              "completion_tokens": 6795,
+              "input_tokens": 116440,
+              "output_tokens": 6795,
+              "cache_tokens": 100320,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 72.86726,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__YyGkKai/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "out_link = out_root / gt_link.name\ngt_meshes = list(gt_link.glob(\"*.obj\"))\nout_meshes = list(out_link.glob(\"*.obj\"))\nassert gt\n...[truncated]",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__YyGkKai/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__YyGkKai/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__YyGkKai/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T21:52:40.702369",
+            "finished_at": "2026-05-03T21:52:56.889689"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 13,
+          "transcript_length_delta": 13,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T21:53:07.368625",
+          "finished_at": "2026-05-03T21:54:40.811729",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "9100fbd9-018e-4164-9389-00023f301d69",
+          "execution": {
+            "llm_rounds": 17,
+            "usage": {
+              "total_tokens": 140905,
+              "prompt_tokens": 133864,
+              "completion_tokens": 7041,
+              "input_tokens": 133864,
+              "output_tokens": 7041,
+              "cache_tokens": 121776,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 64.225016,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__c7NjwF7/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "E       AssertionError: Link directories mismatch in part_meshes",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__c7NjwF7/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__c7NjwF7/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__c7NjwF7/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T21:54:20.542111",
+            "finished_at": "2026-05-03T21:54:30.385291"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 18,
+          "transcript_length_delta": 5,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T21:54:40.814036",
+          "finished_at": "2026-05-03T21:57:07.648253",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "35cda798-78b9-4bca-816a-faf1b59a28de",
+          "execution": {
+            "llm_rounds": 19,
+            "usage": {
+              "total_tokens": 224825,
+              "prompt_tokens": 216764,
+              "completion_tokens": 8061,
+              "input_tokens": 216764,
+              "output_tokens": 8061,
+              "cache_tokens": 193440,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 117.111914,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__bVTDDxq/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "out_link = out_root / gt_link.name\ngt_meshes = list(gt_link.glob(\"*.obj\"))\nout_meshes = list(out_link.glob(\"*.obj\"))\nassert gt\n...[truncated]",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__bVTDDxq/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__bVTDDxq/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__bVTDDxq/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T21:56:47.560685",
+            "finished_at": "2026-05-03T21:56:57.282529"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 20,
+          "transcript_length_delta": 2,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T21:57:07.650745",
+          "finished_at": "2026-05-03T21:58:14.906942",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "567d6ab7-3b88-4a68-b559-2f878389def2",
+          "execution": {
+            "llm_rounds": 8,
+            "usage": {
+              "total_tokens": 70341,
+              "prompt_tokens": 65958,
+              "completion_tokens": 4383,
+              "input_tokens": 65958,
+              "output_tokens": 4383,
+              "cache_tokens": 51744,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 38.117729,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__VZyCfEA/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "out_link = out_root / gt_link.name\ngt_meshes = list(gt_link.glob(\"*.obj\"))\nout_meshes = list(out_link.glob(\"*.obj\"))\nassert gt\n...[truncated]",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__VZyCfEA/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__VZyCfEA/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__VZyCfEA/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T21:57:54.664374",
+            "finished_at": "2026-05-03T21:58:04.487743"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 9,
+          "transcript_length_delta": -11,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T21:58:14.909070",
+          "finished_at": "2026-05-03T22:01:13.621039",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "5f249090-73a8-4e91-aeaa-0479b15171d2",
+          "execution": {
+            "llm_rounds": 18,
+            "usage": {
+              "total_tokens": 263530,
+              "prompt_tokens": 250078,
+              "completion_tokens": 13452,
+              "input_tokens": 250078,
+              "output_tokens": 13452,
+              "cache_tokens": 224784,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 148.07386,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__ygfrP7F/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "out_link = out_root / gt_link.name\ngt_meshes = list(gt_link.glob(\"*.obj\"))\nout_meshes = list(out_link.glob(\"*.obj\"))\nassert gt\n...[truncated]",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__ygfrP7F/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__ygfrP7F/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__ygfrP7F/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T22:00:52.229066",
+            "finished_at": "2026-05-03T22:01:03.282943"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 19,
+          "transcript_length_delta": 10,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 6,
+          "instruction_kind": null,
+          "started_at": "2026-05-03T22:01:13.625163",
+          "finished_at": "2026-05-03T22:02:57.893941",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "d3722a2b-698e-46c7-8aec-484fcf490587",
+          "execution": {
+            "llm_rounds": 11,
+            "usage": {
+              "total_tokens": 166679,
+              "prompt_tokens": 156631,
+              "completion_tokens": 10048,
+              "input_tokens": 156631,
+              "output_tokens": 10048,
+              "cache_tokens": 133488,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 75.24208,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__HKUAwgN/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "out_link = out_root / gt_link.name\ngt_meshes = list(gt_link.glob(\"*.obj\"))\nout_meshes = list(out_link.glob(\"*.obj\"))\nassert gt\n...[truncated]",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__HKUAwgN/verifier/test-stdout.txt",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__HKUAwgN/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12/threejs-structure-parser__HKUAwgN/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-03T22:02:37.664269",
+            "finished_at": "2026-05-03T22:02:47.480345"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 12,
+          "transcript_length_delta": -7,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-03__21-51-12",
+      "source_trial": "threejs-structure-parser__YyGkKai"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 989515,
+    "total_input_tokens": 939735,
+    "total_output_tokens": 49780,
+    "total_cache_tokens": 825552,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 6,
+    "total_execution_time_seconds": 515.637859,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 989515.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": 0.0,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "threejs-structure-parser",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 6,
+        "total_tokens": 989515,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 6.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-05-03__21-51-12",
+    "agent": "terminus-2",
+    "trial_count": 6,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

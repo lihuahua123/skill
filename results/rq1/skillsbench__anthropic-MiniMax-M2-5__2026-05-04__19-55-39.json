@@ -1,0 +1,548 @@
+{
+  "model": "anthropic/MiniMax-M2.5",
+  "benchmark_version": "skillsbench",
+  "run_id": "2026-05-04__19-55-39",
+  "timestamp": "2026-05-04T12:38:57.031683+00:00",
+  "suite": "threejs-structure-parser",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "threejs-structure-parser",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 2566.732844,
+      "transcript_length": 88,
+      "llm_rounds": 285,
+      "usage": {
+        "total_tokens": 7261716,
+        "prompt_tokens": 7154288,
+        "completion_tokens": 107428,
+        "input_tokens": 7154288,
+        "output_tokens": 107428,
+        "cache_tokens": 6948496,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 5
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 5,
+      "first_success_attempt": 5,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        2,
+        2,
+        2,
+        2,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        0,
+        88
+      ],
+      "prompt_tokens_by_attempt": [
+        101613,
+        1704719,
+        1847838,
+        1284797,
+        2215321
+      ],
+      "completion_tokens_by_attempt": [
+        6280,
+        26097,
+        23893,
+        15071,
+        36087
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        348,
+        437,
+        452,
+        443
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-05-04T11:55:58.244403Z",
+          "finished_at": "2026-05-04T11:58:12.781349Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2fda562-0d1d-4947-9866-5097bfd0c2b2",
+          "execution": {
+            "llm_rounds": 13,
+            "usage": {
+              "total_tokens": 107893,
+              "prompt_tokens": 101613,
+              "completion_tokens": 6280,
+              "input_tokens": 101613,
+              "output_tokens": 6280,
+              "cache_tokens": 85616,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 134.536946,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Link directories mismatch in part_meshes",
+              "test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link OBJ list mismatch"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-1/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-1/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-1/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-1/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-04T11:58:12.781349Z",
+            "finished_at": "2026-05-04T11:58:12.781349Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-04T11:58:12.781441Z",
+          "finished_at": "2026-05-04T12:08:18.375314Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Link directories mismatch in part_meshes\n- test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link OBJ list mismatch",
+          "feedback_prompt_stats": {
+            "chars": 348,
+            "tokens_estimate": 87
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2fda562-0d1d-4947-9866-5097bfd0c2b2",
+          "execution": {
+            "llm_rounds": 57,
+            "usage": {
+              "total_tokens": 1730816,
+              "prompt_tokens": 1704719,
+              "completion_tokens": 26097,
+              "input_tokens": 1704719,
+              "output_tokens": 26097,
+              "cache_tokens": 1654112,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 605.593873,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh cabin_5/cabin_arm_5.obj Chamfer 0.008103 exceeds threshold 0.0002",
+              "tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh cabin_14.obj Chamfer 0.005031 exceeds threshold 0.0002"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-2/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-2/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-2/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-2/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-04T12:08:18.375314Z",
+            "finished_at": "2026-05-04T12:08:18.375314Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-04T12:08:18.375400Z",
+          "finished_at": "2026-05-04T12:18:24.372487Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh cabin_5/cabin_arm_5.obj Chamfer 0.008103 exceeds threshold 0.0002\n- tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh cabin_14.obj Chamfer 0.005031 exceeds threshold 0.0002",
+          "feedback_prompt_stats": {
+            "chars": 437,
+            "tokens_estimate": 109
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2fda562-0d1d-4947-9866-5097bfd0c2b2",
+          "execution": {
+            "llm_rounds": 69,
+            "usage": {
+              "total_tokens": 1871731,
+              "prompt_tokens": 1847838,
+              "completion_tokens": 23893,
+              "input_tokens": 1847838,
+              "output_tokens": 23893,
+              "cache_tokens": 1797472,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 605.997087,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh wheel_structure/outer_rim.obj Chamfer 1.807262 exceeds threshold 0.0002",
+              "tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh support_structure.obj Chamfer 0.374834 exceeds threshold 0.0002"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-3/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-3/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-3/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-3/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-04T12:18:24.372487Z",
+            "finished_at": "2026-05-04T12:18:24.372487Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-04T12:18:24.372577Z",
+          "finished_at": "2026-05-04T12:28:33.971129Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh wheel_structure/outer_rim.obj Chamfer 1.807262 exceeds threshold 0.0002\n- tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh support_structure.obj Chamfer 0.374834 exceeds threshold 0.0002",
+          "feedback_prompt_stats": {
+            "chars": 452,
+            "tokens_estimate": 113
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2fda562-0d1d-4947-9866-5097bfd0c2b2",
+          "execution": {
+            "llm_rounds": 59,
+            "usage": {
+              "total_tokens": 1299868,
+              "prompt_tokens": 1284797,
+              "completion_tokens": 15071,
+              "input_tokens": 1284797,
+              "output_tokens": 15071,
+              "cache_tokens": 1252528,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 609.598552,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh wheel_structure/outer_rim.obj Chamfer 1.622267 exceeds threshold 0.0002",
+              "tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh cabin_14.obj Chamfer 0.016873 exceeds threshold 0.0002"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-4/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-4/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-4/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-4/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-04T12:28:33.971129Z",
+            "finished_at": "2026-05-04T12:28:33.971129Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 5,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-04T12:28:33.971226Z",
+          "finished_at": "2026-05-04T12:38:44.977612Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nContinue from the current environment state and fix the remaining issues.\nVerifier feedback:\n- tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth: Part mesh wheel_structure/outer_rim.obj Chamfer 1.622267 exceeds threshold 0.0002\n- tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth: Link mesh cabin_14.obj Chamfer 0.016873 exceeds threshold 0.0002",
+          "feedback_prompt_stats": {
+            "chars": 443,
+            "tokens_estimate": 110
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "f2fda562-0d1d-4947-9866-5097bfd0c2b2",
+          "execution": {
+            "llm_rounds": 87,
+            "usage": {
+              "total_tokens": 2251408,
+              "prompt_tokens": 2215321,
+              "completion_tokens": 36087,
+              "input_tokens": 2215321,
+              "output_tokens": 36087,
+              "cache_tokens": 2158768,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 611.006386,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "To eliminate this warning, add \"type\": \"module\" to /root/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\nWARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv",
+            "feedback": [
+              "rootdir: /",
+              "plugins: json-ctrf-0.3.5",
+              "collected 3 items",
+              "../tests/test_outputs.py ...                                             [100%]",
+              "==================================== PASSES ====================================",
+              "=========================== short test summary info ============================",
+              "PASSED ../tests/test_outputs.py::TestMeshExport::test_output_directories_exist",
+              "PASSED ../tests/test_outputs.py::TestMeshExport::test_part_meshes_match_ground_truth",
+              "PASSED ../tests/test_outputs.py::TestMeshExport::test_link_meshes_match_ground_truth",
+              "============================== 3 passed in 4.89s ==============================="
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-5/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-5/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-5/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39/threejs-structure-parser__pP9patp/verifier/attempt-5/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-04T12:38:44.977612Z",
+            "finished_at": "2026-05-04T12:38:44.977612Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 88,
+          "transcript_length_delta": 88,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-05-04__19-55-39",
+      "source_trial": "threejs-structure-parser__pP9patp"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 7261716,
+    "total_input_tokens": 7154288,
+    "total_output_tokens": 107428,
+    "total_cache_tokens": 6948496,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 5,
+    "total_execution_time_seconds": 2566.732844,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 7261716.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.00013771,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.00013771,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "threejs-structure-parser",
+        "success": true,
+        "first_success_attempt": 5,
+        "attempt_count": 5,
+        "total_tokens": 7261716,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 5.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-2026-05-04__19-55-39",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

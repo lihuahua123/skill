@@ -7,7 +7,7 @@ import sys
 import anthropic
 
 
-API_KEY_PATH = Path("/home/nudt/lirui/skill_study/.minimaxapikey")
+API_KEY_PATH = Path("/data/lirui/skill_study/.minimaxapikey")
 BASE_URL = "https://api.minimaxi.com/anthropic"
 MODEL = "MiniMax-M2.7"
 

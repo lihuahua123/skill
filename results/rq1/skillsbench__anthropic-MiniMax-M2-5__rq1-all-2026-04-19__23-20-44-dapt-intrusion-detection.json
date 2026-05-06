@@ -115,7 +115,7 @@
             },
             "usage_per_round": [],
             "execution_time": 271.373337,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -133,10 +133,10 @@
               "test_outputs.py::TestAnalysisQuestions::test_is_traffic_benign: The test failed in the call phase due to an assertion error",
               "test_outputs.py::TestAnalysisQuestions::test_has_dos_pattern: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -194,7 +194,7 @@
             },
             "usage_per_round": [],
             "execution_time": 606.897122,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -214,10 +214,10 @@
               "============================== 37 passed in 0.03s ==============================",
               "✅ All tests passed!"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection/dapt-intrusion-detection__cmFzs3z/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -261,7 +261,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
       "source_trial": "dapt-intrusion-detection__cmFzs3z"
     }
   ],
@@ -307,7 +307,7 @@
     "average_attempts_executed": 2.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-dapt-intrusion-detection",
     "agent": "terminus-2",
     "trial_count": 1,

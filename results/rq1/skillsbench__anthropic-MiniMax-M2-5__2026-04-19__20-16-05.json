@@ -115,7 +115,7 @@
             },
             "usage_per_round": [],
             "execution_time": 402.414208,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -133,10 +133,10 @@
               "test_outputs.py::test_sector_clustering: The test failed in the call phase due to an assertion error",
               "test_outputs.py::test_legend_completeness: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -194,7 +194,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1526.245125,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -205,10 +205,10 @@
             "feedback": [
               "Page errors: 0"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05/data-to-d3__R8ojJhH/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -252,7 +252,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__20-16-05",
       "source_trial": "data-to-d3__R8ojJhH"
     }
   ],
@@ -298,7 +298,7 @@
     "average_attempts_executed": 2.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-2026-04-19__20-16-05",
     "agent": "terminus-2",
     "trial_count": 1,

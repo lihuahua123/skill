@@ -125,7 +125,7 @@
             },
             "usage_per_round": [],
             "execution_time": 923.822016,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -145,10 +145,10 @@
               "Setting up curl (8.5.0-2ubuntu10.8) ...",
               "Processing triggers for libc-bin (2.39-0ubuntu8.7) ..."
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -206,7 +206,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1054.559471,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -226,10 +226,10 @@
               "test_outputs.py::TestFeasibility::test_solver_status: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json does not e\n...[truncated]",
               "test_outputs.py::TestFeasibility::test_voltage_bounds: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json does not\n...[truncated]"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -287,7 +287,7 @@
             },
             "usage_per_round": [],
             "execution_time": 965.044643,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -307,10 +307,10 @@
               "tests/test_outputs.py::TestFeasibility::test_solver_status: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json does\n...[truncated]",
               "tests/test_outputs.py::TestFeasibility::test_voltage_bounds: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json doe\n...[truncated]"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -368,7 +368,7 @@
             },
             "usage_per_round": [],
             "execution_time": 654.864712,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -398,10 +398,10 @@
               "tests/test_outputs.py::TestFeasibility::test_losses_reasonable: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json does not exist\nE       assert False\nE        +  where False = <function exists at 0x76286258f560>('/root/report.json')\nE        +    where <function exists at 0x76286258f560> = <module 'posixpath' (frozen)>.exists\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_outputs.py:362: AssertionError",
               "tests/test_outputs.py::TestFeasibility::test_no_voltage_violations: @pytest.fixture(scope=\"module\")\n    def report():\n        \"\"\"Load the agent's report.json.\"\"\"\n>       assert os.path.exists(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} does not exist\"\nE       AssertionError: Output file /root/report.json does not exist\nE       assert False\nE        +  where False = <function exists at 0x76286258f560>('/root/report.json')\nE        +    where <function exists at 0x76286258f560> = <module 'posixpath' (frozen)>.exists\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_outputs.py:362: AssertionError"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow/energy-ac-optimal-power-flow__SFVbMvC/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -447,7 +447,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow",
       "source_trial": "energy-ac-optimal-power-flow__SFVbMvC"
     }
   ],
@@ -493,7 +493,7 @@
     "average_attempts_executed": 4.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-energy-ac-optimal-power-flow",
     "agent": "terminus-2",
     "trial_count": 1,

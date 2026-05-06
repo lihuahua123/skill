@@ -110,7 +110,7 @@
             },
             "usage_per_round": [],
             "execution_time": 116.416437,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -121,10 +121,10 @@
             "feedback": [
               "Expected: 0.68885"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation/econ-detrending-correlation__StJEWxC/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -167,7 +167,7 @@
       "workspace_changed_by_attempt": [
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
       "source_trial": "econ-detrending-correlation__StJEWxC"
     }
   ],
@@ -213,7 +213,7 @@
     "average_attempts_executed": 1.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-econ-detrending-correlation",
     "agent": "terminus-2",
     "trial_count": 1,

@@ -106,6 +106,96 @@ skillsbench_root() {
   printf '%s\n' "${root}"
 }
 
+harbor_bin() {
+  if [[ -n "${HARBOR_BIN:-}" ]]; then
+    if [[ ! -x "${HARBOR_BIN}" ]]; then
+      echo "HARBOR_BIN is not executable: ${HARBOR_BIN}" >&2
+      exit 2
+    fi
+    printf '%s\n' "${HARBOR_BIN}"
+    return 0
+  fi
+
+  local root
+  root="$(skillsbench_root)"
+  local candidate="${root}/.venv/bin/harbor"
+  if [[ -x "${candidate}" ]]; then
+    printf '%s\n' "${candidate}"
+    return 0
+  fi
+
+  if command -v harbor >/dev/null 2>&1; then
+    command -v harbor
+    return 0
+  fi
+
+  echo "Could not find the harbor CLI." >&2
+  echo "Install Harbor in SkillsBench, activate its environment, or set HARBOR_BIN." >&2
+  exit 2
+}
+
+skillsbench_python() {
+  local root
+  root="$(skillsbench_root)"
+  local candidate="${root}/.venv/bin/python"
+  if [[ -x "${candidate}" ]]; then
+    printf '%s\n' "${candidate}"
+    return 0
+  fi
+  if command -v python3 >/dev/null 2>&1; then
+    command -v python3
+    return 0
+  fi
+  echo "Could not find a Python interpreter for SkillsBench." >&2
+  exit 2
+}
+
+docker_available() {
+  if ! command -v docker >/dev/null 2>&1; then
+    return 1
+  fi
+  docker info >/dev/null 2>&1
+}
+
+load_env_file_exports() {
+  local env_file="$1"
+  if [[ -z "${env_file}" ]]; then
+    return 0
+  fi
+  if [[ ! -f "${env_file}" ]]; then
+    echo "Env file does not exist: ${env_file}" >&2
+    exit 2
+  fi
+  set -a
+  # shellcheck source=/dev/null
+  source "${env_file}"
+  set +a
+}
+
+should_skip_env_file_for_model() {
+  local model_name="$1"
+  local env_file="$2"
+  if [[ -z "${env_file}" ]]; then
+    return 1
+  fi
+
+  case "${model_name}" in
+    anthropic/MiniMax-*|minimax-cn/*)
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+
+  case "${env_file}" in
+    */dummy-skillsbench.env|dummy-skillsbench.env)
+      return 0
+      ;;
+  esac
+
+  return 1
+}
+
 skillsbench_mode_from_args() {
   local mode=""
   if mode="$(extract_option_value --mode "$@")"; then
@@ -320,6 +410,24 @@ run_benchmark() {
       fi
       agent_kwargs=("${ak_values[@]}" "${agent_kwarg_values[@]}")
 
+      local agent_temperature=""
+      if agent_temperature="$(extract_option_value --agent-temperature "$@")"; then
+        :
+      else
+        agent_temperature="${SKILLSBENCH_AGENT_TEMPERATURE:-0}"
+      fi
+      local has_temperature_kwarg=0
+      local existing_agent_kwarg
+      for existing_agent_kwarg in "${agent_kwargs[@]}"; do
+        if [[ "${existing_agent_kwarg}" == temperature=* ]]; then
+          has_temperature_kwarg=1
+          break
+        fi
+      done
+      if [[ ${has_temperature_kwarg} -eq 0 && -n "${agent_temperature}" ]]; then
+        agent_kwargs+=("temperature=${agent_temperature}")
+      fi
+
       local early_stop_intra_attempt=0
       if option_supplied --early-stop-intra-attempt "$@"; then
         early_stop_intra_attempt=1
@@ -424,6 +532,29 @@ run_benchmark() {
       local output_root="${REPO_ROOT}/${output_dir}"
       mkdir -p "${output_root}"
       local output_json="${output_root}/skillsbench__${model_slug}__${run_id}.json"
+      local env_file=""
+      if env_file="$(extract_option_value --env-file "$@")"; then
+        :
+      else
+        env_file=""
+      fi
+      if should_skip_env_file_for_model "${model_name}" "${env_file}"; then
+        echo "Skipping placeholder env file for MiniMax model: ${env_file}" >&2
+        env_file=""
+      fi
+
+      local use_local_host_runner=0
+      case "${sandbox}" in
+        local|local-host|host|process)
+          use_local_host_runner=1
+          ;;
+        docker)
+          if ! docker_available; then
+            echo "Docker check failed in current environment" >&2
+            exit 2
+          fi
+          ;;
+      esac
 
       local cmd=(
         -p "${tasks_root}"
@@ -447,6 +578,9 @@ run_benchmark() {
       if option_supplied --no-delete "$@"; then
         cmd+=(--no-delete)
       fi
+      if [[ -n "${env_file}" ]]; then
+        cmd+=(--env-file "${env_file}")
+      fi
       local agent_kwarg
       for agent_kwarg in "${agent_kwargs[@]}"; do
         cmd+=(--ak "${agent_kwarg}")
@@ -456,25 +590,70 @@ run_benchmark() {
         cmd+=(-i "${task_name}")
       done
 
-      (
-        cd "$(skillsbench_root)"
-        if [[ "${early_stop_intra_attempt}" -eq 1 && ${#task_names[@]} -eq 1 ]]; then
-          python3 "${REPO_ROOT}/scripts/run_skillsbench_with_early_stop.py" \
-            --skillsbench-root "$(skillsbench_root)" \
-            --jobs-root "${jobs_root}" \
-            --job-name "${job_name}" \
-            --task-name "${task_names[0]}" \
-            --early-stop-strategy "${early_stop_strategy}" \
-            ${paper_initial_turn_limit:+--paper-initial-turn-limit "${paper_initial_turn_limit}"} \
-            ${paper_extension_turn_limit:+--paper-extension-turn-limit "${paper_extension_turn_limit}"} \
-            -- "${cmd[@]}"
-        else
-          if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
-            echo "warning: --early-stop-intra-attempt currently supports exactly one SkillsBench task; running without intra-attempt early stop" >&2
-          fi
-          harbor run "${cmd[@]}"
+      if [[ "${use_local_host_runner}" -eq 1 ]]; then
+        local skillsbench_py
+        skillsbench_py="$(skillsbench_python)"
+        local local_runner_cmd=(
+          "${skillsbench_py}" "$(skillsbench_root)/scripts/run_skillsbench_experiment.py"
+          --model "${model_name}"
+          --backend "skillsbench"
+          --agent-name "${agent_name}"
+          --job-name "${job_name}"
+          --jobs-root "${jobs_root}"
+          --aggregate-output "${output_json}"
+          --benchmark-version "skillsbench-local-host"
+          --run-id "${run_id}"
+          --runs "1"
+          --max-task-attempts "${max_task_attempts}"
+          --max-parallel-tasks "${max_parallel_tasks:-1}"
+          --feedback-policy "${feedback_policy}"
+          --feedback-format "${feedback_format}"
+          --feedback-strategy "${feedback_strategy}"
+          --feedback-answer-safety "${feedback_answer_safety}"
+          --stop-rule "${stop_rule}"
+          --stop-threshold "${stop_threshold}"
+          --agent-temperature "${agent_temperature}"
+        )
+        if [[ -n "${env_file}" ]]; then
+          load_env_file_exports "${env_file}"
         fi
-      )
+        if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
+          local_runner_cmd+=(--early-stop-intra-attempt)
+        fi
+        for task_name in "${task_names[@]}"; do
+          local_runner_cmd+=(--skillsbench-task-path "tasks/${task_name}")
+        done
+        (
+          cd "$(skillsbench_root)"
+          python3 "${REPO_ROOT}/scripts/ensure_skills_dir_for_docker_tasks.py" \
+            --skillsbench-root "$(skillsbench_root)" \
+            $(for task_name in "${task_names[@]}"; do printf -- '--task-name %q ' "${task_name}"; done)
+          "${local_runner_cmd[@]}"
+        )
+      else
+        (
+          cd "$(skillsbench_root)"
+          python3 "${REPO_ROOT}/scripts/ensure_skills_dir_for_docker_tasks.py" \
+            --skillsbench-root "$(skillsbench_root)" \
+            $(for task_name in "${task_names[@]}"; do printf -- '--task-name %q ' "${task_name}"; done)
+          if [[ "${early_stop_intra_attempt}" -eq 1 && ${#task_names[@]} -eq 1 ]]; then
+            python3 "${REPO_ROOT}/scripts/run_skillsbench_with_early_stop.py" \
+              --skillsbench-root "$(skillsbench_root)" \
+              --jobs-root "${jobs_root}" \
+              --job-name "${job_name}" \
+              --task-name "${task_names[0]}" \
+              --early-stop-strategy "${early_stop_strategy}" \
+              ${paper_initial_turn_limit:+--paper-initial-turn-limit "${paper_initial_turn_limit}"} \
+              ${paper_extension_turn_limit:+--paper-extension-turn-limit "${paper_extension_turn_limit}"} \
+              -- "${cmd[@]}"
+          else
+            if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
+              echo "warning: --early-stop-intra-attempt currently supports exactly one SkillsBench task; running without intra-attempt early stop" >&2
+            fi
+            "$(harbor_bin)" run "${cmd[@]}"
+          fi
+        )
+      fi
 
       local suite_value
       if [[ ${#task_names[@]} -gt 0 ]]; then
@@ -493,6 +672,7 @@ run_benchmark() {
         --suite "${suite_value}"
         --max-task-attempts "${max_task_attempts}"
         --benchmark-version "${benchmark_version}"
+        --agent-temperature "${agent_temperature}"
         --feedback-policy "${feedback_policy}"
         --feedback-format "${feedback_format}"
         --feedback-strategy "${feedback_strategy}"
@@ -540,14 +720,18 @@ run_analysis() {
   local results_dir="$1"
   local analysis_dir="$2"
   local label_mode="${3:-policy}"
+  local analysis_python="${ANALYSIS_PYTHON:-python3}"
   (
     cd "${REPO_ROOT}"
+    if [[ -z "${ANALYSIS_PYTHON:-}" && -x "${REPO_ROOT}/.venv/bin/python" ]]; then
+      analysis_python="${REPO_ROOT}/.venv/bin/python"
+    fi
     mapfile -t json_files < <(find "${results_dir}" -maxdepth 1 -name '*.json' | sort)
     if [[ ${#json_files[@]} -eq 0 ]]; then
       echo "No result JSON files found in ${results_dir}" >&2
       exit 1
     fi
-    python3 scripts/analyze_retries.py "${json_files[@]}" \
+    "${analysis_python}" scripts/analyze_retries.py "${json_files[@]}" \
       --output-dir "${analysis_dir}" \
       --label-mode "${label_mode}"
   )

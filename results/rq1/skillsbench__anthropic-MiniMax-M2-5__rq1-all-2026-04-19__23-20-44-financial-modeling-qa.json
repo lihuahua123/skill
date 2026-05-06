@@ -110,7 +110,7 @@
             },
             "usage_per_round": [],
             "execution_time": 36.409009,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-financial-modeling-qa/financial-modeling-qa__7PufCPe/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-financial-modeling-qa/financial-modeling-qa__7PufCPe/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -165,7 +165,7 @@
       "workspace_changed_by_attempt": [
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-financial-modeling-qa",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-financial-modeling-qa",
       "source_trial": "financial-modeling-qa__7PufCPe"
     }
   ],
@@ -211,7 +211,7 @@
     "average_attempts_executed": 1.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-financial-modeling-qa",
     "agent": "terminus-2",
     "trial_count": 1,

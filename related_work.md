@@ -1009,3 +1009,10 @@ Agentic Plan Caching: Test-Time Memory for Fast and Cost-Efficient LLM Agents
 
 More with Less: An Empirical Study of Turn-Control Strategies for Efficient Coding Agents 
 这个动态停止轮次，是基于统计的将固定轮次限制设定在基准分布的第75百分位是一个“最佳平衡点（sweet spot）”
+
+EET: Experience-Driven Early Termination for Cost-Efficient Software Engineering Agents
+基于经验来找相似度的trace，将这个trace作为输入 使用LLM来早停。只是需要调用LLM的
+
+The Cognitive Companion: A Lightweight Parallel Monitoring Architecture for Detecting and Recovering from Reasoning Degradation in LLM Agents
+大型语言模型（LLM）智能体在多步骤任务中会遭遇推理能力下降——例如循环、漂移和卡死状态——在难度较高的任务中，下降率高达30%。目前的解决方案包括**硬性步骤限制（突兀）或LLM作为评判者进行监控（每步开销10-15%）**。本文提出了一种名为“认知伴侣”（Cognitive Companion）的并行监控架构，并提供了两种实现方式：一种是基于LLM的伴侣，另一种是新型的零开销探针式伴侣。
+我们报告了一项以 Gemma 4 E4B 数据集为中心的三批次可行性研究，在我们的实验中，基于 LLM 的 Companion 模型在循环易发任务中将重复代码减少了 52% 至 62%，开销约为 11%。基于探针的 Companion模型，使用第 28 层隐藏状态进行训练，在零推理开销下，平均效应量为 +0.471 ；其最佳探针结果在一个小型代理标注数据集上实现了 0.840 的交叉验证 AUROC 值。探针就需要白盒

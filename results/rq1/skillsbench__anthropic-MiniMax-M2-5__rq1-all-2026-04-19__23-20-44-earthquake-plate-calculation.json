@@ -135,7 +135,7 @@
             },
             "usage_per_round": [],
             "execution_time": 403.277928,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -146,10 +146,10 @@
             "feedback": [
               "test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -207,7 +207,7 @@
             },
             "usage_per_round": [],
             "execution_time": 906.66473,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -218,10 +218,10 @@
             "feedback": [
               "tests/test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -279,7 +279,7 @@
             },
             "usage_per_round": [],
             "execution_time": 909.080746,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -290,10 +290,10 @@
             "feedback": [
               "tests/test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -351,7 +351,7 @@
             },
             "usage_per_round": [],
             "execution_time": 906.681994,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -362,10 +362,10 @@
             "feedback": [
               "tests/test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -423,7 +423,7 @@
             },
             "usage_per_round": [],
             "execution_time": 909.313384,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -434,10 +434,10 @@
             "feedback": [
               "tests/test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -495,7 +495,7 @@
             },
             "usage_per_round": [],
             "execution_time": 550.864718,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -506,10 +506,10 @@
             "feedback": [
               "tests/test_outputs.py::TestEarthquakeTask::test_distance_within_tolerance: The test failed in the call phase due to an assertion error"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation/earthquake-plate-calculation__a8ggvNr/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -557,7 +557,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation",
       "source_trial": "earthquake-plate-calculation__a8ggvNr"
     }
   ],
@@ -603,7 +603,7 @@
     "average_attempts_executed": 6.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-earthquake-plate-calculation",
     "agent": "terminus-2",
     "trial_count": 1,

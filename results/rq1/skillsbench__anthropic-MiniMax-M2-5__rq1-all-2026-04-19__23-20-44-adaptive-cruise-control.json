@@ -135,7 +135,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.348492,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -155,10 +155,10 @@
               "assert hasattr(module, 'AdaptiveCruiseControl')",
               "assert isinstance(result, tuple)"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -216,7 +216,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.323965,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -236,10 +236,10 @@
               "assert t90 - t10 < 10.0",
               ">       assert cruise['ego_speed'].max() < 31.5"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -297,7 +297,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.256145,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -317,10 +317,10 @@
               "assert len(t10_series) > 0 and len(t90_series) > 0, \"Speed thresholds not reached\"",
               "assert t90 - t10 < 10.0"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -378,7 +378,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.279918,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -398,10 +398,10 @@
               "assert isinstance(data[ctrl][gain], (int, float)), f\"{ctrl}.{gain} must be numeric\"",
               "assert speed_changed, \"Speed gains must differ from initial\""
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -459,7 +459,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.291667,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -479,10 +479,10 @@
               "assert cruise_when_no_lead > 0.95, \"Mode should be 'cruise' when no lead vehicle\"",
               "assert not_cruise_when_lead > 0.9, \"Mode should be 'follow' or 'emergency' when lead present\""
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -540,7 +540,7 @@
             },
             "usage_per_round": [],
             "execution_time": 1801.235374,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -560,10 +560,10 @@
               "assert errors.mean() < 2.0",
               "distances = pd.to_numeric(follow['distance'], errors='coerce')"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/test-stderr.txt",
             "ctrf_path": "",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control/adaptive-cruise-control__yn9jXip/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -611,7 +611,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
       "source_trial": "adaptive-cruise-control__yn9jXip"
     }
   ],
@@ -657,7 +657,7 @@
     "average_attempts_executed": 6.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-rq1-all-2026-04-19__23-20-44-adaptive-cruise-control",
     "agent": "terminus-2",
     "trial_count": 1,

@@ -78,6 +78,21 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
+def _ensure_task_skills_dir(skillsbench_root: Path, task_name: str) -> None:
+    script_path = Path(__file__).resolve().parent / "ensure_skills_dir_for_docker_tasks.py"
+    subprocess.run(
+        [
+            sys.executable,
+            str(script_path),
+            "--skillsbench-root",
+            str(skillsbench_root),
+            "--task-name",
+            task_name,
+        ],
+        check=True,
+    )
+
+
 def _read_json(path: Path) -> dict[str, Any] | None:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -469,6 +484,7 @@ def _terminate_process_tree(proc: subprocess.Popen[Any], grace_seconds: float) -
 
 def main() -> int:
     args = parse_args()
+    _ensure_task_skills_dir(args.skillsbench_root, args.task_name)
     intra_context = _load_intra_attempt_context(args)
     print(
         f"[early-stop-policy] task={args.task_name} strategy={args.early_stop_strategy} "

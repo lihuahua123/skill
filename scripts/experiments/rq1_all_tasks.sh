@@ -47,7 +47,7 @@ filter_task_if_missing_env "GOOGLE_AUTH_PATH" "tasks/scheduling-email-assistant"
 
 NOISE_FILTER='Failed to fetch remote model cost map|Failed to retrieve model info for '\''anthropic/MiniMax-M2.7'\''|Provider List: https://docs.litellm.ai/docs/providers'
 
-MODEL="${MINIMAX_MODEL:-anthropic/MiniMax-M2.5}"
+MODEL="${MINIMAX_MODEL:-anthropic/MiniMax-M2.7}"
 MAX_PARALLEL_TASKS="${RQ1_MAX_PARALLEL_TASKS:-2}"
 RUN_STAMP="$(date +"%Y-%m-%d__%H-%M-%S")"
 MAIN_LOG="${REPO_ROOT}/rq1_all_tasks.log"

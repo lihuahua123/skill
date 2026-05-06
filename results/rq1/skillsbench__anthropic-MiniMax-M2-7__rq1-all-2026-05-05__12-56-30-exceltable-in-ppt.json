@@ -1,0 +1,225 @@
+{
+  "model": "anthropic/MiniMax-M2.7",
+  "benchmark_version": "skillsbench",
+  "agent_temperature": 0.0,
+  "run_id": "rq1-all-2026-05-05__12-56-30-exceltable-in-ppt",
+  "timestamp": "2026-05-05T10:31:13.208352+00:00",
+  "suite": "exceltable-in-ppt",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "exceltable-in-ppt",
+      "task_prompt": null,
+      "status": "failed",
+      "timed_out": false,
+      "execution_time": 1971.811686,
+      "transcript_length": 15,
+      "llm_rounds": 0,
+      "usage": {
+        "total_tokens": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 1
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 0.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 0.0,
+        "max_score": 1.0,
+        "passed": false
+      },
+      "completion": {
+        "passed": false
+      },
+      "frontmatter": {},
+      "attempt_count": 1,
+      "first_success_attempt": null,
+      "success_within_budget": false,
+      "unresolved_criteria_count_by_attempt": [
+        2
+      ],
+      "transcript_length_by_attempt": [
+        15
+      ],
+      "prompt_tokens_by_attempt": [
+        0
+      ],
+      "completion_tokens_by_attempt": [
+        0
+      ],
+      "feedback_length_chars_by_attempt": [
+        0
+      ],
+      "stop_reason": "trial_finished",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-05-05T09:58:20.222800Z",
+          "finished_at": "2026-05-05T10:31:12.034486Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "0e6e6308-46ce-41c3-81be-89794b8dc8a5",
+          "execution": {
+            "llm_rounds": 0,
+            "usage": {
+              "total_tokens": 0,
+              "prompt_tokens": 0,
+              "completion_tokens": 0,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_tokens": 0,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1971.811686,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-exceltable-in-ppt/exceltable-in-ppt__6Jwh7pS/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "",
+            "feedback": [
+              "test_outputs.py::test_inverse_rate_updated: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::test_other_cells_unchanged: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "",
+            "stderr_path": "",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-exceltable-in-ppt/exceltable-in-ppt__6Jwh7pS/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-exceltable-in-ppt/exceltable-in-ppt__6Jwh7pS/verifier/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-05T10:31:12.034486Z",
+            "finished_at": "2026-05-05T10:31:12.034486Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 15,
+          "transcript_length_delta": 15,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-rq1-all-2026-05-05__12-56-30-exceltable-in-ppt",
+      "source_trial": "exceltable-in-ppt__6Jwh7pS"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_cache_tokens": 0,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 1,
+    "total_execution_time_seconds": 1971.811686,
+    "tasks_with_usage_data": 0,
+    "tokens_per_task": 0.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": null,
+    "score_per_dollar": null,
+    "success_rate": 0.0,
+    "success_per_1k_tokens": null,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "per_task": [
+      {
+        "task_id": "exceltable-in-ppt",
+        "success": false,
+        "first_success_attempt": null,
+        "attempt_count": 1,
+        "total_tokens": 0,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 1.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-rq1-all-2026-05-05__12-56-30-exceltable-in-ppt",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

@@ -115,7 +115,7 @@
             },
             "usage_per_round": [],
             "execution_time": 212.189273,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -130,10 +130,10 @@
               "test_outputs.py::test_content_integrity: @pytest.fixture(scope=\"module\")\n    def dialogue_data():\n        \"\"\"Load dialogue.json from expected locations.\"\"\"\n        direct_paths = [\"/app/dialogue.json\", \"dialogue.json\", \"/root/dialogue.json\"]\n        for path in direct_paths:\n            if os.path.e\n...[truncated]",
               "test_outputs.py::test_structural_integrity: @pytest.fixture(scope=\"module\")\n    def dialogue_data():\n        \"\"\"Load dialogue.json from expected locations.\"\"\"\n        direct_paths = [\"/app/dialogue.json\", \"dialogue.json\", \"/root/dialogue.json\"]\n        for path in direct_paths:\n            if os.pat\n...[truncated]"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -191,7 +191,7 @@
             },
             "usage_per_round": [],
             "execution_time": 86.897074,
-            "agent_dir": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/agent",
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/agent",
             "error": {},
             "intra_attempt_early_stop": false
           },
@@ -203,10 +203,10 @@
               "../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract] PASSED [ 71%]",
               "PASSED ../tests/test_outputs.py::test_content_integrity[node_text-KiraWarning-She's never failed a contract]"
             ],
-            "stdout_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stdout.txt",
-            "stderr_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stderr.txt",
-            "ctrf_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/ctrf.json",
-            "reward_path": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/reward.txt",
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42/dialogue-parser__UhWcjmi/verifier/reward.txt",
             "timed_out": false,
             "timeout_sec": null,
             "timeout_message": "",
@@ -250,7 +250,7 @@
         false,
         false
       ],
-      "source_job": "/home/nudt/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42",
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-2026-04-19__13-42-42",
       "source_trial": "dialogue-parser__UhWcjmi"
     }
   ],
@@ -296,7 +296,7 @@
     "average_attempts_executed": 2.0
   },
   "source": {
-    "jobs_root": "/home/nudt/lirui/skill_study/skillsbench/jobs",
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
     "job_filter": "skillsbench-2026-04-19__13-42-42",
     "agent": "terminus-2",
     "trial_count": 1,

@@ -25,6 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--suite", default="all")
     parser.add_argument("--max-task-attempts", type=int, default=1)
     parser.add_argument("--benchmark-version", default="skillsbench")
+    parser.add_argument("--agent-temperature", type=float, default=0.0)
     parser.add_argument("--feedback-policy", default="none")
     parser.add_argument("--feedback-format", default="none")
     parser.add_argument("--feedback-strategy", default="none")
@@ -963,6 +964,7 @@ def main() -> None:
     payload = {
         "model": args.model,
         "benchmark_version": args.benchmark_version,
+        "agent_temperature": args.agent_temperature,
         "run_id": args.run_id,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "suite": args.suite,

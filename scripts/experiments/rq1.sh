@@ -66,8 +66,9 @@ configure_minimax_anthropic_env() {
       ;;
   esac
 
-  local key_file="${MINIMAX_API_KEY_FILE:-/home/nudt/lirui/skill_study/.minimaxapikey}"
-  if [[ -z "${ANTHROPIC_API_KEY:-}" ]]; then
+  local key_file="${MINIMAX_API_KEY_FILE:-/data/lirui/skill_study/.minimaxapikey}"
+  local anthropic_api_key="${ANTHROPIC_API_KEY:-}"
+  if [[ -z "${anthropic_api_key}" || "${anthropic_api_key}" == dummy-* ]]; then
     if [[ ! -f "${key_file}" ]]; then
       echo "Missing MiniMax API key file: ${key_file}" >&2
       echo "Set ANTHROPIC_API_KEY or MINIMAX_API_KEY_FILE before running ${model_id}." >&2
