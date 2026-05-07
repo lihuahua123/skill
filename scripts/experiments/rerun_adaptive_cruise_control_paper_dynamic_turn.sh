@@ -15,7 +15,11 @@ MAX_PARALLEL_TASKS="${MAX_PARALLEL_TASKS:-1}"
 PAPER_INITIAL_TURN_LIMIT="${PAPER_INITIAL_TURN_LIMIT:-14}"
 PAPER_EXTENSION_TURN_LIMIT="${PAPER_EXTENSION_TURN_LIMIT:-14}"
 PAPER_REMIND_EVERY_TURN="${PAPER_REMIND_EVERY_TURN:-true}"
+STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-true}"
+STOP_CHECK_ZERO_PROGRESS_STREAK="${STOP_CHECK_ZERO_PROGRESS_STREAK:-2}"
+STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
 SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
+RETRY_WORKSPACE_STRATEGY="${RETRY_WORKSPACE_STRATEGY:-preserve}" #fresh
 FORCE_BUILD="${FORCE_BUILD:-false}"
 RUN_STAMP="$(date +"%Y-%m-%d__%H-%M-%S")"
 RUN_ID="${RUN_ID:-adaptive-cruise-control-paper-dynamic-turn-${RUN_STAMP}}"
@@ -33,11 +37,17 @@ CMD=(
   --job-name "${JOB_NAME}"
   --skillsbench-task-path "${TASK_PATH}"
   --skillsbench-skill-guidance "${SKILLSBENCH_SKILL_GUIDANCE}"
+  --retry-workspace-strategy "${RETRY_WORKSPACE_STRATEGY}"
   --ak "paper_dynamic_turn_enabled=false"
-  # --ak "paper_dynamic_turn_initial_turn_limit=${PAPER_INITIAL_TURN_LIMIT}"
-  # --ak "paper_dynamic_turn_extension_turn_limit=${PAPER_EXTENSION_TURN_LIMIT}"
-  # --ak "paper_dynamic_turn_remind_every_turn=${PAPER_REMIND_EVERY_TURN}"
 )
+
+if [[ "${STOP_CHECK_EARLY_STOP_ENABLED,,}" == "1" || "${STOP_CHECK_EARLY_STOP_ENABLED,,}" == "true" || "${STOP_CHECK_EARLY_STOP_ENABLED,,}" == "yes" ]]; then
+  CMD+=(
+    --ak "paper_turn_stopcheck_enabled=true"
+    --ak "paper_turn_stopcheck_zero_progress_streak=${STOP_CHECK_ZERO_PROGRESS_STREAK}"
+    --ak "paper_turn_stopcheck_yes_streak=${STOP_CHECK_YES_STREAK}"
+  )
+fi
 
 if [[ "${FORCE_BUILD,,}" == "1" || "${FORCE_BUILD,,}" == "true" || "${FORCE_BUILD,,}" == "yes" ]]; then
   CMD+=(--force-build)

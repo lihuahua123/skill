@@ -399,6 +399,11 @@ run_benchmark() {
         :
       fi
 
+      local retry_workspace_strategy=""
+      if retry_workspace_strategy="$(extract_option_value --retry-workspace-strategy "$@")"; then
+        :
+      fi
+
       local agent_kwargs=()
       local ak_values=()
       local agent_kwarg_values=()
@@ -572,6 +577,9 @@ run_benchmark() {
       if [[ -n "${max_parallel_tasks}" ]]; then
         cmd+=(-n "${max_parallel_tasks}")
       fi
+      if [[ -n "${retry_workspace_strategy}" ]]; then
+        cmd+=(--retry-workspace-strategy "${retry_workspace_strategy}")
+      fi
       if option_supplied --force-build "$@"; then
         cmd+=(--force-build)
       fi
@@ -688,6 +696,173 @@ run_benchmark() {
       aggregate_cmd+=(--early-stop-strategy "${early_stop_strategy}")
       aggregate_cmd+=(--output "${output_json}")
       "${aggregate_cmd[@]}"
+      ;;
+    swebench)
+      if option_supplied --pinchbench-task-id "$@" || option_supplied --skillsbench-task-path "$@"; then
+        echo "Backend-specific task options do not match backend=swebench" >&2
+        exit 2
+      fi
+
+      local model_name
+      if model_name="$(extract_option_value --model "$@")"; then
+        :
+      else
+        echo "Missing --model for backend=swebench" >&2
+        exit 2
+      fi
+
+      local max_task_attempts
+      if max_task_attempts="$(extract_option_value --max-task-attempts "$@")"; then
+        :
+      else
+        max_task_attempts="1"
+      fi
+      if [[ "${max_task_attempts}" != "1" ]]; then
+        echo "backend=swebench currently supports only --max-task-attempts 1" >&2
+        exit 2
+      fi
+
+      local run_id=""
+      if run_id="$(extract_option_value --run-id "$@")"; then
+        :
+      else
+        run_id="$(date +"%Y-%m-%d__%H-%M-%S")"
+      fi
+
+      local benchmark_version=""
+      if benchmark_version="$(extract_option_value --benchmark-version "$@")"; then
+        :
+      else
+        benchmark_version="swebench_verified"
+      fi
+
+      local swebench_dataset=""
+      if swebench_dataset="$(extract_option_value --swebench-dataset "$@")"; then
+        :
+      else
+        swebench_dataset="${REPO_ROOT}/data/swebench_verified/test-00000-of-00001.parquet"
+      fi
+
+      local swebench_split=""
+      if swebench_split="$(extract_option_value --swebench-split "$@")"; then
+        :
+      else
+        swebench_split="test"
+      fi
+
+      local swebench_eval_dataset_name=""
+      if swebench_eval_dataset_name="$(extract_option_value --swebench-eval-dataset-name "$@")"; then
+        :
+      else
+        swebench_eval_dataset_name="princeton-nlp/SWE-Bench_Verified"
+      fi
+
+      local swebench_instance_id=""
+      if swebench_instance_id="$(extract_option_value --swebench-instance-id "$@")"; then
+        :
+      fi
+
+      local swebench_agent_backend=""
+      if swebench_agent_backend="$(extract_option_value --swebench-agent-backend "$@")"; then
+        :
+      else
+        swebench_agent_backend="plain-mini"
+      fi
+
+      local swebench_max_workers=""
+      if swebench_max_workers="$(extract_option_value --swebench-max-workers "$@")"; then
+        :
+      else
+        swebench_max_workers="1"
+      fi
+
+      local feedback_policy=""
+      if feedback_policy="$(extract_option_value --feedback-policy "$@")"; then
+        :
+      else
+        feedback_policy="none"
+      fi
+
+      local feedback_format=""
+      if feedback_format="$(extract_option_value --feedback-format "$@")"; then
+        :
+      else
+        feedback_format="none"
+      fi
+
+      local feedback_answer_safety=""
+      if feedback_answer_safety="$(extract_option_value --feedback-answer-safety "$@")"; then
+        :
+      else
+        feedback_answer_safety="no-answers"
+      fi
+
+      local stop_rule=""
+      if stop_rule="$(extract_option_value --stop-rule "$@")"; then
+        :
+      else
+        stop_rule="max-attempts-only"
+      fi
+
+      local stop_threshold=""
+      if stop_threshold="$(extract_option_value --stop-threshold "$@")"; then
+        :
+      else
+        stop_threshold="0.0"
+      fi
+
+      local model_slug
+      model_slug="$(printf '%s' "${model_name}" | tr '/.' '--')"
+      local output_root="${REPO_ROOT}/${output_dir}"
+      mkdir -p "${output_root}"
+      local output_json="${output_root}/swebench__${model_slug}__${run_id}.json"
+      local swebench_run_root="${REPO_ROOT}/results/swebench_runs/${run_id}"
+      mkdir -p "${swebench_run_root}"
+
+      local runner_python
+      runner_python="$(skillsbench_python)"
+
+      local swebench_runner_cmd=(
+        "${runner_python}" "${REPO_ROOT}/scripts/run_swebench_with_minisweagent.py"
+        --model "${model_name}"
+        --dataset-path "${swebench_dataset}"
+        --dataset-split "${swebench_split}"
+        --eval-dataset-name "${swebench_eval_dataset_name}"
+        --run-id "${run_id}"
+        --output-root "${swebench_run_root}"
+        --max-task-attempts "${max_task_attempts}"
+        --swebench-agent-backend "${swebench_agent_backend}"
+        --swebench-max-workers "${swebench_max_workers}"
+        --runner-python "${runner_python}"
+      )
+      if [[ -n "${swebench_instance_id}" ]]; then
+        swebench_runner_cmd+=(--swebench-instance-id "${swebench_instance_id}")
+      fi
+      (
+        cd "${REPO_ROOT}"
+        "${swebench_runner_cmd[@]}"
+      )
+
+      local suite_value
+      if [[ -n "${swebench_instance_id}" ]]; then
+        suite_value="${swebench_instance_id}"
+      else
+        suite_value="all"
+      fi
+
+      "${runner_python}" "${REPO_ROOT}/scripts/aggregate_swebench_minisweagent_results.py" \
+        --run-root "${swebench_run_root}" \
+        --model "${model_name}" \
+        --run-id "${run_id}" \
+        --suite "${suite_value}" \
+        --max-task-attempts "${max_task_attempts}" \
+        --benchmark-version "${benchmark_version}" \
+        --feedback-policy "${feedback_policy}" \
+        --feedback-format "${feedback_format}" \
+        --feedback-answer-safety "${feedback_answer_safety}" \
+        --stop-rule "${stop_rule}" \
+        --stop-threshold "${stop_threshold}" \
+        --output "${output_json}"
       ;;
     *)
       echo "Unsupported backend: ${backend}" >&2

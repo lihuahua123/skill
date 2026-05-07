@@ -1,12 +1,10 @@
-有，而且已经有几条很接近的线了；但我没查到一篇完整覆盖你这个设计全部要点的论文。更准确地说，你的 EXPERIMENT_DESIGN.md 里至少有 4 个子问题，文献里分别有人做过，但“真实工具代理 + validator-driven iterative repair + feedback policy/context policy 对照 + success/cost/convergence 全套分析”这个组合，我目前没有找到现成一篇直接撞题的。
-
-最接近的论文
 
 - ChatRepair / Keep the Conversation Going（2023-04-01）
-  最像你“validator-driven iterative repair”主线。它做的是 conversation-driven APR，把失败 patch 和测试反馈继续喂回去，形成多轮修复闭环。
+Keep the Conversation Going: Fixing 162 out of 337 bugs for $0.42 each using ChatGPT
+  最像你“validator-driven iterative repair”主线。它做的是 conversation-driven APR，把失败 patch 和测试反馈继续喂回去，形成多轮修复闭环。但是没有设定要修改多少轮，给定一个预算，5-10轮左右
   链接：https://www.catalyzex.com/paper/keep-the-conversation-going-fixing-162-out-of
 - Studying and Understanding the Effectiveness and Failures of Conversational LLM-Based Repair（2025-03-19）
-  这篇和你的 RQ1/RQ2/RQ4 尤其像，因为它专门分析 iterative component 到底有没有用。更重要的是，它的结论对你有直接启发：他们发现 ChatRepair 的迭代式改进未明显优于独立重复 prompting，甚至还更差一些。
+  这篇和你的 RQ1/RQ2/RQ4 尤其像，因为它专门分析 iterative component 到底有没有用。更重要的是，它的结论对你有直接启发：他们发现 ChatRepair 的迭代式改进未明显优于独立重复 prompting，甚至还更差一些。这个我也发现了，就是其实多次尝试类似于fresh的时候，还更快一点。
   链接：https://qixin5.github.io/files/pdf/research/apr25studying.pdf
 - ContrastRepair（期刊页显示 2025-10-03；对应 arXiv 2024）
   这篇像你“feedback_policy”那部分。核心思想是：反馈质量决定效果，它通过 failing/passing test pair 让反馈更可操作，显著优于已有 conversational APR。

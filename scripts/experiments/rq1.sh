@@ -108,6 +108,9 @@ SKILLSBENCH_EXCLUDED_TASKS=()
 
 SKILLSBENCH_TASK_ARGS=()
 BACKEND="$(selected_backend "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
+if [[ "${BACKEND}" == "swebench" ]] && ! option_supplied --max-task-attempts "${EXTRA_ARGS[@]}"; then
+  MAX_ATTEMPTS_VALUE=1
+fi
 if [[ "${BACKEND}" == "skillsbench" ]] && ! option_supplied --skillsbench-task-path "${EXTRA_ARGS[@]}"; then
   SKILLSBENCH_MODE="$(skillsbench_mode_from_args "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
   SKILLSBENCH_TASKS_ROOT="$(skillsbench_tasks_root "${SKILLSBENCH_MODE}")"
