@@ -95,6 +95,126 @@ def build_prediction(instance_id: str, model_name: str, patch: str) -> dict[str,
     }
 
 
+def _usage_totals_from_messages(messages: list[dict[str, Any]]) -> dict[str, Any]:
+    totals = {
+        "total_prompt_tokens": 0,
+        "total_completion_tokens": 0,
+        "total_tokens": 0,
+        "total_cost_usd": 0.0,
+        "request_count": 0,
+    }
+    for message in messages:
+        if message.get("role") != "assistant":
+            continue
+        usage = message.get("usage") or {}
+        prompt_tokens = int(usage.get("input", 0) or 0)
+        completion_tokens = int(usage.get("output", 0) or 0)
+        total_tokens = int(usage.get("totalTokens", 0) or (prompt_tokens + completion_tokens))
+        cost_usd = float(((usage.get("cost") or {}).get("total", 0.0)) or 0.0)
+        totals["total_prompt_tokens"] += prompt_tokens
+        totals["total_completion_tokens"] += completion_tokens
+        totals["total_tokens"] += total_tokens
+        totals["total_cost_usd"] += cost_usd
+        totals["request_count"] += 1
+    totals["total_cost_usd"] = round(totals["total_cost_usd"], 6)
+    return totals
+
+
+def _build_usage_per_round(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rounds: list[dict[str, Any]] = []
+    for message in messages:
+        if message.get("role") != "assistant":
+            continue
+        usage = message.get("usage") or {}
+        prompt_tokens = int(usage.get("input", 0) or 0)
+        completion_tokens = int(usage.get("output", 0) or 0)
+        rounds.append(
+            {
+                "round": len(rounds) + 1,
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+                "total_tokens": int(usage.get("totalTokens", 0) or (prompt_tokens + completion_tokens)),
+                "cost_usd": round(float(((usage.get("cost") or {}).get("total", 0.0)) or 0.0), 6),
+            }
+        )
+    return rounds
+
+
+def _build_llm_rounds(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rounds: list[dict[str, Any]] = []
+    for idx, message in enumerate(messages):
+        if message.get("role") != "assistant":
+            continue
+        usage = message.get("usage") or {}
+        prompt_tokens = int(usage.get("input", 0) or 0)
+        completion_tokens = int(usage.get("output", 0) or 0)
+        rounds.append(
+            {
+                "round": len(rounds) + 1,
+                "input_messages": copy.deepcopy(messages[:idx]),
+                "output_message": copy.deepcopy(message),
+                "usage": {
+                    "prompt_tokens": prompt_tokens,
+                    "completion_tokens": completion_tokens,
+                    "total_tokens": int(usage.get("totalTokens", 0) or (prompt_tokens + completion_tokens)),
+                    "cost_usd": round(float(((usage.get("cost") or {}).get("total", 0.0)) or 0.0), 6),
+                },
+            }
+        )
+    return rounds
+
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def enrich_traj_outputs(traj_path: Path, attempt_dir: Path) -> dict[str, Any]:
+    traj_payload = json.loads(traj_path.read_text(encoding="utf-8"))
+    messages = list(traj_payload.get("messages") or [])
+    usage_totals = _usage_totals_from_messages(messages)
+    usage_per_round = _build_usage_per_round(messages)
+    llm_rounds = _build_llm_rounds(messages)
+
+    transcript_path = attempt_dir / "transcript.json"
+    llm_rounds_path = attempt_dir / "llm_rounds.json"
+    _write_json(transcript_path, messages)
+    _write_json(llm_rounds_path, llm_rounds)
+
+    traj_payload.update(
+        {
+            "total_prompt_tokens": usage_totals["total_prompt_tokens"],
+            "total_completion_tokens": usage_totals["total_completion_tokens"],
+            "total_tokens": usage_totals["total_tokens"],
+            "total_cost_usd": usage_totals["total_cost_usd"],
+            "request_count": usage_totals["request_count"],
+            "usage_per_round": usage_per_round,
+            "transcript_path": str(transcript_path),
+            "llm_rounds_path": str(llm_rounds_path),
+        }
+    )
+    _write_json(traj_path, traj_payload)
+
+    episode_dirs = sorted(str(path) for path in attempt_dir.glob("episode-*") if path.is_dir())
+    extra_trajectories = sorted(
+        str(path) for path in attempt_dir.rglob("trajectory.json") if path.resolve() != traj_path.resolve()
+    )
+
+    return {
+        "transcript_path": str(transcript_path),
+        "llm_rounds_path": str(llm_rounds_path),
+        "usage": {
+            "prompt_tokens": usage_totals["total_prompt_tokens"],
+            "completion_tokens": usage_totals["total_completion_tokens"],
+            "total_tokens": usage_totals["total_tokens"],
+            "cost_usd": usage_totals["total_cost_usd"],
+            "request_count": usage_totals["request_count"],
+        },
+        "usage_per_round": usage_per_round,
+        "episode_dirs": episode_dirs,
+        "extra_trajectory_files": extra_trajectories,
+    }
+
+
 def _tail_lines(text: str, limit: int = 80) -> str:
     lines = [line.rstrip() for line in text.splitlines() if line.strip()]
     if not lines:
@@ -332,12 +452,20 @@ def build_task_attempt_summary(
     stop_rule: str,
     stop_threshold: float,
     stop_rule_trigger_reason: str | None,
+    transcript_path: Path | None,
+    llm_rounds_path: Path | None,
+    usage: dict[str, Any] | None,
+    usage_per_round: list[dict[str, Any]] | None,
+    episode_dirs: list[str] | None,
+    extra_trajectory_files: list[str] | None,
 ) -> dict[str, Any]:
     return {
         "attempt": attempt_number,
         "traj_json": str(traj_path),
         "prediction_json": str(prediction_path),
         "eval_json": str(eval_result_path),
+        "transcript_json": str(transcript_path) if transcript_path else "",
+        "llm_rounds_json": str(llm_rounds_path) if llm_rounds_path else "",
         "feedback_path": str(feedback_path) if feedback_path else "",
         "feedback_prompt": feedback_prompt,
         "feedback_prompt_stats": feedback_stats,
@@ -349,6 +477,10 @@ def build_task_attempt_summary(
         "stop_rule": stop_rule,
         "stop_threshold": stop_threshold,
         "stop_rule_trigger_reason": stop_rule_trigger_reason,
+        "usage": usage or {},
+        "usage_per_round": usage_per_round or [],
+        "episode_dirs": episode_dirs or [],
+        "extra_trajectory_files": extra_trajectory_files or [],
     }
 
 
@@ -359,7 +491,7 @@ def run_single_attempt(
     backend: str,
     config_template: dict[str, Any],
     attempt_dir: Path,
-) -> tuple[Path, Path, float]:
+) -> tuple[Path, Path, float, dict[str, Any]]:
     instance_id = instance["instance_id"]
     config = copy.deepcopy(config_template)
     env = None
@@ -392,13 +524,14 @@ def run_single_attempt(
             instance_id=instance_id,
             print_path=False,
         )
+        traj_metadata = enrich_traj_outputs(traj_path, attempt_dir)
 
         prediction_path = attempt_dir / "prediction.json"
         prediction_path.write_text(
             json.dumps(build_prediction(instance_id, model_name, result), indent=2),
             encoding="utf-8",
         )
-        return traj_path, prediction_path, finished_at - started_at
+        return traj_path, prediction_path, finished_at - started_at, traj_metadata
     finally:
         if env is not None:
             wait_for_env_cleanup(env)
@@ -543,7 +676,7 @@ def main() -> None:
                     feedback_prompt,
                 )
 
-            traj_path, prediction_path, agent_time = run_single_attempt(
+            traj_path, prediction_path, agent_time, traj_metadata = run_single_attempt(
                 instance=attempt_instance,
                 model_name=args.model,
                 backend=args.swebench_agent_backend,
@@ -587,6 +720,12 @@ def main() -> None:
                         stop_rule=args.stop_rule,
                         stop_threshold=args.stop_threshold,
                         stop_rule_trigger_reason="evaluation-skipped",
+                        transcript_path=Path(traj_metadata["transcript_path"]),
+                        llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
+                        usage=traj_metadata["usage"],
+                        usage_per_round=traj_metadata["usage_per_round"],
+                        episode_dirs=traj_metadata["episode_dirs"],
+                        extra_trajectory_files=traj_metadata["extra_trajectory_files"],
                     )
                 )
                 break
@@ -608,9 +747,7 @@ def main() -> None:
             )
             eval_result = json.loads(eval_result_path.read_text(encoding="utf-8"))
             current_score = 1.0 if bool(eval_result["resolved"]) else 0.0
-            traj_payload = json.loads(traj_path.read_text(encoding="utf-8"))
-            model_stats = ((traj_payload.get("info") or {}).get("model_stats") or {})
-            token_delta = float(model_stats.get("api_calls", 0) or 0.0)
+            token_delta = float((traj_metadata.get("usage") or {}).get("total_tokens", 0) or 0.0)
             stop_trigger = should_stop_retry(
                 stop_rule=args.stop_rule,
                 stop_threshold=args.stop_threshold,
@@ -630,14 +767,20 @@ def main() -> None:
                     feedback_stats=feedback_stats,
                     feedback_policy=args.feedback_policy,
                     feedback_format=args.feedback_format,
-                    agent_time_seconds=agent_time,
-                    evaluation_time_seconds=evaluation_time,
-                    resolved=bool(eval_result["resolved"]),
-                    stop_rule=args.stop_rule,
-                    stop_threshold=args.stop_threshold,
-                    stop_rule_trigger_reason=stop_trigger,
+                        agent_time_seconds=agent_time,
+                        evaluation_time_seconds=evaluation_time,
+                        resolved=bool(eval_result["resolved"]),
+                        stop_rule=args.stop_rule,
+                        stop_threshold=args.stop_threshold,
+                        stop_rule_trigger_reason=stop_trigger,
+                        transcript_path=Path(traj_metadata["transcript_path"]),
+                        llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
+                        usage=traj_metadata["usage"],
+                        usage_per_round=traj_metadata["usage_per_round"],
+                        episode_dirs=traj_metadata["episode_dirs"],
+                        extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                    )
                 )
-            )
 
             if current_score >= 1.0:
                 first_success_attempt = attempt_number
@@ -654,6 +797,8 @@ def main() -> None:
             "first_success_attempt": first_success_attempt,
             "success_within_budget": first_success_attempt is not None,
             "stop_reason": stop_reason,
+            "swebench_agent_backend": args.swebench_agent_backend,
+            "model": args.model,
             "retry_policies": {
                 "feedback_policy": args.feedback_policy,
                 "feedback_format": args.feedback_format,
@@ -663,6 +808,33 @@ def main() -> None:
                 "stop_threshold": args.stop_threshold,
                 "max_task_attempts": max(1, args.max_task_attempts),
             },
+            "usage": {
+                "prompt_tokens": sum(int((attempt.get("usage") or {}).get("prompt_tokens", 0) or 0) for attempt in attempt_summaries),
+                "completion_tokens": sum(
+                    int((attempt.get("usage") or {}).get("completion_tokens", 0) or 0) for attempt in attempt_summaries
+                ),
+                "total_tokens": sum(int((attempt.get("usage") or {}).get("total_tokens", 0) or 0) for attempt in attempt_summaries),
+                "cost_usd": round(
+                    sum(float((attempt.get("usage") or {}).get("cost_usd", 0.0) or 0.0) for attempt in attempt_summaries),
+                    6,
+                ),
+                "request_count": sum(int((attempt.get("usage") or {}).get("request_count", 0) or 0) for attempt in attempt_summaries),
+            },
+            "total_prompt_tokens": sum(
+                int((attempt.get("usage") or {}).get("prompt_tokens", 0) or 0) for attempt in attempt_summaries
+            ),
+            "total_completion_tokens": sum(
+                int((attempt.get("usage") or {}).get("completion_tokens", 0) or 0) for attempt in attempt_summaries
+            ),
+            "total_tokens": sum(int((attempt.get("usage") or {}).get("total_tokens", 0) or 0) for attempt in attempt_summaries),
+            "usage_per_round": [
+                {
+                    **round_item,
+                    "attempt": attempt_summary["attempt"],
+                }
+                for attempt_summary in attempt_summaries
+                for round_item in (attempt_summary.get("usage_per_round") or [])
+            ],
             "attempts": attempt_summaries,
         }
         (instance_root / "task_summary.json").write_text(
