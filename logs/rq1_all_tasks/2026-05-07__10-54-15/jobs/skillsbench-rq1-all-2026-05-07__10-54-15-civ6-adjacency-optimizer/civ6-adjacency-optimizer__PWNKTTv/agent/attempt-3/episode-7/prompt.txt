@@ -1,0 +1,26 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> with open('/tmp/map.db', 'rb') as f:
+>     header = f.read(50)
+>     print('Header bytes:', header[:20])
+>     print('Header text:', header[:50])
+> "
+Header bytes: b''
+Header text: b''
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/tmp/map.db')
+> cursor = conn.cursor()
+> cursor.execute(\"SELECT name FROM sqlite_master WHERE type='table'\")
+> print(cursor.fetchall())
+> cursor.execute(\"SELECT sql FROM sqlite_master\")
+> print(cursor.fetchall())
+> conn.close()
+> "
+[]
+[]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

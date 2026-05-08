@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+self = <test_outputs.TestSpeedControl object at 0x7f469efc74a0>
+
+    def test_speed_control(self):
+        """Speed control: rise time, overshoot, and steady-state error."""
+        import pandas as pd
+
+        simulation_data = pd.read_csv('/root/simulation_results.csv')
+        cruise = simulation_data[simulation_data['time'] <= 30.0]
+
+        # Rise time < 10s (time from 3 to 27 m/s)
+        t10_series = cruise[cruise['ego_speed'] >= 3.0]['time']
+        t90_series = cruise[cruise['ego_speed'] >= 27.0]['time']
+        assert len(t10_series) > 0 and len(t90_series) > 0, "Speed thresholds not reached"
+        t10 = t10_series.min()
+        t90 = t90_series.min()
+        assert t90 - t10 < 10.0
+
+        # Overshoot < 5% (max speed < 31.5 m/s)
+>       assert cruise['ego_speed'].max() < 31.5
+E       assert 46.33243159594075 < 31.5
+E        +  where 46.33243159594075 = max()
+E        +    where max = 0       0.300000\n1       0.600000\n2       0.900000\n3       1.200000\n4       1.500000\n         ...    \n296    31.526842\n297    3
+1.499749\n298    31.473136\n299    31.446995\n300    30.646995\nName: ego_speed, Length: 301, dtype: float64.max
+
+/tests/test_outputs.py:211: AssertionError
+____________________________ TestSafety.test_safety ____________________________
+
+self = <test_outputs.TestSafety object at 0x7f469efc7740>
+
+    def test_safety(self):
+        """Safety: minimum distance, emergency mode, acceleration limits, speed."""
+        import pandas as pd
+
+        simulation_data = pd.read_csv('/root/simulation_results.csv')
+
+        # Distance must never go below 5 meters
+        dist = simulation_data[simulation_data['distance'].notna() & (simulation_data['distance'] != '')]
+        if len(dist) > 0:
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>
+> cursor.execute('SELECT ID FROM PlotRivers')
+> river_ids = [r[0] for r in cursor.fetchall()]
+> print(f'River tiles: {len(river_ids)}')
+>
+> # Convert to coordinates
+> river_coords = []
+> for rid in river_ids:
+>     x = rid % width
+>     y = rid // width
+>     river_coords.append((x, y))
+>
+> print('River coordinates:')
+> for coord in sorted(river_coords):
+>     print(f'  {coord}')
+>
+> # Check if (23, 14) is on/near a river
+> target = (23, 14)
+> print(f'\nIs {target} a river tile:', target in river_coords)
+> "
+Map size: 44x26
+River tiles: 14
+River coordinates:
+  (3, 13)
+  (5, 7)
+  (21, 13)
+  (22, 14)
+  (22, 15)
+  (22, 17)
+  (23, 14)
+  (23, 15)
+  (23, 16)
+  (23, 17)
+  (24, 14)
+  (24, 16)
+  (36, 23)
+  (38, 18)
+
+Is (23, 14) a river tile: True
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

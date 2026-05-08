@@ -1,0 +1,20 @@
+{
+  "analysis": "The heredoc is having issues with the space in the filename. Let me try a different approach.",
+  "plan": "Create a Python script file and run it, or use different quoting.",
+  "commands": [
+    {
+      "keystrokes": "cat > /tmp/parse_map.py << 'ENDSCRIPT'\nimport sqlite3\nconn = sqlite3.connect('/data/maps/e2e_test_case_0 Civ6Map')\ncursor = conn.cursor()\n\n# Get total plots count to understand dimensions\ncursor.execute(\"SELECT COUNT(*) FROM Plots\")\nprint(\"Total plots:\", cursor.fetchone()[0])\n\n# Get some sample plots\ncursor.execute(\"SELECT * FROM Plots LIMIT 10\")\nprint(\"\\nSample plots:\")\nfor row in cursor.fetchall():\n    print(row)\n\n# Get plot features schema\ncursor.execute(\"PRAGMA table_info(PlotFeatures)\")\nprint(\"\\nPlotFeatures schema:\")\nfor row in cursor.fetchall():\n    print(row)\n\n# Get plot features count\ncursor.execute(\"SELECT COUNT(*) FROM PlotFeatures\")\nprint(\"\\nPlotFeatures count:\", cursor.fetchone()[0])\nENDSCRIPT\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "python3 /tmp/parse_map.py\n",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Path parsing issue",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

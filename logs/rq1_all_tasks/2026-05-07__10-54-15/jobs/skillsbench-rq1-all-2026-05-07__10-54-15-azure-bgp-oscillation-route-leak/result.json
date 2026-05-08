@@ -1,0 +1,27 @@
+{
+    "id": "a770b81f-84a1-423b-b224-2abd75d37a6e",
+    "started_at": "2026-05-07T10:54:20.277760",
+    "finished_at": "2026-05-07T10:54:28.594884",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 0,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {},
+                "exception_stats": {
+                    "RuntimeError": [
+                        "azure-bgp-oscillation-route-leak__PiXazoy"
+                    ]
+                }
+            }
+        }
+    }
+}

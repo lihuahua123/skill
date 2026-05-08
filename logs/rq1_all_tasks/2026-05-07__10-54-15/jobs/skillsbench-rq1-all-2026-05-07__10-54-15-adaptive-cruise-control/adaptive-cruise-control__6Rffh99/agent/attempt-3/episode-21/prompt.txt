@@ -1,0 +1,47 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+
+Current Terminal Screen:
+>         f.write(f"| Dist SS Error | <2m | {dist_ss_err:.2f}m | {ds_status} |\n")
+>         md_status = 'PASS' if (min_dist and min_dist > 5) else 'FAIL'
+>         f.write(f"| Min Distance | >5m | {min_dist:.2f}m | {md_status} |\n")
+>         f.write("\n### Simulation Summary\n\n")
+>         f.write(f"- Duration: 150s, Timestep: 0.1s\n")
+>         f.write(f"- Rows in output: {len(df)}\n")
+>         f.write(f"- Max speed: {max_speed:.2f} m/s\n")
+>         f.write(f"- Modes: cruise={len(df[df['mode']=='cruise'])}, follow={len(follow_df)}, emergency={len(df[df['mode']=='emergency'])}\n")
+>     print("Report saved to acc_report.md")
+>
+> if __name__ == '__main__':
+>     run_simulation()
+> EOF
+root@bfb65fae2dcc:~# python3 simulation.py
+Speed PID: {'kp': 2.5, 'ki': 0.4, 'kd': 0.6}
+Distance PID: {'kp': 1.2, 'ki': 0.15, 'kd': 0.3}
+Saved 1501 rows to simulation_results.csv
+Report saved to acc_report.md
+root@bfb65fae2dcc:~# python3 -m pytest /tests/test_outputs.py -v 2>&1 | tail -20
+
+        with open('/root/vehicle_params.yaml', 'r') as f:
+            config = yaml.safe_load(f)
+
+        # Class must exist
+        assert hasattr(module, 'AdaptiveCruiseControl')
+
+        acc = module.AdaptiveCruiseControl(config)
+
+        # Return format validation
+        result = acc.compute(ego_speed=20.0, lead_speed=None, distance=None, dt=0.1)
+        assert isinstance(result, tuple)
+>       assert len(result) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len((1.01, 'cruise', None, None))
+
+/tests/test_outputs.py:100: AssertionError
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::TestACCSystem::test_acc_system - AssertionEr...
+========================= 1 failed, 11 passed in 2.28s =========================
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

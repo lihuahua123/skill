@@ -1,0 +1,76 @@
+New Terminal Output:
+3'))
+root@561ccb8d5e18:~# cat > /root/workspace/solution.py << 'EOF'
+> from fractions import Fraction
+> from pymatgen.core import Structure
+> from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+> from typing import Dict, Any
+>
+> def decimal_to_rational_str(value: float, max_denom: int = 12) -> str:
+>     """Convert a decimal to a rational string with denominators <= max_denom."""
+>     # Handle very small values as 0
+>     if abs(value) < 1e-6:
+>         return "0"
+>     # Handle 1 as 1
+>     if abs(value - 1.0) < 1e-6:
+>         return "1"
+>
+>     frac = Fraction(value).limit_denominator(max_denom)
+>     return str(frac)
+>
+> def analyze_wyckoff_position_multiplicities_and_coordinates(filepath: str) -> Dict[str, Any]:
+>     """
+>     Analyze Wyckoff position multiplicities and calculate approximate coordinates
+>     for the first atom of each Wyckoff position.
+>     """
+>     # Load structure from CIF file
+>     structure = Structure.from_file(filepath)
+>
+>     # Use SpacegroupAnalyzer to get symmetry information
+>     sga = SpacegroupAnalyzer(structure)
+>     symmetry_dataset = sga.get_symmetry_dataset()
+>
+>     # Extract Wyckoff positions and coordinates
+>     wyckoffs = symmetry_dataset['wyckoffs']
+>     std_positions = symmetry_dataset['std_positions']
+>
+>     # Find unique Wyckoff positions and track first occurrence
+>     seen_wyckoffs = {}
+>     for i, w in enumerate(wyckoffs):
+>         if w not in seen_wyckoffs:
+>             seen_wyckoffs[w] = i
+>
+>     # Count multiplicities
+>     wyckoff_multiplicity_dict = {}
+>     for w in wyckoffs:
+>         wyckoff_multiplicity_dict[w] = wyckoff_multiplicity_dict.get(w, 0) + 1
+>
+>     # Get coordinates for first atom of each unique Wyckoff position
+>     wyckoff_coordinates_dict = {}
+>     for w, idx in seen_wyckoffs.items():
+>         coords = std_positions[idx]
+>         # Convert to rational strings
+>         coord_strs = [decimal_to_rational_str(c) for c in coords]
+>         wyckoff_coordinates_dict[w] = coord_strs
+>
+>     # Sort by Wyckoff letter for consistent output
+>     sorted_multiplicities = dict(sorted(wyckoff_multiplicity_dict.items()))
+>     sorted_coordinates = dict(sorted(wyckoff_coordinates_dict.items()))
+>
+>     return {
+>         "wyckoff_multiplicity_dict": sorted_multiplicities,
+>         "wyckoff_coordinates_dict": sorted_coordinates
+>     }
+>
+> if __name__ == "__main__":
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~# python3 /root/workspace/solution.py
+/root/workspace/solution.py:31: DeprecationWarning: dict interface is deprecated. Use attribute interface instead
+  wyckoffs = symmetry_dataset['wyckoffs']
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

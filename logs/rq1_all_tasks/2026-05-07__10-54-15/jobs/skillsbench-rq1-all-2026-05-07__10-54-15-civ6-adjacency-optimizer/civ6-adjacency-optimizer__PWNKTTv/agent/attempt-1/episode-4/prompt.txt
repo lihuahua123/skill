@@ -1,0 +1,16 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/data/scenario_3/maps/e2e_test_case_0 Civ6Map')
+> cursor = conn.cursor()
+> cursor.execute(\"SELECT name FROM sqlite_master WHERE type='table';\")
+> print(cursor.fetchall())
+> "
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+sqlite3.OperationalError: unable to open database file
+root@0d3c1addd3d3:~#
+
+
+Include stop_check.

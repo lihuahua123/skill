@@ -1,0 +1,189 @@
+New Terminal Output:
+
+root@f72ab8c29d7d:~# cat > /root/analyze_video.py << 'EOF'
+> import cv2
+> import numpy as np
+> import json
+> from scipy import sparse
+>
+_> VIDEO_PATH = '/root/input.mp4'
+> OUTPUT_JSON = '/root/pred_instructions.json'
+> OUTPUT_NPZ = '/root/pred_dyn_masks.npz'
+>
+t> cap = cv2.VideoCapture(VIDEO_PATH)
+> total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+> fps = cap.get(cv2.CAP_PROP_FPS)
+> W = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+> H = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+>
+ > print(f"Video: {total_frames} frames, {fps} fps, {W}x{H}")
+>
+n> # Sample at fps=6: step = 60/6 = 10
+> step = int(round(fps / 6))
+> sample_ids = list(range(0, total_frames, step))
+> if sample_ids[-1] != total_frames - 1:
+k>     sample_ids.append(total_frames - 1)
+> print(f"Sampled {len(sample_ids)} frames: {sample_ids}")
+>
+ > # Read sampled frames
+> frames = []
+> for idx in sample_ids:
+': np>     cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
+>     ret, frame = cap.read()
+>     if ret:
+>         frames.append(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
+>     else:
+>         print(f"Warning: failed to read frame {idx}")
+> cap.release()
+e>
+_> # Egomotion estimation
+> def estimate_motion(prev_gray, curr_gray):
+>     # Feature detection
+>     prev_pts = cv2.goodFeaturesToTrack(prev_gray, maxCorners=200, qualityLevel=0.01, minDistance=10)
+>     if prev_pts is None or len(prev_pts) < 4:
+>         return np.eye(2, 3, dtype=np.float64)
+tr = >
+>     curr_pts, status, _ = cv2.calcOpticalFlowPyrLK(prev_gray, curr_gray, prev_pts, None)
+>
+>     # Filter valid points
+>     valid_prev = prev_pts[status.ravel() == 1]
+>     valid_curr = curr_pts[status.ravel() == 1]
+s>
+>     if len(valid_prev) < 4:
+>         return np.eye(2, 3, dtype=np.float64)
+>
+>     M, _ = cv2.estimateAffinePartial2D(valid_prev, valid_curr, method=cv2.RANSAC)
+>     if M is None:
+>         return np.eye(2, 3, dtype=np.float64)
+>     return M
+>
+> # Parameters for motion classification
+> th_trans = 2.0  # pixels per frame threshold
+> th_rot = 0.01   # radians threshold
+> th_scale = 0.005 # scale ratio threshold
+>
+> def classify_motion(M):
+>     tx = M[0, 2]
+>     ty = M[1, 2]
+>     a = M[0, 0]
+>     b = M[0, 1]
+>     scale = np.sqrt(a*a + b*b)
+>     rot = np.arctan2(b, a)
+>
+>     labels = []
+>     # Dolly (scale change)
+>     if abs(scale - 1) > th_scale:
+>         labels.append("Dolly In" if scale > 1 else "Dolly Out")
+>     # Roll
+>     if abs(rot) > th_rot:
+>         labels.append("Roll Right" if rot > 0 else "Roll Left")
+>     # Pan (horizontal translation)
+>     if abs(tx) > th_trans and abs(tx) >= abs(ty):
+>         labels.append("Pan Left" if tx > 0 else "Pan Right")
+>     # Tilt (vertical translation)
+>     if abs(ty) > th_trans and abs(ty) > abs(tx):
+>         labels.append("Tilt Up" if ty < 0 else "Tilt Down")
+>
+>     if not labels:
+>         labels.append("Stay")
+>     return labels
+>
+> # Process egomotion
+> motions = []
+> for i in range(1, len(frames)):
+>     M = estimate_motion(frames[i-1], frames[i])
+>     labels = classify_motion(M)
+>     motions.append(labels)
+>     print(f"Frame {sample_ids[i-1]}->{sample_ids[i]}: {labels}")
+>
+> # Compress to intervals
+> intervals = {}
+> if len(motions) > 0:
+>     start = sample_ids[0]
+>     current_labels = motions[0]
+>     for i in range(1, len(motions)):
+>         if motions[i] != current_labels:
+>             intervals[f"{start}->{sample_ids[i]}"] = current_labels
+>             start = sample_ids[i]
+>             current_labels = motions[i]
+>     intervals[f"{start}->{sample_ids[-1]}"] = current_labels
+>
+> print(f"\nIntervals: {intervals}")
+>
+> with open(OUTPUT_JSON, 'w') as f:
+>     json.dump(intervals, f, indent=2)
+> print(f"Saved {OUTPUT_JSON}")
+>
+> # Dynamic object masks
+> def compute_mask(prev_gray, curr_gray, M, min_area=100):
+>     # Warp previous frame to current coordinate system
+>     warped_prev = cv2.warpAffine(prev_gray, M, (W, H), flags=cv2.INTER_LINEAR, borderValue=0)
+>
+>     # Valid region mask
+>     valid_mask = cv2.warpAffine(np.ones((H, W), dtype=np.uint8), M, (W, H), flags=cv2.INTER_NEAREST) > 0
+>
+>     # Difference
+>     diff = cv2.absdiff(curr_gray, warped_prev)
+>
+>     # Adaptive threshold on valid region
+>     vals = diff[valid_mask]
+>     if len(vals) == 0:
+>         return np.zeros((H, W), dtype=bool)
+>     median_val = np.median(vals)
+>     mad = np.median(np.abs(vals - median_val))
+>     thr = max(20, median_val + 3 * 1.4826 * mad)
+>
+>     raw = (diff > thr) & valid_mask
+>
+>     # Morphology
+>     kernel3 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+>     kernel7 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+>     m = cv2.morphologyEx(raw.astype(np.uint8) * 255, cv2.MORPH_OPEN, kernel3)
+>     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, kernel7)
+>
+>     # Connected components
+>     n, cc, stats, _ = cv2.connectedComponentsWithStats(m, connectivity=8)
+>     mask = np.zeros((H, W), dtype=bool)
+>     for cid in range(1, n):
+>         if stats[cid, cv2.CC_STAT_AREA] >= min_area:
+>             mask |= (cc == cid)
+>
+>     return mask
+>
+> # Identity transform for first frame (no motion)
+> identity_M = np.eye(2, 3, dtype=np.float64)
+> mask_data = {'shape': np.array([H, W], dtype=np.int32)}
+>
+> for i in range(len(frames)):
+>     if i == 0:
+>         # First frame: no motion yet, empty mask or detect against next
+>         mask = np.zeros((H, W), dtype=bool)
+>     else:
+>         M = estimate_motion(frames[i-1], frames[i])
+>         mask = compute_mask(frames[i-1], frames[i], M)
+>
+>     # CSR encoding
+>     rows, cols = np.nonzero(mask)
+>     data = np.ones(len(rows), dtype=np.uint8)
+>     indices = cols.astype(np.int32)
+>     counts = np.bincount(rows, minlength=H)
+>     indptr = np.concatenate([[0], np.cumsum(counts)]).astype(np.int32)
+>
+>     mask_data[f'f_{i}_data'] = data
+>     mask_data[f'f_{i}_indices'] = indices
+>     mask_data[f'f_{i}_indptr'] = indptr
+>     print(f"Frame {sample_ids[i]}: mask with {mask.sum()} pixels")
+>
+> np.savez(OUTPUT_NPZ, **mask_data)
+> print(f"\nSaved {OUTPUT_NPZ}")
+> print("Done!")
+> EOF
+root@f72ab8c29d7d:~# python3 /root/analyze_video.py
+Traceback (most recent call last):
+  File "/root/analyze_video.py", line 4, in <module>
+    from scipy import sparse
+ModuleNotFoundError: No module named 'scipy'
+root@f72ab8c29d7d:~#
+
+
+Include stop_check.

@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    for district_name, coords in raw_placements.items():
+        for pos in _normalize_coords(coords):
+            if pos not in position_counts:
+                position_counts[pos] = []
+            position_counts[pos].append(district_name)
+
+    for pos, districts in position_counts.items():
+        if len(districts) > 1:
+            result.errors.append(f"Multiple districts at {pos}: {districts}")
+
+    if result.errors:
+        return result
+
+    # Validate each placement
+    # For multi-city, we need to validate against the closest city center
+    rules = get_placement_rules(tiles, city_center, population)
+
+    existing: Dict[Tuple[int, int], DistrictType] = {
+        cc: DistrictType.CITY_CENTER for cc in city_centers
+    }
+
+    for district_name, coords in raw_placements.items():
+        district_type = DISTRICT_NAME_MAP[district_name]
+        for x, y in _normalize_coords(coords):
+            validation = rules.validate_placement(district_type, x, y, existing)
+
+            if not validation.valid:
+                for err in validation.errors:
+                    result.errors.append(f"{district_name}@({x},{y}): {err}")
+
+            for warn in validation.warnings:
+                result.warnings.append(f"{district_name}@({x},{y}): {warn}")
+
+            # Add to existing for subsequent validations
+            existing[(x, y)] = district_type
+
+    # If any placement is invalid, score = 0
+    if result.errors:
+        result.valid = False
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

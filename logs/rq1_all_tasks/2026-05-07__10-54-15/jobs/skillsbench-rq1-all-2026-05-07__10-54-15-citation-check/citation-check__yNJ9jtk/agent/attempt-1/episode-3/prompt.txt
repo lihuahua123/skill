@@ -1,0 +1,48 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+Current Terminal Screen:
+y":"14_CR97","doi-asserted-by":"publisher","first-page":"450","DOI":"10.5465\/amj.2005.17407911","volume":"48","author":"M Subramaniam","year":"2005","unstructu
+red":"Subramaniam, M., & Youndt, M. A. (2005). The influence of IC on the types of innovative capabilities. Academy of Management Journal, 48(3), 450\u2013463."
+,"journal-title":"Academy of Management Journal"},{"issue":"18","key":"14_CR98","doi-asserted-by":"publisher","first-page":"5592","DOI":"10.1080\/00207543.2015.
+1037934","volume":"53","author":"B Tukamuhabwa","year":"2015","unstructured":"Tukamuhabwa, B., Stevenson, M., Busby, J., & Zorzini, M. (2015). Supply chain resi
+lience: Definition, review and theoretical foundations for further study. International Journal of Production Research, 53(18), 5592\u20135623. https:\/\/doi.or
+g\/10.1080\/00207543.2015.1037934","journal-title":"International Journal of Production Research"},{"issue":"5","key":"14_CR100","doi-asserted-by":"publisher","
+first-page":"475","DOI":"10.1057\/palgrave.jors.2602125","volume":"57","author":"L Van Wassenhove","year":"2006","unstructured":"Van Wassenhove, L. (2006). Huma
+nitarian aid logistics: Supply chain management in high gear. Journal of the Operational Research Society, 57(5), 475\u2013489. https:\/\/doi.org\/10.1057\/palg
+rave.jors.2602125","journal-title":"Journal of the Operational Research Society"},{"key":"14_CR101","doi-asserted-by":"publisher","first-page":"221","DOI":"10.1
+016\/j.ijpe.2019.02.002","volume":"211","author":"Y Wang","year":"2019","unstructured":"Wang, Y., Singgih, M., Wang, J., & Rit, M. (2019). Making sense of block
+chain technology: How will it transform supply chains? International Journal of Production Economics, 211, 221\u2013236. https:\/\/doi.org\/10.1016\/j.ijpe.2019
+.02.002","journal-title":"International Journal of Production Economics"},{"issue":"4","key":"14_CR102","doi-asserted-by":"publisher","first-page":"300","DOI":"
+10.1108\/ijpdlm-08-2012-0243","volume":"43","author":"A Wieland","year":"2013","unstructured":"Wieland, A., & Wallenburg, C. (2013). The influence of relational
+ competencies on supply chain resilience: A relational view. International Journal of Physical Distribution and Logistics Management, 43(4), 300\u2013320. https
+:\/\/doi.org\/10.1108\/ijpdlm-08-2012-0243","journal-title":"International Journal of Physical Distribution and Logistics Management"},{"key":"14_CR103","unstru
+ctured":"World Economic Forum. (2013). Building resilience in supply chains (pp. 1\u201341)."},{"key":"14_CR104","doi-asserted-by":"publisher","first-page":"1",
+"DOI":"10.1016\/j.ijinfomgt.2017curl -s 'https://api.crossref.org/works?query=LILA+Benchmark+Mathematical+Reasoning+2022&rows=5' | head -100
+.10.004","volume":"39","author":"W Ying","year":"2018","unstructured":"Ying, W., Jia, S., & Du, W. (2018). Digital enablement of blockchain: Evidence from HNA g
+roup. International Journal of Information Management, 39, 1\u20134. https:\/\/doi.org\/10.1016\/j.ijinfomgt.2017.10.004","journal-title":"International Journal
+ of Information Management"},{"issue":"10","key":"14_CR105","doi-asserted-by":"publisher","DOI":"10.1371\/journal.pone.0163477","volume":"11","author":"J Yli-Hu
+umo","year":"2016","unstructured":"Yli-Huumo, J., Ko, D., Choi, S., Park, S., & Smolander, K. (2016). Where is current research on blockchain technology? A syst
+ematic review. PLoS One, 11(10), e0163477. https:\/\/doi.org\/10.1371\/journal.pone.0163477","journal-title":"PLoS One"},{"issue":"2","key":"14_CR106","doi-asse
+rted-by":"publisher","first-page":"335","DOI":"10.1111\/j.1467-6486.2004.00435.x","volume":"41","author":"MA Youndt","year":"2004","unstructured":"Youndt, M. A.
+, Subramaniam, M., & Snell, S. A. (2004). Intellectual capital profiles: An examination of investments and returns*. Journal of Management Studies, 41(2), 335\u
+2013361. https:\/\/doi.org\/10.1111\/j.1467-6486.2004.00435.x","journal-title":"Journal of Management Studies"},{"key":"14_CR107","doi-asserted-by":"publisher",
+"first-page":"626","DOI":"10.1016\/j.jclepro.2019.06.153","volume":"234","author":"YM Yusoff","year":"2019","unstructured":"Yusoff, Y. M., Omar, M. K., Zaman, M
+. D. K., & Samad, S. (2019). Do all elements of green intellectual capital contribute toward business sustainability? Evidence from the Malaysian context using
+the Partial Least Squares method. Journal of Cleaner Production, 234, 626\u2013637.","journal-title":"Journal of Cleaner Production"},{"issue":"3","key":"14_CR1
+08","doi-asserted-by":"publisher","first-page":"199","DOI":"10.1260\/1757-2223.7.3.199","volume":"7","author":"HY Zhang","year":"2015","unstructured":"Zhang, H.
+ Y., & Lv, S. (2015). Intellectual capital and technological innovation: The mediating role of supply chain learning. International Journal of Innovation Scienc
+e, 7(3), 199\u2013210.","journal-title":"International Journal of Innovation Science"}],"container-title":["Management for Professionals","Blockchain Driven Sup
+ply Chain Management"],"language":"en","link":[{"URL":"https:\/\/link.springer.com\/content\/pdf\/10.1007\/978-981-99-0699-4_14","content-type":"unspecified","c
+ontent-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2023,4,4]],"date-time":"2023-04-04T02:08:37Z","timestamp":16805
+74117000},"score":38.337666,"resource":{"primary":{"URL":"https:\/\/link.springer.com\/10.1007\/978-981-99-0699-4_14"}},"issued":{"date-parts":[[2023]]},"ISBN":
+["9789819906987","9789819906994"],"references-count":102,"URL":"https:\/\/doi.org\/10.1007\/978-981-99-0699-4_14","ISSN":["2192-8096","2192-810X"],"issn-type":[
+{"value":"2192-8096","type":"print"},{"value":"2192-810X","type":"electronic"}],"published":{"date-parts":[[2023]]},"assertion":[{"value":"5 April 2023","order"
+:1,"name":"first_online","label":"First Online","group":{"name":"ChapterHistory","label":"Chapter History"}}]}],"items-per-page":5,"query":{"start-index":0,"sea
+rch-terms":"Blockchain Applications in Supply Chain Management Patel Ramirez 2023"}}}root@30c3cd183633:~# cat /root/test.bib | grep -A 30 '^@proceedings{clue'
+root@30c3cd183633:~# curl -s 'https://api.crossref.org/works?query=LILA+Benchmark+Mathematical+Reasoning+2022&rows=5' | head -100
+
+
+
+Include stop_check.

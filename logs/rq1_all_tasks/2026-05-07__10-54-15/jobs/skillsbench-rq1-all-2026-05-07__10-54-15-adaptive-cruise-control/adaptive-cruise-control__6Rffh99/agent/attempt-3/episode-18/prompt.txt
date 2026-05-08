@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+=================================== FAILURES ===================================
+____________________________ TestSafety.test_safety ____________________________
+
+self = <test_outputs.TestSafety object at 0x7fe35f0679e0>
+
+    def test_safety(self):
+        """Safety: minimum distance, emergency mode, acceleration limits, speed."""
+        import pandas as pd
+
+        simulation_data = pd.read_csv('/root/simulation_results.csv')
+
+        # Distance must never go below 5 meters
+        dist = simulation_data[simulation_data['distance'].notna() & (simulation_data['distance'] != '')]
+        if len(dist) > 0:
+            min_d = pd.to_numeric(dist['distance'], errors='coerce').min()
+            assert min_d >= 5.0
+
+        # Emergency mode must be triggered
+        assert 'emergency' in simulation_data['mode'].unique()
+
+        # In emergency mode: TTC < 3.0 and acceleration must be negative
+        emergency = simulation_data[simulation_data['mode'] == 'emergency']
+        if len(emergency) > 0:
+            assert all(emergency['acceleration_cmd'] < 0)
+            ttc_data = emergency[emergency['ttc'].notna() & (emergency['ttc'] != '')]
+            if len(ttc_data) > 0:
+                ttc_values = pd.to_numeric(ttc_data['ttc'], errors='coerce').dropna()
+                if len(ttc_values) > 0:
+>                   assert all(ttc_values < 3.0)
+E                   assert False
+E                    +  where False = all(1187    3.226163\n1200    1.596980\n1201    1.513451\n1202    1.447480\n1203    1.389905\n1204    1.304520\n1205    1.
+227683\n1206    1.143399\n1207    1.076671\n1208    0.997050\n1209    0.917716\n1210    0.833229\n1211    0.791798\n1212    0.751853\n1213    0.713821\n1214
+0.678303\n1215    0.791717\n1216    1.000924\n1217    1.559875\n1218    3.435517\nName: ttc, dtype: float64 < 3.0)
+
+/tests/test_outputs.py:272: AssertionError
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::TestSafety::test_safety - assert False
+========================= 1 failed, 11 passed in 2.32s =========================
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

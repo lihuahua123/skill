@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>     print(f"    forest floor(0.5)*N={sum(math.floor(0.5) for _ in range(forest_count))}")
+>     return bonus
+>
+> # Calculate base adjacency for each district
+> campus_bonus = calculate_campus_adjacency(districts['CAMPUS'])
+> commercial_bonus = calculate_commercial_adjacency(districts['COMMERCIAL_HUB'])
+> industrial_bonus = calculate_industrial_adjacency(districts['INDUSTRIAL_ZONE'])
+>
+> print(f"\nBase adjacency: Campus={campus_bonus}, Commercial={commercial_bonus}, Industrial={industrial_bonus}")
+>
+> # Add district-to-district adjacency (+0.5 each, floored separately)
+> district_positions = list(districts.values())
+> district_adj_bonus = 0
+> for i, pos1 in enumerate(district_positions):
+>     for j, pos2 in enumerate(district_positions):
+>         if i < j:
+>             neighbors = get_hex_neighbors(pos1[0], pos1[1])
+>             if pos2 in neighbors:
+>                 district_adj_bonus += 0.5
+>                 print(f"  Districts {pos1} and {pos2} are adjacent, adding 0.5")
+>
+> # Floor the district bonus separately (each +0.5 becomes floor(0.5) = 0)
+> print(f"\nDistrict adjacency bonus (before flooring): {district_adj_bonus}")
+> print(f"District adjacency bonus (after flooring each): {math.floor(district_adj_bonus) if district_adj_bonus < 1 else sum(math.floor(0.5) for _ in range(int(
+district_adj_bonus * 2)))}")
+>
+> # Calculate total
+> base_total = campus_bonus + commercial_bonus + industrial_bonus
+> # The +0.5 per district is already floored to 0
+> total = base_total
+>
+> print(f"\nFinal total: {total}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/verify.py
+Traceback (most recent call last):
+  File "/tmp/verify.py", line 34, in <module>
+    _, width, height = cursor.fetchone()[0], cursor.fetchone()[1], cursor.fetchone()[2]
+                                             ~~~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

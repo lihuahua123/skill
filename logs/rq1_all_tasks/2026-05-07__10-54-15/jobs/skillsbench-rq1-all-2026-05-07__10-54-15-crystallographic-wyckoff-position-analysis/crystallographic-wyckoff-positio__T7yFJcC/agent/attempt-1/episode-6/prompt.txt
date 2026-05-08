@@ -1,0 +1,102 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# cat > /root/workspace/solution.py << 'EOF'
+> """
+> CIF file analyzer for Wyckoff position multiplicities and coordinates.
+> """
+> from fractions import Fraction
+> from typing import Dict, Any
+> import numpy as np
+>
+> from pymatgen.core import Structure
+> from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+>
+>
+> def _round_to_fraction(value: float, max_denominator: int = 12) -> str:
+>     """
+>     Round a float value to the closest fraction with denominator <= max_denominator.
+>     Returns the fraction as a string.
+>     """
+>     frac = Fraction(value).limit_denominator(max_denominator)
+>     # Handle the case where the value is very close to 0 or 1
+>     if abs(value - round(value)) < 1e-6:
+>         return str(int(round(value)))
+>     return str(frac)
+>
+>
+> def _normalize_fraction_string(frac_str: str) -> str:
+>     """
+>     Normalize a fraction string to ensure consistent formatting.
+>     E.g., '0' becomes '0', '-1/2' stays '-1/2'.
+>     """
+>     return frac_str
+>
+>
+> def analyze_wyckoff_position_multiplicities_and_coordinates(filepath: str) -> Dict[str, Dict[str, Any]]:
+>     """
+>     Analyze Wyckoff position multiplicities and calculate approximate coordinates
+>     for the first atom of each Wyckoff position in a CIF file.
+>
+>     Args:
+>         filepath: Path to the CIF file.
+>
+>     Returns:
+>         A dictionary with two keys:
+>         - 'wyckoff_multiplicity_dict': Dict mapping Wyckoff letters to their multiplicities
+>         - 'wyckoff_coordinates_dict': Dict mapping Wyckoff letters to lists of coordinate strings
+>           (x, y, z) for the first atom of each position, rounded to fractions with denominators <= 12
+>     """
+>     # Load structure from CIF file
+>     struct = Structure.from_file(filepath)
+>
+>     # Get symmetry analysis
+>     sga = SpacegroupAnalyzer(struct)
+>     dataset = sga.get_symmetry_dataset()
+>
+>     wyckoffs = list(dataset.wyckoffs)
+>     std_positions = dataset.std_positions
+>
+>     # Get unique Wyckoff positions in order of appearance
+>     unique_wyckoffs = list(dict.fromkeys(wyckoffs))
+>
+>     # Calculate multiplicities for each unique Wyckoff position
+>     wyckoff_multiplicity_dict = {}
+>     for wyck in unique_wyckoffs:
+>         wyckoff_multiplicity_dict[wyck] = wyckoffs.count(wyck)
+>
+>     # Get coordinates for the first atom of each unique Wyckoff position
+>     wyckoff_coordinates_dict = {}
+>     for wyck in unique_wyckoffs:
+>         # Find index of first occurrence of this Wyckoff position
+>         idx = wyckoffs.index(wyck)
+>         coords = std_positions[idx]
+>
+>         # Convert coordinates to fraction strings
+>         coord_strings = []
+>         for coord in coords:
+>             # Normalize coordinate to [0, 1) range
+>             normalized = coord % 1.0
+>             if normalized < 0:
+>                 normalized += 1.0
+>             coord_str = _round_to_fraction(normalized)
+>             coord_strings.append(coord_str)
+>
+>         wyckoff_coordinates_dict[wyck] = coord_strings
+>
+>     return {
+>         "wyckoff_multiplicity_dict": wyckoff_multiplicity_dict,
+>         "wyckoff_coordinates_dict": wyckoff_coordinates_dict
+>     }
+>
+>
+> if __name__ == "__main__":
+>     # Test with example file
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~# python3 /root/workspace/solution.py
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

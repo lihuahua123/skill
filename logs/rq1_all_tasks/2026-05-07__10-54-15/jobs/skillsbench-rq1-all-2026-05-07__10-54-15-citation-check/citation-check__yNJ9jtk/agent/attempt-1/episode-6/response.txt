@@ -1,0 +1,25 @@
+```json
+{
+  "analysis": "I can see the full list now. Confirmed fakes: wilson2021neural and smith2020ai (invalid DOIs). Need to verify: patel2023blockchain, clue, and jing-etal-2025-mcip (2025 is in the future - suspicious).",
+  "plan": "1. Check the jing-etal-2025-mcip entry (appears to be from future)\n2. Verify clue benchmark\n3. Search for patel2023blockchain\n4. Write the final answer",
+  "commands": [
+    {
+      "keystrokes": "grep -A 15 'jing-etal-2025-mcip' /root/test.bib\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "grep -A 20 '^@inproceedings{clue' /root/test.bib\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "date\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  }
+}
+```

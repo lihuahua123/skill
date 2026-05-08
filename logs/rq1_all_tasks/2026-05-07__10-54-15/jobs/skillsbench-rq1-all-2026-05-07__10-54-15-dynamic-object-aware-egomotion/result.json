@@ -1,0 +1,28 @@
+{
+    "id": "3887e9aa-c48e-478f-ac98-e186dc61a8ba",
+    "started_at": "2026-05-07T11:21:46.591788",
+    "finished_at": null,
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 0,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {},
+                "exception_stats": {
+                    "CancelledError": [
+                        "dynamic-object-aware-egomotion__7rMS8yJ"
+                    ]
+                }
+            }
+        }
+    },
+    "trial_results": []
+}

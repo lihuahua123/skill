@@ -1,0 +1,44 @@
+Current Terminal Screen:
+  },
+  {
+    "field_id": "SC-100[0].Page2[0].List3[0].PlaintiffClaimAmount1[0]",
+    "description": "Claim amount",
+    "page": 2,
+    "value": "$1,500.00"
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lib[0].Date1[0]",
+    "description": "Start date of incident",
+    "page": 3,
+    "value": "2025-09-30"
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lib[0].Date2[0]",
+    "description": "End date of incident",
+    "page": 3,
+    "value": "2026-01-19"
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lic[0].FillField1[0]",
+    "description": "Description of claim",
+    "page": 3,
+    "value": "Defendant failed to return my security deposit of $1500 based on the signed roommate sublease contract after moving out. I have asked him to retur
+n the money multiple times via text but he is not responding. The amount is listed on the signed roommate sublease contract."
+  },
+  {
+    "field_id": "SC-100[0].Page4[0].Sign[0].Date1[0]",
+    "description": "Signature date",
+    "page": 4,
+    "value": "2026-01-19"
+  },
+  {
+    "field_id": "SC-100[0].Page4[0].Sign[0].PlaintiffName1[0]",
+    "description": "Plaintiff signature name",
+    "page": 4,
+    "value": "Joyce He"
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

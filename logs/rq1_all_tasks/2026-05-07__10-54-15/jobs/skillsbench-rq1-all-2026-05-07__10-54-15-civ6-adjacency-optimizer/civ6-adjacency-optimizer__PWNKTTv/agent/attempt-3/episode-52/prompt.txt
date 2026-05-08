@@ -1,0 +1,59 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# python3 -m pytest /tests/test_outputs.py -v 2>&1 | head -50
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.3.4, pluggy-1.6.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collecting ... collected 10 items
+
+../../tests/test_outputs.py::TestFormat::test_solution_file_exists[scenario_3] PASSED [ 10%]
+../../tests/test_outputs.py::TestFormat::test_solution_is_valid_json[scenario_3] PASSED [ 20%]
+../../tests/test_outputs.py::TestFormat::test_has_placements[scenario_3] PASSED [ 30%]
+../../tests/test_outputs.py::TestFormat::test_has_adjacency_bonuses[scenario_3] PASSED [ 40%]
+../../tests/test_outputs.py::TestFormat::test_has_total_adjacency[scenario_3] PASSED [ 50%]
+../../tests/test_outputs.py::TestFormat::test_has_city_center[scenario_3] PASSED [ 60%]
+../../tests/test_outputs.py::TestFormat::test_placements_have_coordinates[scenario_3] FAILED [ 70%]
+../../tests/test_outputs.py::TestFormat::test_adjacency_matches_placements[scenario_3] FAILED [ 80%]
+../../tests/test_outputs.py::TestFormat::test_total_adjacency_is_sum[scenario_3] PASSED [ 90%]
+../../tests/test_outputs.py::TestEvaluation::test_evaluate_scenario[scenario_3] PASSED [100%]
+
+=================================== FAILURES ===================================
+___________ TestFormat.test_placements_have_coordinates[scenario_3] ____________
+
+self = <test_outputs.TestFormat object at 0x7f69a6067590>
+solution = {'adjacency_bonuses': {'AQUEDUCT': 0, 'CAMPUS': 6, 'COMMERCIAL_HUB': 5, 'DAM': 0, ...}, 'city_center': [22, 15], 'plac... {'AQUEDUCT': [23, 15], 'CAM
+PUS': [21, 14], 'CANAL': [22, 16], 'COMMERCIAL_HUB': [23, 14], ...}, 'total_adjacency': 20}
+
+    def test_placements_have_coordinates(self, solution):
+        """Each placement must have [x, y] coordinates."""
+        for district, coords in solution["placements"].items():
+            assert isinstance(coords, list), f"{district} coords must be a list"
+>           assert len(coords) == 2, f"{district} must have exactly 2 coordinates"
+E           AssertionError: NEIGHBORHOOD must have exactly 2 coordinates
+E           assert 6 == 2
+E            +  where 6 = len([[22, 17], [23, 17], [22, 13], [22, 14], [23, 13], [24, 14]])
+
+/tests/test_outputs.py:102: AssertionError
+___________ TestFormat.test_adjacency_matches_placements[scenario_3] ___________
+
+self = <test_outputs.TestFormat object at 0x7f69a6067e10>
+solution = {'adjacency_bonuses': {'AQUEDUCT': 0, 'CAMPUS': 6, 'COMMERCIAL_HUB': 5, 'DAM': 0, ...}, 'city_center': [22, 15], 'plac... {'AQUEDUCT': [23, 15], 'CAM
+PUS': [21, 14], 'CANAL': [22, 16], 'COMMERCIAL_HUB': [23, 14], ...}, 'total_adjacency': 20}
+
+    def test_adjacency_matches_placements(self, solution):
+        """Each placement should have corresponding adjacency bonus."""
+        placements = solution["placements"]
+        bonuses = solution["adjacency_bonuses"]
+        for district in placements:
+>           assert district in bonuses, f"Missing adjacency bonus for {district}"
+E           AssertionError: Missing adjacency bonus for CANAL
+E           assert 'CANAL' in {'AQUEDUCT': 0, 'CAMPUS': 6, 'COMMERCIAL_HUB': 5, 'DAM': 0, ...}
+
+/tests/test_outputs.py:111: AssertionError
+=========================== short test summary info ============================
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

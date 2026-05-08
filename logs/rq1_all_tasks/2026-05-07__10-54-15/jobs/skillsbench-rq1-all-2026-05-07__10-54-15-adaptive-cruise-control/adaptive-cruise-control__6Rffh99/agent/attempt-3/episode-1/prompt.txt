@@ -1,0 +1,44 @@
+Current Terminal Screen:
+```python
+def determine_mode(lead_present, ttc, ttc_threshold):
+    """
+    Determine operating mode based on conditions.
+
+    Returns one of: 'cruise', 'follow', 'emergency'
+    """
+    if not lead_present:
+        return 'cruise'
+
+    if ttc is not None and ttc < ttc_threshold:
+        return 'emergency'
+
+    return 'follow'
+```
+root@bfb65fae2dcc:~# ls -la /root/
+total 216
+drwx------ 1 root root  4096 May  7 03:11 .
+drwxr-xr-x 1 root root  4096 May  7 03:11 ..
+drwxr-xr-x 3 root root  4096 May  5 04:58 .agents
+-rw-r--r-- 1 root root  3106 Apr 22  2024 .bashrc
+drwxr-xr-x 1 root root  4096 May  5 04:58 .cache
+drwxr-xr-x 3 root root  4096 May  5 04:58 .claude
+drwxr-xr-x 3 root root  4096 May  5 04:58 .codex
+drwxr-xr-x 3 root root  4096 May  7 02:54 .config
+drwxr-xr-x 3 root root  4096 May  5 04:58 .factory
+drwxr-xr-x 3 root root  4096 May  5 04:58 .gemini
+drwxr-xr-x 3 root root  4096 May  5 04:58 .goose
+drwxr-xr-x 3 root root  4096 May  5 04:58 .opencode
+-rw-r--r-- 1 root root   161 Apr 22  2024 .profile
+drwxr-xr-x 2 root root  4096 May  7 03:08 __pycache__
+-rw-r--r-- 1 root root  1189 May  7 03:11 acc_report.md
+-rw-r--r-- 1 root root  4158 May  7 03:08 acc_system.py
+-rw-r--r-- 1 root root   775 May  7 02:57 pid_controller.py
+-rw-rw-r-- 1 root root 28478 May  1 13:38 sensor_data.csv
+-rw-r--r-- 1 root root  6693 May  7 03:09 simulation.py
+-rw-r--r-- 1 root root 92807 May  7 03:11 simulation_results.csv
+-rw-r--r-- 1 root root    85 May  7 03:11 tuning_results.yaml
+-rw-rw-r-- 1 root root   463 May  1 13:38 vehicle_params.yaml
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

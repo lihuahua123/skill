@@ -1,0 +1,44 @@
+Current Terminal Screen:
+|------|-----------|
+| ONE per city | Campus, Holy Site, Theater Square, Commercial Hub, Harbor, Industrial Zone, Entertainment Complex, Water Park, Encampment, Aerodrome, Preserve
+|
+| Multiple per city | Neighborhood |
+| ONE per civilization | Government Plaza, Diplomatic Quarter |
+
+---
+
+# Part 2: Adjacency Bonus Rules
+
+## Critical Rule: Minor Bonus Calculation
+
+**Each +0.5 type is floored SEPARATELY, then summed!**
+
+```
+WRONG:
+  IZ with 1 Mine + 1 Lumber Mill + 1 District
+  = floor(3/2) = 1  ❌
+
+CORRECT:
+  Mine: floor(1/2) = 0
+  Lumber Mill: floor(1/2) = 0
+  District: floor(1/2) = 0
+  TOTAL = 0  ✓
+```
+
+## Adjacency Rules by District
+
+### Campus (+Science)
+| Bonus | Source |
+|-------|--------|
+| +2 each | Geothermal Fissure, Reef |
+| +1 each | Mountain |
+| +0.5 each | Rainforest (floor separately) |
+| +0.5 each | District (floor separately) |
+
+### Holy Site (+Faith)
+| Bonus | Source |
+root@0d3c1addd3d3:/data/maps# cat /root/.claude/skills/civ6lib/adjacency_rules.py 2>/dev/null | head -100
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

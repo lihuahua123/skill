@@ -1,0 +1,128 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778124080.390463,
+            "stop": 1778124082.8718517
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::TestInputFilesIntegrity::test_input_files_integrity",
+                "status": "passed",
+                "duration": 0.386344239115715,
+                "start": 1778124080.400131,
+                "stop": 1778124080.7869728,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestPIDController::test_pid_controller",
+                "status": "passed",
+                "duration": 0.0005994737148284912,
+                "start": 1778124080.7873538,
+                "stop": 1778124080.7882683,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestACCSystem::test_acc_system",
+                "status": "passed",
+                "duration": 0.0021036937832832336,
+                "start": 1778124080.7885504,
+                "stop": 1778124080.7909606,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestTuningResults::test_tuning_results",
+                "status": "passed",
+                "duration": 0.0010048076510429382,
+                "start": 1778124080.7912447,
+                "stop": 1778124080.7925456,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSimulationResults::test_simulation_results",
+                "status": "passed",
+                "duration": 0.004504956305027008,
+                "start": 1778124080.7928336,
+                "stop": 1778124080.7976587,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReport::test_report_keywords",
+                "status": "passed",
+                "duration": 0.0003704875707626343,
+                "start": 1778124080.797951,
+                "stop": 1778124080.7985823,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSpeedControl::test_speed_control",
+                "status": "passed",
+                "duration": 0.0040217190980911255,
+                "start": 1778124080.798874,
+                "stop": 1778124080.8032105,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestDistanceControl::test_distance_control",
+                "status": "passed",
+                "duration": 0.00463683158159256,
+                "start": 1778124080.8035433,
+                "stop": 1778124080.8084962,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSafety::test_safety",
+                "status": "passed",
+                "duration": 0.0040008872747421265,
+                "start": 1778124080.8087924,
+                "stop": 1778124080.8131077,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestScenario::test_scenario",
+                "status": "passed",
+                "duration": 0.004180736839771271,
+                "start": 1778124080.8134086,
+                "stop": 1778124080.8179045,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSimulationExecution::test_simulation_execution",
+                "status": "passed",
+                "duration": 2.04072455316782,
+                "start": 1778124080.818197,
+                "stop": 1778124082.8593457,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestAntiCheat::test_anti_cheat",
+                "status": "passed",
+                "duration": 0.011615723371505737,
+                "start": 1778124082.8597074,
+                "stop": 1778124082.8717115,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

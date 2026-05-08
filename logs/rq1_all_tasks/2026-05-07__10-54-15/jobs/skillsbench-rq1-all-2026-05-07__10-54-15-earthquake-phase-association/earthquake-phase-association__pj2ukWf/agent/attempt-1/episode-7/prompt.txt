@@ -1,0 +1,122 @@
+New Terminal Output:
+
+root@593ccb43c4f3:~# python3 -c "import gamma; print(dir(gamma))"
+['BayesianGaussianMixture', 'GaussianMixture', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path_
+_', '__spec__', '_base', '_bayesian_mixture', '_gaussian_mixture', 'seismic_ops']
+root@593ccb43c4f3:~# find / -name '*.tar*' -o -name '*.zip' -o -name '*.gz' 2>/dev/null | grep -v site-packages | grep -v __pycache__ | head -20
+/etc/alternatives/which.1.gz
+/etc/alternatives/which.es1.gz
+/etc/alternatives/pager.1.gz
+/etc/alternatives/which.pl1.gz
+/etc/alternatives/which.sl1.gz
+/etc/alternatives/which.fr1.gz
+/etc/alternatives/which.de1.gz
+/etc/alternatives/builtins.7.gz
+/etc/alternatives/awk.1.gz
+/etc/alternatives/which.it1.gz
+/etc/alternatives/which.ja1.gz
+/etc/alternatives/rmt.8.gz
+/etc/alternatives/nawk.1.gz
+/etc/systemd/system/timers.target.wants
+/usr/lib/x86_64-linux-gnu/perl/debian-config-data-5.40.1/config.sh.debug.gz
+/usr/lib/x86_64-linux-gnu/perl/debian-config-data-5.40.1/config.sh.static.gz
+/usr/lib/x86_64-linux-gnu/perl/debian-config-data-5.40.1/config.sh.shared.gz
+/usr/lib/python3/dist-packages/pkg_resources/tests/data/my-test-package-zip/my-test-package.zip
+/usr/share/doc/python3.13/python-policy.txt.gz
+/usr/share/doc/python3.13/changelog.gz
+root@593ccb43c4f3:~# ls -la /workspace/ /tmp/ /var/tmp/ 2>/dev/null
+/tmp/:
+total 16
+drwxrwxrwt 1 root root 4096 May  7 03:27 .
+drwxr-xr-x 1 root root 4096 May  7 03:25 ..
+-rw-rw-r-- 1 1002 1002  923 May  3 16:17 get-asciinema-timestamp.sh
+drwx------ 2 root root 4096 May  7 03:25 tmux-0
+
+/var/tmp/:
+total 12
+drwxrwxrwt 2 root root 4096 Mar  2 21:50 .
+drwxr-xr-x 1 root root 4096 Apr 21 00:00 ..
+root@593ccb43c4f3:~# find /root -type f 2>/dev/null
+/root/.profile
+/root/.bashrc
+/root/.seisbench/config.json
+/root/.cache/pip/selfcheck/fe300af6f7d708c14827daac3afc81fbb8306b73de8dd6e3f1f8ea3b
+/root/.cache/pip/http-v2/b/b/b/3/7/bbb378b3ad5f58912fe8710e537bc3dab0f759b3bbb0cb463c414b4b
+/root/.cache/pip/http-v2/b/b/b/3/7/bbb378b3ad5f58912fe8710e537bc3dab0f759b3bbb0cb463c414b4b.body
+/root/.cache/pip/http-v2/e/1/5/6/f/e156fb28dd4fed0d13408d22ac06183894b875bda9109922959670a4
+/root/.cache/pip/http-v2/e/1/5/6/f/e156fb28dd4fed0d13408d22ac06183894b875bda9109922959670a4.body
+/root/.cache/pip/http-v2/e/2/4/a/b/e24abc14ad870890617be567ef3bf84c0fc6208a738bd76afc7f1e93
+/root/.cache/pip/http-v2/e/2/4/a/b/e24abc14ad870890617be567ef3bf84c0fc6208a738bd76afc7f1e93.body
+/root/.cache/pip/http-v2/0/d/d/e/5/0dde51f896d1a5db00a760ec6b6912d947b2c28b7349119ab4d491ff
+/root/.cache/pip/http-v2/0/d/d/e/5/0dde51f896d1a5db00a760ec6b6912d947b2c28b7349119ab4d491ff.body
+/root/.cache/pip/http-v2/0/1/8/0/d/0180dca600b101b68a60b0c438c9cdb1e469b5e0f7ab9e1e18ae97ed.body
+/root/.cache/pip/http-v2/0/1/8/0/d/0180dca600b101b68a60b0c438c9cdb1e469b5e0f7ab9e1e18ae97ed
+/root/.cache/pip/http-v2/1/c/5/6/4/1c564981fe2a7b05887a0f6e26f8dc393fc9c17a91d541e25327c84f
+/root/.cache/pip/http-v2/1/c/5/6/4/1c564981fe2a7b05887a0f6e26f8dc393fc9c17a91d541e25327c84f.body
+/root/.cache/pip/http-v2/a/4/3/9/0/a43906f81875407226d0a8008c2604421f534c8e9c7245fe9d9bff3b.body
+/root/.cache/pip/http-v2/a/4/3/9/0/a43906f81875407226d0a8008c2604421f534c8e9c7245fe9d9bff3b
+/root/.cache/pip/http-v2/7/3/0/d/c/730dcfbe6592bf781010a85c8aa2f886b5659d3a5750867e6d8d8d11
+/root/.cache/pip/http-v2/7/3/0/d/c/730dcfbe6592bf781010a85c8aa2f886b5659d3a5750867e6d8d8d11.body
+/root/.cache/pip/http-v2/3/4/0/a/d/340ad8fc36900f84ef0129c972e52b8f8663e89209f659e995c69823
+/root/.cache/pip/http-v2/3/4/0/a/d/340ad8fc36900f84ef0129c972e52b8f8663e89209f659e995c69823.body
+/root/.cache/pip/http-v2/2/b/f/c/2/2bfc2da47e1da3a55d9c5b57a82c8660286e33f06f55d9d73cf5e859
+/root/.cache/pip/http-v2/2/b/f/c/2/2bfc2da47e1da3a55d9c5b57a82c8660286e33f06f55d9d73cf5e859.body
+/root/.cache/pip/http-v2/2/0/8/3/5/208355b094b1b92f81c52c52c24ee3c6df37a704c41a1d207a4f6581
+/root/.cache/pip/http-v2/2/0/8/3/5/208355b094b1b92f81c52c52c24ee3c6df37a704c41a1d207a4f6581.body
+/root/.cache/pip/http-v2/8/3/c/0/8/83c08e53c75aa07d4e0d6819beb76c4f7d5cef1d08c0f0691950bd80
+/root/.cache/pip/http-v2/8/3/c/0/8/83c08e53c75aa07d4e0d6819beb76c4f7d5cef1d08c0f0691950bd80.body
+/root/.cache/pip/http-v2/8/2/f/d/8/82fd835af304644b417e2e805b44d1181077da8bd78fad2fb38eb199
+/root/.cache/pip/http-v2/8/2/f/d/8/82fd835af304644b417e2e805b44d1181077da8bd78fad2fb38eb199.body
+/root/.config/asciinema/install-id
+/root/.gemini/skills/seisbench-model-api/SKILL.md
+/root/.gemini/skills/gamma-phase-associator/SKILL.md
+/root/.gemini/skills/seismic-picker-selection/SKILL.md
+/root/.gemini/skills/licenses/seisbench.LICENSE
+/root/.gemini/skills/licenses/obspy.LICENSE
+/root/.gemini/skills/obspy-data-api/SKILL.md
+/root/.agents/skills/seisbench-model-api/SKILL.md
+/root/.agents/skills/gamma-phase-associator/SKILL.md
+/root/.agents/skills/seismic-picker-selection/SKILL.md
+/root/.agents/skills/licenses/seisbench.LICENSE
+/root/.agents/skills/licenses/obspy.LICENSE
+/root/.agents/skills/obspy-data-api/SKILL.md
+/root/.factory/skills/seisbench-model-api/SKILL.md
+/root/.factory/skills/gamma-phase-associator/SKILL.md
+/root/.factory/skills/seismic-picker-selection/SKILL.md
+/root/.factory/skills/licenses/seisbench.LICENSE
+/root/.factory/skills/licenses/obspy.LICENSE
+/root/.factory/skills/obspy-data-api/SKILL.md
+/root/.goose/skills/seisbench-model-api/SKILL.md
+/root/.goose/skills/gamma-phase-associator/SKILL.md
+/root/.goose/skills/seismic-picker-selection/SKILL.md
+/root/.goose/skills/licenses/seisbench.LICENSE
+/root/.goose/skills/licenses/obspy.LICENSE
+/root/.goose/skills/obspy-data-api/SKILL.md
+/root/.opencode/skill/seisbench-model-api/SKILL.md
+/root/.opencode/skill/gamma-phase-associator/SKILL.md
+/root/.opencode/skill/seismic-picker-selection/SKILL.md
+/root/.opencode/skill/licenses/seisbench.LICENSE
+/root/.opencode/skill/licenses/obspy.LICENSE
+/root/.opencode/skill/obspy-data-api/SKILL.md
+/root/.codex/skills/seisbench-model-api/SKILL.md
+/root/.codex/skills/gamma-phase-associator/SKILL.md
+/root/.codex/skills/seismic-picker-selection/SKILL.md
+/root/.codex/skills/licenses/seisbench.LICENSE
+/root/.codex/skills/licenses/obspy.LICENSE
+/root/.codex/skills/obspy-data-api/SKILL.md
+/root/.claude/skills/seisbench-model-api/SKILL.md
+/root/.claude/skills/gamma-phase-associator/SKILL.md
+/root/.claude/skills/seismic-picker-selection/SKILL.md
+/root/.claude/skills/licenses/seisbench.LICENSE
+/root/.claude/skills/licenses/obspy.LICENSE
+/root/.claude/skills/obspy-data-api/SKILL.md
+/root/data/stations.csv
+/root/.python_history
+/root/.wget-hsts
+root@593ccb43c4f3:~# pip show gamma-py 2>/dev/null || pip show gamma 2>/dev/null
+root@593ccb43c4f3:~# ls -la /usr/local/lib/python3.11/site-packages/ | grep gamma
+drwxr-xr-x  3 root root   4096 May  7 03:27 gamma
+root@593ccb43c4f3:~#
+
+
+Include stop_check.

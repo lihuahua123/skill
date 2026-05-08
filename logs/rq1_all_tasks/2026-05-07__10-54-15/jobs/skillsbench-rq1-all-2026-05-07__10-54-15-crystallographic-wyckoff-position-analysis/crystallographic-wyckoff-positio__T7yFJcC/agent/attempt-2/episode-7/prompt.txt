@@ -1,0 +1,9 @@
+New Terminal Output:
+f
+root@561ccb8d5e18:~# python3 -c "from workspace.solution import analyze_wyckoff_position_multiplicities_and_coordinates; print(analyze_wyckoff_position_multipli
+cities_and_coordinates('/root/cif_files/Al2O3_mp-7048.cif'))"
+{'wyckoff_multiplicity_dict': {'i': 20}, 'wyckoff_coordinates_dict': {'i': ['7/12', '1/2', '4/5']}}
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

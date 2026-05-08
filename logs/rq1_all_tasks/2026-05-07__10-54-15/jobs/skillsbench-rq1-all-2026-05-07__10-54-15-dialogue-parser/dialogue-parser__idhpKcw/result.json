@@ -1,0 +1,228 @@
+{
+    "id": "cc4ab47e-e5fd-45a5-a286-d444b71e32da",
+    "task_name": "dialogue-parser",
+    "trial_name": "dialogue-parser__idhpKcw",
+    "trial_uri": "file:///data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw",
+    "task_id": {
+        "path": "/data/lirui/skill_study/skillsbench/tasks/dialogue-parser"
+    },
+    "source": "tasks",
+    "task_checksum": "875bd54d7f4f5bfdc43e80b2695487c5f4639d9764cd72fe9f848b57efe213f6",
+    "config": {
+        "task": {
+            "path": "/data/lirui/skill_study/skillsbench/tasks/dialogue-parser",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "dialogue-parser__idhpKcw",
+        "trials_dir": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser",
+        "n_attempts": 6,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": "libs.terminus_agent.agents.terminus_2.harbor_terminus_2_skills:HarborTerminus2WithSkills",
+            "model_name": "anthropic/MiniMax-M2.7",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {
+                "paper_dynamic_turn_enabled": false,
+                "paper_initial_turn_limit": 14,
+                "paper_extension_turn_limit": 14,
+                "paper_remind_every_turn": true,
+                "paper_turn_stopcheck_enabled": true,
+                "paper_turn_stopcheck_zero_progress_streak": 2,
+                "paper_turn_stopcheck_yes_streak": 2,
+                "skill_guidance_enabled": false,
+                "temperature": 0
+            },
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "c6aabc91-0325-47f2-8fb5-35aeed881a9e"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "MiniMax-M2.7",
+            "provider": "anthropic"
+        }
+    },
+    "attempts": [
+        {
+            "attempt": 1,
+            "instruction_kind": "initial",
+            "feedback_prompt": null,
+            "agent_session_id": null,
+            "agent_result": {
+                "n_input_tokens": 170775,
+                "n_cache_tokens": 110185,
+                "n_output_tokens": 10373,
+                "cost_usd": null,
+                "rollout_details": [],
+                "metadata": {
+                    "n_episodes": 13,
+                    "api_request_times_msec": [
+                        7693.865060806274,
+                        10808.089017868042,
+                        26817.313194274902,
+                        8050.968170166016,
+                        16439.390420913696,
+                        23537.623405456543,
+                        4786.484479904175,
+                        19158.145427703857,
+                        7924.701690673828,
+                        33757.254123687744,
+                        4728.787899017334,
+                        11751.790523529053,
+                        10537.758827209473
+                    ],
+                    "summarization_count": 0,
+                    "paper_dynamic_turn_enabled": false,
+                    "paper_dynamic_turn_initial_turn_limit": 14,
+                    "paper_dynamic_turn_extension_turn_limit": 14,
+                    "paper_dynamic_turn_repo_candidates": [
+                        "/app",
+                        "/app/workspace",
+                        "/workspace",
+                        "/root",
+                        "/root/workspace",
+                        "/home/travis",
+                        "/home/github/build"
+                    ],
+                    "paper_dynamic_turn_stop_triggered": false,
+                    "paper_dynamic_turn_stop_reason": null,
+                    "paper_turn_stopcheck_enabled": true,
+                    "paper_turn_stopcheck_zero_progress_streak": 2,
+                    "paper_turn_stopcheck_yes_streak": 2,
+                    "paper_turn_stopcheck_stop_triggered": false,
+                    "paper_turn_stopcheck_stop_reason": null
+                }
+            },
+            "verifier_result": {
+                "rewards": {
+                    "reward": 0.833
+                },
+                "stdout_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/test-stdout.txt",
+                "stderr_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/test-stderr.txt",
+                "ctrf_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/ctrf.json",
+                "reward_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/reward.txt",
+                "notes": "Verifier reported failed tests in ctrf.json.",
+                "feedback_items": [
+                    "test_outputs.py::test_system_basics: Node TavernChoice missing valid 'speaker'"
+                ]
+            },
+            "started_at": "2026-05-07T03:21:38.682049Z",
+            "finished_at": "2026-05-07T03:25:12.840923Z"
+        }
+    ],
+    "agent_result": {
+        "n_input_tokens": 170775,
+        "n_cache_tokens": 110185,
+        "n_output_tokens": 10373,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 13,
+            "api_request_times_msec": [
+                7693.865060806274,
+                10808.089017868042,
+                26817.313194274902,
+                8050.968170166016,
+                16439.390420913696,
+                23537.623405456543,
+                4786.484479904175,
+                19158.145427703857,
+                7924.701690673828,
+                33757.254123687744,
+                4728.787899017334,
+                11751.790523529053,
+                10537.758827209473
+            ],
+            "summarization_count": 0,
+            "paper_dynamic_turn_enabled": false,
+            "paper_dynamic_turn_initial_turn_limit": 14,
+            "paper_dynamic_turn_extension_turn_limit": 14,
+            "paper_dynamic_turn_repo_candidates": [
+                "/app",
+                "/app/workspace",
+                "/workspace",
+                "/root",
+                "/root/workspace",
+                "/home/travis",
+                "/home/github/build"
+            ],
+            "paper_dynamic_turn_stop_triggered": false,
+            "paper_dynamic_turn_stop_reason": null,
+            "paper_turn_stopcheck_enabled": true,
+            "paper_turn_stopcheck_zero_progress_streak": 2,
+            "paper_turn_stopcheck_yes_streak": 2,
+            "paper_turn_stopcheck_stop_triggered": false,
+            "paper_turn_stopcheck_stop_reason": null
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.833
+        },
+        "stdout_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/test-stdout.txt",
+        "stderr_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/test-stderr.txt",
+        "ctrf_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/ctrf.json",
+        "reward_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-dialogue-parser/dialogue-parser__idhpKcw/verifier/attempt-1/reward.txt",
+        "notes": "Verifier reported failed tests in ctrf.json.",
+        "feedback_items": [
+            "test_outputs.py::test_system_basics: Node TavernChoice missing valid 'speaker'"
+        ]
+    },
+    "exception_info": null,
+    "first_success_attempt": 1,
+    "attempt_count": 1,
+    "stop_reason": "passed",
+    "started_at": "2026-05-07T03:21:22.604138Z",
+    "finished_at": "2026-05-07T03:25:23.566112Z",
+    "environment_setup": {
+        "started_at": "2026-05-07T03:21:22.605798Z",
+        "finished_at": "2026-05-07T03:21:27.053785Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-07T03:21:27.053819Z",
+        "finished_at": "2026-05-07T03:21:38.681992Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-07T03:21:38.682258Z",
+        "finished_at": "2026-05-07T03:25:08.252630Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-07T03:25:08.252720Z",
+        "finished_at": "2026-05-07T03:25:12.840894Z"
+    }
+}

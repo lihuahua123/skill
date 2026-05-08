@@ -29,8 +29,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def build_usage(model_stats: dict[str, Any]) -> dict[str, Any]:
-    api_calls = int(model_stats["api_calls"])
-    cost_usd = float(model_stats["instance_cost"])
+    api_calls = int(model_stats.get("api_calls", 0) or 0)
+    cost_usd = float(model_stats.get("instance_cost", 0.0) or 0.0)
     return {
         "total_tokens": 0,
         "prompt_tokens": 0,
@@ -45,27 +45,36 @@ def build_usage(model_stats: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_task(instance_root: Path) -> dict[str, Any]:
-    summary = json.loads((instance_root / "task_summary.json").read_text(encoding="utf-8"))
-    attempt_summary = summary["attempts"][0]
+def build_attempt_record(
+    attempt_summary: dict[str, Any],
+    *,
+    default_feedback_policy: str,
+    default_feedback_format: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     traj = json.loads(Path(attempt_summary["traj_json"]).read_text(encoding="utf-8"))
     eval_result = json.loads(Path(attempt_summary["eval_json"]).read_text(encoding="utf-8"))
-
-    model_stats = traj["info"]["model_stats"]
+    model_stats = (traj.get("info") or {}).get("model_stats") or {}
     usage = build_usage(model_stats)
-    resolved = bool(eval_result["resolved"])
-    transcript_length = len(traj["messages"])
-    execution_time = float(attempt_summary["agent_time_seconds"]) + float(attempt_summary["evaluation_time_seconds"])
-
+    resolved = bool(eval_result.get("resolved"))
+    transcript_length = len(traj.get("messages") or [])
+    execution_time = float(attempt_summary.get("agent_time_seconds", 0.0) or 0.0) + float(
+        attempt_summary.get("evaluation_time_seconds", 0.0) or 0.0
+    )
+    feedback_prompt = attempt_summary.get("feedback_prompt")
+    feedback_stats = attempt_summary.get("feedback_prompt_stats") or {
+        "text_length_chars": 0,
+        "stable_prefix_length_chars": 0,
+        "dynamic_suffix_length_chars": 0,
+    }
     attempt_record = {
-        "attempt": 1,
-        "instruction_kind": "initial",
-        "feedback_prompt": None,
-        "feedback_prompt_stats": {"chars": 0, "tokens_estimate": 0},
-        "feedback_policy": "none",
-        "feedback_format": "none",
+        "attempt": int(attempt_summary.get("attempt", 0) or 0),
+        "instruction_kind": "retry" if feedback_prompt else "initial",
+        "feedback_prompt": feedback_prompt,
+        "feedback_prompt_stats": feedback_stats,
+        "feedback_policy": attempt_summary.get("feedback_policy") or default_feedback_policy,
+        "feedback_format": attempt_summary.get("feedback_format") or default_feedback_format,
         "execution": {
-            "llm_rounds": int(model_stats["api_calls"]),
+            "llm_rounds": int(model_stats.get("api_calls", 0) or 0),
             "usage": usage,
             "usage_per_round": [],
             "execution_time": execution_time,
@@ -73,8 +82,9 @@ def build_task(instance_root: Path) -> dict[str, Any]:
         },
         "verifier": {
             "resolved": resolved,
-            "report_path": eval_result["report_path"],
-            "test_output_path": eval_result["test_output_path"],
+            "report_path": eval_result.get("report_path"),
+            "test_output_path": eval_result.get("test_output_path"),
+            "notes": eval_result.get("notes"),
         },
         "grading": {
             "score": 1.0 if resolved else 0.0,
@@ -92,8 +102,52 @@ def build_task(instance_root: Path) -> dict[str, Any]:
             "traj_json": attempt_summary["traj_json"],
             "eval_json": attempt_summary["eval_json"],
             "prediction_json": attempt_summary["prediction_json"],
+            "feedback_txt": attempt_summary.get("feedback_path") or "",
         },
+        "unresolved_criteria_count": 0 if resolved else 1,
+        "stop_rule": attempt_summary.get("stop_rule"),
+        "stop_rule_threshold": attempt_summary.get("stop_threshold"),
+        "stop_rule_trigger_reason": attempt_summary.get("stop_rule_trigger_reason"),
     }
+    aggregate_fields = {
+        "resolved": resolved,
+        "usage": usage,
+        "transcript_length": transcript_length,
+        "execution_time": execution_time,
+        "feedback_length_chars": int(feedback_stats.get("text_length_chars", 0) or 0),
+    }
+    return attempt_record, aggregate_fields
+
+
+def build_task(instance_root: Path) -> dict[str, Any]:
+    summary = json.loads((instance_root / "task_summary.json").read_text(encoding="utf-8"))
+    retry_policies = summary.get("retry_policies") or {}
+    attempts: list[dict[str, Any]] = []
+    attempt_aggregates: list[dict[str, Any]] = []
+    for attempt_summary in summary.get("attempts") or []:
+        attempt_record, aggregate_fields = build_attempt_record(
+            attempt_summary,
+            default_feedback_policy=retry_policies.get("feedback_policy", "none"),
+            default_feedback_format=retry_policies.get("feedback_format", "none"),
+        )
+        attempts.append(attempt_record)
+        attempt_aggregates.append(aggregate_fields)
+
+    usage = {
+        "total_tokens": sum(int((item["usage"].get("total_tokens", 0) or 0)) for item in attempt_aggregates),
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": sum(float(item["usage"]["cost_usd"]) for item in attempt_aggregates),
+        "requests": sum(int(item["usage"]["requests"]) for item in attempt_aggregates),
+    }
+    resolved = bool(summary.get("success_within_budget"))
+    execution_time = sum(float(item["execution_time"]) for item in attempt_aggregates)
+    transcript_length = sum(int(item["transcript_length"] or 0) for item in attempt_aggregates)
 
     return {
         "task_id": summary["task_id"],
@@ -102,7 +156,7 @@ def build_task(instance_root: Path) -> dict[str, Any]:
         "timed_out": False,
         "execution_time": execution_time,
         "transcript_length": transcript_length,
-        "llm_rounds": int(model_stats["api_calls"]),
+        "llm_rounds": sum(int((item["usage"].get("requests", 0) or 0)) for item in attempt_aggregates),
         "usage": usage,
         "usage_per_round": [],
         "workspace": {},
@@ -125,16 +179,19 @@ def build_task(instance_root: Path) -> dict[str, Any]:
         },
         "completion": {"passed": resolved},
         "frontmatter": {},
-        "attempt_count": 1,
-        "first_success_attempt": 1 if resolved else None,
-        "success_within_budget": resolved,
-        "unresolved_criteria_count_by_attempt": [0 if resolved else 1],
-        "transcript_length_by_attempt": [transcript_length],
-        "prompt_tokens_by_attempt": [0],
-        "completion_tokens_by_attempt": [0],
-        "feedback_length_chars_by_attempt": [0],
-        "stop_reason": "passed" if resolved else "exhausted",
-        "attempts": [attempt_record],
+        "attempt_count": int(summary.get("attempt_count", len(attempts)) or len(attempts)),
+        "first_success_attempt": summary.get("first_success_attempt"),
+        "success_within_budget": bool(summary.get("success_within_budget")),
+        "unresolved_criteria_count_by_attempt": [
+            int(attempt.get("unresolved_criteria_count") or 0) for attempt in attempts
+        ],
+        "transcript_length_by_attempt": [item["transcript_length"] for item in attempt_aggregates],
+        "prompt_tokens_by_attempt": [0 for _ in attempts],
+        "completion_tokens_by_attempt": [0 for _ in attempts],
+        "feedback_length_chars_by_attempt": [item["feedback_length_chars"] for item in attempt_aggregates],
+        "stop_reason": summary.get("stop_reason", "max-attempts-reached"),
+        "attempts": attempts,
+        "retry_policies": retry_policies,
     }
 
 
@@ -146,7 +203,16 @@ def build_efficiency(tasks: list[dict[str, Any]], max_task_attempts: int) -> dic
     success_count = sum(1 for task in tasks if task["first_success_attempt"] is not None)
     success_at_k = {}
     for k in range(1, max(1, max_task_attempts) + 1):
-        success_at_k[str(k)] = round(success_count / n_tasks, 6) if n_tasks else 0.0
+        success_at_k[str(k)] = round(
+            sum(
+                1
+                for task in tasks
+                if isinstance(task.get("first_success_attempt"), int)
+                and int(task["first_success_attempt"]) <= k
+            )
+            / n_tasks,
+            6,
+        ) if n_tasks else 0.0
 
     return {
         "total_tokens": 0,
@@ -200,7 +266,7 @@ def main() -> None:
         "retry_policies": {
             "feedback_policy": args.feedback_policy,
             "feedback_format": args.feedback_format,
-            "feedback_strategy": "none",
+            "feedback_strategy": "swebench-safe",
             "feedback_answer_safety": args.feedback_answer_safety,
             "stop_rule": args.stop_rule,
             "stop_threshold": args.stop_threshold,

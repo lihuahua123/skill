@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph; g = Graph(); print(type(g.nodes)); print(g.nodes)"
+<class 'dict'>
+{}
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph, Node, Edge; g = Graph(); n = Node(id='test', type='line'); g.add_node(n); print(g.nodes)"
+{'test': <dialogue_graph.Node object at 0x7fccf91f5310>}
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph, Node, Edge; g = Graph(); n = Node(id='test', type='line'); g.add_node(n); print(g._nodes)"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AttributeError: 'Graph' object has no attribute '_nodes'. Did you mean: 'nodes'?
+root@0588585e24cd:/app#
+
+
+Include stop_check.

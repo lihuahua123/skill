@@ -1,0 +1,26 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# ls -la /data/maps/
+total 328
+drwxrwxr-x 1 root root   4096 May  7 02:56  .
+drwxr-xr-x 1 root root   4096 May  7 02:54  ..
+-rw-r--r-- 1 root root      0 May  7 02:56 'e2e_test_case_0 Civ6Map'
+-rw-rw-r-- 1 root root 319488 May  1 13:38  e2e_test_case_0.Civ6Map
+-rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0.MockitoMap
+-rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0MockitoMap
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import os
+> path = \"/data/maps/e2e_test_case_0 Civ6Map\"
+> print('Exists:', os.path.exists(path))
+> print('Size:', os.path.getsize(path))
+> with open(path, 'rb') as f:
+>     header = f.read(100)
+>     print('Header:', header[:50])
+> "
+Exists: True
+Size: 0
+Header: b''
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

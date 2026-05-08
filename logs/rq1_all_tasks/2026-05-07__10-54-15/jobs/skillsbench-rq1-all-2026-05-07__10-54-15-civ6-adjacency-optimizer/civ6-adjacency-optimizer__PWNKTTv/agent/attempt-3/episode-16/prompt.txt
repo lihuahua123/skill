@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+    return result
+
+
+def run_evaluation(
+    scenario_path: Path,
+    solution_path: Path,
+    ground_truth_path: Path,
+) -> Dict[str, Any]:
+    """
+    Run full evaluation and return result dict.
+
+    This is the main entry point called by test.sh.
+    """
+    scenario = load_scenario(scenario_path)
+    solution = load_solution(solution_path)
+    ground_truth = load_ground_truth(ground_truth_path)
+
+    scenario_id = scenario.get("id", "unknown")
+
+    # Determine data_dir from scenario_path
+    # Scenario is at /data/scenario_XX/scenario.json, so data_dir is /data
+    data_dir = scenario_path.parent.parent
+
+    result = evaluate_solution(scenario, solution, ground_truth, data_dir)
+
+    return {
+        "scenario_id": scenario_id,
+        "valid": result.valid,
+        "total_adjacency": result.total_adjacency,
+        "optimal_adjacency": result.optimal_adjacency,
+        "score": result.score,
+        "total_score": result.score,  # Alias for test.sh compatibility
+        "errors": result.errors,
+        "warnings": result.warnings,
+        "per_district": result.per_district,
+        "exceeds_optimal": result.exceeds_optimal,
+        "adjacency_mismatch": result.adjacency_mismatch,
+    }
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

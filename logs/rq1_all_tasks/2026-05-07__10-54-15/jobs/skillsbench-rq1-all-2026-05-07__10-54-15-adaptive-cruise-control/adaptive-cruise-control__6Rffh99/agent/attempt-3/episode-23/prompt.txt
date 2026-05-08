@@ -1,0 +1,85 @@
+New Terminal Output:
+===
+root@bfb65fae2dcc:~# head -20 simulation_results.csv
+time,ego_speed,acceleration_cmd,mode,distance_error,distance,ttc
+0.0,0.30000000000000004,3.0,cruise,,,
+0.1,0.6000000000000001,3.0,cruise,,,
+0.2,0.9000000000000001,3.0,cruise,,,
+0.3,1.2000000000000002,3.0,cruise,,,
+0.4,1.5000000000000002,3.0,cruise,,,
+0.5,1.8000000000000003,3.0,cruise,,,
+0.6,2.1000000000000005,3.0,cruise,,,
+0.7,2.4000000000000004,3.0,cruise,,,
+0.8,2.7,3.0,cruise,,,
+0.9,3.0,3.0,cruise,,,
+1.0,3.3,3.0,cruise,,,
+1.1,3.5999999999999996,3.0,cruise,,,
+1.2,3.8999999999999995,3.0,cruise,,,
+1.3,4.199999999999999,3.0,cruise,,,
+1.4,4.499999999999999,3.0,cruise,,,
+1.5,4.799999999999999,3.0,cruise,,,
+1.6,5.099999999999999,3.0,cruise,,,
+1.7,5.399999999999999,3.0,cruise,,,
+1.8,5.699999999999998,3.0,cruise,,,
+root@bfb65fae2dcc:~# cat tuning_results.yaml
+pid_speed:
+  kp: 2.5
+  ki: 0.4
+  kd: 0.6
+pid_distance:
+  kp: 1.2
+  ki: 0.15
+  kd: 0.3
+root@bfb65fae2dcc:~# cat acc_report.md
+# ACC Simulation Report
+
+## System Design
+
+### ACC Architecture
+
+The ACC system implements a hierarchical control architecture with three modes:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=2.5, ki=0.4, kd=0.6
+
+**Distance Controller:** kp=1.2, ki=0.15, kd=0.3
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 8.90s | PASS |
+| Overshoot | <5% | 0.14% | PASS |
+| Speed SS Error | <0.5m/s | 0.015m/s | PASS |
+| Dist SS Error | <2m | 0.09m | PASS |
+| Min Distance | >5m | 5.00m | FAIL |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 30.04 m/s
+- Modes: cruise=501, follow=980, emergency=20
+root@bfb65fae2dcc:~# wc -l simulation_results.csv
+1502 simulation_results.csv
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

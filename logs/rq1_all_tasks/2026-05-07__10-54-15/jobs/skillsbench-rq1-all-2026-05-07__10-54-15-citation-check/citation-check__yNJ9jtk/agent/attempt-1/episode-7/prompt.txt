@@ -1,0 +1,48 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+Current Terminal Screen:
+    title = "{MCIP}: Protecting {MCP} Safety via Model Contextual Integrity Protocol",
+    author = "Jing, Huihao  and
+      Li, Haoran  and
+      Hu, Wenbin  and
+      Hu, Qi  and
+      Heli, Xu  and
+      Chu, Tianshu  and
+      Hu, Peizhao  and
+      Song, Yangqiu",
+    editor = "Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet",
+    booktitle = "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+root@30c3cd183633:~# grep -A 20 '^@inproceedings{clue' /root/test.bib
+@inproceedings{clue,
+  author       = {Liang Xu and
+                  Hai Hu and
+                  Xuanwei Zhang and
+                  Lu Li and
+                  Chenjie Cao and
+                  Yudong Li and
+                  Yechen Xu and
+                  Kai Sun and
+                  Dian Yu and
+                  Cong Yu and
+                  Yin Tian and
+                  Qianqian Dong and
+                  Weitang Liu and
+                  Bo Shi and
+                  Yiming Cui and
+                  Junyi Li and
+                  Jun Zeng and
+                  Rongzhao Wang and
+                  Weijian Xie and
+                  Yanting Li and
+root@30c3cd183633:~# date
+Thu May  7 02:56:27 UTC 2026
+root@30c3cd183633:~#
+
+
+Include stop_check.

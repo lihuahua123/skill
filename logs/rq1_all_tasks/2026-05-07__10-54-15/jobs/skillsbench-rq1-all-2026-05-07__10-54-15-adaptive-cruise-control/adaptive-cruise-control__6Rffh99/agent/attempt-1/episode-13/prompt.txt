@@ -1,0 +1,106 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat > acc_system.py << 'EOF'
+> """Adaptive Cruise Control System Implementation"""
+>
+> from pid_controller import PIDController
+>
+> class AdaptiveCruiseControl:
+>     """ACC system with proper distance control logic."""
+>
+>     def __init__(self, config):
+>         self.mass = config['vehicle']['mass']
+>         self.max_acceleration = config['vehicle']['max_acceleration']
+>         self.max_deceleration = config['vehicle']['max_deceleration']
+>         self.set_speed = config['acc_settings']['set_speed']
+>         self.time_headway = config['acc_settings']['time_headway']
+>         self.min_distance = config['acc_settings']['min_distance']
+>         self.emergency_ttc_threshold = config['acc_settings']['emergency_ttc_threshold']
+>
+>         pid_speed_cfg = config.get('pid_speed', {'kp': 0.5, 'ki': 0.05, 'kd': 0.1})
+>         pid_dist_cfg = config.get('pid_distance', {'kp': 0.5, 'ki': 0.05, 'kd': 0.1})
+>
+>         self.pid_speed = PIDController(pid_speed_cfg['kp'], pid_speed_cfg['ki'], pid_speed_cfg['kd'])
+>         self.pid_distance = PIDController(pid_dist_cfg['kp'], pid_dist_cfg['ki'], pid_dist_cfg['kd'])
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+>
+>     def safe_following_distance(self, ego_speed):
+>         return ego_speed * self.time_headway + self.min_distance
+>
+>     def time_to_collision(self, distance, ego_speed, lead_speed):
+>         relative_speed = ego_speed - lead_speed
+>         if relative_speed <= 0:
+>             return None
+>         return distance / relative_speed
+>
+>     def determine_mode(self, lead_speed, distance):
+>         if lead_speed is None or distance is None:
+>             return 'cruise'
+>         ttc = self.time_to_collision(distance, self.set_speed, lead_speed)
+>         if ttc is not None and ttc < self.emergency_ttc_threshold:
+>             return 'emergency'
+>         return 'follow'
+>
+>     def compute(self, ego_speed, lead_speed, distance, dt):
+>         mode = self.determine_mode(lead_speed, distance)
+>
+>         if mode != self.prev_mode:
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             self.prev_mode = mode
+>         self.mode = mode
+>
+>         if mode == 'cruise':
+>             self.pid_distance.reset()
+>             speed_error = self.set_speed - ego_speed
+>             acceleration_cmd = self.pid_speed.compute(speed_error, dt)
+>
+>             # Additional speed-based limiting
+>             if ego_speed > self.set_speed:
+>                 # Need to slow down
+>                 decel_needed = ego_speed - self.set_speed
+>                 acc_limit = max(self.max_deceleration, -decel_needed * 2)
+>                 acceleration_cmd = min(acceleration_cmd, acc_limit)
+>             elif ego_speed > self.set_speed - 2:
+>                 acceleration_cmd *= 0.1  # Dampen near target
+>
+>             distance_error = None
+>
+>         elif mode == 'emergency':
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             acceleration_cmd = self.max_deceleration
+>             distance_error = 0.0
+>
+>         else:  # 'follow' mode
+>             self.pid_speed.reset()
+>             desired_distance = self.safe_following_distance(ego_speed)
+>             # FIXED: actual - desired (positive = too far = accelerate, negative = too close = decelerate)
+>             distance_error = distance - desired_distance
+>
+>             acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+>
+>             # Keep speed near set_speed
+>             speed_error = self.set_speed - ego_speed
+>             speed_correction = 0.2 * speed_error
+>             acceleration_cmd += speed_correction
+>
+>         acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+>         return acceleration_cmd, mode, distance_error
+>
+>     def reset(self):
+>         self.pid_speed.reset()
+>         self.pid_distance.reset()
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+> EOF
+root@bfb65fae2dcc:~# python3 simulation.py
+Speed PID: {'kp': 1.0, 'ki': 0.2, 'kd': 0.3}
+Distance PID: {'kp': 0.5, 'ki': 0.05, 'kd': 0.1}
+Saved 1501 rows to simulation_results.csv
+Report saved to acc_report.md
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

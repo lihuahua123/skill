@@ -1,0 +1,77 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/explore_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> import json
+>
+> # Find the correct map file
+> dbpath = None
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     if os.path.getsize(fp) > 0:
+>         dbpath = fp
+>         break
+>
+> print(f"Using: {dbpath}")
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+>
+> # Get Map table
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> print("Map:", cursor.fetchall())
+>
+> # Get Plots
+> cursor.execute("SELECT * FROM Plots LIMIT 5")
+> print("\nPlots:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotFeatures
+> cursor.execute("SELECT * FROM PlotFeatures LIMIT 5")
+> print("\nPlotFeatures:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotRivers sample
+> cursor.execute("SELECT * FROM PlotRivers LIMIT 5")
+> print("\nPlotRivers:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotResources sample
+> cursor.execute("SELECT * FROM PlotResources LIMIT 5")
+> print("\nPlotResources:")
+> for row in cursor.fetchall():
+>     print(row)
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/explore_map.py
+Using: /data/maps/e2e_test_case_0.Civ6Map
+Map: [('Default', 44, 26, 90, -90, 1, 0, 'MAPSIZE_DUEL')]
+
+Plots:
+(0, 'TERRAIN_OCEAN', '', 1)
+(1, 'TERRAIN_OCEAN', '', 1)
+(2, 'TERRAIN_OCEAN', '', 1)
+(3, 'TERRAIN_COAST', '', 1)
+(4, 'TERRAIN_OCEAN', '', 1)
+
+PlotFeatures:
+(0, 'FEATURE_ICE')
+(1, 'FEATURE_ICE')
+(2, 'FEATURE_ICE')
+(3, 'FEATURE_ICE')
+(4, 'FEATURE_ICE')
+
+PlotRivers:
+(313, 1, 0, 0, -1, -1, 5)
+(575, 0, 0, 1, -1, 4, -1)
+(593, 0, 1, 1, 3, 4, -1)
+(638, 0, 1, 1, 3, 4, -1)
+(639, 0, 1, 0, 0, -1, -1)
+
+PlotResources:
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

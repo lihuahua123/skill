@@ -1,0 +1,20 @@
+{
+  "analysis": "The optimization confirms 9 is the optimal total adjacency for this map. The solution is correct:\n- Campus at (21,14): geothermal(+2) + reef(+2) + mountain(+1) = 5\n- Commercial Hub at (22,17): river(+2) + harbor(+2) = 4\n- Industrial Zone: no valid +0.5 sources nearby = 0\n\nTotal = 9",
+  "plan": "Verify the output file exists and is correct, then mark task complete.",
+  "commands": [
+    {
+      "keystrokes": "cat /output/scenario_3.json\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "python3 -c \"import json; data = json.load(open('/output/scenario_3.json')); print('Valid:', data['adjacency_bonuses']['CAMPUS'] + data['adjacency_bonuses']['COMMERCIAL_HUB'] + data['adjacency_bonuses']['INDUSTRIAL_ZONE'] == data['total_adjacency'])\"\n",
+      "duration": 1.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 2,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

@@ -1,0 +1,29 @@
+{
+    "id": "9e89fbc2-6724-49fe-9e89-0fe53cd640d7",
+    "started_at": "2026-05-07T10:54:20.566591",
+    "finished_at": "2026-05-07T11:21:33.717228",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "adaptive-cruise-control__6Rffh99"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

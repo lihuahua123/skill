@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    """Get all tiles within radius (excluding center)."""
+    tiles = []
+    for dx in range(-radius, radius + 1):
+        for dy in range(-radius, radius + 1):
+            nx, ny = x + dx, y + dy
+            if (nx, ny) != (x, y) and hex_distance(x, y, nx, ny) <= radius:
+                tiles.append((nx, ny))
+    return tiles
+```
+
+## Usage Examples
+
+```python
+# Find neighbors of tile (21, 13)
+neighbors = get_neighbors(21, 13)
+# For odd row: [(22,13), (22,12), (21,12), (20,13), (21,14), (22,14)]
+
+# Calculate distance
+dist = hex_distance(21, 13, 24, 13)  # Returns 3
+
+# Check adjacency
+is_adj = hex_distance(21, 13, 21, 14) == 1  # True
+
+# Get all tiles within 3 of city center
+workable = get_tiles_in_range(21, 13, 3)
+```
+
+## Key Insight: Even vs Odd Row
+
+The critical difference is in directions 1, 2, 4, 5 (the diagonal directions):
+
+| Direction | Even Row (y%2==0) | Odd Row (y%2==1) |
+|-----------|-------------------|------------------|
+| NE (1) | (0, -1) | (1, -1) |
+| NW (2) | (-1, -1) | (0, -1) |
+| SW (4) | (-1, +1) | (0, +1) |
+| SE (5) | (0, +1) | (1, +1) |
+
+East (0) and West (3) are always (1, 0) and (-1, 0).
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

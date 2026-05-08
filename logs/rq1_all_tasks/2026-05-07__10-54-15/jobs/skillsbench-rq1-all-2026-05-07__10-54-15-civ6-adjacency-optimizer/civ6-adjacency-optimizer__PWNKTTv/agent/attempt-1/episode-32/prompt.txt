@@ -1,0 +1,186 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/optimizer.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> import json
+> from collections import defaultdict
+>
+> # Hex grid utilities for offset coordinates (odd-r)
+> def get_hex_neighbors(x, y):
+>     if y % 2 == 1:
+>         return [(x+1, y), (x+1, y-1), (x+1, y+1), (x-1, y), (x, y-1), (x, y+1)]
+>     else:
+>         return [(x+1, y), (x, y-1), (x, y+1), (x-1, y), (x-1, y-1), (x-1, y+1)]
+>
+> def hex_distance(x1, y1, x2, y2):
+>     def to_cube(x, y):
+>         if y % 2 == 1:
+>             x_cube = x - (y - 1) // 2
+>         else:
+>             x_cube = x - y // 2
+>         return x_cube, y, -x_cube - y
+>     cx1, cy1, cz1 = to_cube(x1, y1)
+>     cx2, cy2, cz2 = to_cube(x2, y2)
+>     return max(abs(cx1 - cx2), abs(cy1 - cy2), abs(cz1 - cz2))
+>
+> def get_tiles_in_range(cx, cy, max_dist):
+>     result = []
+>     for dy in range(-max_dist, max_dist + 1):
+>         for dx in range(-max_dist, max_dist + 1):
+>             x, y = cx + dx, cy + dy
+>             if hex_distance(cx, cy, x, y) <= max_dist:
+>                 result.append((x, y))
+>     return result
+>
+> # Load map
+> dbpath = None
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     if os.path.getsize(fp) > 0:
+>         dbpath = fp
+>         break
+>
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> map_row = cursor.fetchone()
+> print(f"Map row: {map_row}")
+> _, width, height = map_row[0], map_row[1], map_row[2]
+>
+> # Load plots
+> cursor.execute("SELECT * FROM Plots ORDER BY ID")
+> plots = {}
+> for row in cursor.fetchall():
+>     pid, terrain, continent, impassable = row
+>     x, y = pid % width, pid // width
+>     plots[(x, y)] = {'terrain': terrain, 'impassable': bool(impassable)}
+>
+> # Load features
+> cursor.execute("SELECT * FROM PlotFeatures")
+> for row in cursor.fetchall():
+>     pid, feature = row
+>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+>         plots[(x, y)]['feature'] = feature
+>
+> # Load rivers
+> cursor.execute("SELECT * FROM PlotRivers")
+> for row in cursor.fetchall():
+>     pid = row[0]
+>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+>         plots[(x, y)]['has_river'] = True
+>
+> print(f"Map: {width}x{height}")
+> print(f"Loaded {len(plots)} tiles")
+>
+> # Find valid city center locations
+> valid_city_tiles = []
+> for (x, y), tile in plots.items():
+>     if tile['terrain'] not in ['TERRAIN_OCEAN'] and not tile['impassable']:
+>         if tile['terrain'] != 'TERRAIN_GRASS_MOUNTAIN':
+>             if tile.get('feature') != 'FEATURE_GEOTHERMAL_FISSURE':
+>                 valid_city_tiles.append((x, y))
+>
+> print(f"\nValid city center tiles: {len(valid_city_tiles)}")
+> for t in sorted(valid_city_tiles):
+>     print(f"  {t}: {plots[t]}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/optimizer.py
+Map row: ('Default', 44, 26, 90, -90, 1, 0, 'MAPSIZE_DUEL')
+Map: 44x26
+Loaded 1144 tiles
+
+Valid city center tiles: 87
+  (3, 1): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (3, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (3, 3): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (4, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (6, 1): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (8, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (8, 3): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (9, 1): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (9, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (11, 1): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (12, 1): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (13, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (13, 3): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (14, 0): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (14, 2): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (14, 3): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (17, 4): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (19, 13): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (19, 15): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (20, 12): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (20, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'feature': 'FEATURE_JUNGLE'}
+  (20, 14): {'terrain': 'TERRAIN_COAST', 'impassable': False, 'feature': 'FEATURE_REEF'}
+  (20, 15): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'feature': 'FEATURE_JUNGLE'}
+  (20, 16): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (21, 11): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (21, 12): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (21, 14): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (21, 16): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (21, 17): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (22, 10): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (22, 12): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (22, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (22, 14): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'has_river': True}
+  (22, 15): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'has_river': True}
+  (22, 16): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (22, 17): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (22, 18): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (23, 10): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (23, 11): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'feature': 'FEATURE_FOREST'}
+  (23, 12): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (23, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'feature': 'FEATURE_FOREST'}
+  (23, 14): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (23, 15): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (23, 16): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (23, 17): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (23, 18): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (24, 10): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (24, 11): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (24, 12): {'terrain': 'TERRAIN_GRASS', 'impassable': False, 'feature': 'FEATURE_FOREST'}
+  (24, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (24, 14): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (24, 15): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS'}
+  (24, 16): {'terrain': 'TERRAIN_PLAINS', 'impassable': False, 'feature': 'FEATURE_FLOODPLAINS_PLAINS', 'has_river': True}
+  (24, 17): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (24, 18): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (25, 10): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (25, 11): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 12): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 14): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 15): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 16): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 17): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (25, 18): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (26, 10): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (26, 11): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (26, 12): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (26, 13): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (26, 14): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (26, 15): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (26, 16): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (26, 17): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (26, 18): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (27, 12): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (27, 13): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (27, 14): {'terrain': 'TERRAIN_GRASS', 'impassable': False}
+  (27, 15): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (27, 16): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (28, 14): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (29, 5): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (30, 4): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (31, 4): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (33, 4): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (33, 25): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (34, 4): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (37, 25): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+  (38, 24): {'terrain': 'TERRAIN_COAST', 'impassable': False}
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

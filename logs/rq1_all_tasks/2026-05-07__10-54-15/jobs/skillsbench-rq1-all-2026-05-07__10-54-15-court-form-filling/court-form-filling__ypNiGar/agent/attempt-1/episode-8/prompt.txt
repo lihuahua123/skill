@@ -1,0 +1,44 @@
+Current Terminal Screen:
+      650.914,
+      330.48,
+      659.914
+    ]
+  },
+  {
+    "field_id": "SC-100[0].#pageSet[0].MPLast[0].Print[0]",
+    "type": "checkbox",
+    "page": 6,
+    "rect": [
+      258.69,
+      7.702,
+      339.69,
+      24.71
+    ]
+  },
+  {
+    "field_id": "SC-100[0].#pageSet[0].MPLast[0].Save[0]",
+    "type": "checkbox",
+    "page": 6,
+    "rect": [
+      345.229,
+      7.702,
+      426.334,
+      24.71
+    ]
+  },
+  {
+    "field_id": "SC-100[0].#pageSet[0].MPLast[0].Reset[0]",
+    "type": "checkbox",
+    "page": 6,
+    "rect": [
+      494.918,
+      7.702,
+      575.915,
+      24.71
+    ]
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

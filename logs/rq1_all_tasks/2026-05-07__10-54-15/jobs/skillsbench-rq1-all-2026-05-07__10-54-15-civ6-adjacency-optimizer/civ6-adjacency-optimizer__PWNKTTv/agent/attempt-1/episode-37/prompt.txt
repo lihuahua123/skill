@@ -1,0 +1,57 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# mkdir -p /output
+root@0d3c1addd3d3:/data/maps# cat > /tmp/write_output.py << 'ENDSCRIPT'
+> import json
+>
+> result = {
+>     "city_center": [22, 14],
+>     "placements": {
+>         "CAMPUS": [21, 14],
+>         "COMMERCIAL_HUB": [22, 17],
+>         "INDUSTRIAL_ZONE": [23, 12]
+>     },
+>     "adjacency_bonuses": {
+>         "CAMPUS": 5,
+>         "COMMERCIAL_HUB": 4,
+>         "INDUSTRIAL_ZONE": 0
+>     },
+>     "total_adjacency": 9
+> }
+>
+> with open('/output/scenario_3.json', 'w') as f:
+>     json.dump(result, f, indent=2)
+> print("Written!")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/write_output.py
+Written!
+root@0d3c1addd3d3:/data/maps# cat /output/scenario_3.json
+{
+  "city_center": [
+    22,
+    14
+  ],
+  "placements": {
+    "CAMPUS": [
+      21,
+      14
+    ],
+    "COMMERCIAL_HUB": [
+      22,
+      17
+    ],
+    "INDUSTRIAL_ZONE": [
+      23,
+      12
+    ]
+  },
+  "adjacency_bonuses": {
+    "CAMPUS": 5,
+    "COMMERCIAL_HUB": 4,
+    "INDUSTRIAL_ZONE": 0
+  },
+  "total_adjacency": 9
+}root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

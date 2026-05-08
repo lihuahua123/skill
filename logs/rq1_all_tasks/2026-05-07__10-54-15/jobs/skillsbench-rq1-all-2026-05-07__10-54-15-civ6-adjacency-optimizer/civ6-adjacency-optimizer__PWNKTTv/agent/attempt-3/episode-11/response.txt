@@ -1,0 +1,23 @@
+{
+  "analysis": "All the map files seem to be empty or inaccessible. Let me check the scenario_3 directory for any additional files and look for test data that might help.",
+  "plan": "Check the scenario_3 directory structure and look for any existing test files that might reveal the expected format.",
+  "commands": [
+    {
+      "keystrokes": "ls -la /data/scenario_3/\n",
+      "duration": 0.3
+    },
+    {
+      "keystrokes": "find /data -type f -name '*.json' 2>/dev/null\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "cat /data/scenario_3/scenario.json\n",
+      "duration": 0.3
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Looking for scenario data",
+    "should_stop": "No"
+  }
+}

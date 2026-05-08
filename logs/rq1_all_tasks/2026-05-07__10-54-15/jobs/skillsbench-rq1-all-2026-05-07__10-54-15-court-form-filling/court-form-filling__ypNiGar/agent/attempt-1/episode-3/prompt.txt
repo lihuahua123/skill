@@ -1,0 +1,10 @@
+New Terminal Output:
+
+root@4df30ae92365:~# cd /root/.claude/skills/pdf && python scripts/check_fillable_fields.py /root/sc100-blank.pdf
+bash: python: command not found
+root@4df30ae92365:~/.claude/skills/pdf# python scripts/extract_form_field_info.py /root/sc100-blank.pdf /tmp/field_info.json && cat /tmp/field_info.json
+bash: python: command not found
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

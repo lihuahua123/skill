@@ -1,0 +1,85 @@
+==========================================
+Installing dependencies...
+==========================================
+
+==========================================
+Agent's solution.py:
+==========================================
+from pymatgen.core import Structure
+from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+from fractions import Fraction
+from typing import Dict, Any
+import re
+
+def fraction_to_rational_string(val: float, max_denom: int = 12) -> str:
+    """Convert a float to a rational string with denominators <= max_denom."""
+    frac = Fraction(val).limit_denominator(max_denom)
+    if frac.numerator == 0:
+        return "0"
+    if frac.denominator == 1:
+        return str(frac.numerator)
+    return f"{frac.numerator}/{frac.denominator}"
+
+def analyze_wyckoff_position_multiplicities_and_coordinates(filepath: str) -> Dict[str, Any]:
+    """
+    Analyze Wyckoff position multiplicities and calculate approximate coordinates
+    for the first atom of each Wyckoff position from a CIF file.
+    """
+    # Load structure from CIF file
+    structure = Structure.from_file(filepath)
+    
+    # Get spacegroup analyzer with high precision
+    sga = SpacegroupAnalyzer(structure, symprec=0.01)
+    
+    # Get symmetry dataset
+    sym_data = sga.get_symmetry_dataset()
+    
+    # Get spacegroup symbol
+    spg_symbol = sga.get_space_group_symbol()
+    
+    # Get Wyckoff positions using pymatgen's analyzer
+    wyckoff_parser = sga.get_symmetrized_structure()
+    
+    # Get Wyckoff letters for each site
+    wyckoff_letters = sym_data['wyckoffs']
+    
+    # Get fractional coordinates
+    frac_coords = structure.frac_coords
+    
+    # Build a mapping of Wyckoff letter to multiplicity and first coordinate
+    wyckoff_multiplicity_dict = {}
+    wyckoff_coordinates_dict = {}
+    
+    # Track which Wyckoff letters we've seen
+    seen_wyckoffs = {}
+    
+    for i, (letter, coord) in enumerate(zip(wyckoff_letters, frac_coords)):
+        if letter not in seen_wyckoffs:
+            # First occurrence of this Wyckoff letter - record its data
+            seen_wyckoffs[letter] = True
+            
+            # Count total multiplicity for this Wyckoff position
+            multiplicity = wyckoff_letters.count(letter)
+            wyckoff_multiplicity_dict[letter] = multiplicity
+            
+            # Convert coordinates to rational strings
+            coord_strs = [fraction_to_rational_string(c) for c in coord]
+            wyckoff_coordinates_dict[letter] = coord_strs
+    
+    return {
+        "wyckoff_multiplicity_dict": wyckoff_multiplicity_dict,
+        "wyckoff_coordinates_dict": wyckoff_coordinates_dict
+    }
+
+if __name__ == "__main__":
+    result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+    print(result)
+
+==========================================
+Running tests...
+==========================================
+
+==========================================
+Test completed. Score:
+0.0
+==========================================

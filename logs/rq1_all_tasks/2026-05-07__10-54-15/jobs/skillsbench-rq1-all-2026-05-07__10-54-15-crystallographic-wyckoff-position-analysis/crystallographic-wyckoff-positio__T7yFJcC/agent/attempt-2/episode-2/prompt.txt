@@ -1,0 +1,81 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# head -100 /root/cif_files/FeS2_mp-226.cif
+# generated using pymatgen
+data_FeS2
+_symmetry_space_group_name_H-M   'P 1'
+_cell_length_a   5.39682380
+_cell_length_b   5.39682380
+_cell_length_c   5.39682380
+_cell_angle_alpha   90.00000000
+_cell_angle_beta   90.00000000
+_cell_angle_gamma   90.00000000
+_symmetry_Int_Tables_number   1
+_chemical_formula_structural   FeS2
+_chemical_formula_sum   'Fe4 S8'
+_cell_volume   157.18630942
+_cell_formula_units_Z   4
+loop_
+ _symmetry_equiv_pos_site_id
+ _symmetry_equiv_pos_as_xyz
+  1  'x, y, z'
+loop_
+ _atom_type_symbol
+ _atom_type_oxidation_number
+  Fe4+  4.0
+  S2-  -2.0
+loop_
+ _atom_site_type_symbol
+ _atom_site_label
+ _atom_site_symmetry_multiplicity
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+  Fe4+  Fe0  1  0.00000000  0.50000000  0.50000000  1
+  Fe4+  Fe1  1  0.50000000  0.50000000  0.00000000  1
+  Fe4+  Fe2  1  0.50000000  0.00000000  0.50000000  1
+  Fe4+  Fe3  1  0.00000000  0.00000000  0.00000000  1
+  S2-  S4  1  0.38538014  0.11461986  0.88538014  1
+  S2-  S5  1  0.11461986  0.88538014  0.38538014  1
+  S2-  S6  1  0.88538014  0.38538014  0.11461986  1
+  S2-  S7  1  0.61461986  0.61461986  0.61461986  1
+  S2-  S8  1  0.38538014  0.38538014  0.38538014  1
+  S2-  S9  1  0.11461986  0.61461986  0.88538014  1
+  S2-  S10  1  0.88538014  0.11461986  0.61461986  1
+  S2-  S11  1  0.61461986  0.88538014  0.11461986  1
+root@561ccb8d5e18:~# python3 -c "from pymatgen.core import Structure; s = Structure.from_file('/root/cif_files/FeS2_mp-226.cif'); print(s); print('---'); print(
+s[0]); print(dir(s[0]))"
+Full Formula (Fe4 S8)
+Reduced Formula: FeS2
+abc   :   5.396824   5.396824   5.396824
+angles:  90.000000  90.000000  90.000000
+pbc   :       True       True       True
+Sites (12)
+  #  SP          a        b        c
+---  ----  -------  -------  -------
+  0  Fe4+  0        0.5      0.5
+  1  Fe4+  0.5      0.5      0
+  2  Fe4+  0.5      0        0.5
+  3  Fe4+  0        0        0
+  4  S2-   0.38538  0.11462  0.88538
+  5  S2-   0.11462  0.88538  0.38538
+  6  S2-   0.88538  0.38538  0.11462
+  7  S2-   0.61462  0.61462  0.61462
+  8  S2-   0.38538  0.38538  0.38538
+  9  S2-   0.11462  0.61462  0.88538
+ 10  S2-   0.88538  0.11462  0.61462
+ 11  S2-   0.61462  0.88538  0.11462
+---
+[4.33937729e-16 2.69841190e+00 2.69841190e+00] Fe4+
+['REDIRECT', '__abstractmethods__', '__class__', '__contains__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__get_pydan
+tic_core_schema__', '__get_pydantic_json_schema__', '__get_validators__', '__getattr__', '__getattribute__', '__getitem__', '__getstate__', '__gt__', '__hash__'
+, '__init__', '__init_subclass__', '__le__', '__lt__', '__modify_schema__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__set
+attr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '__weakref__', '_abc_impl', '_coords', '_frac_coords', '_generic_json_schema', '_label', '_la
+ttice', '_species', '_validate_monty', 'a', 'as_dict', 'b', 'c', 'coords', 'distance', 'distance_and_image', 'distance_and_image_from_frac_coords', 'distance_fr
+om_point', 'frac_coords', 'from_dict', 'is_ordered', 'is_periodic_image', 'label', 'lattice', 'load', 'position_atol', 'properties', 'save', 'specie', 'species'
+, 'species_string', 'to_json', 'to_unit_cell', 'unsafe_hash', 'validate_monty_v1', 'validate_monty_v2', 'x', 'y', 'z']
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

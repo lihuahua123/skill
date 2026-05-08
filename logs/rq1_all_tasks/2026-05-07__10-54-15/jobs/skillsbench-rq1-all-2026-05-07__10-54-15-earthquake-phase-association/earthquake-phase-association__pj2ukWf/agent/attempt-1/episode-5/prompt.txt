@@ -1,0 +1,12 @@
+New Terminal Output:
+
+root@593ccb43c4f3:~# pip install git+https://github.com/AI4EPS/GaMMA.git --quiet 2>&1 | tail -5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a v
+irtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 24.0 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
+root@593ccb43c4f3:~#
+
+
+Include stop_check.

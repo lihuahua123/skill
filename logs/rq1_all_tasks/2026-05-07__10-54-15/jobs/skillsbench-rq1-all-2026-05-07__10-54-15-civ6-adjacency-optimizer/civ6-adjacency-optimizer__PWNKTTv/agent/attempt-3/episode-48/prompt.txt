@@ -1,0 +1,30 @@
+New Terminal Output:
+ }
+}
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/tmp/map.db')
+> cursor = conn.cursor()
+> cursor.execute('SELECT * FROM PlotRivers LIMIT 20')
+> for row in cursor.fetchall():
+>     print(row)
+> conn.close()
+> "
+(313, 1, 0, 0, -1, -1, 5)
+(575, 0, 0, 1, -1, 4, -1)
+(593, 0, 1, 1, 3, 4, -1)
+(638, 0, 1, 1, 3, 4, -1)
+(639, 0, 1, 0, 0, -1, -1)
+(640, 1, 0, 0, -1, -1, 5)
+(682, 0, 0, 1, -1, 4, -1)
+(683, 0, 1, 1, 0, 1, -1)
+(727, 0, 1, 0, 0, -1, -1)
+(728, 1, 0, 0, -1, -1, 5)
+(770, 0, 1, 0, 0, -1, -1)
+(771, 1, 0, 0, -1, -1, 5)
+(830, 0, 1, 0, 3, -1, -1)
+(1048, 0, 1, 0, 3, -1, -1)
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

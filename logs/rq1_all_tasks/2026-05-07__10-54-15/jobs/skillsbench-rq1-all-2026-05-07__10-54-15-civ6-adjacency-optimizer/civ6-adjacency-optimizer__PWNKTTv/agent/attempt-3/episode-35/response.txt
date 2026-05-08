@@ -1,0 +1,19 @@
+{
+  "analysis": "The JSON is valid but there might be trailing content. Let me extract just the JSON object properly.",
+  "plan": "Use Python to properly extract and validate the JSON.",
+  "commands": [
+    {
+      "keystrokes": "python3 /tests/tools/civ6map_to_scenario.py /tmp/map.db 2>/dev/null > /tmp/scenario_clean.json\n",
+      "duration": 2.0
+    },
+    {
+      "keystrokes": "python3 -c \"\nimport json\nwith open('/tmp/scenario_clean.json') as f:\n    data = json.load(f)\nprint('Dimensions:', data.get('dimensions'))\nprint('Number of tiles:', len(data.get('tiles', [])))\n\"\n",
+      "duration": 1.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 2,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  }
+}

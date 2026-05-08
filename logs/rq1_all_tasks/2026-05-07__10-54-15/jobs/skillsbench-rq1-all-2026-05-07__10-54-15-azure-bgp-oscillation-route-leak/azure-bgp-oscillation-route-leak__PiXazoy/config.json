@@ -1,0 +1,61 @@
+{
+    "task": {
+        "path": "/data/lirui/skill_study/skillsbench/tasks/azure-bgp-oscillation-route-leak",
+        "git_url": null,
+        "git_commit_id": null,
+        "name": null,
+        "ref": null,
+        "overwrite": false,
+        "download_dir": null,
+        "source": "tasks"
+    },
+    "trial_name": "azure-bgp-oscillation-route-leak__PiXazoy",
+    "trials_dir": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-azure-bgp-oscillation-route-leak",
+    "n_attempts": 6,
+    "timeout_multiplier": 1.0,
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null,
+    "agent": {
+        "name": "terminus-2",
+        "import_path": "libs.terminus_agent.agents.terminus_2.harbor_terminus_2_skills:HarborTerminus2WithSkills",
+        "model_name": "anthropic/MiniMax-M2.7",
+        "override_timeout_sec": null,
+        "override_setup_timeout_sec": null,
+        "max_timeout_sec": null,
+        "kwargs": {
+            "paper_dynamic_turn_enabled": false,
+            "paper_initial_turn_limit": 14,
+            "paper_extension_turn_limit": 14,
+            "paper_remind_every_turn": true,
+            "paper_turn_stopcheck_enabled": true,
+            "paper_turn_stopcheck_zero_progress_streak": 2,
+            "paper_turn_stopcheck_yes_streak": 2,
+            "skill_guidance_enabled": false,
+            "temperature": 0
+        },
+        "env": {}
+    },
+    "environment": {
+        "type": "docker",
+        "import_path": null,
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "suppress_override_warnings": false,
+        "mounts_json": null,
+        "env": {},
+        "kwargs": {}
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "disable": false
+    },
+    "artifacts": [],
+    "job_id": "a770b81f-84a1-423b-b224-2abd75d37a6e"
+}

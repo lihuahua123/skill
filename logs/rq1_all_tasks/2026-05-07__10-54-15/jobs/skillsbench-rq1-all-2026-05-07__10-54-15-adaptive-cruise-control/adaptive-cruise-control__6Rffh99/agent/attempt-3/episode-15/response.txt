@@ -1,0 +1,28 @@
+{
+  "analysis": "Simulation completed successfully. Now I need to check the results and run the tests to see if they pass.",
+  "plan": "Check the simulation results and run the tests to see if they pass.",
+  "commands": [
+    {
+      "keystrokes": "head -20 simulation_results.csv\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "tail -20 simulation_results.csv\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "grep -c \"emergency\" simulation_results.csv\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "python3 -m pytest /tests/test_outputs.py -v 2>&1 | head -60\n",
+      "duration": 30.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

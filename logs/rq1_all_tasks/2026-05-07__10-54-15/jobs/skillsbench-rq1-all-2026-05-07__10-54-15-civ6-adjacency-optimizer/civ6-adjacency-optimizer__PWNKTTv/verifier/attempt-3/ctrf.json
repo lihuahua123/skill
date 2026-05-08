@@ -1,0 +1,113 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.3.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778123863.4514854,
+            "stop": 1778123863.4934988
+        },
+        "tests": [
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_solution_file_exists",
+                "status": "passed",
+                "duration": 0.0007407441735267639,
+                "start": 1778123863.471051,
+                "stop": 1778123863.47224,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_solution_is_valid_json",
+                "status": "passed",
+                "duration": 0.0005376264452934265,
+                "start": 1778123863.4725025,
+                "stop": 1778123863.473284,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_has_placements",
+                "status": "passed",
+                "duration": 0.0005378648638725281,
+                "start": 1778123863.473518,
+                "stop": 1778123863.474307,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_has_adjacency_bonuses",
+                "status": "passed",
+                "duration": 0.0005135014653205872,
+                "start": 1778123863.474536,
+                "stop": 1778123863.4752717,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_has_total_adjacency",
+                "status": "passed",
+                "duration": 0.0005073398351669312,
+                "start": 1778123863.4755235,
+                "stop": 1778123863.4762518,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_has_city_center",
+                "status": "passed",
+                "duration": 0.00047869235277175903,
+                "start": 1778123863.4764636,
+                "stop": 1778123863.477148,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_placements_have_coordinates",
+                "status": "passed",
+                "duration": 0.0005163177847862244,
+                "start": 1778123863.4773824,
+                "stop": 1778123863.4781232,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_adjacency_matches_placements",
+                "status": "passed",
+                "duration": 0.0004916191101074219,
+                "start": 1778123863.4783423,
+                "stop": 1778123863.4790485,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFormat::test_total_adjacency_is_sum",
+                "status": "passed",
+                "duration": 0.0005020350217819214,
+                "start": 1778123863.4792526,
+                "stop": 1778123863.4799623,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestEvaluation::test_evaluate_scenario",
+                "status": "passed",
+                "duration": 0.012936592102050781,
+                "start": 1778123863.4801648,
+                "stop": 1778123863.4933686,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py",
+                "tags": [
+                    "parametrize::scenario_id::['scenario_3']"
+                ]
+            }
+        ]
+    }
+}

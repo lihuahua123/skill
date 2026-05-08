@@ -1,0 +1,284 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/optimizer2.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> from collections import defaultdict
+>
+ > # Hex grid utilities
+> def get_hex_neighbors(x, y):
+>     if y % 2 == 1:
+>         return [(x+1, y), (x+1, y-1), (x+1, y+1), (x-1, y), (x, y-1), (x, y+1)]
+>     else:
+>         return [(x+1, y), (x, y-1), (x, y+1), (x-1, y), (x-1, y-1), (x-1, y+1)]
+>
+ > def hex_distance(x1, y1, x2, y2):
+>     def to_cube(x, y):
+>         if y % 2 == 1:
+E>             x_cube = x - (y - 1) // 2
+>         else:
+#>             x_cube = x - y // 2
+>         return x_cube, y, -x_cube - y
+>     cx1, cy1, cz1 = to_cube(x1, y1)
+>     cx2, cy2, cz2 = to_cube(x2, y2)
+>     return max(abs(cx1 - cx2), abs(cy1 - cy2), abs(cz1 - cz2))
+>
+> def get_tiles_in_range(cx, cy, max_dist):
+>     result = []
+>     for dy in range(-max_dist, max_dist + 1):
+>         for dx in range(-max_dist, max_dist + 1):
+>             x, y = cx + dx, cy + dy
+>             if hex_distance(cx, cy, x, y) <= max_dist:
+>                 result.append((x, y))
+>     return result
+>
+ > # Load map
+> dbpath = None
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     if os.path.getsize(fp) > 0:
+>         dbpath = fp
+>         break
+
+ >
+ > conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> map_row = cursor.fetchone()
+> _, width, height = map_row[0], map_row[1], map_row[2]
+>
+> # Load plots
+> cursor.execute("SELECT * FROM Plots ORDER BY ID")
+> plots = {}
+> for row in cursor.fetchall():
+ >     pid, terrain, continent, impassable = row
+>     x, y = pid % width, pid // width
+>     plots[(x, y)] = {'terrain': terrain, 'impassable': bool(impassable)}
+>
+> # Load features
+> cursor.execute("SELECT * FROM PlotFeatures")
+> for row in cursor.fetchall():
+>     pid, feature = row
+>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+>         plots[(x, y)]['feature'] = feature
+>
+ > # Load rivers
+> cursor.execute("SELECT * FROM PlotRivers")
+> for row in cursor.fetchall():
+>     pid = row[0]
+S>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+ e>         plots[(x, y)]['has_river'] = True
+>
+
+> print(f"Map: {width}x{height}")
+>
+=> # Find main landmass tiles (focus on central area)
+> main_tiles = [(x, y) for (x, y) in plots.items() if 18 <= x <= 28 and 10 <= y <= 18]
+> print(f"Main landmass tiles: {len(main_tiles)}")
+>
+ > # Calculate adjacency bonuses for each tile
+t> def get_tile_value(tile):
+  >     """Get base value for adjacency calculations"""
+>     value = 0
+>     bonus_sources = []
+>
+>     terrain = tile.get('terrain', '')
+>     feature = tile.get('feature', '')
+,>     has_river = tile.get('has_river', False)
+>
+>     # Mountains for Campus/Holy Site
+>     if terrain == 'TERRAIN_GRASS_MOUNTAIN':
+>         value += 1
+>         bonus_sources.append('mountain')
+>
+>     # Geothermal Fissure for Campus
+>     if feature == 'FEATURE_GEOTHERMAL_FISSURE':
+>         value += 2
+l>         bonus_sources.append('geothermal')
+>
+ch>     # Reef for Campus
+>     if feature == 'FEATURE_REEF':
+>         value += 2
+t(>         bonus_sources.append('reef')
+>
+>     # Woods for Holy Site
+>     if feature == 'FEATURE_FOREST':
+b>         value += 0.5  # Floor separately
+r>         bonus_sources.append('forest')
+>
+>     # Rainforest for Campus
+y>     if feature in ['FEATURE_JUNGLE', 'FEATURE_RAINFOREST']:
+>         value += 0.5  # Floor separately
+>         bonus_sources.append('rainforest')
+>
+>     # River for Commercial Hub
+n>     if has_river:
+>         value += 2  # Binary
+>         bonus_sources.append('river')
+>
+>     return value, bonus_sources
+>
+p> # Find valid city centers on main landmass
+> valid_centers = []
+> for (x, y) in main_tiles:
+>     tile = plots[(x, y)]
+>     if tile['terrain'] not in ['TERRAIN_OCEAN'] and not tile['impassable']:
+>         if tile['terrain'] != 'TERRAIN_GRASS_MOUNTAIN':
+>             if tile.get('feature') != 'FEATURE_GEOTHERMAL_FISSURE':
+>                 valid_centers.append((x, y))
+>
+ > print(f"Valid city centers on main landmass: {len(valid_centers)}")
+>
+e> # Analyze each center and find best district placements
+> best_solution = None
+> best_score = 0
+>
+> for cx, cy in valid_centers:
+>     # Get all tiles within 3 range
+>     reachable = get_tiles_in_range(cx, cy, 3)
+>     reachable_tiles = {t: plots.get(t, {}) for t in reachable if t in plots}
+>
+>     # Find valid district placements
+>     valid_districts = []
+e>     for (x, y), tile in reachable_tiles.items():
+>         # Can't place on city center
+>         if (x, y) == (cx, cy):
+>             continue
+>         # Can't place on mountains
+>         if tile['terrain'] == 'TERRAIN_GRASS_MOUNTAIN':
+>             continue
+>         # Can't place on geothermal fissure
+>         if tile.get('feature') == 'FEATURE_GEOTHERMAL_FISSURE':
+>             continue
+>         # Can't place on coast if not harbor
+>         # All other tiles are valid
+>         valid_districts.append
+[... output limited to 10000 bytes; 69 interior bytes omitted ...]
+e placement
+>     campus_scores = []
+>     holysite_scores = []
+>     theater_scores = []
+>     commercial_scores = []
+>     industrial_scores = []
+>
+>     for dx, dy in valid_districts:
+>         tile = plots[(dx, dy)]
+>         neighbors = get_hex_neighbors(dx, dy)
+>
+>         # Get neighbor info
+>         neighbor_tiles = [plots.get(n, {}) for n in neighbors]
+>
+>         # Campus: +2 geothermal/reef, +1 mountain, +0.5 rainforest
+>         campus_bonus = 0
+>         for nt in neighbor_tiles:
+>             if nt.get('feature') == 'FEATURE_GEOTHERMAL_FISSURE':
+>                 campus_bonus += 2
+>             elif nt.get('feature') == 'FEATURE_REEF':
+>                 campus_bonus += 2
+>             elif nt.get('terrain') == 'TERRAIN_GRASS_MOUNTAIN':
+>                 campus_bonus += 1
+>             elif nt.get('feature') in ['FEATURE_JUNGLE', 'FEATURE_RAINFOREST']:
+>                 campus_bonus += 0.5
+>         campus_scores.append(((dx, dy), campus_bonus))
+>
+>         # Holy Site: +2 natural wonder, +1 mountain, +0.5 woods
+>         holysite_bonus = 0
+>         for nt in neighbor_tiles:
+>             if nt.get('terrain') == 'TERRAIN_GRASS_MOUNTAIN':
+>                 holysite_bonus += 1
+>             elif nt.get('feature') == 'FEATURE_FOREST':
+>                 holysite_bonus += 0.5
+>         holysite_scores.append(((dx, dy), holysite_bonus))
+>
+>         # Commercial Hub: +2 river, +2 harbor
+>         commercial_bonus = 0
+>         if tile.get('has_river'):
+>             commercial_bonus += 2
+>         for nt in neighbor_tiles:
+>             if nt.get('terrain') == 'TERRAIN_COAST':
+>                 commercial_bonus += 2  # Harbor adjacency
+>                 break
+>         commercial_scores.append(((dx, dy), commercial_bonus))
+>
+>         # Industrial Zone: +1 district, +0.5 from features
+>         industrial_bonus = 0
+>         for nt in neighbor_tiles:
+>             if nt.get('feature') == 'FEATURE_FOREST':
+>                 industrial_bonus += 0.5
+>         industrial_scores.append(((dx, dy), industrial_bonus))
+>
+>     # Find top placements for each type
+>     campus_scores.sort(key=lambda x: -x[1])
+>     holysite_scores.sort(key=lambda x: -x[1])
+>     commercial_scores.sort(key=lambda x: -x[1])
+>     industrial_scores.sort(key=lambda x: -x[1])
+>
+>     # Score this center
+>     if campus_scores:
+>         top_campus = campus_scores[0]
+>     if holysite_scores:
+>         top_holysite = holysite_scores[0]
+>     if commercial_scores:
+>         top_commercial = commercial_scores[0]
+>     if industrial_scores:
+>         top_industrial = industrial_scores[0]
+>
+>     # Simple greedy: pick top 3 districts (excluding unique conflicts)
+>     all_top = []
+>     if campus_scores:
+>         all_top.append(('CAMPUS', top_campus[0], top_campus[1]))
+>     if commercial_scores:
+>         all_top.append(('COMMERCIAL_HUB', top_commercial[0], top_commercial[1]))
+>     if industrial_scores:
+>         all_top.append(('INDUSTRIAL_ZONE', top_industrial[0], top_industrial[1]))
+>
+>     # Sort by bonus and take top 3
+>     all_top.sort(key=lambda x: -x[2])
+>     top3 = all_top[:3]
+>
+>     # Calculate total score (need to account for +0.5 district adjacency)
+>     total = sum(x[2] for x in top3)
+>     # Add district-to-district bonuses (floor separately for 0.5 sources)
+>     district_positions = [x[1] for x in top3]
+>     district_bonus = 0
+>     for i, pos1 in enumerate(district_positions):
+>         for pos2 in district_positions[i+1:]:
+>             if pos2 in get_hex_neighbors(pos1[0], pos1[1]):
+>                 district_bonus += 0.5  # Each adjacent district pair = +0.5
+>
+>     # Floor the 0.5 bonuses separately
+>     total_with_district = total + district_bonus
+>
+>     if total_with_district > best_score:
+>         best_score = total_with_district
+>         best_solution = {
+>             'center': (cx, cy),
+>             'districts': top3,
+>             'raw_total': total,
+>             'district_bonus': district_bonus,
+>             'final_total': total_with_district
+>         }
+>
+> print(f"\nBest solution:")
+> print(f"City Center: {best_solution['center']}")
+> print(f"Districts: {best_solution['districts']}")
+> print(f"Raw total: {best_solution['raw_total']}")
+> print(f"District bonus: {best_solution['district_bonus']}")
+> print(f"Final total: {best_solution['final_total']}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/optimizer2.py
+Map: 44x26
+Traceback (most recent call last):
+  File "/tmp/optimizer2.py", line 73, in <module>
+    main_tiles = [(x, y) for (x, y) in plots.items() if 18 <= x <= 28 and 10 <= y <= 18]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/optimizer2.py", line 73, in <listcomp>
+    main_tiles = [(x, y) for (x, y) in plots.items() if 18 <= x <= 28 and 10 <= y <= 18]
+                                                        ^^^^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'int' and 'tuple'
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

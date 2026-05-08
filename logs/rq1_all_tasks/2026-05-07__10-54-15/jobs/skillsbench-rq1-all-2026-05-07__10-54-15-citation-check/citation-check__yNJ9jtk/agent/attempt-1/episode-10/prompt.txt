@@ -1,0 +1,14 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+New Terminal Output:
+
+root@30c3cd183633:~# grep -A 30 '@inproceedings{clue' /root/test.bib | grep -E 'doi|year|url'
+root@30c3cd183633:~# curl -s 'https://api.crossref.org/works/10.18653/v1/1905.09526' | grep -i 'title\|clue' | head -10
+root@30c3cd183633:~# curl -s 'https://api.crossref.org/works?query=CLUE+Chinese+Language+Understanding+Evaluation+Benchmark+Xu&rows=3' | grep -i 'title\|clue\|d
+oi' | head -15
+
+
+
+Include stop_check.

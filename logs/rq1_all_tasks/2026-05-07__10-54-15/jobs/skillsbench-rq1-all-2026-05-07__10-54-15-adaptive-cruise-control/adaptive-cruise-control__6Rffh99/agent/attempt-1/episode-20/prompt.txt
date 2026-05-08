@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>             # distance_error = actual - desired (positive = too far = accelerate)
+>             distance_error = distance - desired_distance
+>
+>             acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+>
+>             # Speed limiting in follow mode
+>             if ego_speed >= self.set_speed:
+>                 acceleration_cmd = min(acceleration_cmd, 0.0)
+>             elif ego_speed > self.set_speed - 5:
+>                 acceleration_cmd = min(acceleration_cmd, 0.5)
+>
+>             # Emergency braking if too close
+>             if distance < self.min_distance + 5:
+>                 acceleration_cmd = min(acceleration_cmd, -4.0)
+>
+>         acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+>         return acceleration_cmd, mode, distance_error
+>
+>     def reset(self):
+>         self.pid_speed.reset()
+>         self.pid_distance.reset()
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+> EOF
+root@bfb65fae2dcc:~# cat > tuning_results.yaml << 'EOF'
+> pid_speed:
+>   kp: 2.0
+>   ki: 0.5
+>   kd: 0.8
+> pid_distance:
+>   kp: 0.4
+>   ki: 0.05
+>   kd: 0.1
+> EOF
+root@bfb65fae2dcc:~# python3 simulation.py
+Speed PID: {'kp': 2.0, 'ki': 0.5, 'kd': 0.8}
+Distance PID: {'kp': 0.4, 'ki': 0.05, 'kd': 0.1}
+Saved 1501 rows to simulation_results.csv
+Report saved to acc_report.md
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

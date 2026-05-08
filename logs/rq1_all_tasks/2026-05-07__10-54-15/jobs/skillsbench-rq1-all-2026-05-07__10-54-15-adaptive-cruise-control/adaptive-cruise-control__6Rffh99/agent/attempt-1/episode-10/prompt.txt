@@ -1,0 +1,65 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat acc_report.md
+# ACC Simulation Report
+
+## System Design
+
+### ACC Architecture
+
+The ACC system implements a hierarchical control architecture with three modes:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.0, ki=0.2, kd=0.3
+
+**Distance Controller:** kp=0.5, ki=0.05, kd=0.1
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 8.90s | PASS |
+| Overshoot | <5% | 3.34% | PASS |
+| Speed SS Error | <0.5m/s | 19.849m/s | FAIL |
+| Dist SS Error | <2m | 41.83m | FAIL |
+| Min Distance | >5m | 33.60m | PASS |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 31.00 m/s
+- Modes: cruise=501, follow=959, emergency=41
+root@bfb65fae2dcc:~# grep -E '^[0-9]+\.?[0-9]*,3[0-9]' simulation_results.csv | head -5
+12.7,30.010241502218783,0.38232118740841825,cruise,,,
+12.8,30.04773864844907,0.3749714623028643,cruise,,,
+12.9,30.084510854646005,0.36772206196934276,cruise,,,
+13.0,30.120557308779144,0.36046454133138195,cruise,,,
+13.1,30.155878156029935,0.35320847250791587,cruise,,,
+root@bfb65fae2dcc:~# tail -5 simulation_results.csv
+149.6,30.986001691633405,0.0017258503006240212,cruise,,,
+149.7,30.985799348627424,-0.002023430059792375,cruise,,,
+149.8,30.985229228424277,-0.005701202031480924,cruise,,,
+149.9,30.984298485565652,-0.009307428586249089,cruise,,,
+150.0,30.983014275529303,-0.012842100363499954,cruise,,,
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

@@ -1,0 +1,70 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat acc_report.md
+# ACC Simulation Report
+
+## System Design
+
+### ACC Architecture
+
+The ACC system implements a hierarchical control architecture with three modes:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.0, ki=0.2, kd=0.3
+
+**Distance Controller:** kp=0.5, ki=0.05, kd=0.1
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 8.90s | PASS |
+| Overshoot | <5% | 99.03% | FAIL |
+| Speed SS Error | <0.5m/s | 10.679m/s | FAIL |
+| Dist SS Error | <2m | 4.91m | FAIL |
+| Min Distance | >5m | 33.60m | PASS |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 59.71 m/s
+- Modes: cruise=501, follow=959, emergency=41
+root@bfb65fae2dcc:~# tail -5 simulation_results.csv
+149.6,29.741996026288103,0.0455622485132728,cruise,,,
+149.7,29.746558086125628,0.04562059837525256,cruise,,,
+149.8,29.751125038697968,0.04566952572338961,cruise,,,
+149.9,29.7556959499548,0.04570911256831531,cruise,,,
+150.0,29.760269894148536,0.045739441937375204,cruise,,,
+root@bfb65fae2dcc:~# grep ',follow,' simulation_results.csv | tail -10
+129.0,35.95283937881888,3.0,follow,59.40074093177167,122.88,21.322822296877003
+129.1,36.25283937881888,3.0,follow,60.830740931771686,124.76,15.416097386849202
+129.2,36.552839378818874,3.0,follow,64.04074093177167,128.42,18.96102842799077
+129.3,36.85283937881887,3.0,follow,63.850740931771696,128.68,17.242766923970155
+129.4,37.15283937881887,3.0,follow,64.0707409317717,129.35,16.062657395132614
+129.5,37.452839378818865,3.0,follow,68.44074093177169,134.17,17.418252335487917
+129.6,37.75283937881886,3.0,follow,65.71074093177168,131.89,21.505536319035475
+129.7,38.05283937881886,3.0,follow,63.820740931771695,130.45,17.456550768339756
+129.8,38.35283937881886,3.0,follow,68.25074093177173,135.33,15.269372964540322
+129.9,38.652839378818854,3.0,follow,67.3907409317717,134.92,16.589532107493145
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

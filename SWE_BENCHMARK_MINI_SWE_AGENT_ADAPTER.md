@@ -156,17 +156,63 @@
   - --swebench-agent-backend eet-mini
 
 安全反馈接入点
-  多轮重试时，不要把 gold patch / test_patch / FAIL_TO_PASS / PASS_TO_PASS 反馈给下一轮。
-  只反馈：
-  - patch apply 是否成功
-  - 失败测试名
-  - 异常类型
-  - 精简错误摘要
-  - 回归测试名
+  这里建议直接按你现在 SkillsBench 的风格接，不要额外发明一层复杂协议。
+
+  SkillsBench 现在的做法本质上是：
+  - 每轮 attempt 结束后先跑 verifier
+  - 从 verifier stdout / stderr 提取失败摘要
+  - 生成一个 feedback prompt
+  - 下一轮输入 = feedback prompt + 原始 instruction
+
+  SWE-bench 这里也建议完全照这个模式：
+  - 每轮 attempt 结束后先跑官方 evaluation
+  - 从 evaluation 结果和测试日志里提取安全失败摘要
+  - 生成一个 feedback.txt
+  - 下一轮输入 = feedback.txt + 原始 problem_statement
+
+  也就是说，上层 retry loop 只需要做两件事：
+  - 把本轮失败结果压成一段短 feedback
+  - 把这段 feedback 拼回下一轮输入
+
+  不建议在这里再定义单独的 feedback state machine。
+
+  反馈内容保持 no-answers 风格：
+  - 可以反馈 patch apply 是否成功
+  - 可以反馈失败测试名
+  - 可以反馈异常类型
+  - 可以反馈精简错误摘要
+  - 可以反馈回归测试名
+  - 不要反馈 gold patch
+  - 不要反馈 test_patch
+  - 不要反馈 FAIL_TO_PASS / PASS_TO_PASS
 
   可直接复用：
   - /data/lirui/skill_study/skill/SWE_BENCHMARK.md
     中定义的“安全反馈模板”
+
+  上层参数也保持和现有 rq1 / SkillsBench 一致即可：
+  - --feedback-policy error-localized
+  - --feedback-format full-refresh
+  - --feedback-answer-safety no-answers
+
+  这些参数在 SWE-bench 里的含义可以简单对齐为：
+  - error-localized：
+    下一轮只看本轮失败测试和对应报错，不给泛泛建议
+  - full-refresh：
+    每一轮重新生成完整 feedback，而不是依赖前几轮历史拼接
+  - no-answers：
+    反馈里不泄漏参考 patch、隐藏测试意图或标准答案
+
+  如果要和 SkillsBench 结果结构保持一致，建议每个 attempt 也记录：
+  - feedback_prompt
+  - feedback_prompt_stats.text_length_chars
+  - verifier / eval notes
+
+  这样后面聚合时就能继续产出：
+  - feedback_length_chars_by_attempt
+  - attempts[]
+  - first_success_attempt
+  - stop_reason
 
 建议的 attempt 目录结构
   results/swebench_runs/{run_id}/{instance_id}/
@@ -181,6 +227,9 @@
     - eval_result.json
     - feedback.txt
   - task_summary.json
+
+  这里的 feedback.txt 就对应 SkillsBench 里的 feedback_prompt 落盘版本。
+  不需要再单独设计更复杂的中间状态文件。
 
 结果归一化建议
   最终聚合到你现有 schema 时，建议字段这样映射：
@@ -209,6 +258,8 @@
   - execution.execution_time = harness timing
   - execution.usage.cost = traj.info.model_stats.instance_cost
   - execution.usage.api_calls = traj.info.model_stats.api_calls
+  - feedback_prompt = 下一轮使用的失败摘要
+  - feedback_prompt_stats.text_length_chars = feedback 长度
   - artifact_paths.traj_json
   - artifact_paths.eval_json
   - artifact_paths.prediction_json
@@ -229,7 +280,7 @@
   2. 先接 plain-mini 单轮运行
   3. 再接官方 evaluation
   4. 再把单轮结果聚合到现有 schema
-  5. 再加多轮 retry + 安全反馈
+  5. 再按 SkillsBench 的方式加多轮 retry + 安全反馈
   6. 最后再支持 eet-mini 变体
 
 一句话版本

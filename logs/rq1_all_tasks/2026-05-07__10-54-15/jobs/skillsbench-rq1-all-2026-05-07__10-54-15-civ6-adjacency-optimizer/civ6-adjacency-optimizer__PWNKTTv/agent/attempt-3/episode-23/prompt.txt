@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    "FEATURE_ICE": "FEATURE_ICE",
+    "FEATURE_FLOODPLAINS": "FEATURE_FLOODPLAINS",
+    "FEATURE_FLOODPLAINS_GRASSLAND": "FEATURE_FLOODPLAINS",
+    "FEATURE_FLOODPLAINS_PLAINS": "FEATURE_FLOODPLAINS",
+    "FEATURE_GEOTHERMAL_FISSURE": "FEATURE_GEOTHERMAL_FISSURE",
+    "FEATURE_VOLCANIC_SOIL": "FEATURE_VOLCANIC_SOIL",
+}
+
+NATURAL_WONDERS = {
+    "FEATURE_BARRIER_REEF", "FEATURE_CLIFFS_DOVER", "FEATURE_CRATER_LAKE",
+    "FEATURE_DEAD_SEA", "FEATURE_EVEREST", "FEATURE_GALAPAGOS",
+    "FEATURE_KILIMANJARO", "FEATURE_PANTANAL", "FEATURE_PIOPIOTAHI",
+    "FEATURE_TORRES_DEL_PAINE", "FEATURE_TSINGY", "FEATURE_YOSEMITE",
+    "FEATURE_ULURU", "FEATURE_DELICATE_ARCH", "FEATURE_EYE_OF_THE_SAHARA",
+    "FEATURE_LAKE_RETBA", "FEATURE_MATTERHORN", "FEATURE_RORAIMA",
+    "FEATURE_UBSUNUR_HOLLOW", "FEATURE_ZHANGYE_DANXIA", "FEATURE_HA_LONG_BAY",
+    "FEATURE_EYJAFJALLAJOKULL", "FEATURE_LYSEFJORDEN", "FEATURE_GIANTS_CAUSEWAY",
+}
+
+RESOURCE_TYPE_MAP = {
+    "RESOURCE_HORSES": "STRATEGIC", "RESOURCE_IRON": "STRATEGIC",
+    "RESOURCE_NITER": "STRATEGIC", "RESOURCE_COAL": "STRATEGIC",
+    "RESOURCE_OIL": "STRATEGIC", "RESOURCE_ALUMINUM": "STRATEGIC",
+    "RESOURCE_URANIUM": "STRATEGIC",
+    "RESOURCE_DIAMONDS": "LUXURY", "RESOURCE_PEARLS": "LUXURY",
+    "RESOURCE_JADE": "LUXURY", "RESOURCE_MARBLE": "LUXURY",
+    "RESOURCE_SILK": "LUXURY", "RESOURCE_SPICES": "LUXURY",
+    "RESOURCE_SUGAR": "LUXURY", "RESOURCE_TEA": "LUXURY",
+    "RESOURCE_TOBACCO": "LUXURY", "RESOURCE_WINE": "LUXURY",
+root@0d3c1addd3d3:/data/maps# python3 /tests/tools/civ6map_to_scenario.py '/data/maps/e2e_test_case_0 Civ6Map' 2>&1 | head -50
+Traceback (most recent call last):
+  File "/tests/tools/civ6map_to_scenario.py", line 267, in <module>
+    main()
+  File "/tests/tools/civ6map_to_scenario.py", line 244, in main
+    result = convert_civ6map(args.map_file)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tests/tools/civ6map_to_scenario.py", line 109, in convert_civ6map
+    cursor.execute("SELECT Width, Height FROM Map LIMIT 1")
+sqlite3.OperationalError: no such table: Map
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

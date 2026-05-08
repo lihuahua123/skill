@@ -1,0 +1,106 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# head -50 /app/dialogue.json
+{
+  "nodes": [
+    {
+      "id": "Start",
+      "text": "The tavern door creaks open. Smoke and laughter fill the air.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "TavernEntry",
+      "text": "Three figures catch your eye: a hooded stranger, a boisterous merchant, and the barkeep.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "TavernChoice_choice",
+      "text": "1. Approach the hooded stranger.\n2. Sit next to the merchant.\n3. Order a drink from the barkeep.\n4. [Observe] Study the room from the shadows.
+",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "ObserveRoom",
+      "text": "You notice the stranger slipping a note to the barkeep. The merchant counts gold nervously.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "ObserveChoice_choice",
+      "text": "1. Intercept the note.\n2. Pickpocket the merchant.\n3. Pretend you saw nothing.",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "InterceptNote",
+      "text": "You dare?!",
+      "speaker": "Stranger",
+      "type": "line"
+    },
+    {
+      "id": "PickpocketAttempt_choice",
+      "text": "1. [Sleight of Hand] Swiftly grab the pouch.\n2. [Distraction] Bump into him accidentally.\n3. Abandon the attempt.",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "PickpocketSuccess",
+      "text": "50 gold pieces heavier, you slip away. The merchant hasn't noticed... yet.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+root@0588585e24cd:/app# head -30 /app/dialogue.dot
+digraph dialogue {
+  rankdir=TB;
+  node [shape=box];
+  "Start" [label="Narrator: The tavern door creaks open. Smoke and laughter fill the air.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "TavernEntry" [label="Narrator: Three figures catch your eye: a hooded stranger, a boisterous merchant, and the barkeep.", shape=rounded, style=rounded, fillc
+olor=lightgray];
+  "TavernChoice_choice" [label="1. Approach the hooded stranger.\n2. Sit next to the merchant.\n3. Order a drink from the barkeep.\n4. [Observe] Study the room
+from the shadows.", shape=diamond, style=rounded, fillcolor=lightblue];
+  "ObserveRoom" [label="Narrator: You notice the stranger slipping a note to the barkeep. The merchant counts gold nervously.", shape=rounded, style=rounded, fi
+llcolor=lightgray];
+  "ObserveChoice_choice" [label="1. Intercept the note.\n2. Pickpocket the merchant.\n3. Pretend you saw nothing.", shape=diamond, style=rounded, fillcolor=ligh
+tblue];
+  "InterceptNote" [label="Stranger: You dare?!", shape=rounded, style=rounded, fillcolor=lightgray];
+  "PickpocketAttempt_choice" [label="1. [Sleight of Hand] Swiftly grab the pouch.\n2. [Distraction] Bump into him accidentally.\n3. Abandon the attempt.", shape
+=diamond, style=rounded, fillcolor=lightblue];
+  "PickpocketSuccess" [label="Narrator: 50 gold pieces heavier, you slip away. The merchant hasn't noticed... yet.", shape=rounded, style=rounded, fillcolor=lig
+htgray];
+  "PickpocketDistract" [label="Merchant: Watch it, friend!", shape=rounded, style=rounded, fillcolor=lightgray];
+  "MerchantAnnoyed_choice" [label="1. Apologize profusely.\n2. [Intimidate] You watch where YOU'RE going.\n3. Use the distraction to grab the gold.", shape=diam
+ond, style=rounded, fillcolor=lightblue];
+  "MerchantCalm" [label="Merchant: Hmph. Buy me a drink and we're even.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "MerchantFight" [label="Merchant: Why you little—!", shape=rounded, style=rounded, fillcolor=lightgray];
+  "PickpocketAfter" [label="Narrator: But where to spend your ill-gotten gains?", shape=rounded, style=rounded, fillcolor=lightgray];
+  "PickpocketChoice_choice" [label="1. Buy information from the barkeep.\n2. Leave before anyone notices.\n3. Approach the stranger with newfound confidence.",
+shape=diamond, style=rounded, fillcolor=lightblue];
+  "StrangerApproach" [label="Stranger: You have the look of someone seeking something.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "StrangerGreet_choice" [label="1. I seek the Crimson Blade.\n2. I'm looking for work.\n3. Who are you?\n4. [Insight] Something tells me you're not what you se
+em.", shape=diamond, style=rounded, fillcolor=lightblue];
+  "CrimsonQuestStart" [label="Stranger: The Crimson Blade? Many seek it. Few survive.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonWarning_choice" [label="1. I'm not like the others.\n2. What happened to them?\n3. Perhaps I should reconsider...", shape=diamond, style=rounded, fill
+color=lightblue];
+  "CrimsonAccept" [label="Stranger: Then you'll need a map. I have one... for a price.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonPrice_choice" [label="1. How much?\n2. [Persuade] Surely we can come to an arrangement.\n3. I'll find my own way.", shape=diamond, style=rounded, fill
+color=lightblue];
+  "CrimsonNegotiate" [label="Stranger: 100 gold, or a favor to be named later.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonDeal_choice" [label="1. I'll pay the gold.\n2. I'll owe you a favor.\n3. [Barter] 50 gold and a minor favor.", shape=diamond, style=rounded, fillcolor
+=lightblue];
+  "CrimsonGoldPath" [label="Stranger: Wise choice. No strings attached.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonFavorPath" [label="Stranger: Remember, I always collect.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonCompromise" [label="Stranger: You drive a hard bargain. Agreed.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonDiscount" [label="Stranger: Your silver tongue amuses me. 75 gold, final offer.", shape=rounded, style=rounded, fillcolor=lightgray];
+  "CrimsonDiscountDeal_choice" [label="1. Deal.\n2. Still too rich for my blood.", shape=diamond, style=rounded, fillcolor=lightblue];
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph; g = Graph.from_file('/app/dialogue.json'); errors = g.validate(); print('Errors:', len(err
+ors)); print(errors[:5] if errors else 'No errors')"
+Errors: 168
+["Edge target 'TavernChoice' not found", "Edge source 'TavernChoice' not found", "Edge target 'ObserveChoice' not found", "Edge source 'ObserveChoice' not found
+", "Edge target 'PickpocketAttempt' not found"]
+root@0588585e24cd:/app#
+
+
+Include stop_check.

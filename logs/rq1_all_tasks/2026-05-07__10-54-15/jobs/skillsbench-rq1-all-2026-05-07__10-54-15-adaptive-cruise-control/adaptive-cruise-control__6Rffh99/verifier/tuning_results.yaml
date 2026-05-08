@@ -1,0 +1,8 @@
+pid_speed:
+  kp: 2.5
+  ki: 0.4
+  kd: 0.6
+pid_distance:
+  kp: 1.2
+  ki: 0.15
+  kd: 0.3

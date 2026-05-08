@@ -1,0 +1,29 @@
+{
+    "id": "5930234e-1257-49fe-86b5-049627909790",
+    "started_at": "2026-05-07T10:54:20.567746",
+    "finished_at": "2026-05-07T10:55:35.372856",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "3d-scan-calc__k3KnAtR"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

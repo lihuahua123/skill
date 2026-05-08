@@ -1,0 +1,44 @@
+Current Terminal Screen:
+> print('Number of tiles:', len(data.get('tiles', [])))
+> "
+Dimensions: {'width': 44, 'height': 26}
+Number of tiles: 1144
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import json
+> with open('/tmp/scenario_clean.json') as f:
+>     data = json.load(f)
+> tiles = data['tiles']
+>
+> # Count terrain types
+> terrains = {}
+> features = {}
+> for tile in tiles:
+>     t = tile.get('terrain', 'UNKNOWN')
+>     terrains[t] = terrains.get(t, 0) + 1
+>     f = tile.get('feature')
+>     if f:
+>         features[f] = features.get(f, 0) + 1
+>
+> print('Terrain counts:', terrains)
+> print('Feature counts:', features)
+>
+> # Find tiles with mountains, geothermal, volcanic soil, forests
+> special = []
+> for tile in tiles:
+>     if tile.get('terrain') == 'MOUNTAIN':
+>         special.append(('MOUNTAIN', tile['x'], tile['y']))
+>     if tile.get('feature') in ['FEATURE_GEOTHERMAL_FISSURE', 'FEATURE_VOLCANIC_SOIL']:
+>         special.append((tile.get('feature'), tile['x'], tile['y']))
+>     if tile.get('is_hills'):
+>         special.append(('HILLS', tile['x'], tile['y']))
+>
+> print('\nSpecial tiles:', special[:30])
+> "
+Terrain counts: {'OCEAN': 1014, 'COAST': 91, 'MOUNTAIN': 2, 'GRASS': 29, 'PLAINS': 8}
+Feature counts: {'FEATURE_ICE': 261, 'FEATURE_FOREST': 3, 'FEATURE_JUNGLE': 2, 'FEATURE_GEOTHERMAL_FISSURE': 1, 'FEATURE_REEF': 1, 'FEATURE_FLOODPLAINS': 8}
+
+Special tiles: [('MOUNTAIN', 22, 11), ('FEATURE_GEOTHERMAL_FISSURE', 21, 13), ('MOUNTAIN', 21, 15)]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

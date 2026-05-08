@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>   {
+>     "field_id": "SC-100[0].Page3[0].List6[0].item6[0].ZipCode1[0]",
+>     "description": "Item 6 - Zip code where defendant lives",
+>     "page": 3,
+>     "value": "94086"
+>   },
+>   {
+>     "field_id": "SC-100[0].Page3[0].List7[0].item7[0].Checkbox60[1]",
+>     "description": "Item 7 - No, not attorney-client dispute",
+>     "page": 3,
+>     "value": "/2"
+>   },
+>   {
+>     "field_id": "SC-100[0].Page3[0].List8[0].item8[0].Checkbox61[1]",
+>     "description": "Item 8 - No, not suing public entity",
+>     "page": 3,
+>     "value": "/2"
+>   },
+>   {
+>     "field_id": "SC-100[0].Page4[0].PxCaption[0].Plaintiff[0]",
+>     "description": "Plaintiff name in caption page 4",
+>     "page": 4,
+>     "value": "Joyce He"
+>   },
+>   {
+>     "field_id": "SC-100[0].Page4[0].Sign[0].Date1[0]",
+>     "description": "Signature date",
+>     "page": 4,
+>     "value": "2026-01-19"
+>   },
+>   {
+>     "field_id": "SC-100[0].Page4[0].Sign[0].PlaintiffName1[0]",
+>     "description": "Plaintiff signature name",
+>     "page": 4,
+>     "value": "Joyce He"
+>   }
+> ]
+> EOF
+root@4df30ae92365:~/.claude/skills/pdf# python3 scripts/fill_fillable_fields.py /root/sc100-blank.pdf /tmp/field_values.json /root/sc100-filled.pdf
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

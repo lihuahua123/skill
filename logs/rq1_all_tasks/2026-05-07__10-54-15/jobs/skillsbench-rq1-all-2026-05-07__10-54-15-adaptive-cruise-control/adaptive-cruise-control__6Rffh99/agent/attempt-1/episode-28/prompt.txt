@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.5, ki=0.3, kd=0.5
+
+**Distance Controller:** kp=0.8, ki=0.1, kd=0.2
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 9.10s | PASS |
+| Overshoot | <5% | 0.01% | PASS |
+| Speed SS Error | <0.5m/s | 0.000m/s | PASS |
+| Dist SS Error | <2m | 11.48m | FAIL |
+| Min Distance | >5m | 33.60m | PASS |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 30.00 m/s
+- Modes: cruise=501, follow=959, emergency=41
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

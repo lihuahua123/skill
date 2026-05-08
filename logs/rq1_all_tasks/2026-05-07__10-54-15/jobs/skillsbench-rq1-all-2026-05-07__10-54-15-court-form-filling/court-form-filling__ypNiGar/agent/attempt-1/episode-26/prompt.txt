@@ -1,0 +1,28 @@
+New Terminal Output:
+
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 2 -l 2 /root/sc100-filled.pdf - | grep -A 10 "The defendant"
+The defendant (the person, business, or public entity being sued) is:
+Name: Zhi Chen
+
+Phone: 5125658878
+
+Street address: 299 W Washington Ave
+Street
+
+Sunnyvale
+
+CA
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 4 -l 4 /root/sc100-filled.pdf - | grep -A 5 "claim for more than"
+Is your claim for more than $2,500?
+
+11
+
+I understand that by filing a claim in small claims court, I have no right to appeal this
+claim.
+root@4df30ae92365:~/.claude/skills/pdf# cd /root && ls -lh sc100-*.pdf
+-rw-rw-r-- 1 root root 288K May  1 13:38 sc100-blank.pdf
+-rw-r--r-- 1 root root 431K May  7 03:04 sc100-filled.pdf
+root@4df30ae92365:~#
+
+
+Include stop_check.

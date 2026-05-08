@@ -1,0 +1,17 @@
+```json
+{
+  "analysis": "Terminal echoing commands but no output yet. Waiting for response.",
+  "plan": "Wait longer for terminal to respond",
+  "commands": [
+    {
+      "keystrokes": "",
+      "duration": 5.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal not showing output",
+    "should_stop": "No"
+  }
+}
+```

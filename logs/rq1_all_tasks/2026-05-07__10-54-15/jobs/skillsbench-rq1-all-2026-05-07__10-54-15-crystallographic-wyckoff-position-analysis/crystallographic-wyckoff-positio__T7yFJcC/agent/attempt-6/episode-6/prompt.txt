@@ -1,0 +1,18 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~/workspace# python3 -c "
+> from pymatgen.core import Structure
+> from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+>
+> structure = Structure.from_file('/root/cif_files/FeS2_mp-226.cif')
+> sym_analyzer = SpacegroupAnalyzer(structure)
+> symmetry_data = sym_analyzer.get_symmetry_dataset()
+> print('wyckoffs:', symmetry_data.wyckoffs)
+> print('equivalent_atoms:', symmetry_data.equivalent_atoms)
+> "
+wyckoffs: ['a', 'a', 'a', 'a', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c']
+equivalent_atoms: [0 0 0 0 4 4 4 4 4 4 4 4]
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

@@ -1,0 +1,276 @@
+{
+    "id": "43f7c455-5975-482e-9159-293f32b3cf0c",
+    "task_name": "court-form-filling",
+    "trial_name": "court-form-filling__ypNiGar",
+    "trial_uri": "file:///data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar",
+    "task_id": {
+        "path": "/data/lirui/skill_study/skillsbench/tasks/court-form-filling"
+    },
+    "source": "tasks",
+    "task_checksum": "b6b12096de11d5cc25375bb92c97606627005469a2f662cde207503939a13820",
+    "config": {
+        "task": {
+            "path": "/data/lirui/skill_study/skillsbench/tasks/court-form-filling",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "court-form-filling__ypNiGar",
+        "trials_dir": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling",
+        "n_attempts": 6,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": "libs.terminus_agent.agents.terminus_2.harbor_terminus_2_skills:HarborTerminus2WithSkills",
+            "model_name": "anthropic/MiniMax-M2.7",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {
+                "paper_dynamic_turn_enabled": false,
+                "paper_initial_turn_limit": 14,
+                "paper_extension_turn_limit": 14,
+                "paper_remind_every_turn": true,
+                "paper_turn_stopcheck_enabled": true,
+                "paper_turn_stopcheck_zero_progress_streak": 2,
+                "paper_turn_stopcheck_yes_streak": 2,
+                "skill_guidance_enabled": false,
+                "temperature": 0
+            },
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "bb13edf6-6a56-44e2-8d18-ccaf4734892e"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "MiniMax-M2.7",
+            "provider": "anthropic"
+        }
+    },
+    "attempts": [
+        {
+            "attempt": 1,
+            "instruction_kind": "initial",
+            "feedback_prompt": null,
+            "agent_session_id": null,
+            "agent_result": {
+                "n_input_tokens": 746937,
+                "n_cache_tokens": 613097,
+                "n_output_tokens": 28068,
+                "cost_usd": null,
+                "rollout_details": [],
+                "metadata": {
+                    "n_episodes": 28,
+                    "api_request_times_msec": [
+                        16870.09024620056,
+                        16571.231603622437,
+                        12755.415439605713,
+                        8530.537605285645,
+                        14015.268564224243,
+                        7849.15828704834,
+                        26195.44744491577,
+                        18872.19762802124,
+                        35453.407764434814,
+                        11733.872413635254,
+                        17175.41527748108,
+                        33841.67790412903,
+                        10711.514234542847,
+                        11957.350254058838,
+                        51313.98367881775,
+                        13575.835466384888,
+                        14009.120225906372,
+                        28081.690788269043,
+                        10708.580255508423,
+                        26710.943698883057,
+                        19826.178789138794,
+                        18013.604879379272,
+                        25975.363969802856,
+                        33211.41719818115,
+                        13247.357368469238,
+                        19570.93834877014,
+                        16971.79412841797,
+                        15553.71379852295
+                    ],
+                    "summarization_count": 0,
+                    "paper_dynamic_turn_enabled": false,
+                    "paper_dynamic_turn_initial_turn_limit": 14,
+                    "paper_dynamic_turn_extension_turn_limit": 14,
+                    "paper_dynamic_turn_repo_candidates": [
+                        "/app",
+                        "/app/workspace",
+                        "/workspace",
+                        "/root",
+                        "/root/workspace",
+                        "/home/travis",
+                        "/home/github/build"
+                    ],
+                    "paper_dynamic_turn_stop_triggered": false,
+                    "paper_dynamic_turn_stop_reason": null,
+                    "paper_turn_stopcheck_enabled": true,
+                    "paper_turn_stopcheck_zero_progress_streak": 2,
+                    "paper_turn_stopcheck_yes_streak": 2,
+                    "paper_turn_stopcheck_stop_triggered": false,
+                    "paper_turn_stopcheck_stop_reason": null
+                }
+            },
+            "verifier_result": {
+                "rewards": {
+                    "reward": 1.0
+                },
+                "stdout_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/test-stdout.txt",
+                "stderr_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/test-stderr.txt",
+                "ctrf_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/ctrf.json",
+                "reward_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/reward.txt",
+                "notes": "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_court_addr2]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_date3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_time3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_dept3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_sign]",
+                "feedback_items": [
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_court_addr2]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_date3]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_time3]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_dept3]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_sign]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_date]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[second_plaintiff]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[second_defendant]",
+                    "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[public_entity_claim_date]",
+                    "============================== 47 passed in 0.28s =============================="
+                ]
+            },
+            "started_at": "2026-05-07T02:56:02.101390Z",
+            "finished_at": "2026-05-07T03:06:14.762872Z"
+        }
+    ],
+    "agent_result": {
+        "n_input_tokens": 746937,
+        "n_cache_tokens": 613097,
+        "n_output_tokens": 28068,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 28,
+            "api_request_times_msec": [
+                16870.09024620056,
+                16571.231603622437,
+                12755.415439605713,
+                8530.537605285645,
+                14015.268564224243,
+                7849.15828704834,
+                26195.44744491577,
+                18872.19762802124,
+                35453.407764434814,
+                11733.872413635254,
+                17175.41527748108,
+                33841.67790412903,
+                10711.514234542847,
+                11957.350254058838,
+                51313.98367881775,
+                13575.835466384888,
+                14009.120225906372,
+                28081.690788269043,
+                10708.580255508423,
+                26710.943698883057,
+                19826.178789138794,
+                18013.604879379272,
+                25975.363969802856,
+                33211.41719818115,
+                13247.357368469238,
+                19570.93834877014,
+                16971.79412841797,
+                15553.71379852295
+            ],
+            "summarization_count": 0,
+            "paper_dynamic_turn_enabled": false,
+            "paper_dynamic_turn_initial_turn_limit": 14,
+            "paper_dynamic_turn_extension_turn_limit": 14,
+            "paper_dynamic_turn_repo_candidates": [
+                "/app",
+                "/app/workspace",
+                "/workspace",
+                "/root",
+                "/root/workspace",
+                "/home/travis",
+                "/home/github/build"
+            ],
+            "paper_dynamic_turn_stop_triggered": false,
+            "paper_dynamic_turn_stop_reason": null,
+            "paper_turn_stopcheck_enabled": true,
+            "paper_turn_stopcheck_zero_progress_streak": 2,
+            "paper_turn_stopcheck_yes_streak": 2,
+            "paper_turn_stopcheck_stop_triggered": false,
+            "paper_turn_stopcheck_stop_reason": null
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        },
+        "stdout_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/test-stdout.txt",
+        "stderr_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/test-stderr.txt",
+        "ctrf_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/ctrf.json",
+        "reward_path": "/data/lirui/skill_study/skill/logs/rq1_all_tasks/2026-05-07__10-54-15/jobs/skillsbench-rq1-all-2026-05-07__10-54-15-court-form-filling/court-form-filling__ypNiGar/verifier/attempt-1/reward.txt",
+        "notes": "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_court_addr2]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_date3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_time3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_dept3]\nPASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_sign]",
+        "feedback_items": [
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_court_addr2]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_date3]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_time3]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_trial_dept3]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_sign]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[page1_clerk_date]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[second_plaintiff]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[second_defendant]",
+            "PASSED ../tests/test_outputs.py::TestEmptyFields::test_field_empty[public_entity_claim_date]",
+            "============================== 47 passed in 0.28s =============================="
+        ]
+    },
+    "exception_info": null,
+    "first_success_attempt": 1,
+    "attempt_count": 1,
+    "stop_reason": "passed",
+    "started_at": "2026-05-07T02:55:50.504524Z",
+    "finished_at": "2026-05-07T03:06:25.506019Z",
+    "environment_setup": {
+        "started_at": "2026-05-07T02:55:50.505901Z",
+        "finished_at": "2026-05-07T02:55:51.874049Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-07T02:55:51.874084Z",
+        "finished_at": "2026-05-07T02:56:02.101328Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-07T02:56:02.101607Z",
+        "finished_at": "2026-05-07T03:06:09.649399Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-07T03:06:09.649487Z",
+        "finished_at": "2026-05-07T03:06:14.762843Z"
+    }
+}

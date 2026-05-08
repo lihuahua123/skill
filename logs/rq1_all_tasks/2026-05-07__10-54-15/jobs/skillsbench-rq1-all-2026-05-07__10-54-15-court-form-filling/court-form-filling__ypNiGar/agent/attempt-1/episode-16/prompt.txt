@@ -1,0 +1,44 @@
+Current Terminal Screen:
+State
+
+Zip
+
+Mailing address (if different):
+Street
+
+If the defendant is a corporation, limited liability company, or public entity, list the person
+or agent authorized for service of process here:
+Name:
+
+Job title, if known:
+
+Address:
+Street
+
+City
+
+State
+
+Zip
+
+Check here if your case is against more than one defendant and attach form SC-100A.
+Check here if any defendant is on active military duty and write defendant’s name here:
+3
+
+The plaintiff claims the defendant owes $
+
+. (Explain below and on next page.)
+
+a. Why does the defendant owe the plaintiff money?
+
+Rev. January 1, 2026
+
+Plaintiff’s Claim and ORDER to Go to Small Claims Court
+
+SC-100, Page 2 of 6
+
+
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

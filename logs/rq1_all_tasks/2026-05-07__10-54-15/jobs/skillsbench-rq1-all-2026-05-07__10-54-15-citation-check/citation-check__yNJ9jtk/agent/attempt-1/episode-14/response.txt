@@ -1,0 +1,17 @@
+```json
+{
+  "analysis": "Terminal output is lagging. Commands are being typed but output not shown yet.",
+  "plan": "Wait for terminal output to complete",
+  "commands": [
+    {
+      "keystrokes": "",
+      "duration": 3.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  }
+}
+```

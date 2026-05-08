@@ -1,0 +1,10 @@
+New Terminal Output:
+ }
+]
+root@4df30ae92365:~/.claude/skills/pdf# python3 scripts/fill_fillable_fields.py /root/sc100-blank.pdf /tmp/field_values.json /root/sc100-filled.pdf
+root@4df30ae92365:~/.claude/skills/pdf# ls -lh /root/sc100-filled.pdf
+-rw-r--r-- 1 root root 429K May  7 02:59 /root/sc100-filled.pdf
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

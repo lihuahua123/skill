@@ -1,0 +1,8 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# python3 /tmp/parse_map.py
+[]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

@@ -1,0 +1,90 @@
+New Terminal Output:
+
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 3 -l 3 /root/sc100-blank.pdf -
+Plaintiff (list names):
+
+3
+
+Case Number:
+
+b. When did this happen? (Date):
+If no specific date, give the time period: Date started:
+
+Through:
+
+c. How did you calculate the money owed to you? (Do not include court costs or fees for service.)
+
+Check here if you need more space. Attach one sheet of paper or form MC-031 and write “SC-100, Item 3” at
+the top.
+4
+
+You must ask the defendant (in person, in writing, or by phone) to pay you before you
+sue. If your claim is for possession of property, you must ask the defendant to give you
+the property. Have you done this?
+Yes
+
+5
+
+No
+
+If no, explain why not:
+
+Why are you filing your claim at this courthouse?
+This courthouse covers the area (check the one that applies):
+a.
+
+b.
+
+c.
+d.
+e.
+
+(1) Where the defendant lives or does business.
+(2) Where the plaintiff’s property was damaged.
+(3) Where the plaintiff was injured.
+
+(4) Where a contract (written or spoken) was made,
+signed, performed, or broken by the defendant or
+where the defendant lived or did business when the
+defendant made the contract.
+Where the buyer or lessee signed the contract, lives now, or lived when the contract was made, if this claim,
+is about an offer or contract for personal, family, or household goods, services, or loans. (Code Civ. Proc.,
+§ 395(b).)
+Where the buyer signed the contract, lives now, or lived when the contract was made, if this claim is about a
+retail installment contract (like a credit card). (Civ. Code, § 1812.10.)
+Where the buyer signed the contract, lives now, or lived when the contract was made, or where the vehicle is
+permanently garaged, if this claim is about a vehicle finance sale. (Civ. Code, § 2984.4.)
+Other (specify):
+
+6
+
+List the zip code of the place checked in 5 above (if you know):
+
+7
+
+Is your claim about an attorney-client fee dispute?
+
+8
+
+Are you suing a public entity?
+
+Yes
+No
+If yes, and if you have had arbitration, fill out form SC-101, attach it to this form, and check here:
+Yes
+No
+A claim was filed on (date):
+If yes, you must file a written claim with the entity first.
+If the public entity denies your claim or does not answer within the time allowed by law, you can file this form.
+
+Rev. January 1, 2026
+
+Plaintiff’s Claim and ORDER to Go to Small Claims Court
+
+SC-100, Page 3 of 6
+
+
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

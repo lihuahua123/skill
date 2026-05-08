@@ -1,0 +1,47 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/parse_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import json
+> conn = sqlite3.connect('/data/maps/e2e_test_case_0 Civ6Map')
+> cursor = conn.cursor()
+>
+> # Get map dimensions from Map table
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> print("Map:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get Plots data
+> cursor.execute("SELECT * FROM Plots LIMIT 20")
+> print("\nPlots:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotFeatures
+> cursor.execute("PRAGMA table_info(PlotFeatures)")
+> print("\nPlotFeatures schema:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotRivers
+> cursor.execute("PRAGMA table_info(PlotRivers)")
+> print("\nPlotRivers schema:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get PlotResources
+> cursor.execute("PRAGMA table_info(PlotResources)")
+> print("\nPlotResources schema:")
+> for row in cursor.fetchall():
+>     print(row)
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/parse_map.py
+Traceback (most recent call last):
+  File "/tmp/parse_map.py", line 7, in <module>
+    cursor.execute("SELECT * FROM Map LIMIT 1")
+sqlite3.OperationalError: no such table: Map
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

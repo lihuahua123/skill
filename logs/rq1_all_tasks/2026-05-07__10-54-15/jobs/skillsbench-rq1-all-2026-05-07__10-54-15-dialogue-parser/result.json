@@ -1,0 +1,29 @@
+{
+    "id": "c6aabc91-0325-47f2-8fb5-35aeed881a9e",
+    "started_at": "2026-05-07T11:21:20.252080",
+    "finished_at": "2026-05-07T11:25:23.568882",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.833
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.833": [
+                            "dialogue-parser__idhpKcw"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

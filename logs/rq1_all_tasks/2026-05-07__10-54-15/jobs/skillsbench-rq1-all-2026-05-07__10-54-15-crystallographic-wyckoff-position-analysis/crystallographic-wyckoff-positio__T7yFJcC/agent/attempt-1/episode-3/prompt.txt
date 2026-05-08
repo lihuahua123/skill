@@ -1,0 +1,25 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# python3 -c "from pymatgen.symmetry.analyzer import SpacegroupAnalyzer; print([m for m in dir(SpacegroupAnalyzer) if not m.startswith('_')])
+"
+['find_primitive', 'get_conventional_standard_structure', 'get_conventional_to_primitive_transformation_matrix', 'get_crystal_system', 'get_hall', 'get_ir_recip
+rocal_mesh', 'get_ir_reciprocal_mesh_map', 'get_kpoint_weights', 'get_lattice_type', 'get_pearson_symbol', 'get_point_group_operations', 'get_point_group_symbol
+', 'get_primitive_standard_structure', 'get_refined_structure', 'get_space_group_number', 'get_space_group_operations', 'get_space_group_symbol', 'get_symmetriz
+ed_structure', 'get_symmetry_dataset', 'get_symmetry_operations', 'is_laue']
+root@561ccb8d5e18:~# python3 << 'EOF'
+> from pymatgen.core import Structure
+> from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+>
+> struct = Structure.from_file("/root/cif_files/FeS2_mp-226.cif")
+> sga = SpacegroupAnalyzer(struct)
+> print("Space group:", sga.get_space_group_info())
+> print("Hall:", sga.get_hall())
+> print("Crystal system:", sga.get_crystal_system())
+> EOF
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+AttributeError: 'SpacegroupAnalyzer' object has no attribute 'get_space_group_info'. Did you mean: 'get_space_group_symbol'?
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

@@ -1,0 +1,15 @@
+{
+  "analysis": "The terminal keeps showing only the end of the file. I need a better approach to view all citations.",
+  "plan": "Extract all titles from the BibTeX file using grep to see what citations exist, then verify each one.",
+  "commands": [
+    {
+      "keystrokes": "grep -i 'title' /root/test.bib\n",
+      "duration": 0.3
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Need to extract all titles",
+    "should_stop": "No"
+  }
+}

@@ -1,0 +1,33 @@
+New Terminal Output:
+null
+root@0d3c1addd3d3:/data/maps# find / -name '*ground*' -type f 2>/dev/null | head -20
+/proc/sys/vm/dirty_background_bytes
+/proc/sys/vm/dirty_background_ratio
+/tests/ground_truths/scenario_2/ground_truth.json
+/tests/ground_truths/scenario_1/ground_truth.json
+/tests/ground_truths/scenario_3/ground_truth.json
+root@0d3c1addd3d3:/data/maps# grep -n 'optimal\|ground_truth' /tests/evaluate.py | head -20
+7:4. Comparing to optimal (ground truth)
+13:- Valid solutions: score = solver_adjacency / optimal_adjacency
+15:- If solver_adjacency > optimal_adjacency: warning (anomaly detection)
+20:- Per-district adjacency is INFORMATIONAL ONLY (allows multiple optimal solutions)
+71:    optimal_adjacency: int
+76:    exceeds_optimal: bool = False
+95:def load_ground_truth(path: Path) -> Dict[str, Any]:
+195:    ground_truth: Dict[str, Any],
+204:        ground_truth: Optimal solution for this scenario
+213:        optimal_adjacency=ground_truth.get("optimal_adjacency", 0),
+390:    # Multiple optimal solutions may exist with different district arrangements
+419:    optimal = result.optimal_adjacency
+420:    if optimal > 0:
+421:        result.score = min(1.0, result.total_adjacency / optimal)
+425:    # Anomaly detection: solver beat optimal
+426:    if result.total_adjacency > optimal:
+427:        result.exceeds_optimal = True
+429:            f"ANOMALY: Solution ({result.total_adjacency}) exceeds optimal ({optimal})! "
+439:    ground_truth_path: Path,
+448:    ground_truth = load_ground_truth(ground_truth_path)
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

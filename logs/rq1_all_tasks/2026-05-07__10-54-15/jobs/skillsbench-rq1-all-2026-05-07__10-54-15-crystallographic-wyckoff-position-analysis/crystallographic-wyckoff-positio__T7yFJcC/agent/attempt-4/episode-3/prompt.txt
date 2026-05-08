@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>     # Get Wyckoff letters for each site
+>     wyckoff_letters = sym_data['wyckoffs']
+>
+>     # Get fractional coordinates
+>     frac_coords = structure.frac_coords
+>
+>     # Build a mapping of Wyckoff letter to multiplicity and first coordinate
+>     wyckoff_multiplicity_dict = {}
+>     wyckoff_coordinates_dict = {}
+>
+>     # Track which Wyckoff letters we've seen
+>     seen_wyckoffs = {}
+>
+>     for i, (letter, coord) in enumerate(zip(wyckoff_letters, frac_coords)):
+>         if letter not in seen_wyckoffs:
+>             # First occurrence of this Wyckoff letter - record its data
+>             seen_wyckoffs[letter] = True
+>
+>             # Count total multiplicity for this Wyckoff position
+>             multiplicity = wyckoff_letters.count(letter)
+>             wyckoff_multiplicity_dict[letter] = multiplicity
+>
+>             # Convert coordinates to rational strings
+>             coord_strs = [fraction_to_rational_string(c) for c in coord]
+>             wyckoff_coordinates_dict[letter] = coord_strs
+>
+>     return {
+>         "wyckoff_multiplicity_dict": wyckoff_multiplicity_dict,
+>         "wyckoff_coordinates_dict": wyckoff_coordinates_dict
+>     }
+>
+> if __name__ == "__main__":
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~/workspace# cd /root/workspace && python3 solution.py
+/root/workspace/solution.py:37: DeprecationWarning: dict interface is deprecated. Use attribute interface instead
+  wyckoff_letters = sym_data['wyckoffs']
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

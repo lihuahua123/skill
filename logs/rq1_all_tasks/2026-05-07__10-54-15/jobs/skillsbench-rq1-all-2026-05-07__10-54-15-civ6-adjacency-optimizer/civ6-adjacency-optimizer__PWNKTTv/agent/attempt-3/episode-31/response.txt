@@ -1,0 +1,19 @@
+{
+  "analysis": "The JSON file might be empty or have an error. Let me check the file content.",
+  "plan": "Check the scenario file content and see what's in it.",
+  "commands": [
+    {
+      "keystrokes": "ls -la /tmp/scenario_full.json\n",
+      "duration": 0.3
+    },
+    {
+      "keystrokes": "head -50 /tmp/scenario_full.json\n",
+      "duration": 0.3
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "JSON parse error",
+    "should_stop": "No"
+  }
+}

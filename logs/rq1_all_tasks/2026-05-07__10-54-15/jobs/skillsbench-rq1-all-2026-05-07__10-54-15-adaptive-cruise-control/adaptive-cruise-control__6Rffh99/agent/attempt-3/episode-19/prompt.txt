@@ -1,0 +1,149 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat > acc_system.py << 'EOF'
+> """Adaptive Cruise Control System Implementation"""
+>
+R> from pid_controller import PIDController
+i>
+d> class AdaptiveCruiseControl:
+>     """ACC system with proper mode determination and safety hysteresis."""
+>
+c>     def __init__(self, config):
+>         self.mass = config['vehicle']['mass']
+>         self.max_acceleration = config['vehicle']['max_acceleration']
+>         self.max_deceleration = config['vehicle']['max_deceleration']
+>         self.set_speed = config['acc_settings']['set_speed']
+>         self.time_headway = config['acc_settings']['time_headway']
+>         self.min_distance = config['acc_settings']['min_distance']
+>         self.emergency_ttc_threshold = config['acc_settings']['emergency_ttc_threshold']
+>
+>         pid_speed_cfg = config.get('pid_speed', {'kp': 2.5, 'ki': 0.4, 'kd': 0.6})
+>         pid_dist_cfg = config.get('pid_distance', {'kp': 1.2, 'ki': 0.15, 'kd': 0.3})
+>
+>         self.pid_speed = PIDController(pid_speed_cfg['kp'], pid_speed_cfg['ki'], pid_speed_cfg['kd'])
+>         self.pid_distance = PIDController(pid_dist_cfg['kp'], pid_dist_cfg['ki'], pid_dist_cfg['kd'])
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+>
+>     def safe_following_distance(self, ego_speed):
+>         """Calculate desired following distance."""
+>         return ego_speed * self.time_headway + self.min_distance
+>
+>     def calculate_ttc(self, distance, ego_speed, lead_speed):
+>         """Calculate Time to Collision."""
+>         if distance is None or lead_speed is None:
+>             return None
+>         relative_speed = ego_speed - lead_speed
+>         if relative_speed <= 0:
+>             return None
+>         return distance / relative_speed
+>
+>     def determine_mode(self, lead_speed, distance, ego_speed):
+>         """Determine operating mode based on conditions with hysteresis for safety."""
+>         if lead_speed is None or distance is None:
+>             return 'cruise'
+>
+>         # Keep emergency mode until TTC > 4.0 (hysteresis) or distance is safe
+>         if self.mode == 'emergency':
+>             ttc = self.calculate_ttc(distance, ego_speed, lead_speed)
+>             safe_dist = self.safe_following_distance(ego_speed)
+>             # Exit emergency only when TTC is well above threshold AND distance is safe
+>             if ttc is not None and ttc > 4.0 and distance >= safe_dist:
+>                 return 'follow'
+>             return 'emergency'
+>
+>         # Normal mode determination
+>         ttc = self.calculate_ttc(distance, ego_speed, lead_speed)
+>         if ttc is not None and ttc < self.emergency_ttc_threshold:
+>             return 'emergency'
+>
+>         return 'follow'
+>
+>     def compute(self, ego_speed, lead_speed, distance, dt):
+>         """Compute acceleration command based on ACC logic."""
+>         mode = self.determine_mode(lead_speed, distance, ego_speed)
+>
+>         if mode != self.prev_mode:
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             self.prev_mode = mode
+>         self.mode = mode
+>
+>         if mode == 'cruise':
+>             self.pid_distance.reset()
+>             speed_error = self.set_speed - ego_speed
+>             acceleration_cmd = self.pid_speed.compute(speed_error, dt)
+>             if ego_speed >= self.set_speed:
+>                 acceleration_cmd = min(acceleration_cmd, 0)
+>             distance_error = None
+>
+>         elif mode == 'emergency':
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             acceleration_cmd = self.max_deceleration
+>             distance_error = 0.0
+>
+>         else:  # 'follow' mode
+>             self.pid_speed.reset()
+>             desired_distance = self.safe_following_distance(ego_speed)
+>             distance_error = distance - desired_distance
+>             acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+>             if ego_speed >= self.set_speed:
+>                 acceleration_cmd = min(acceleration_cmd, 0)
+>             elif ego_speed > self.set_speed - 5:
+>                 acceleration_cmd = min(acceleration_cmd, 0.5)
+>
+>         acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+>         return acceleration_cmd, mode, distance_error
+>
+>     def reset(self):
+>         """Reset controller state."""
+>         self.pid_speed.reset()
+>         self.pid_distance.reset()
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+> EOF
+root@bfb65fae2dcc:~# python3 simulation.py
+Speed PID: {'kp': 2.5, 'ki': 0.4, 'kd': 0.6}
+Distance PID: {'kp': 1.2, 'ki': 0.15, 'kd': 0.3}
+Saved 1501 rows to simulation_results.csv
+Report saved to acc_report.md
+root@bfb65fae2dcc:~# python3 -m pytest /tests/test_outputs.py -v 2>&1 | tail -30
+        """Safety: minimum distance, emergency mode, acceleration limits, speed."""
+        import pandas as pd
+
+        simulation_data = pd.read_csv('/root/simulation_results.csv')
+
+        # Distance must never go below 5 meters
+        dist = simulation_data[simulation_data['distance'].notna() & (simulation_data['distance'] != '')]
+        if len(dist) > 0:
+            min_d = pd.to_numeric(dist['distance'], errors='coerce').min()
+            assert min_d >= 5.0
+
+        # Emergency mode must be triggered
+        assert 'emergency' in simulation_data['mode'].unique()
+
+        # In emergency mode: TTC < 3.0 and acceleration must be negative
+        emergency = simulation_data[simulation_data['mode'] == 'emergency']
+        if len(emergency) > 0:
+            assert all(emergency['acceleration_cmd'] < 0)
+            ttc_data = emergency[emergency['ttc'].notna() & (emergency['ttc'] != '')]
+            if len(ttc_data) > 0:
+                ttc_values = pd.to_numeric(ttc_data['ttc'], errors='coerce').dropna()
+                if len(ttc_values) > 0:
+>                   assert all(ttc_values < 3.0)
+E                   assert False
+E                    +  where False = all(1187      3.226163\n1188      3.696054\n1189      4.197085\n1190      4.494709\n1191      4.858431\n1192      6.010582
+\n1193      7.337713\n1194      9.813953\n1195     11.030587\n1196     12.386144\n1197     24.140926\n1199    422.905685\n1200      1.596980\n1201      1.513451
+\n1202      1.447480\n1203      1.389905\n1204      1.304520\n1205      1.227683\n1206      1.143399\n1207      1.076671\n1208      0.997050\n1209      0.917716
+\n1210      0.833229\n1211      0.791798\n1212      0.751853\n1213      0.713821\n1214      0.678303\n1215      0.791717\n1216      1.000924\n1217      1.559875
+\n1218      3.435517\nName: ttc, dtype: float64 < 3.0)
+
+/tests/test_outputs.py:272: AssertionError
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::TestSafety::test_safety - assert False
+========================= 1 failed, 11 passed in 2.33s =========================
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

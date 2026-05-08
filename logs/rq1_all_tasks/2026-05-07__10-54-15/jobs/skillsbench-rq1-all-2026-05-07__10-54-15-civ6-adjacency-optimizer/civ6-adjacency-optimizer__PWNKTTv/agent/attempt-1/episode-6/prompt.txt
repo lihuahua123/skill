@@ -1,0 +1,18 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# find / -name '*.Civ6Map' 2>/dev/null
+/data/maps/e2e_test_case_0.Civ6Map
+root@0d3c1addd3d3:~# find / -name '*e2e*' 2>/dev/null
+/proc/501/map_files/7f910ee23000-7f910ee2e000
+/proc/501/map_files/7f910ee2e000-7f910ee3d000
+/proc/502/map_files/7f910ee23000-7f910ee2e000
+/proc/502/map_files/7f910ee2e000-7f910ee3d000
+/proc/503/map_files/7f910ee23000-7f910ee2e000
+/proc/503/map_files/7f910ee2e000-7f910ee3d000
+/data/maps/e2e_test_case_0.Civ6Map
+/data/maps/e2e_test_case_0.MockitoMap
+/data/maps/e2e_test_case_0MockitoMap
+root@0d3c1addd3d3:~#
+
+
+Include stop_check.

@@ -1,0 +1,59 @@
+New Terminal Output:
+n 1 (char 0)
+root@0d3c1addd3d3:/data/maps# ls -la /tmp/scenario_full.json
+-rw-r--r-- 1 root root 87357 May  7 03:11 /tmp/scenario_full.json
+root@0d3c1addd3d3:/data/maps# head -50 /tmp/scenario_full.json
+Map: 44 x 26
+Plots: 1144
+Features: 276
+Rivers: 14 tiles
+Resources: 0
+{
+  "id": "scenario_1",
+  "description": "Scenario from map.db",
+  "dimensions": {
+    "width": 44,
+    "height": 26
+  },
+  "num_cities": 1,
+  "population": 7,
+  "civilization": "GENERIC",
+  "tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": "OCEAN",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": "OCEAN",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": "OCEAN",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": "OCEAN",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": "COAST",
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

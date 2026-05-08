@@ -1,0 +1,13 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# echo 'import sqlite3' > /tmp/parse_map.py
+root@0d3c1addd3d3:/data/maps# echo 'conn = sqlite3.connect("/data/maps/e2e_test_case_0 Civ6Map")' >> /tmp/parse_map.py
+root@0d3c1addd3d3:/data/maps# echo 'cursor = conn.cursor()' >> /tmp/parse_map.py
+root@0d3c1addd3d3:/data/maps# echo 'cursor.execute("SELECT name FROM sqlite_master WHERE type=\'table\';")' >> /tmp/parse_map.py
+> echo 'print(cursor.fetchall())' >> /tmp/parse_map.py
+> cat /tmp/parse_map.py
+> python3 /tmp/parse_map.py
+>
+
+
+Include stop_check.

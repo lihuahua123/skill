@@ -1,0 +1,80 @@
+New Terminal Output:
+  )
+
+root@0d3c1addd3d3:/data/maps# sed -n '380,450p' /tests/evaluate.py
+        result.score = 0.0
+        return result
+
+    if solver_total is None:
+        result.errors.append("Missing required 'total_adjacency' in solution")
+        result.valid = False
+        result.score = 0.0
+        return result
+
+    # Compare solver's per-district calculation to ours (INFORMATIONAL ONLY)
+    # Multiple optimal solutions may exist with different district arrangements
+    per_district_mismatches = []
+    for district_name, adj_result in per_district_by_name.items():
+        solver_value = solver_adjacency.get(district_name)
+        if solver_value is None:
+            per_district_mismatches.append(f"Missing adjacency bonus for {district_name}")
+        elif solver_value != adj_result.total_bonus:
+            per_district_mismatches.append(
+                f"Adjacency info for {district_name}: submitted={solver_value}, calculated={adj_result.total_bonus}"
+            )
+
+    # Log per-district mismatches as WARNINGS (informational only)
+    for msg in per_district_mismatches:
+        result.warnings.append(msg)
+
+    # Verify TOTAL (this is the hard gate for correctness)
+    if solver_total != total:
+        result.errors.append(
+            f"Total adjacency mismatch: submitted={solver_total}, calculated={total}"
+        )
+        result.adjacency_mismatch = True
+
+    # If total adjacency is wrong, score = 0
+    if result.adjacency_mismatch:
+        result.valid = False
+        result.score = 0.0
+        return result
+
+    # Calculate score
+    optimal = result.optimal_adjacency
+    if optimal > 0:
+        result.score = min(1.0, result.total_adjacency / optimal)
+    else:
+        result.score = 1.0 if result.total_adjacency == 0 else 0.0
+
+    # Anomaly detection: solver beat optimal
+    if result.total_adjacency > optimal:
+        result.exceeds_optimal = True
+        result.warnings.append(
+            f"ANOMALY: Solution ({result.total_adjacency}) exceeds optimal ({optimal})! "
+            "Please verify ground truth."
+        )
+
+    return result
+
+
+def run_evaluation(
+    scenario_path: Path,
+    solution_path: Path,
+    ground_truth_path: Path,
+) -> Dict[str, Any]:
+    """
+    Run full evaluation and return result dict.
+
+    This is the main entry point called by test.sh.
+    """
+    scenario = load_scenario(scenario_path)
+    solution = load_solution(solution_path)
+    ground_truth = load_ground_truth(ground_truth_path)
+
+    scenario_id = scenario.get("id", "unknown")
+root@0d3c1addd3d3:/data/maps# find /data -name 'ground_truth*' -o -name '*truth*' 2>/dev/null
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

@@ -1,0 +1,73 @@
+New Terminal Output:
+
+root@f72ab8c29d7d:~# cat /root/pred_instructions.json
+{
+  "0->1": [
+    "Dolly In",
+    "Pan Right"
+  ],
+  "1->4": [
+    "Stay"
+  ],
+  "4->5": [
+    "Stay",
+    "Pan Right"
+  ],
+  "5->18": [
+    "Pan Right",
+    "Stay"
+  ],
+  "18->20": [
+    "Pan Right",
+    "Stay",
+    "Dolly In"
+  ],
+  "20->21": [
+    "Stay",
+    "Pan Right",
+    "Dolly In"
+  ]
+}root@f72ab8c29d7d:~# python3 -c "
+> import numpy as np
+> npz = np.load('/root/pred_dyn_masks.npz')
+> print('Keys:', list(npz.keys())[:10], '...')
+> print('Shape:', npz['shape'])
+> print('Frame count keys:')
+> frames = 0
+> while f'f_{frames}_data' in npz.files:
+>     d = npz[f'f_{frames}_data']
+>     ind = npz[f'f_{frames}_indptr']
+>     print(f'Frame {frames}: nnz={d.size}, indptr_len={len(ind)}, H+1={ind.shape[0]}')
+>     frames += 1
+> print(f'Total frames: {frames}')
+> "
+Keys: ['shape', 'f_0_data', 'f_0_indices', 'f_0_indptr', 'f_1_data', 'f_1_indices', 'f_1_indptr', 'f_2_data', 'f_2_indices', 'f_2_indptr'] ...
+Shape: [ 720 1280]
+Frame count keys:
+Frame 0: nnz=0, indptr_len=721, H+1=721
+Frame 1: nnz=140190, indptr_len=721, H+1=721
+Frame 2: nnz=130835, indptr_len=721, H+1=721
+Frame 3: nnz=136127, indptr_len=721, H+1=721
+Frame 4: nnz=177926, indptr_len=721, H+1=721
+Frame 5: nnz=171205, indptr_len=721, H+1=721
+Frame 6: nnz=177353, indptr_len=721, H+1=721
+Frame 7: nnz=171111, indptr_len=721, H+1=721
+Frame 8: nnz=167391, indptr_len=721, H+1=721
+Frame 9: nnz=169841, indptr_len=721, H+1=721
+Frame 10: nnz=169551, indptr_len=721, H+1=721
+Frame 11: nnz=157860, indptr_len=721, H+1=721
+Frame 12: nnz=149399, indptr_len=721, H+1=721
+Frame 13: nnz=114542, indptr_len=721, H+1=721
+Frame 14: nnz=169126, indptr_len=721, H+1=721
+Frame 15: nnz=127447, indptr_len=721, H+1=721
+Frame 16: nnz=128094, indptr_len=721, H+1=721
+Frame 17: nnz=123941, indptr_len=721, H+1=721
+Frame 18: nnz=131277, indptr_len=721, H+1=721
+Frame 19: nnz=136695, indptr_len=721, H+1=721
+Frame 20: nnz=135366, indptr_len=721, H+1=721
+Frame 21: nnz=190237, indptr_len=721, H+1=721
+Total frames: 22
+root@f72ab8c29d7d:~#
+
+
+Include stop_check.

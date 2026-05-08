@@ -1,0 +1,44 @@
+Current Terminal Screen:
+|-------|--------|
+| +2 each | Aqueduct, Dam, Canal |
+| +1 each | Quarry, Strategic Resource |
+| +0.5 each | Mine (floor separately) |
+| +0.5 each | Lumber Mill (floor separately) |
+| +0.5 each | District (floor separately) |
+
+### Districts with NO adjacency bonuses
+- Entertainment Complex
+- Water Park
+- Encampment
+- Aerodrome
+- Spaceport
+- Government Plaza
+- Preserve
+
+## Government Plaza Adjacency Bonus
+
+**Government Plaza gives +1 adjacency bonus to adjacent specialty districts.**
+
+Districts that benefit when adjacent to Government Plaza:
+root@0d3c1addd3d3:/data/maps# grep -n 'CAMPUS\|adjacency\|bonus\|HOLY_SITE\|THEATER\|INDUSTRIAL\|COMMERCIAL' /root/.claude/skills/civ6lib/SKILL.md | head -40
+3:description: Civilization 6 district mechanics library. Use when working with district placement validation, adjacency bonus calculations, or understanding Ci
+v6 game rules.
+8:Complete reference for Civilization 6 district placement and adjacency bonus systems (Gathering Storm).
+13:- **adjacency_rules.py** - Adjacency bonus calculation engine
+25:    AdjacencyCalculator, get_adjacency_calculator,
+30:result = rules.validate_placement(DistrictType.CAMPUS, 21, 14, {})
+34:# Calculate adjacency bonus
+35:calculator = get_adjacency_calculator(tiles)
+36:total, per_district = calculator.calculate_total_adjacency(placements)
+58:Settling a **City Center** on a tile with Geothermal Fissure or Luxury/Strategic Resources **preserves** them (they remain and provide adjacency bonuses to n
+earby districts). Districts cannot be placed on these tiles.
+187:### Districts with NO adjacency bonuses
+198:**Government Plaza gives +1 adjacency bonus to adjacent specialty districts.**
+208:Note: Government Plaza also counts toward the +0.5 per district minor bonus.
+222:**This affects OTHER districts' adjacency!**
+229:All district types: CAMPUS, HOLY_SITE, THEATER_SQUARE, COMMERCIAL_HUB, HARBOR, INDUSTRIAL_ZONE, etc.
+238:Calculates adjacency bonuses based on surrounding tiles and districts.
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

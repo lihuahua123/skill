@@ -1,0 +1,25 @@
+```json
+{
+  "analysis": "Terminal is not responding well. Let me try clearing and running commands fresh.",
+  "plan": "Clear terminal and check answer.json status",
+  "commands": [
+    {
+      "keystrokes": "\n",
+      "duration": 1.0
+    },
+    {
+      "keystrokes": "clear\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "ls -la /root/answer.json\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal may be stuck",
+    "should_stop": "No"
+  }
+}
+```

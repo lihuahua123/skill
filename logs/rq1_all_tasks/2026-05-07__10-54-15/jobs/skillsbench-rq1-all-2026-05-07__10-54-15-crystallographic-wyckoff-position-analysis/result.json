@@ -1,0 +1,29 @@
+{
+    "id": "31c71e99-650a-42c9-8998-021863cd538b",
+    "started_at": "2026-05-07T11:06:38.354649",
+    "finished_at": "2026-05-07T11:21:07.301355",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "crystallographic-wyckoff-positio__T7yFJcC"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

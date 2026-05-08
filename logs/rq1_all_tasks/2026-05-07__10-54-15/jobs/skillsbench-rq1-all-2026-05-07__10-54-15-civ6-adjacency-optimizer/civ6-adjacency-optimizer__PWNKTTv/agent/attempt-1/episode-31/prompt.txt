@@ -1,0 +1,118 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/optimizer.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> import json
+> from collections import defaultdict
+>
+> # Hex grid utilities for offset coordinates (odd-r)
+> def get_hex_neighbors(x, y):
+>     """Get 6 neighbors in odd-r offset coordinates"""
+>     if y % 2 == 1:  # odd row
+>         return [
+>             (x+1, y),   # E
+>             (x+1, y-1), # NE
+>             (x+1, y+1), # SE
+>             (x-1, y),   # W
+>             (x, y-1),   # NW
+>             (x, y+1),   # SW
+>         ]
+>     else:  # even row
+>         return [
+>             (x+1, y),   # E
+>             (x, y-1),   # NE
+>             (x, y+1),   # SE
+>             (x-1, y),   # W
+>             (x-1, y-1), # NW
+>             (x-1, y+1), # SW
+>         ]
+>
+> def hex_distance(x1, y1, x2, y2):
+>     """Calculate hex distance between two points"""
+>     # Convert to cube coordinates
+>     def to_cube(x, y):
+>         z = -x - y
+>         if y % 2 == 1:  # odd-r
+>             x_cube = x - (y - 1) // 2
+>         else:  # even-r
+>             x_cube = x - y // 2
+>         return x_cube, y, z
+>     cx1, cy1, cz1 = to_cube(x1, y1)
+>     cx2, cy2, cz2 = to_cube(x2, y2)
+>     return max(abs(cx1 - cx2), abs(cy1 - cy2), abs(cz1 - cz2))
+>
+> def get_tiles_in_range(cx, cy, max_dist):
+>     """Get all tiles within range of a center"""
+>     result = []
+>     for dy in range(-max_dist, max_dist + 1):
+>         for dx in range(-max_dist, max_dist + 1):
+>             x, y = cx + dx, cy + dy
+>             if hex_distance(cx, cy, x, y) <= max_dist:
+>                 result.append((x, y))
+>     return result
+>
+> # Load map
+> dbpath = None
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     if os.path.getsize(fp) > 0:
+>         dbpath = fp
+>         break
+>
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> _, width, height = cursor.fetchone()[0], cursor.fetchone()[1], cursor.fetchone()[2]
+>
+> # Load plots
+> cursor.execute("SELECT * FROM Plots ORDER BY ID")
+> plots = {}
+> for row in cursor.fetchall():
+>     pid, terrain, continent, impassable = row
+>     x, y = pid % width, pid // width
+>     plots[(x, y)] = {'terrain': terrain, 'impassable': bool(impassable)}
+>
+> # Load features
+> cursor.execute("SELECT * FROM PlotFeatures")
+> for row in cursor.fetchall():
+>     pid, feature = row
+>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+>         plots[(x, y)]['feature'] = feature
+>
+> # Load rivers
+> cursor.execute("SELECT * FROM PlotRivers")
+> for row in cursor.fetchall():
+>     pid = row[0]
+>     x, y = pid % width, pid // width
+>     if (x, y) in plots:
+>         plots[(x, y)]['has_river'] = True
+>
+> print(f"Map: {width}x{height}")
+> print(f"Loaded {len(plots)} tiles")
+>
+> # Find valid city center locations (non-mountain, non-ocean land)
+> valid_city_tiles = []
+> for (x, y), tile in plots.items():
+>     if tile['terrain'] not in ['TERRAIN_OCEAN'] and not tile['impassable']:
+>         # Mountains are impassable
+>         if tile['terrain'] != 'TERRAIN_GRASS_MOUNTAIN':
+>             # Also check it's not on geothermal fissure (can't build on it)
+>             if tile.get('feature') != 'FEATURE_GEOTHERMAL_FISSURE':
+>                 valid_city_tiles.append((x, y))
+>
+> print(f"\nValid city center tiles: {len(valid_city_tiles)}")
+> for t in sorted(valid_city_tiles):
+>     print(f"  {t}: {plots[t]}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/optimizer.py
+Traceback (most recent call last):
+  File "/tmp/optimizer.py", line 63, in <module>
+    _, width, height = cursor.fetchone()[0], cursor.fetchone()[1], cursor.fetchone()[2]
+                                             ~~~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

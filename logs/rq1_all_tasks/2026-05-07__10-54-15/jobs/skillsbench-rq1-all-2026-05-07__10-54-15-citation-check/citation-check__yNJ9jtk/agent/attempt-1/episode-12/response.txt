@@ -1,0 +1,17 @@
+```json
+{
+  "analysis": "Commands were sent but output not yet visible. Need to wait for results.",
+  "plan": "Wait for command output to complete",
+  "commands": [
+    {
+      "keystrokes": "",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  }
+}
+```

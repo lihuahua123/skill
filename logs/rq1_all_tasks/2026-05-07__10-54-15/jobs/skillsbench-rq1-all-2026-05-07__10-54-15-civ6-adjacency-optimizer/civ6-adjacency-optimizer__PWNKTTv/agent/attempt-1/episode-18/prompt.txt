@@ -1,0 +1,19 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# cd /data/maps && ls -lai
+total 328
+3622128 drwxrwxr-x 1 root root   4096 May  7 02:56  .
+3622127 drwxr-xr-x 1 root root   4096 May  7 02:54  ..
+3618675 -rw-r--r-- 1 root root      0 May  7 02:56 'e2e_test_case_0 Civ6Map'
+3617021 -rw-rw-r-- 1 root root 319488 May  1 13:38  e2e_test_case_0.Civ6Map
+3617022 -rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0.MockitoMap
+3617023 -rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0MockitoMap
+root@0d3c1addd3d3:/data/maps# python3 -c "import os; files = os.listdir('/data/maps'); [print(repr(f), os.stat('/data/maps/'+f).st_size) for f in files]"
+'e2e_test_case_0.Civ6Map' 319488
+'e2e_test_case_0.MockitoMap' 0
+'e2e_test_case_0MockitoMap' 0
+'e2e_test_case_0 Civ6Map' 0
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

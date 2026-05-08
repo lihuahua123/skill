@@ -1,0 +1,67 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# python3 << 'EOF'
+> from pymatgen.core import Structure
+> from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+> from fractions import Fraction
+>
+> struct = Structure.from_file("/root/cif_files/FeS2_mp-226.cif")
+> sga = SpacegroupAnalyzer(struct)
+> dataset = sga.get_symmetry_dataset()
+>
+> print("Wyckoffs:", dataset.wyckoffs)
+> print("Std positions:", dataset.std_positions)
+>
+> # Get unique Wyckoff positions
+> unique_wyckoffs = list(dict.fromkeys(dataset.wyckoffs))
+> print("Unique Wyckoffs:", unique_wyckoffs)
+>
+> # For each unique Wyckoff, find the first atom
+> wyckoff_coords = {}
+> for wyck in unique_wyckoffs:
+>     idx = dataset.wyckoffs.index(wyck)
+>     coords = dataset.std_positions[idx]
+>     wyckoff_coords[wyck] = coords
+>     print(f"Wyckoff {wyck}: {coords}")
+>
+> # Test fraction conversion
+> test_val = 0.38538014
+> print(f"\nFraction test: {test_val}")
+> for d in range(1, 13):
+>     f = Fraction(test_val).limit_denominator(d)
+>     print(f"  Denom {d}: {f} = {float(f):.10f}")
+> EOF
+Wyckoffs: ['a', 'a', 'a', 'a', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c']
+Std positions: [[0.         0.5        0.5       ]
+ [0.5        0.5        0.        ]
+ [0.5        0.         0.5       ]
+ [0.         0.         0.        ]
+ [0.38538014 0.11461986 0.88538014]
+ [0.11461986 0.88538014 0.38538014]
+ [0.88538014 0.38538014 0.11461986]
+ [0.61461986 0.61461986 0.61461986]
+ [0.38538014 0.38538014 0.38538014]
+ [0.11461986 0.61461986 0.88538014]
+ [0.88538014 0.11461986 0.61461986]
+ [0.61461986 0.88538014 0.11461986]]
+Unique Wyckoffs: ['a', 'c']
+Wyckoff a: [0.  0.5 0.5]
+Wyckoff c: [0.38538014 0.11461986 0.88538014]
+
+Fraction test: 0.38538014
+  Denom 1: 0 = 0.0000000000
+  Denom 2: 1/2 = 0.5000000000
+  Denom 3: 1/3 = 0.3333333333
+  Denom 4: 1/3 = 0.3333333333
+  Denom 5: 2/5 = 0.4000000000
+  Denom 6: 2/5 = 0.4000000000
+  Denom 7: 2/5 = 0.4000000000
+  Denom 8: 3/8 = 0.3750000000
+  Denom 9: 3/8 = 0.3750000000
+  Denom 10: 3/8 = 0.3750000000
+  Denom 11: 3/8 = 0.3750000000
+  Denom 12: 3/8 = 0.3750000000
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

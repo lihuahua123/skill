@@ -1,0 +1,44 @@
+Current Terminal Screen:
+            elif ego_speed >= self.set_speed - 10:
+                acceleration_cmd *= 0.3
+            elif ego_speed > self.set_speed:
+                acceleration_cmd = min(acceleration_cmd, -0.5)
+
+            distance_error = None
+
+        elif mode == 'emergency':
+            self.pid_speed.reset()
+            self.pid_distance.reset()
+            acceleration_cmd = self.max_deceleration
+            distance_error = 0.0
+
+        else:  # 'follow' mode
+            self.pid_speed.reset()
+            desired_distance = self.safe_following_distance(ego_speed)
+            distance_error = distance - desired_distance
+
+            # Higher gain for distance control
+            acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+            acceleration_cmd *= 2.0  # Increase response
+
+            # Speed limiting
+            if ego_speed >= self.set_speed:
+                acceleration_cmd = min(acceleration_cmd, 0.0)
+            elif ego_speed > self.set_speed - 3:
+                acceleration_cmd = min(acceleration_cmd, 0.2)
+
+            if distance < self.min_distance + 5:
+                acceleration_cmd = min(acceleration_cmd, -4.0)
+
+        acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+        return acceleration_cmd, mode, distance_error
+
+    def reset(self):
+        self.pid_speed.reset()
+        self.pid_distance.reset()
+        self.prev_mode = 'cruise'
+        self.mode = 'cruise'
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

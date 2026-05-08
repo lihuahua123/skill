@@ -1,0 +1,44 @@
+Current Terminal Screen:
+            assert weak_df['acceleration_cmd'].std() != orig_df['acceleration_cmd'].std() or \
+                   abs(weak_df['ego_speed'].iloc[100] - orig_df['ego_speed'].iloc[100]) > 0.1
+
+        finally:
+            if os.path.exists(backup_t):
+                shutil.copy(backup_t, '/root/tuning_results.yaml')
+                os.unlink(backup_t)
+            if os.path.exists(backup_r):
+                shutil.copy(backup_r, '/root/simulation_results.csv')
+                os.unlink(backup_r)
+
+
+class TestAntiCheat:
+    """Verify simulation uses sensor_data.csv correctly, not just fabricated outputs."""
+
+    def test_anti_cheat(self):
+        """Verify simulation uses sensor data: mode, distance, TTC, and physics."""
+        import pandas as pd
+        import numpy as np
+
+        simulation_data = pd.read_csv('/root/simulation_results.csv')
+        sensor_data = pd.read_csv('/root/sensor_data.csv')
+
+        merged = simulation_data.merge(sensor_data, on='time', suffixes=('_sim', '_sensor'))
+
+        # Mode must be cruise when no lead, follow/emergency when lead present
+        no_lead = merged[merged['lead_speed'].isna()]
+        if len(no_lead) > 0:
+            cruise_when_no_lead = (no_lead['mode'] == 'cruise').mean()
+            assert cruise_when_no_lead > 0.95, "Mode should be 'cruise' when no lead vehicle"
+
+        with_lead = merged[merged['lead_speed'].notna()]
+        if len(with_lead) > 0:
+            not_cruise_when_lead = (with_lead['mode'] != 'cruise').mean()
+            assert not_cruise_when_lead > 0.9, "Mode should be 'follow' or 'emergency' when lead present"
+
+        # Distance column must be empty when sensor shows no lead, non-empty when lead present
+        if len(no_lead) > 0:
+            empty_dist = no_lead['distance_sim'].apply(lambda x: x == '' or pd.isna(x)).mean()
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

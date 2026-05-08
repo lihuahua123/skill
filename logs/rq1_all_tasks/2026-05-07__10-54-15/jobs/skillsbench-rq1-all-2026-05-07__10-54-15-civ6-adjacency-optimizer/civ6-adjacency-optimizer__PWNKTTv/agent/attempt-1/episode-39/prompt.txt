@@ -1,0 +1,35 @@
+New Terminal Output:
+ 0
+root@0d3c1addd3d3:/data/maps# cat /output/scenario_3.json
+{
+  "city_center": [
+    22,
+    14
+  ],
+  "placements": {
+    "CAMPUS": [
+      21,
+      14
+    ],
+    "COMMERCIAL_HUB": [
+      22,
+      17
+    ],
+    "INDUSTRIAL_ZONE": [
+      23,
+      12
+    ]
+  },
+  "adjacency_bonuses": {
+    "CAMPUS": 5,
+    "COMMERCIAL_HUB": 4,
+    "INDUSTRIAL_ZONE": 0
+  },
+  "total_adjacency": 9
+}root@0d3c1addd3d3:/data/maps# python3 -c "import json; data = json.load(open('/output/scenario_3.json')); print('Valid:', data['adjacency_bonuses']['CAMPUS'] +
+ data['adjacency_bonuses']['COMMERCIAL_HUB'] + data['adjacency_bonuses']['INDUSTRIAL_ZONE'] == data['total_adjacency'])"
+Valid: True
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

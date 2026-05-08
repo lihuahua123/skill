@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    return {"dimensions": {"width": width, "height": height}, "tiles": tiles_list}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Convert .Civ6Map to scenario JSON")
+    parser.add_argument("map_file", help="Path to .Civ6Map file")
+    parser.add_argument("-o", "--output", help="Output JSON file")
+    parser.add_argument("--id", default="scenario_1", help="Scenario ID")
+    parser.add_argument("--num-cities", type=int, default=1)
+    parser.add_argument("--population", type=int, default=7)
+    parser.add_argument("--civilization", default="GENERIC")
+    parser.add_argument("--districts", help="(deprecated) Districts to include in solution")
+
+    args = parser.parse_args()
+
+    result = convert_civ6map(args.map_file)
+
+    scenario = {
+        "id": args.id,
+        "description": f"Scenario from {Path(args.map_file).name}",
+        "dimensions": result["dimensions"],
+        "num_cities": args.num_cities,
+        "population": args.population,
+        "civilization": args.civilization,
+        "tiles": result["tiles"],
+    }
+
+    output_json = json.dumps(scenario, indent=2)
+
+    if args.output:
+        with open(args.output, "w") as f:
+            f.write(output_json)
+        print(f"Saved: {args.output}", file=sys.stderr)
+    else:
+        print(output_json)
+
+
+if __name__ == "__main__":
+    main()
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

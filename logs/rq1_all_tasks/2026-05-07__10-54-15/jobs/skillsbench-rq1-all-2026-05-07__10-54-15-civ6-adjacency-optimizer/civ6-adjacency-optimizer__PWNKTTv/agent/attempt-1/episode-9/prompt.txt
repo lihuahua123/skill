@@ -1,0 +1,30 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# python3 << 'EOF'
+> import sqlite3
+> conn = sqlite3.connect('/data/maps/e2e_test_case_0 Civ6Map')
+> cursor = conn.cursor()
+>
+> # Get total plots count to understand dimensions
+> cursor.execute("SELECT COUNT(*) FROM Plots")
+> print("Total plots:", cursor.fetchone()[0])
+>
+> # Get some sample plots
+> cursor.execute("SELECT * FROM Plots LIMIT 10")
+> print("\nSample plots:")
+> for row in cursor.fetchall():
+>     print(row)
+>
+> # Get plot features schema
+> cursor.execute("PRAGMA table_info(PlotFeatures)")
+> print("\nPlotFeatures schema:")
+> for row in cursor.fetchall():
+>     print(row)
+> EOF
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+sqlite3.OperationalError: no such table: Plots
+root@0d3c1addd3d3:~#
+
+
+Include stop_check.

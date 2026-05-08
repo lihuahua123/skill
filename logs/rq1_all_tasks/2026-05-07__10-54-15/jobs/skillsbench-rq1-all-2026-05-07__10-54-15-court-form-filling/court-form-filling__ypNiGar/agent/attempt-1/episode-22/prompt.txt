@@ -1,0 +1,63 @@
+New Terminal Output:
+ity
+
+root@4df30ae92365:~/.claude/skills/pdf# python3 -c "import json; data=json.load(open('/tmp/field_info.json')); page4_fields=[f for f in data if f['page']==4 and
+ ('List9' in f['field_id'] or 'List10' in f['field_id'])]; print(json.dumps(page4_fields, indent=2))"
+[
+  {
+    "field_id": "SC-100[0].Page4[0].List9[0].Item9[0].Checkbox62[0]",
+    "type": "checkbox",
+    "checked_value": "/1",
+    "unchecked_value": "/Off",
+    "page": 4,
+    "rect": [
+      63.0,
+      673.473,
+      72.0,
+      682.473
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page4[0].List9[0].Item9[0].Checkbox62[1]",
+    "type": "checkbox",
+    "checked_value": "/2",
+    "unchecked_value": "/Off",
+    "page": 4,
+    "rect": [
+      112.241,
+      673.448,
+      121.241,
+      682.448
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page4[0].List10[0].li10[0].Checkbox63[0]",
+    "type": "checkbox",
+    "checked_value": "/1",
+    "unchecked_value": "/Off",
+    "page": 4,
+    "rect": [
+      275.156,
+      650.94,
+      284.156,
+      659.94
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page4[0].List10[0].li10[0].Checkbox63[1]",
+    "type": "checkbox",
+    "checked_value": "/2",
+    "unchecked_value": "/Off",
+    "page": 4,
+    "rect": [
+      321.48,
+      650.914,
+      330.48,
+      659.914
+    ]
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

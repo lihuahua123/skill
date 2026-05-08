@@ -1,0 +1,21 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~/workspace# python3 -c "
+> import solution
+> result = solution.analyze_wyckoff_position_multiplicities_and_coordinates('/root/cif_files/Al2O3_mp-7048.cif')
+> print('Al2O3:', result)
+> "
+Al2O3: {'wyckoff_multiplicity_dict': {'i': 20}, 'wyckoff_coordinates_dict': {'i': ['1/11', '0', '4/5']}}
+root@561ccb8d5e18:~/workspace# python3 -c "
+> import solution
+> result = solution.analyze_wyckoff_position_multiplicities_and_coordinates('/root/cif_files/C_mp-169.cif')
+> print('C:', result)
+> "
+/usr/local/lib/python3.12/site-packages/pymatgen/core/structure.py:3109: UserWarning: Issues encountered while parsing CIF: 2 fractional coordinates rounded to
+ideal values to avoid issues with finite precision.
+  struct = parser.parse_structures(primitive=primitive)[0]
+C: {'wyckoff_multiplicity_dict': {'i': 4}, 'wyckoff_coordinates_dict': {'i': ['1/6', '0', '1']}}
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

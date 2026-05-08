@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    Returns None if not approaching (ego slower than lead).
+    """
+    relative_speed = ego_speed - lead_speed
+
+    if relative_speed <= 0:
+        return None  # Not approaching
+
+    return distance / relative_speed
+```
+
+## Acceleration Limits
+
+Real vehicles have physical constraints:
+
+```python
+def clamp_acceleration(accel, max_accel, max_decel):
+    """Constrain acceleration to physical limits."""
+    return max(max_decel, min(accel, max_accel))
+```
+
+## State Machine Pattern
+
+Vehicle control often uses mode-based logic:
+
+```python
+def determine_mode(lead_present, ttc, ttc_threshold):
+    """
+    Determine operating mode based on conditions.
+
+    Returns one of: 'cruise', 'follow', 'emergency'
+    """
+    if not lead_present:
+        return 'cruise'
+
+    if ttc is not None and ttc < ttc_threshold:
+        return 'emergency'
+
+    return 'follow'
+```
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

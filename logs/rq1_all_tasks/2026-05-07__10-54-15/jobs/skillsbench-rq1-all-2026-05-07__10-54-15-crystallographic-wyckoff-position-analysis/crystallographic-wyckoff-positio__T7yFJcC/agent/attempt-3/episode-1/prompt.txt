@@ -1,0 +1,44 @@
+Current Terminal Screen:
+  S2-  -2.0
+loop_
+ _atom_site_type_symbol
+ _atom_site_label
+ _atom_site_symmetry_multiplicity
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+  Fe4+  Fe0  1  0.00000000  0.50000000  0.50000000  1
+  Fe4+  Fe1  1  0.50000000  0.50000000  0.00000000  1
+  Fe4+  Fe2  1  0.50000000  0.00000000  0.50000000  1
+  Fe4+  Fe3  1  0.00000000  0.00000000  0.00000000  1
+  S2-  S4  1  0.38538014  0.11461986  0.88538014  1
+  S2-  S5  1  0.11461986  0.88538014  0.38538014  1
+  S2-  S6  1  0.88538014  0.38538014  0.11461986  1
+  S2-  S7  1  0.61461986  0.61461986  0.61461986  1
+  S2-  S8  1  0.38538014  0.38538014  0.38538014  1
+  S2-  S9  1  0.11461986  0.61461986  0.88538014  1
+  S2-  S10  1  0.88538014  0.11461986  0.61461986  1
+  S2-  S11  1  0.61461986  0.88538014  0.11461986  1
+root@561ccb8d5e18:~# ls -la /root/
+total 72
+drwx------ 1 root root 4096 May  7 03:06 .
+drwxr-xr-x 1 root root 4096 May  7 03:12 ..
+drwxr-xr-x 3 root root 4096 May  5 06:37 .agents
+-rw-r--r-- 1 root root  607 Mar  2 21:50 .bashrc
+drwxr-xr-x 1 root root 4096 May  5 06:36 .cache
+drwxr-xr-x 3 root root 4096 May  5 06:37 .claude
+drwxr-xr-x 3 root root 4096 May  5 06:37 .codex
+drwxr-xr-x 3 root root 4096 May  7 03:06 .config
+drwxr-xr-x 3 root root 4096 May  5 06:37 .factory
+drwxr-xr-x 3 root root 4096 May  5 06:37 .gemini
+drwxr-xr-x 3 root root 4096 May  5 06:37 .goose
+drwxr-xr-x 3 root root 4096 May  5 06:37 .opencode
+-rw-r--r-- 1 root root  132 Mar  2 21:50 .profile
+-rw-r--r-- 1 root root  169 Apr 22 02:01 .wget-hsts
+drwxr-xr-x 1 root root 4096 May  5 06:37 cif_files
+drwxr-xr-x 1 root root 4096 May  7 03:09 workspace
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

@@ -1,0 +1,54 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+New Terminal Output:
+
+1203"}],"items-per-page":5,"query":{"start-index":0,"search-terms":"CLUE Benchmark Chinese NLU"}}}root@30c3cd183633:~# cat /root/test.bib | grep -E '^@|^  title
+|^  booktitle' | head -40
+@article{Jumper2021,
+  title   = {Highly Accurate Protein Structure Prediction with {AlphaFold}},
+@inproceedings{patel2023blockchain,
+  title = {Blockchain Applications in Supply Chain Management},
+  booktitle = {Proceedings of the International Conference on Information Systems},
+@inproceedings{lila,
+  title        = {{LILA:} {A} Unified Benchmark for Mathematical Reasoning},
+  booktitle    = {Proceedings of the 2022 Conference on Empirical Methods in Natural
+@article{Watson1953,
+  title   = {Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid},
+@inproceedings{joshi-etal-2017-triviaqa,
+@article{wilson2021neural,
+  title = {Neural Networks in Deep Learning: A Comprehensive Review},
+@article{smith2020ai,
+  title = {Advances in Artificial Intelligence for Natural Language Processing},
+@article{Doudna2014,
+  title   = {The New Frontier of Genome Engineering with {CRISPR-Cas9}},
+@inproceedings{clue,
+  title        = {{CLUE:} {A} Chinese Language Understanding Evaluation Benchmark},
+  booktitle    = {Proceedings of the 28th International Conference on Computational
+@inproceedings{cmmlu,
+  title        = {{CMMLU:} Measuring massive multitask language understanding in Chinese},
+  booktitle    = {Findings of the Association for Computational Linguistics, {ACL} 2024,
+@inproceedings{chid,
+  title        = {ChID: {A} Large-scale Chinese IDiom Dataset for Cloze Test},
+  booktitle    = {Proceedings of the 57th Conference of the Association for Computational
+@inproceedings{hellaswag,
+  title        = {{HellaSwag}: Can a Machine Really Finish Your Sentence?},
+  booktitle    = {Proceedings of the 57th Conference of the Association for Computational
+@book{Alberts2014,
+  title     = {Molecular Biology of the Cell},
+@book{Sambrook2001,
+  title     = {Molecular Cloning: A Laboratory Manual},
+@inproceedings{Vaswani2017,
+  title     = {Attention is All You Need},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+@inproceedings{He2016,
+  title     = {Deep Residual Learning for Image Recognition},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+@inproceedings{jing-etal-2025-mcip,
+root@30c3cd183633:~# curl -s 'https://api.crossref.org/works?query=Patel+Ramirez+Blockchain+Supply+Chain+ICIS+ACM+2023&rows=5' | grep -i 'patel\|title' | head -
+15
+
+
+
+Include stop_check.

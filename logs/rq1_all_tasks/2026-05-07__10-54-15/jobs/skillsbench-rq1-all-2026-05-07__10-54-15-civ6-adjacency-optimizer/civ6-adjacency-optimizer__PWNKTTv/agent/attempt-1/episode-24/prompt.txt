@@ -1,0 +1,25 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/parse_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> dbpath = "/data/maps/e2e_test_case_0 Civ6Map"
+> print(f"Path: {dbpath}")
+> print(f"File exists: {os.path.exists(dbpath)}")
+> print(f"File size: {os.path.getsize(dbpath)}")
+> print(f"Real path: {os.path.realpath(dbpath)}")
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+> cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+> print(cursor.fetchall())
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/parse_map.py
+Path: /data/maps/e2e_test_case_0 Civ6Map
+File exists: True
+File size: 0
+Real path: /data/maps/e2e_test_case_0 Civ6Map
+[]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

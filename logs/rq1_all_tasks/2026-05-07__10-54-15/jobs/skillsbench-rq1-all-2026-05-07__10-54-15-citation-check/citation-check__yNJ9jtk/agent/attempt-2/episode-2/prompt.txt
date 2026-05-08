@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+@inproceedings{cmmlu,
+  author       = {Haonan Li and
+                  Yixuan Zhang and
+                  Fajri Koto and
+                  Yifei Yang and
+                  Hai Zhao and
+                  Yeyun Gong and
+                  Nan Duan and
+                  Timothy Baldwin},
+  editor       = {Lun{-}Wei Ku and
+                  Andre Martins and
+                  Vivek Srikumar},
+  title        = {{CMMLU:} Measuring massive multitask language understanding in Chinese},
+  booktitle    = {Findings of the Association for Computational Linguistics, {ACL} 2024,
+                  Bangkok, Thailand and virtual meeting, August 11-16, 2024},
+  pages        = {11260--11285},
+  publisher    = {Association for Computational Linguistics},
+  year         = {2024},
+  url          = {https://doi.org/10.18653/v1/2024.findings-acl.671},
+  doi          = {10.18653/V1/2024.FINDINGS-ACL.671},
+  timestamp    = {Tue, 24 Sep 2024 10:55:47 +0200},
+  biburl       = {https://dblp.org/rec/conf/acl/0002ZKY0GDB24.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{chid,
+  author       = {Chujie Zheng and
+                  Minlie Huang and
+                  Aixin Sun},
+  editor       = {Anna Korhonen and
+                  David R. Traum and
+                  Llu{\'{\i}}s M{\`{a}}rquez},
+  title        = {ChID: {A} Large-scale Chinese IDiom Dataset for Cloze Test},
+  booktitle    = {Proceedings of the 57th Conference of the Association for Computational
+                  Linguistics, {ACL} 2019, Florence, Italy, July 28- August 2, 2019,
+                  Volume 1: Long Papers},
+  pages        = {778--787},
+  publisher    = {Association for Computational Linguistics},
+root@30c3cd183633:~#
+
+
+Include stop_check.

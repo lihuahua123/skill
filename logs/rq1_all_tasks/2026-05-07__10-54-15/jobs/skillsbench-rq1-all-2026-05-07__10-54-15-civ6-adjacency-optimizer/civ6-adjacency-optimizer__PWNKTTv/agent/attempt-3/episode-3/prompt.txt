@@ -1,0 +1,44 @@
+Current Terminal Screen:
+## Common Schema Patterns
+
+### Grid/Map Data
+- Main table: positions with base properties
+- Feature tables: join on position ID for overlays
+- Compute (x, y) from linear ID: `x = id % width, y = id // width`
+
+### Hierarchical Data
+- Parent table with primary key
+- Child tables with foreign key reference
+- Use LEFT JOIN to preserve all parents
+
+### Enum/Lookup Tables
+- Type tables map codes to descriptions
+- Join to get human-readable values
+
+## Debugging Tips
+
+```sql
+-- Sample data from any table
+SELECT * FROM TableName LIMIT 5;
+
+-- Count rows
+SELECT COUNT(*) FROM TableName;
+
+-- Find distinct values in a column
+SELECT DISTINCT ColumnName FROM TableName;
+
+-- Check for nulls
+SELECT COUNT(*) FROM TableName WHERE ColumnName IS NULL;
+```
+root@0d3c1addd3d3:/data/maps# ls -la /data/maps/
+total 328
+drwxrwxr-x 1 root root   4096 May  7 02:56  .
+drwxr-xr-x 1 root root   4096 May  7 02:54  ..
+-rw-r--r-- 1 root root      0 May  7 02:56 'e2e_test_case_0 Civ6Map'
+-rw-rw-r-- 1 root root 319488 May  1 13:38  e2e_test_case_0.Civ6Map
+-rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0.MockitoMap
+-rw-rw-r-- 1 root root      0 May  1 13:38  e2e_test_case_0MockitoMap
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

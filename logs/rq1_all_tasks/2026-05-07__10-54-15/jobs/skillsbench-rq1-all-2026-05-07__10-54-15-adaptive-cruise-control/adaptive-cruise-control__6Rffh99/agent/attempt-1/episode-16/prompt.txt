@@ -1,0 +1,65 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat acc_report.md
+# ACC Simulation Report
+
+## System Design
+
+### ACC Architecture
+
+The ACC system implements a hierarchical control architecture with three modes:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.2, ki=0.25, kd=0.4
+
+**Distance Controller:** kp=0.3, ki=0.02, kd=0.05
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 8.90s | PASS |
+| Overshoot | <5% | 2.33% | PASS |
+| Speed SS Error | <0.5m/s | 4.681m/s | FAIL |
+| Dist SS Error | <2m | 18.01m | FAIL |
+| Min Distance | >5m | 33.60m | PASS |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 30.70 m/s
+- Modes: cruise=501, follow=959, emergency=41
+root@bfb65fae2dcc:~# tail -5 simulation_results.csv
+149.6,30.459115198527858,0.6453926605482092,cruise,,,
+149.7,30.523438725953916,0.6432352742605768,cruise,,,
+149.8,30.323438725953917,-2.0,cruise,,,
+149.9,30.40575920680513,0.8232048085121251,cruise,,,
+150.0,30.469506530447394,0.6374732364226606,cruise,,,
+root@bfb65fae2dcc:~# grep ',follow,' simulation_results.csv | tail -5
+129.5,16.500000000000018,3.0,follow,99.86999999999996,134.17,
+129.6,16.80000000000002,3.0,follow,97.13999999999996,131.89,
+129.7,17.10000000000002,3.0,follow,95.24999999999996,130.45,
+129.8,17.40000000000002,3.0,follow,99.67999999999998,135.33,
+129.9,17.70000000000002,3.0,follow,98.81999999999996,134.92,
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

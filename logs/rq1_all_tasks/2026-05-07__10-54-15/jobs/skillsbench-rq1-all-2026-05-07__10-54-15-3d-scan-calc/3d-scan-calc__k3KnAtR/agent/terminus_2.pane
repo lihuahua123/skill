@@ -1,0 +1,166 @@
+[?2004hroot@8ac6954772f6:~# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@8ac6954772f6:~# clear
+[?2004l[H[J[3J[?2004hroot@8ac6954772f6:~# cat /root/material_density_table.md
+[?2004l# Proprietary Material Density Table
+
+This table lists the density values for the proprietary materials used in the Constructo-95 system.
+Use the Material ID found in the CAD file attributes to lookup the corresponding density.
+
+| Material ID | Material Name | Density (g/cm³) | Description |
+| :--- | :--- | :--- | :--- |
+| **1** | Generic Debris | 0.10 | Low-density dust/noise artifacts. |
+| **10** | Standard Steel | 7.85 | Common structural steel. |
+| **25** | Aluminum 6061 | 2.70 | Aerospace grade aluminum. |
+| **42** | Unobtanium | 5.55 | High-strength proprietary alloy. |
+| **99** | Lead | 11.34 | Heavy ballast material. |
+
+## Formula
+
+$$ Mass = Volume \times Density $$
+
+Note: Ensure volume is in $cm^3$ and density is in $g/cm^3$.
+[?2004hroot@8ac6954772f6:~# ls -la /root/
+[?2004ltotal 72
+drwx------ 1 root root  4096 May  7 02:54 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 May  7 02:54 [01;34m..[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.agents[0m
+-rw-r--r-- 1 root root  3106 Apr 22  2024 .bashrc
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.claude[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.codex[0m
+drwxr-xr-x 3 root root  4096 May  7 02:54 [01;34m.config[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.factory[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.gemini[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.goose[0m
+drwxr-xr-x 3 root root  4096 May  5 04:57 [01;34m.opencode[0m
+-rw-r--r-- 1 root root   161 Apr 22  2024 .profile
+-rw-rw-r-- 1 root root   746 May  1 13:38 material_density_table.md
+-rw-rw-r-- 1 root root 17684 May  1 13:38 scan_data.stl
+[?2004hroot@8ac6954772f6:~# cat /root/.claude/skills/mesh-analysis/SKILL.md
+[?2004l---
+name: mesh-analysis
+description: "Analyzes 3D mesh files (STL) to calculate geometric properties (volume, components) and extract attribute data. Use this skill to process noisy 3D scan data and filter debris."
+---
+
+# Mesh Analysis
+
+This skill provides the `MeshAnalyzer` tool for robustly processing 3D STL files. It handles Binary STL parsing and connected component analysis.
+
+## When to Use
+
+Use this skill for:
+1.  **Geometric Analysis**: Calculating volume of complex or noisy meshes.
+2.  **Noise Filtering**: Isolating the largest connected component from "dirty" scan data.
+3.  **Attribute Extraction**: Extracting metadata (e.g. material IDs) stored in the STL file attribute bytes.
+
+## Usage
+
+The tool is provided as a Python module in the `scripts/` directory.
+
+### Basic Workflow
+
+```python
+import sys
+# Add skill path to sys.path
+sys.path.append('/root/.claude/skills/mesh-analysis/scripts')
+
+from mesh_tool import MeshAnalyzer
+
+# Initialize with file path
+analyzer = MeshAnalyzer('/path/to/your/file.stl')
+
+# Analyze specific components
+# Automatically identifies the largest component (main part)
+report = analyzer.analyze_largest_component()
+
+volume = report['main_part_volume']
+mat_id = report['main_part_material_id']
+
+print(f"Volume: {volume}")
+print(f"Material ID: {mat_id}")
+```
+
+### Calculating Mass
+
+The tool provides the **Volume** and **Material ID**. To calculate **Mass**:
+1.  Read the **Material ID** from the analysis report.
+2.  Consult your provided material reference data (e.g. density tables) to find the density.
+3.  Calculate: `Mass = Volume * Density`.
+
+**Critical Note on Units**:
+*   The **Volume** returned is in the **same units** as the STL file's coordinates (cubed).
+*   **Do not assume** millimeters or inches. Check your task instructions for the coordinate system units (e.g., if coordinates are in cm, volume is in cm³).
+*   If your density table uses the same unit (e.g., g/cm³ and cm³), **multiply directly**. No unit conversion is needed.
+
+## Critical Notes
+
+*   **Binary Support**: The tool automatically handles Binary STL files.
+*   **Attribute extraction**: The tool extracts the 2-byte attribute stored in the binary STL format (often used for color or material ID).
+[?2004hroot@8ac6954772f6:~# python3 << 'EOF'
+[?2004l[?2004h> import sys
+[?2004l[?2004h> sys.path.append('/root/.claude/skills/mesh-analysis/scripts')
+[?2004l[?2004h> 
+[?2004l[?2004h> from mesh_tool import MeshAnalyzer
+[?2004l[?2004h> 
+[?2004l[?2004h> # Initialize with STL file
+[?2004l[?2004h> analyzer = MeshAnalyzer('/root/scan_data.stl')
+[?2004l[?2004h> 
+[?2004l[?2004h> # Analyze the largest component
+[?2004l[?2004h> report = analyzer.analyze_largest_component()
+[?2004l[?2004h> 
+[?2004l[?2004h> print("Analysis Report:")
+[?2004l[?2004h> print(f"  Main part volume: {report['main_part_volume']} cm³")
+[?2004l[?2004h> print(f"  Material ID: {report['main_part_material_id']}")
+[?2004l[?2004h> 
+[?2004l[?2004h> # Material density table lookup
+[?2004l[?2004h> density_table = {
+[?2004l[?2004h>     1: 0.10,    # Generic Debris
+[?2004l[?2004h>     10: 7.85,   # Standard Steel
+[?2004l[?2004h>     25: 2.70,   # Aluminum 6061
+[?2004l[?2004h>     42: 5.55,   # Unobtanium
+[?2004l[?2004h>     99: 11.34   # Lead
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> mat_id = report['main_part_material_id']
+[?2004l[?2004h> volume = report['main_part_volume']
+[?2004l[?2004h> density = density_table.get(mat_id, 0)
+[?2004l[?2004h> mass = volume * density
+[?2004l[?2004h> 
+[?2004l[?2004h> print(f"\nCalculation:")
+[?2004l[?2004h> print(f"  Volume: {volume} cm³")
+[?2004l[?2004h> print(f"  Density: {density} g/cm³")
+[?2004l[?2004h> print(f"  Mass: {mass} g")
+[?2004l[?2004h> 
+[?2004l[?2004h> # Save to JSON
+[?2004l[?2004h> import json
+[?2004l[?2004h> output = {
+[?2004l[?2004h>     "main_part_mass": round(mass, 2),
+[?2004l[?2004h>     "material_id": mat_id
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/root/mass_report.json', 'w') as f:
+[?2004l[?2004h>     json.dump(output, f, indent=2)
+[?2004l[?2004h> 
+[?2004l[?2004h> print(f"\nSaved to /root/mass_report.json")
+[?2004l[?2004h> print(json.dumps(output, indent=2))
+[?2004l[?2004h> EOF
+[?2004lAnalysis Report:
+  Main part volume: 6242.890312594918 cm³
+  Material ID: 42
+
+Calculation:
+  Volume: 6242.890312594918 cm³
+  Density: 5.55 g/cm³
+  Mass: 34648.04123490179 g
+
+Saved to /root/mass_report.json
+{
+  "main_part_mass": 34648.04,
+  "material_id": 42
+}
+[?2004hroot@8ac6954772f6:~# cat /root/mass_report.json
+[?2004l{
+  "main_part_mass": 34648.04,
+  "material_id": 42
+}[?2004hroot@8ac6954772f6:~# 

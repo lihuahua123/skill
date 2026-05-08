@@ -1,0 +1,23 @@
+New Terminal Output:
+
+root@593ccb43c4f3:~# find / -name 'wave.mseed' -o -name '*.mseed' -path '*/data/*' 2>/dev/null | grep -v site-packages | grep -v __pycache__
+root@593ccb43c4f3:~# ls -la /home/ /srv/ /mnt/ /data/ 2>/dev/null
+/home/:
+total 8
+drwxr-xr-x 2 root root 4096 Mar  2 21:50 .
+drwxr-xr-x 1 root root 4096 May  7 03:25 ..
+
+/mnt/:
+total 8
+drwxr-xr-x 2 root root 4096 Apr 21 00:00 .
+drwxr-xr-x 1 root root 4096 May  7 03:25 ..
+
+/srv/:
+total 8
+drwxr-xr-x 2 root root 4096 Apr 21 00:00 .
+drwxr-xr-x 1 root root 4096 May  7 03:25 ..
+root@593ccb43c4f3:~# pip install git+https://github.com/AI4EPS/GaMMA.git --quiet 2>&1 | tail -5
+
+
+
+Include stop_check.

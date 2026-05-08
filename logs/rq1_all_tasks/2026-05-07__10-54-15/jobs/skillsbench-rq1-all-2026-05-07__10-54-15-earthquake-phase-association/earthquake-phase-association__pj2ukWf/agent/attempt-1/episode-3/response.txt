@@ -1,0 +1,23 @@
+{
+  "analysis": "wave.mseed is not found in the system - only test data. gamma-py is not available via pip. Need to install gamma from git and figure out the wave.mseed issue. Let me search more broadly.",
+  "plan": "Search for the MSEED file with broader patterns, try installing gamma from git, then create a comprehensive script.",
+  "commands": [
+    {
+      "keystrokes": "find / -name 'wave.mseed' -o -name '*.mseed' -path '*/data/*' 2>/dev/null | grep -v site-packages | grep -v __pycache__\n",
+      "duration": 2.0
+    },
+    {
+      "keystrokes": "ls -la /home/ /srv/ /mnt/ /data/ 2>/dev/null\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "pip install git+https://github.com/AI4EPS/GaMMA.git --quiet 2>&1 | tail -5\n",
+      "duration": 30.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "wave.mseed not found, gamma install in progress",
+    "should_stop": "No"
+  }
+}

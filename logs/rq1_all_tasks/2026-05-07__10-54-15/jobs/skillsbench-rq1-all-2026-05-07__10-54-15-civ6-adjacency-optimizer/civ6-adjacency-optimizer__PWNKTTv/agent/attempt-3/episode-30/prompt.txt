@@ -1,0 +1,44 @@
+Current Terminal Screen:
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": "OCEAN",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "terrain": "COAST",
+      "feature": "FEATURE_ICE"
+    },
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

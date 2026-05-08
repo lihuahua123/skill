@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>
+>     # Extract Wyckoff positions and coordinates using attribute interface
+>     wyckoffs = symmetry_dataset.wyckoffs
+>     std_positions = symmetry_dataset.std_positions
+>
+>     # Find unique Wyckoff positions and track first occurrence
+>     seen_wyckoffs = {}
+>     for i, w in enumerate(wyckoffs):
+>         if w not in seen_wyckoffs:
+>             seen_wyckoffs[w] = i
+>
+>     # Count multiplicities
+>     wyckoff_multiplicity_dict = {}
+>     for w in wyckoffs:
+>         wyckoff_multiplicity_dict[w] = wyckoff_multiplicity_dict.get(w, 0) + 1
+>
+>     # Get coordinates for first atom of each unique Wyckoff position
+>     wyckoff_coordinates_dict = {}
+>     for w, idx in seen_wyckoffs.items():
+>         coords = std_positions[idx]
+>         # Convert to rational strings
+>         coord_strs = [decimal_to_rational_str(c) for c in coords]
+>         wyckoff_coordinates_dict[w] = coord_strs
+>
+>     # Sort by Wyckoff letter for consistent output
+>     sorted_multiplicities = dict(sorted(wyckoff_multiplicity_dict.items()))
+>     sorted_coordinates = dict(sorted(wyckoff_coordinates_dict.items()))
+>
+>     return {
+>         "wyckoff_multiplicity_dict": sorted_multiplicities,
+>         "wyckoff_coordinates_dict": sorted_coordinates
+>     }
+>
+> if __name__ == "__main__":
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~# python3 /root/workspace/solution.py
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

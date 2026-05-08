@@ -1,0 +1,20 @@
+New Terminal Output:
+
+root@4df30ae92365:~# pdftotext -f 4 -l 4 /root/sc100-filled.pdf - | grep -B 2 -A 7 "Item 10\|claim for more than \$2,500"
+10
+
+Is your claim for more than $2,500?
+
+11
+
+I understand that by filing a claim in small claims court, I have no right to appeal this
+claim.
+
+Yes ✖ No
+root@4df30ae92365:~# python3 -c "from pypdf import PdfReader; reader = PdfReader('/root/sc100-filled.pdf'); fields = reader.get_fields(); checkbox10 = fields.ge
+t('SC-100[0].Page4[0].List10[0].li10[0].Checkbox63[1]'); print(f'Item 10 checkbox value: {checkbox10.get(\"/V\") if checkbox10 else \"Not found\"}')"
+Item 10 checkbox value: /2
+root@4df30ae92365:~#
+
+
+Include stop_check.

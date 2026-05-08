@@ -1,0 +1,21 @@
+```json
+{
+  "analysis": "Terminal is not showing command output. Possibly stuck or slow.",
+  "plan": "Try pressing Enter and running cat to check answer.json",
+  "commands": [
+    {
+      "keystrokes": "\n",
+      "duration": 2.0
+    },
+    {
+      "keystrokes": "cat /root/answer.json && echo 'SUCCESS'\n",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal not responding",
+    "should_stop": "No"
+  }
+}
+```

@@ -1,0 +1,13 @@
+New Terminal Output:
+
+root@30c3cd183633:~# cat /root/answer.json
+{
+  "fake_citations": [
+    "Advances in Artificial Intelligence for Natural Language Processing",
+    "Neural Networks in Deep Learning: A Comprehensive Review"
+  ]
+}
+root@30c3cd183633:~#
+
+
+Include stop_check.

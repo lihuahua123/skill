@@ -1,0 +1,65 @@
+New Terminal Output:
+21, 15)]
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import json
+> with open('/tmp/scenario_clean.json') as f:
+>     data = json.load(f)
+> tiles = data['tiles']
+>
+> # Build tile lookup
+> tile_map = {}
+> for t in tiles:
+>     tile_map[(t['x'], t['y'])] = t
+>
+> # Find all land tiles (non-ocean, non-coast, non-mountain)
+> land_tiles = []
+> for t in tiles:
+>     if t['terrain'] not in ['OCEAN', 'COAST', 'MOUNTAIN']:
+>         land_tiles.append((t['x'], t['y'], t.get('terrain'), t.get('feature'), t.get('is_hills')))
+>
+> print('Land tiles:')
+> for lt in sorted(land_tiles):
+>     print(f'  ({lt[0]}, {lt[1]}): {lt[2]} hills={lt[4]} feature={lt[3]}')
+> "
+Land tiles:
+  (20, 13): GRASS hills=None feature=FEATURE_JUNGLE
+  (20, 15): GRASS hills=None feature=FEATURE_JUNGLE
+  (21, 13): GRASS hills=None feature=FEATURE_GEOTHERMAL_FISSURE
+  (21, 14): GRASS hills=None feature=None
+  (22, 12): GRASS hills=None feature=None
+  (22, 13): GRASS hills=None feature=None
+  (22, 14): GRASS hills=None feature=None
+  (22, 15): GRASS hills=None feature=None
+  (22, 16): GRASS hills=None feature=None
+  (22, 17): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (23, 11): GRASS hills=None feature=FEATURE_FOREST
+  (23, 12): GRASS hills=None feature=None
+  (23, 13): GRASS hills=None feature=FEATURE_FOREST
+  (23, 14): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (23, 15): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (23, 16): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (23, 17): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (24, 11): GRASS hills=None feature=None
+  (24, 12): GRASS hills=None feature=FEATURE_FOREST
+  (24, 13): GRASS hills=None feature=None
+  (24, 14): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (24, 15): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (24, 16): PLAINS hills=None feature=FEATURE_FLOODPLAINS
+  (24, 17): GRASS hills=None feature=None
+  (25, 11): GRASS hills=None feature=None
+  (25, 12): GRASS hills=None feature=None
+  (25, 13): GRASS hills=None feature=None
+  (25, 14): GRASS hills=None feature=None
+  (25, 15): GRASS hills=None feature=None
+  (25, 16): GRASS hills=None feature=None
+  (25, 17): GRASS hills=None feature=None
+  (26, 12): GRASS hills=None feature=None
+  (26, 13): GRASS hills=None feature=None
+  (26, 14): GRASS hills=None feature=None
+  (26, 15): GRASS hills=None feature=None
+  (26, 16): GRASS hills=None feature=None
+  (27, 14): GRASS hills=None feature=None
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

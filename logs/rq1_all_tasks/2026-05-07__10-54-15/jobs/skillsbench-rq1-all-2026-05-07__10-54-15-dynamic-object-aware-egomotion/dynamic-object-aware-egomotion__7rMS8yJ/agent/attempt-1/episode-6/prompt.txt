@@ -1,0 +1,50 @@
+New Terminal Output:
+
+root@f72ab8c29d7d:~# python3 -c "
+> import json, numpy as np, cv2
+>
+> VIDEO_PATH = '/root/input.mp4'
+> INSTRUCTIONS_PATH = '/root/pred_instructions.json'
+> MASKS_PATH = '/root/pred_dyn_masks.npz'
+>
+> cap = cv2.VideoCapture(VIDEO_PATH)
+> n = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+> H = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+> W = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+> cap.release()
+>
+> print(f'Video: {n} frames, {H}x{W}')
+>
+> j = json.load(open(INSTRUCTIONS_PATH))
+> for k, v in j.items():
+>     s, e = k.split('->')
+>     assert s.isdigit() and e.isdigit(), f'Invalid key format: {k}'
+>     s, e = int(s), int(e)
+>     assert 0 <= s <= e < n, f'Index out of range: {k}'
+>     for lbl in v:
+>         assert isinstance(lbl, str) and lbl in ['Stay', 'Dolly In', 'Dolly Out', 'Pan Left', 'Pan Right', 'Tilt Up', 'Tilt Down', 'Roll Left', 'Roll Right']
+> print('JSON validation passed!')
+>
+> npz = np.load(MASKS_PATH)
+> assert npz['shape'][0] == H and npz['shape'][1] == W
+> frames = 0
+> while f'f_{frames}_data' in npz.files:
+>     data = npz[f'f_{frames}_data']
+>     indices = npz[f'f_{frames}_indices']
+>     indptr = npz[f'f_{frames}_indptr']
+>     assert len(indptr) == H + 1, f'Frame {frames}: bad indptr length'
+>     assert indptr[-1] == indices.size, f'Frame {frames}: indptr[-1] != indices.size'
+>     if indices.size > 0:
+>         assert indices.min() >= 0 and indices.max() < W, f'Frame {frames}: indices out of range'
+>     frames += 1
+> print(f'NPZ validation passed! {frames} frames processed.')
+> print('All validations passed!')
+> "
+Video: 207 frames, 720x1280
+JSON validation passed!
+NPZ validation passed! 22 frames processed.
+All validations passed!
+root@f72ab8c29d7d:~#
+
+
+Include stop_check.

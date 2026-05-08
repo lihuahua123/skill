@@ -1,0 +1,16 @@
+
+{
+  "analysis": "The output only shows the end of the BibTeX file. I need to see the complete file to identify all citations.",
+  "plan": "Use cat or head to view the entire BibTeX file, then analyze each citation to determine which ones are fake.",
+  "commands": [
+    {
+      "keystrokes": "cat /root/test.bib | head -200\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Need to see full BibTeX content",
+    "should_stop": "No"
+  }
+}

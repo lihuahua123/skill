@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    Returns:
+        {(4, 4): DistrictType.CAMPUS, (1, 2): DistrictType.NEIGHBORHOOD, ...}
+    """
+    placements = {}
+    raw_placements = solution.get("placements", {})
+
+    for district_name, coords in raw_placements.items():
+        if district_name not in DISTRICT_NAME_MAP:
+            continue  # Will be caught as error later
+
+        district_type = DISTRICT_NAME_MAP[district_name]
+        for x, y in _normalize_coords(coords):
+            placements[(x, y)] = district_type
+
+    return placements
+
+
+def evaluate_solution(
+    scenario: Dict[str, Any],
+    solution: Dict[str, Any],
+    ground_truth: Dict[str, Any],
+    data_dir: Optional[Path] = None,
+) -> EvaluationResult:
+    """
+    Evaluate a submitted solution against the scenario and ground truth.
+
+root@0d3c1addd3d3:/data/maps# grep -n 'load_map\|Civ6Map\|data_dir' /tests/evaluate.py
+103:    data_dir: Optional[Path] = None,
+109:    2. Map file reference: {"map_file": "maps/foo.Civ6Map"}
+113:        data_dir: Base directory for resolving map_file paths
+116:    if "map_file" in scenario and data_dir:
+117:        map_path = data_dir / scenario["map_file"]
+196:    data_dir: Optional[Path] = None,
+205:        data_dir: Base directory for resolving map_file paths
+218:    tiles = build_tiles_dict(scenario, data_dir)
+452:    # Determine data_dir from scenario_path
+453:    # Scenario is at /data/scenario_XX/scenario.json, so data_dir is /data
+454:    data_dir = scenario_path.parent.parent
+456:    result = evaluate_solution(scenario, solution, ground_truth, data_dir)
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

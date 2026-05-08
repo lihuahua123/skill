@@ -1,0 +1,144 @@
+New Terminal Output:
+
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 2 -l 2 /root/sc100-filled.pdf - | head -40
+Plaintiff (list names):
+
+Case Number:
+
+Joyce He
+1
+
+The plaintiff (the person, business, or public entity that is suing) is:
+Name: Joyce He
+
+Phone: 4125886066
+
+Street address: 655 S Fair Oaks Ave
+Street
+
+Sunnyvale
+
+CA
+
+94086
+
+City
+
+State
+
+Zip
+
+City
+
+State
+
+Zip
+
+City
+
+State
+
+Zip
+
+City
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 3 -l 3 /root/sc100-filled.pdf - | head -40
+Plaintiff (list names):
+
+Case Number:
+
+Joyce He
+3
+
+b. When did this happen? (Date): 2025-09-30
+If no specific date, give the time period: Date started: 2026-01-19
+
+Through:
+
+c. How did you calculate the money owed to you? (Do not include court costs or fees for service.)
+I have asked the defendant to return the money multiple times via text but he is not responding. The amount is
+listed on the signed roommate sublease contract.
+
+Check here if you need more space. Attach one sheet of paper or form MC-031 and write “SC-100, Item 3” at
+the top.
+4
+
+You must ask the defendant (in person, in writing, or by phone) to pay you before you
+sue. If your claim is for possession of property, you must ask the defendant to give you
+the property. Have you done this?
+✖
+
+5
+
+Yes
+
+No
+
+If no, explain why not:
+
+Why are you filing your claim at this courthouse?
+This courthouse covers the area (check the one that applies):
+a.
+
+✖
+
+b.
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 4 -l 4 /root/sc100-filled.pdf -
+Plaintiff (list names):
+
+Case Number:
+
+Joyce He
+
+9
+
+Have you filed more than 12 other small claims within the last 12 months in California?
+Yes
+
+No
+
+If yes, the filing fee for this case will be higher.
+
+10
+
+Is your claim for more than $2,500?
+
+11
+
+I understand that by filing a claim in small claims court, I have no right to appeal this
+claim.
+
+Yes
+No
+If you answer yes, you also confirm that you have not filed, and you understand that you may not file, more than two
+small claims cases for more than $2,500 in California during this calendar year.
+
+I declare under penalty of perjury under the laws of the State of California that the information above and on any
+attachments to this form is true and correct.
+Date: 2026-01-19
+Joyce He
+Plaintiff types or prints name here
+
+Plaintiff signs here
+
+Second plaintiff types or prints name here
+
+Second plaintiff signs here
+
+Date:
+
+Requests for Accommodations
+Assistive listening systems, computer-assisted real-time captioning, or sign language interpreter
+services are available if you ask at least five days before the trial. For these and other accommodations,
+contact the clerk’s office for form MC-410, Disability Accommodation Request. (Civ. Code, § 54.8.)
+
+Rev. January 1, 2026
+
+Plaintiff’s Claim and ORDER to Go to Small Claims Court
+
+SC-100, Page 4 of 6
+
+
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

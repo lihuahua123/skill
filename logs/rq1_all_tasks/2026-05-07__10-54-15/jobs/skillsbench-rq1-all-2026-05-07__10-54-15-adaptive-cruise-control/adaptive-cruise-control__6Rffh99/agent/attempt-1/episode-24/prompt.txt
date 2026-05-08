@@ -1,0 +1,36 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# grep ',follow,' simulation_results.csv | head -20 | tail -10
+31.0,28.01173036592476,-0.22147541422001882,follow,-4.800816861020138,47.25,14.055261682773969
+31.1,27.703389562277966,-3.0834080364679193,follow,-6.697595548887136,45.32,14.842521425988377
+31.2,27.695665572593455,-0.07723989684510713,follow,-4.115084343416953,47.44,18.857832502391425
+31.3,27.2317062017258,-4.639593708676564,follow,-8.183498358890184,43.36,11.841474332256364
+31.4,27.2517062017258,0.2,follow,-4.6475593025886965,46.2,13.04456026801086
+31.5,26.901302679599812,-3.5040352212598584,follow,-7.067559302588698,43.81,18.8730234902209
+31.6,26.596349189325064,-3.049534902747475,follow,-7.991954019399721,42.36,17.976962069927026
+31.7,26.36307894896704,-2.3327024035802366,follow,-7.654523783987592,42.24,37.6108910587724
+31.8,26.12984470199668,-2.332342469703576,follow,-7.424618423450561,42.12,23.272715031036533
+31.9,25.962214343225316,-1.6763035877136487,follow,-6.444767052995019,42.75,21.14019225668048
+root@bfb65fae2dcc:~# python3 -c "
+> import pandas as pd
+> df = pd.read_csv('simulation_results.csv')
+> follow = df[df['mode']=='follow']
+> dist = pd.to_numeric(follow['distance'], errors='coerce')
+> err = pd.to_numeric(follow['distance_error'], errors='coerce')
+> print('Distance stats in follow mode:')
+> print('Mean distance:', dist.mean())
+> print('Min distance:', dist.min())
+> print('Max distance:', dist.max())
+> print('Mean distance_error:', err.mean())
+> print('Last 100 rows dist_error mean:', err.iloc[-100:].mean())
+> "
+Distance stats in follow mode:
+Mean distance: 60.46029197080293
+Min distance: 33.6
+Max distance: 135.33
+Mean distance_error: 17.491506282539493
+Last 100 rows dist_error mean: 53.010607807491354
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

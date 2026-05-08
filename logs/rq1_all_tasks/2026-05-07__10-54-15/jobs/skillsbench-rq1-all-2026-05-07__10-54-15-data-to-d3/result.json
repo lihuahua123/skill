@@ -1,0 +1,28 @@
+{
+    "id": "8942212b-7baa-4385-b060-5d5b2426cc87",
+    "started_at": "2026-05-07T11:18:22.450671",
+    "finished_at": null,
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 0,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {},
+                "exception_stats": {
+                    "CancelledError": [
+                        "data-to-d3__jaGPZGN"
+                    ]
+                }
+            }
+        }
+    },
+    "trial_results": []
+}

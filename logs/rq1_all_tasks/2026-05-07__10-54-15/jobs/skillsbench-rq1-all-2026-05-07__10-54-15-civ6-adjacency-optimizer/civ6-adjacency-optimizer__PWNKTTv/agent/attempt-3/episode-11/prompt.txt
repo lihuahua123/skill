@@ -1,0 +1,44 @@
+Current Terminal Screen:
+> print('Tables:', cursor.fetchall())
+> conn.close()
+> "
+Tables: []
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> with open('/data/maps/e2e_test_case_0 Civ6Map', 'rb') as f:
+>     data = f.read(1000)
+>     print('First 200 bytes:', data[:200])
+>     print('Is SQLite:', data[:16] == b'SQLite format 3')
+> "
+First 200 bytes: b''
+Is SQLite: False
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> with open('/data/maps/e2e_test_case_0 Civ6Map', 'rb') as f:
+>     data = f.read(1000)
+>     print('Text preview:', data[:500])
+> "
+Text preview: b''
+root@0d3c1addd3d3:/data/maps# ls -la /data/
+total 32
+drwxr-xr-x 1 root root 4096 May  7 02:54 .
+drwxr-xr-x 1 root root 4096 May  7 03:07 ..
+drwxrwxr-x 1 root root 4096 May  7 02:56 maps
+drwxrwxr-x 2 root root 4096 May  1 13:38 scenario_1
+drwxrwxr-x 2 root root 4096 May  1 13:38 scenario_2
+drwxrwxr-x 2 root root 4096 May  1 13:38 scenario_3
+root@0d3c1addd3d3:/data/maps# find /data -name '*.Civ6Map' -o -name '*Map*' 2>/dev/null
+/data/maps/e2e_test_case_0.Civ6Map
+/data/maps/e2e_test_case_0.MockitoMap
+/data/maps/e2e_test_case_0MockitoMap
+/data/maps/e2e_test_case_0 Civ6Map
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> with open('/data/maps/e2e_test_case_0.MockitoMap', 'rb') as f:
+>     data = f.read()
+>     print('MockitoMap size:', len(data))
+>     print('Content:', data[:500])
+> "
+MockitoMap size: 0
+Content: b''
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

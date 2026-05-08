@@ -1,0 +1,44 @@
+Current Terminal Screen:
+        solution = {
+            'cities': [
+                {'center': [21, 13]},
+                {'center': [10, 10]}
+            ],
+            'placements': {'CAMPUS': [21, 14]},
+            'adjacency_bonuses': {'CAMPUS': 6},
+            'total_adjacency': 6
+        }
+
+        result = evaluate_solution(scenario, solution, gt, self.data_dir)
+
+        self.assertFalse(result.valid)
+        self.assertIn("Expected 1 cities, got 2", result.errors[0])
+
+    def test_suboptimal_solution_partial_score(self):
+        """Suboptimal solution gets partial score."""
+        from evaluate import evaluate_solution
+
+        scenario, gt = self._load_scenario(1)
+
+        # Place campus at (22, 12) - adjacent to mountain (+1) and geothermal (+2) = 3
+        # This is suboptimal compared to optimal of 9
+        solution = {
+            'city_center': [21, 13],
+            'placements': {'CAMPUS': [22, 12]},
+            'adjacency_bonuses': {'CAMPUS': 3},
+            'total_adjacency': 3
+        }
+
+        result = evaluate_solution(scenario, solution, gt, self.data_dir)
+
+        self.assertTrue(result.valid, f"Errors: {result.errors}")
+        self.assertEqual(result.total_adjacency, 3)
+        self.assertAlmostEqual(result.score, 3 / 9)  # 3/9
+
+
+if __name__ == "__main__":
+    unittest.main()
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

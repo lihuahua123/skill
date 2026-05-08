@@ -1,0 +1,10 @@
+New Terminal Output:
+
+root@8ac6954772f6:~# cat /root/mass_report.json
+{
+  "main_part_mass": 34648.04,
+  "material_id": 42
+}root@8ac6954772f6:~#
+
+
+Include stop_check.

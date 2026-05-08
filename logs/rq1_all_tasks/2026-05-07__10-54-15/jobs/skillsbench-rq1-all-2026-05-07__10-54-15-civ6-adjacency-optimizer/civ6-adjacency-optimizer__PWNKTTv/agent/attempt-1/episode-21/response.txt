@@ -1,0 +1,20 @@
+{
+  "analysis": "The script file is incomplete. Let me write a complete script properly.",
+  "plan": "Write a complete Python script to a file and execute it.",
+  "commands": [
+    {
+      "keystrokes": "cat > /tmp/parse_map.py << 'ENDSCRIPT'\nimport sqlite3\nconn = sqlite3.connect(\"/data/maps/e2e_test_case_0 Civ6Map\")\ncursor = conn.cursor()\ncursor.execute(\"SELECT name FROM sqlite_master WHERE type='table';\")\nprint(cursor.fetchall())\nENDSCRIPT\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "cat /tmp/parse_map.py\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Writing script file",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

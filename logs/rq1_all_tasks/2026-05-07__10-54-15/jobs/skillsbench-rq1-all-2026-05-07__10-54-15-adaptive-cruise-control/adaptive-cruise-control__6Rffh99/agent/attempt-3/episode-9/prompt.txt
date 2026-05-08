@@ -1,0 +1,44 @@
+Current Terminal Screen:
+   390              cruise_when_no_lead = (no_lead['mode'] == 'cruise').mean()
+   391              assert cruise_when_no_lead > 0.95, "Mode should be 'cruise' when no lead vehicle"
+   392
+   393          with_lead = merged[merged['lead_speed'].notna()]
+   394          if len(with_lead) > 0:
+   395              not_cruise_when_lead = (with_lead['mode'] != 'cruise').mean()
+   396              assert not_cruise_when_lead > 0.9, "Mode should be 'follow' or 'emergency' when lead present"
+   397
+   398          # Distance column must be empty when sensor shows no lead, non-empty when lead present
+   399          if len(no_lead) > 0:
+   400              empty_dist = no_lead['distance_sim'].apply(lambda x: x == '' or pd.isna(x)).mean()
+   401              assert empty_dist > 0.95, "Distance should be empty when no lead vehicle in sensor data"
+   402
+   403          if len(with_lead) > 0:
+   404              has_dist = with_lead['distance_sim'].apply(lambda x: x != '' and pd.notna(x)).mean()
+   405              assert has_dist > 0.9, "Distance should be present when lead vehicle in sensor data"
+   406
+   407          # TTC should only be present when ego is faster than lead (approaching)
+   408          if len(with_lead) > 0:
+   409              for _, row in with_lead.head(50).iterrows():
+   410                  ego_speed = row['ego_speed_sim']
+   411                  lead_speed = row['lead_speed']
+   412                  ttc_val = row['ttc']
+   413                  if ego_speed <= lead_speed:
+   414                      assert ttc_val == '' or pd.isna(ttc_val), \
+   415                          f"TTC should be empty when not approaching at t={row['time']}"
+   416
+   417          # Distance changes must be consistent with sensor lead_speed (physics check)
+   418          if len(with_lead) >= 10:
+   419              with_lead = with_lead.copy()
+   420              with_lead['sim_dist'] = pd.to_numeric(with_lead['distance_sim'], errors='coerce')
+   421              with_lead['dist_change'] = with_lead['sim_dist'].diff()
+   422              with_lead['relative_speed'] = with_lead['ego_speed_sim'] - with_lead['lead_speed']
+   423              with_lead['expected_change'] = -with_lead['relative_speed'] * 0.1  # dt = 0.1s
+   424
+   425              valid = with_lead.dropna()
+   426              if len(valid) > 10:
+   427                  matches = abs(valid['dist_change'] - valid['expected_change']) < 2.0  # 2m tolerance
+   428                  assert matches.mean() > 0.7, "Distance changes must follow physics based on sensor lead_speed"
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

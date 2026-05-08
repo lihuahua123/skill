@@ -1,0 +1,85 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: pytest==8.4.1 in /usr/local/lib/python3.12/dist-packages (8.4.1)
+Requirement already satisfied: pytest-json-ctrf==0.3.5 in /usr/local/lib/python3.12/dist-packages (0.3.5)
+Requirement already satisfied: pandas==2.2.2 in /usr/local/lib/python3.12/dist-packages (2.2.2)
+Requirement already satisfied: pyyaml==6.0.1 in /usr/local/lib/python3.12/dist-packages (6.0.1)
+Requirement already satisfied: numpy==1.26.4 in /usr/local/lib/python3.12/dist-packages (1.26.4)
+Requirement already satisfied: iniconfig>=1 in /usr/local/lib/python3.12/dist-packages (from pytest==8.4.1) (2.3.0)
+Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.12/dist-packages (from pytest==8.4.1) (26.2)
+Requirement already satisfied: pluggy<2,>=1.5 in /usr/local/lib/python3.12/dist-packages (from pytest==8.4.1) (1.6.0)
+Requirement already satisfied: pygments>=2.7.2 in /usr/local/lib/python3.12/dist-packages (from pytest==8.4.1) (2.20.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas==2.2.2) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas==2.2.2) (2026.2)
+Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas==2.2.2) (2026.2)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas==2.2.2) (1.17.0)
+=== Debug: Finding test files ===
+/tests/test_outputs.py
+=== Debug: Contents of /tests ===
+total 40
+drwxrwxr-x 4 1002 1002  4096 May  7 03:21 .
+drwxr-xr-x 1 root root  4096 May  7 03:21 ..
+drwxr-xr-x 3 root root  4096 May  7 03:10 .pytest_cache
+drwxr-xr-x 2 root root  4096 May  7 03:10 __pycache__
+-rwxrwxr-x 1 1002 1002  2146 May  5 04:53 test.sh
+-rw-rw-r-- 1 1002 1002 17947 May  1 13:38 test_outputs.py
+=== Debug: Contents of script directory ===
+total 40
+drwxrwxr-x 4 1002 1002  4096 May  7 03:21 .
+drwxr-xr-x 1 root root  4096 May  7 03:21 ..
+drwxr-xr-x 3 root root  4096 May  7 03:10 .pytest_cache
+drwxr-xr-x 2 root root  4096 May  7 03:10 __pycache__
+-rwxrwxr-x 1 1002 1002  2146 May  5 04:53 test.sh
+-rw-rw-r-- 1 1002 1002 17947 May  1 13:38 test_outputs.py
+=== Debug: Current working directory ===
+/root
+total 224
+drwx------ 1 root root   4096 May  7 03:20 .
+drwxr-xr-x 1 root root   4096 May  7 03:21 ..
+drwxr-xr-x 3 root root   4096 May  5 04:58 .agents
+-rw-r--r-- 1 root root   3106 Apr 22  2024 .bashrc
+drwxr-xr-x 1 root root   4096 May  5 04:58 .cache
+drwxr-xr-x 3 root root   4096 May  5 04:58 .claude
+drwxr-xr-x 3 root root   4096 May  5 04:58 .codex
+drwxr-xr-x 3 root root   4096 May  7 02:54 .config
+drwxr-xr-x 3 root root   4096 May  5 04:58 .factory
+drwxr-xr-x 3 root root   4096 May  5 04:58 .gemini
+drwxr-xr-x 3 root root   4096 May  5 04:58 .goose
+drwxr-xr-x 3 root root   4096 May  5 04:58 .opencode
+-rw-r--r-- 1 root root    161 Apr 22  2024 .profile
+drwxr-xr-x 2 root root   4096 May  7 03:20 __pycache__
+-rw-r--r-- 1 root root   1189 May  7 03:20 acc_report.md
+-rw-r--r-- 1 root root   3461 May  7 03:20 acc_system.py
+-rw-r--r-- 1 root root    775 May  7 02:57 pid_controller.py
+-rw-rw-r-- 1 root root  28478 May  1 13:38 sensor_data.csv
+-rw-r--r-- 1 root root   7083 May  7 03:20 simulation.py
+-rw-r--r-- 1 root root 106347 May  7 03:20 simulation_results.csv
+-rw-r--r-- 1 root root     86 May  7 03:20 tuning_results.yaml
+-rw-rw-r-- 1 root root    463 May  1 13:38 vehicle_params.yaml
+=== Found test file at: /tests/test_outputs.py ===
+=== Removing pre-existing simulation_results.csv ===
+=== Running simulation.py to generate results ===
+Speed PID: {'kp': 2.5, 'ki': 0.4, 'kd': 0.6}
+Distance PID: {'kp': 1.2, 'ki': 0.15, 'kd': 0.3}
+Saved 1501 rows to simulation_results.csv
+Report saved to acc_report.md
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collecting ... collected 12 items
+
+../tests/test_outputs.py::TestInputFilesIntegrity::test_input_files_integrity PASSED [  8%]
+../tests/test_outputs.py::TestPIDController::test_pid_controller PASSED  [ 16%]
+../tests/test_outputs.py::TestACCSystem::test_acc_system PASSED          [ 25%]
+../tests/test_outputs.py::TestTuningResults::test_tuning_results PASSED  [ 33%]
+../tests/test_outputs.py::TestSimulationResults::test_simulation_results PASSED [ 41%]
+../tests/test_outputs.py::TestReport::test_report_keywords PASSED        [ 50%]
+../tests/test_outputs.py::TestSpeedControl::test_speed_control PASSED    [ 58%]
+../tests/test_outputs.py::TestDistanceControl::test_distance_control PASSED [ 66%]
+../tests/test_outputs.py::TestSafety::test_safety PASSED                 [ 75%]
+../tests/test_outputs.py::TestScenario::test_scenario PASSED             [ 83%]
+../tests/test_outputs.py::TestSimulationExecution::test_simulation_execution PASSED [ 91%]
+../tests/test_outputs.py::TestAntiCheat::test_anti_cheat PASSED          [100%]
+
+============================== 12 passed in 2.48s ==============================

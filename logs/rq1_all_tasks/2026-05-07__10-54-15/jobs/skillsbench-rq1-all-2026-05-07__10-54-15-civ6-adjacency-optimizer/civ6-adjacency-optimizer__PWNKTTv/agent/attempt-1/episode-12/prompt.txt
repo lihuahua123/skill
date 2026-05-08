@@ -1,0 +1,25 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# ls -la '/data/maps/e2e_test_case_0 Civ6Map'
+-rw-r--r-- 1 root root 0 May  7 02:56 '/data/maps/e2e_test_case_0 Civ6Map'
+root@0d3c1addd3d3:~# file '/data/maps/e2e_test_case_0 Civ6Map'
+bash: file: command not found
+root@0d3c1addd3d3:~# cat > /tmp/parse_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> dbpath = '/data/maps/e2e_test_case_0 Civ6Map'
+> print("File exists:", os.path.exists(dbpath))
+> print("File size:", os.path.getsize(dbpath))
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+> cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+> print(cursor.fetchall())
+> ENDSCRIPT
+root@0d3c1addd3d3:~# python3 /tmp/parse_map.py
+File exists: True
+File size: 0
+[]
+root@0d3c1addd3d3:~#
+
+
+Include stop_check.

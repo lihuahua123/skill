@@ -1,0 +1,32 @@
+New Terminal Output:
+ -1)
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/tmp/map.db')
+> cursor = conn.cursor()
+> cursor.execute('SELECT * FROM Map LIMIT 1')
+> for row in cursor.fetchall():
+>     print(row)
+> conn.close()
+> "
+('Default', 44, 26, 90, -90, 1, 0, 'MAPSIZE_DUEL')
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/tmp/map.db')
+> cursor = conn.cursor()
+> cursor.execute('PRAGMA table_info(PlotRivers)')
+> for row in cursor.fetchall():
+>     print(row)
+> conn.close()
+> "
+(0, 'ID', 'INTEGER', 1, None, 1)
+(1, 'IsNEOfRiver', 'BOOLEAN', 0, None, 0)
+(2, 'IsWOfRiver', 'BOOLEAN', 0, None, 0)
+(3, 'IsNWOfRiver', 'BOOLEAN', 0, None, 0)
+(4, 'EFlowDirection', 'INTEGER', 0, None, 0)
+(5, 'SEFlowDirection', 'INTEGER', 0, None, 0)
+(6, 'SWFlowDirection', 'INTEGER', 0, None, 0)
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

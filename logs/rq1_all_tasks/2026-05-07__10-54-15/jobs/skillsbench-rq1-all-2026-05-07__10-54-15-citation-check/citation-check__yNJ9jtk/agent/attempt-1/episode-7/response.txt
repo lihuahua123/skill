@@ -1,0 +1,25 @@
+```json
+{
+  "analysis": "Current date is May 2026, so a 2025 paper is plausible. Confirmed fakes: wilson2021neural and smith2020ai (invalid DOIs). Need to verify clue benchmark and patel2023blockchain.",
+  "plan": "1. Search for CLUE benchmark (Chinese Language Understanding benchmark)\n2. Search for the Patel blockchain paper at ACM/ICIS\n3. Write final answer",
+  "commands": [
+    {
+      "keystrokes": "curl -s 'https://api.crossref.org/works?query=CLUE+Chinese+Language+Understanding+Evaluation+Xu+ACL&rows=5' | grep -i 'title\\|clue' | head -20\n",
+      "duration": 3.0
+    },
+    {
+      "keystrokes": "curl -s 'https://api.crossref.org/works?query=Patel+Blockchain+Supply+Chain+ICIS+2023+ACM&rows=5' | grep -i 'patel\\|title' | head -15\n",
+      "duration": 3.0
+    },
+    {
+      "keystrokes": "curl -s 'https://search.york.ac.uk/s/search.json?q=Patel+Blockchain+Supply+Chain+ICIS+2023' 2>/dev/null | head -5 || echo 'search failed'\n",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "None",
+    "should_stop": "No"
+  }
+}
+```

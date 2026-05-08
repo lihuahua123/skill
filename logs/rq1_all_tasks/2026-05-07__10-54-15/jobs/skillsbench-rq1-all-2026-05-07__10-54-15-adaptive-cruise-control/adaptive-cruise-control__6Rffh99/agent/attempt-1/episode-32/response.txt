@@ -1,0 +1,23 @@
+{
+  "analysis": "All required files are in place and all performance metrics are passing. Let me verify the CSV format matches the required format exactly.",
+  "plan": "1. Check simulation_results.csv format matches the example\n2. Confirm task completion",
+  "commands": [
+    {
+      "keystrokes": "head -5 simulation_results.csv\n",
+      "duration": 0.3
+    },
+    {
+      "keystrokes": "sed -n '301,305p' simulation_results.csv\n",
+      "duration": 0.3
+    },
+    {
+      "keystrokes": "grep ',follow,' simulation_results.csv | head -3\n",
+      "duration": 0.3
+    }
+  ],
+  "stop_check": {
+    "progress_score": 2,
+    "stuck_reason": "All files complete, metrics passing",
+    "should_stop": "No"
+  }
+}

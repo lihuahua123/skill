@@ -1,0 +1,92 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph; g = Graph.from_file('/app/dialogue.json'); errors = g.validate(); print('Errors:', len(err
+ors)); print(errors[:10] if errors else 'No errors')"
+Errors: 0
+No errors
+root@0588585e24cd:/app# head -80 /app/dialogue.json
+{
+  "nodes": [
+    {
+      "id": "Start",
+      "text": "The tavern door creaks open. Smoke and laughter fill the air.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "TavernEntry",
+      "text": "Three figures catch your eye: a hooded stranger, a boisterous merchant, and the barkeep.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "TavernChoice",
+      "text": "1. Approach the hooded stranger.\n2. Sit next to the merchant.\n3. Order a drink from the barkeep.\n4. [Observe] Study the room from the shadows.
+",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "ObserveRoom",
+      "text": "You notice the stranger slipping a note to the barkeep. The merchant counts gold nervously.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "ObserveChoice",
+      "text": "1. Intercept the note.\n2. Pickpocket the merchant.\n3. Pretend you saw nothing.",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "InterceptNote",
+      "text": "You dare?!",
+      "speaker": "Stranger",
+      "type": "line"
+    },
+    {
+      "id": "PickpocketAttempt",
+      "text": "1. [Sleight of Hand] Swiftly grab the pouch.\n2. [Distraction] Bump into him accidentally.\n3. Abandon the attempt.",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "PickpocketSuccess",
+      "text": "50 gold pieces heavier, you slip away. The merchant hasn't noticed... yet.",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+    {
+      "id": "PickpocketDistract",
+      "text": "Watch it, friend!",
+      "speaker": "Merchant",
+      "type": "line"
+    },
+    {
+      "id": "MerchantAnnoyed",
+      "text": "1. Apologize profusely.\n2. [Intimidate] You watch where YOU'RE going.\n3. Use the distraction to grab the gold.",
+      "speaker": null,
+      "type": "choice"
+    },
+    {
+      "id": "MerchantCalm",
+      "text": "Hmph. Buy me a drink and we're even.",
+      "speaker": "Merchant",
+      "type": "line"
+    },
+    {
+      "id": "MerchantFight",
+      "text": "Why you little\u2014!",
+      "speaker": "Merchant",
+      "type": "line"
+    },
+    {
+      "id": "PickpocketAfter",
+      "text": "But where to spend your ill-gotten gains?",
+      "speaker": "Narrator",
+      "type": "line"
+    },
+root@0588585e24cd:/app#
+
+
+Include stop_check.

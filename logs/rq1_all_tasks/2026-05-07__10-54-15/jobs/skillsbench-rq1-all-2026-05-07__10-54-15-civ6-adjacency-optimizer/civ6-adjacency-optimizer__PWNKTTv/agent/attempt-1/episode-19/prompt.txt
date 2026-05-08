@@ -1,0 +1,14 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cd /data/maps && python3 << 'ENDPY'
+> import sqlite3
+> conn = sqlite3.connect('e2e_test_case_0 Civ6Map')
+> cursor = conn.cursor()
+> cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+> print("Tables:", cursor.fetchall())
+> ENDPY
+Tables: []
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

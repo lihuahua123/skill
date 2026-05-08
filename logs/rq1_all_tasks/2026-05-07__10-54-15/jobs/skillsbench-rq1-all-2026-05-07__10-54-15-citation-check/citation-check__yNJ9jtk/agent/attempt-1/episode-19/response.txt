@@ -1,0 +1,17 @@
+```json
+{
+  "analysis": "Terminal is showing commands but not output. Waiting for response.",
+  "plan": "Wait for ls output",
+  "commands": [
+    {
+      "keystrokes": "",
+      "duration": 3.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal lag",
+    "should_stop": "No"
+  }
+}
+```

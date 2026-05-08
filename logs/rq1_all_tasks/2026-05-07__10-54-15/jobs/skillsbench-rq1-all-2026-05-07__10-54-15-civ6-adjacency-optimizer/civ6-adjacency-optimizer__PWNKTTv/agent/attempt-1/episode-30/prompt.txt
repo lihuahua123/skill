@@ -1,0 +1,204 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/full_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> import json
+>
+> dbpath = None
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     if os.path.getsize(fp) > 0:
+>         dbpath = fp
+>         break
+>
+> conn = sqlite3.connect(dbpath)
+> cursor = conn.cursor()
+>
+> # Get dimensions
+> cursor.execute("SELECT * FROM Map LIMIT 1")
+> map_row = cursor.fetchone()
+> _, width, height = map_row[0], map_row[1], map_row[2]
+>
+> # Extract all plots
+> cursor.execute("SELECT * FROM Plots ORDER BY ID")
+> plots = {}
+> for row in cursor.fetchall():
+>     pid, terrain, continent, impassable = row
+>     x = pid % width
+>     y = pid // width
+>     plots[pid] = {'x': x, 'y': y, 'terrain': terrain, 'continent': continent, 'impassable': bool(impassable)}
+>
+> # Extract features
+> cursor.execute("SELECT * FROM PlotFeatures")
+> for row in cursor.fetchall():
+>     pid, feature = row
+>     if pid in plots:
+>         plots[pid]['feature'] = feature
+>
+> # Extract rivers (bidirectional)
+> rivers = set()
+> cursor.execute("SELECT * FROM PlotRivers")
+> for row in cursor.fetchall():
+>     pid = row[0]
+>     is_ne, is_w, is_nw = bool(row[1]), bool(row[2]), bool(row[3])
+>     if pid in plots:
+>         plots[pid]['river_directions'] = {'NE': is_ne, 'W': is_w, 'NW': is_nw}
+>         if is_ne: rivers.add((pid, 'NE'))
+>         if is_w: rivers.add((pid, 'W'))
+>         if is_nw: rivers.add((pid, 'NW'))
+>
+> # Extract resources
+> cursor.execute("SELECT * FROM PlotResources")
+> for row in cursor.fetchall():
+>     print("Resource:", row)
+>
+> # Find all land tiles
+> land_tiles = [p for p in plots.values() if p['terrain'] not in ['TERRAIN_OCEAN']]
+> print(f"\nTotal land tiles: {len(land_tiles)}")
+>
+> # Print land tiles with their details
+> print("\nLand tiles details:")
+> for t in sorted(land_tiles, key=lambda p: (p['y'], p['x'])):
+>     feat = t.get('feature', 'NONE')
+>     print(f"  ({t['x']}, {t['y']}): {t['terrain']}, feature={feat}, river={t.get('river_directions', {})}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/full_map.py
+
+Total land tiles: 130
+
+Land tiles details:
+  (3, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (5, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (6, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (7, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (8, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (10, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (11, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (12, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (13, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (14, 0): TERRAIN_COAST, feature=NONE, river={}
+  (17, 0): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (3, 1): TERRAIN_COAST, feature=NONE, river={}
+  (4, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (5, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (6, 1): TERRAIN_COAST, feature=NONE, river={}
+  (7, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (9, 1): TERRAIN_COAST, feature=NONE, river={}
+  (10, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (11, 1): TERRAIN_COAST, feature=NONE, river={}
+  (12, 1): TERRAIN_COAST, feature=NONE, river={}
+  (13, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (14, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (15, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (16, 1): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (3, 2): TERRAIN_COAST, feature=NONE, river={}
+  (4, 2): TERRAIN_COAST, feature=NONE, river={}
+  (8, 2): TERRAIN_COAST, feature=NONE, river={}
+  (9, 2): TERRAIN_COAST, feature=NONE, river={}
+  (13, 2): TERRAIN_COAST, feature=NONE, river={}
+  (14, 2): TERRAIN_COAST, feature=NONE, river={}
+  (15, 2): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (16, 2): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (34, 2): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (35, 2): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (3, 3): TERRAIN_COAST, feature=NONE, river={}
+  (8, 3): TERRAIN_COAST, feature=NONE, river={}
+  (13, 3): TERRAIN_COAST, feature=NONE, river={}
+  (14, 3): TERRAIN_COAST, feature=NONE, river={}
+  (15, 3): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (30, 3): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (31, 3): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (34, 3): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (35, 3): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (17, 4): TERRAIN_COAST, feature=NONE, river={}
+  (28, 4): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (29, 4): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (30, 4): TERRAIN_COAST, feature=NONE, river={}
+  (31, 4): TERRAIN_COAST, feature=NONE, river={}
+  (32, 4): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (33, 4): TERRAIN_COAST, feature=NONE, river={}
+  (34, 4): TERRAIN_COAST, feature=NONE, river={}
+  (35, 4): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (36, 4): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (29, 5): TERRAIN_COAST, feature=NONE, river={}
+  (38, 5): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (22, 10): TERRAIN_COAST, feature=NONE, river={}
+  (23, 10): TERRAIN_COAST, feature=NONE, river={}
+  (24, 10): TERRAIN_COAST, feature=NONE, river={}
+  (25, 10): TERRAIN_COAST, feature=NONE, river={}
+  (26, 10): TERRAIN_COAST, feature=NONE, river={}
+  (21, 11): TERRAIN_COAST, feature=NONE, river={}
+  (22, 11): TERRAIN_GRASS_MOUNTAIN, feature=NONE, river={}
+  (23, 11): TERRAIN_GRASS, feature=FEATURE_FOREST, river={}
+  (24, 11): TERRAIN_GRASS, feature=NONE, river={}
+  (25, 11): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 11): TERRAIN_COAST, feature=NONE, river={}
+  (20, 12): TERRAIN_COAST, feature=NONE, river={}
+  (21, 12): TERRAIN_COAST, feature=NONE, river={}
+  (22, 12): TERRAIN_GRASS, feature=NONE, river={}
+  (23, 12): TERRAIN_GRASS, feature=NONE, river={}
+  (24, 12): TERRAIN_GRASS, feature=FEATURE_FOREST, river={}
+  (25, 12): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 12): TERRAIN_GRASS, feature=NONE, river={}
+  (27, 12): TERRAIN_COAST, feature=NONE, river={}
+  (19, 13): TERRAIN_COAST, feature=NONE, river={}
+  (20, 13): TERRAIN_GRASS, feature=FEATURE_JUNGLE, river={}
+  (21, 13): TERRAIN_GRASS, feature=FEATURE_GEOTHERMAL_FISSURE, river={'NE': False, 'W': True, 'NW': True}
+  (22, 13): TERRAIN_GRASS, feature=NONE, river={}
+  (23, 13): TERRAIN_GRASS, feature=FEATURE_FOREST, river={}
+  (24, 13): TERRAIN_GRASS, feature=NONE, river={}
+  (25, 13): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 13): TERRAIN_GRASS, feature=NONE, river={}
+  (27, 13): TERRAIN_COAST, feature=NONE, river={}
+  (20, 14): TERRAIN_COAST, feature=FEATURE_REEF, river={}
+  (21, 14): TERRAIN_GRASS, feature=NONE, river={}
+  (22, 14): TERRAIN_GRASS, feature=NONE, river={'NE': False, 'W': True, 'NW': True}
+  (23, 14): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': False, 'W': True, 'NW': False}
+  (24, 14): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': True, 'W': False, 'NW': False}
+  (25, 14): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 14): TERRAIN_GRASS, feature=NONE, river={}
+  (27, 14): TERRAIN_GRASS, feature=NONE, river={}
+  (28, 14): TERRAIN_COAST, feature=NONE, river={}
+  (19, 15): TERRAIN_COAST, feature=NONE, river={}
+  (20, 15): TERRAIN_GRASS, feature=FEATURE_JUNGLE, river={}
+  (21, 15): TERRAIN_GRASS_MOUNTAIN, feature=NONE, river={}
+  (22, 15): TERRAIN_GRASS, feature=NONE, river={'NE': False, 'W': False, 'NW': True}
+  (23, 15): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': False, 'W': True, 'NW': True}
+  (24, 15): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={}
+  (25, 15): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 15): TERRAIN_GRASS, feature=NONE, river={}
+  (27, 15): TERRAIN_COAST, feature=NONE, river={}
+  (20, 16): TERRAIN_COAST, feature=NONE, river={}
+  (21, 16): TERRAIN_COAST, feature=NONE, river={}
+  (22, 16): TERRAIN_GRASS, feature=NONE, river={}
+  (23, 16): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': False, 'W': True, 'NW': False}
+  (24, 16): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': True, 'W': False, 'NW': False}
+  (25, 16): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 16): TERRAIN_GRASS, feature=NONE, river={}
+  (27, 16): TERRAIN_COAST, feature=NONE, river={}
+  (21, 17): TERRAIN_COAST, feature=NONE, river={}
+  (22, 17): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': False, 'W': True, 'NW': False}
+  (23, 17): TERRAIN_PLAINS, feature=FEATURE_FLOODPLAINS_PLAINS, river={'NE': True, 'W': False, 'NW': False}
+  (24, 17): TERRAIN_GRASS, feature=NONE, river={}
+  (25, 17): TERRAIN_GRASS, feature=NONE, river={}
+  (26, 17): TERRAIN_COAST, feature=NONE, river={}
+  (22, 18): TERRAIN_COAST, feature=NONE, river={}
+  (23, 18): TERRAIN_COAST, feature=NONE, river={}
+  (24, 18): TERRAIN_COAST, feature=NONE, river={}
+  (25, 18): TERRAIN_COAST, feature=NONE, river={}
+  (26, 18): TERRAIN_COAST, feature=NONE, river={}
+  (25, 23): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (26, 23): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (38, 24): TERRAIN_COAST, feature=NONE, river={}
+  (28, 25): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (33, 25): TERRAIN_COAST, feature=NONE, river={}
+  (37, 25): TERRAIN_COAST, feature=NONE, river={}
+  (38, 25): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (40, 25): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (41, 25): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+  (42, 25): TERRAIN_COAST, feature=FEATURE_ICE, river={}
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

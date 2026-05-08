@@ -1,0 +1,10 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# cat /app/solution.py 2>/dev/null || echo 'File does not exist'
+File does not exist
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Graph, Node, Edge; print('Import OK')"
+Import OK
+root@0588585e24cd:/app#
+
+
+Include stop_check.

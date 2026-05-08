@@ -1,0 +1,22 @@
+New Terminal Output:
+bles: []
+root@0d3c1addd3d3:/data/maps# cp /data/maps/e2e_test_case_0\.Civ6Map /tmp/map.db
+root@0d3c1addd3d3:/data/maps# ls -la /tmp/map.db
+-rw-r--r-- 1 root root 319488 May  7 03:11 /tmp/map.db
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import sqlite3
+> conn = sqlite3.connect('/tmp/map.db')
+> cursor = conn.cursor()
+> cursor.execute(\"SELECT name FROM sqlite_master WHERE type='table'\")
+> print('Tables:', cursor.fetchall())
+> conn.close()
+> "
+Tables: [('MetaData',), ('Map',), ('MapAttributes',), ('Plots',), ('PlotAttributes',), ('PlotRivers',), ('PlotCliffs',), ('PlotResources',), ('PlotFeatures',),
+('PlotImprovements',), ('PlotRoutes',), ('PlotOwners',), ('RevealedPlots',), ('StartPositions',), ('Units',), ('UnitAttributes',), ('Cities',), ('CityAttributes
+',), ('Districts',), ('DistrictAttributes',), ('Buildings',), ('Players',), ('PlayerAttributes',), ('ModProperties',), ('ModComponents',), ('ModComponent_Proper
+ties',), ('ModComponent_Items',), ('ModSettings',), ('ModSettings_Properties',), ('ModSettings_Items',), ('ModText',), ('ModDependencies',), ('GameConfig',), ('
+NamedRiverPlot',), ('NamedRiver',)]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

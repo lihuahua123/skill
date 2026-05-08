@@ -1,0 +1,25 @@
++ pip3 install --break-system-packages pytest==8.3.4 pytest-json-ctrf==0.3.6
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 24.3.1 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
++ mkdir -p /logs/verifier
++ export PYTHONPATH=/root/.codex/skills/dialogue_graph/scripts:/root/.claude/skills/dialogue_graph/scripts:/root/.agents/skills/dialogue_graph/scripts:/root/.opencode/skill/dialogue_graph/scripts:/app/environment/skills/dialogue_graph/scripts
++ PYTHONPATH=/root/.codex/skills/dialogue_graph/scripts:/root/.claude/skills/dialogue_graph/scripts:/root/.agents/skills/dialogue_graph/scripts:/root/.opencode/skill/dialogue_graph/scripts:/app/environment/skills/dialogue_graph/scripts
++ pytest --ctrf /logs/verifier/ctrf.json /tests/test_outputs.py -rA -v
++ tee /logs/verifier/pytest_output.txt
++ RESULT=1
++ '[' -f /logs/verifier/ctrf.json ']'
+++ python3 -c 'import json; d=json.load(open('\''/logs/verifier/ctrf.json'\'')); print(d['\''results'\'']['\''summary'\'']['\''passed'\''])'
++ PASSED=5
+++ python3 -c 'import json; d=json.load(open('\''/logs/verifier/ctrf.json'\'')); print(d['\''results'\'']['\''summary'\'']['\''tests'\''])'
++ TOTAL=6
++ '[' 6 -gt 0 ']'
+++ python3 -c 'print(round(5 / 6, 3))'
++ SCORE=0.833
++ echo ======================================
++ echo 'TEST SUMMARY: 5 / 6 tests passed'
++ echo 'REWARD SCORE: 0.833'
++ echo ======================================
++ echo 0.833
++ exit 0

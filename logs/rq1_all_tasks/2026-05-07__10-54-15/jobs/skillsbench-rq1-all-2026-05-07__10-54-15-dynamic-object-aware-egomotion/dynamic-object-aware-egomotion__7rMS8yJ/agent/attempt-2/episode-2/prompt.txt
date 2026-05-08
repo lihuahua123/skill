@@ -1,0 +1,17 @@
+New Terminal Output:
+
+root@f72ab8c29d7d:~# ffprobe -v error -select_streams v:0 -show_entries stream=nb_frames,width,height,r_frame_rate -of default=noprint_wrappers=1 /root/input.mp
+4
+width=1280
+height=720
+r_frame_rate=60/1
+nb_frames=207
+root@f72ab8c29d7d:~# python3 -c "import cv2; cap=cv2.VideoCapture('/root/input.mp4'); print('frames:', int(cap.get(cv2.CAP_PROP_FRAME_COUNT))); print('fps:', ca
+p.get(cv2.CAP_PROP_FPS)); print('res:', int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), 'x', int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))); cap.release()"
+frames: 207
+fps: 60.0
+res: 1280 x 720
+root@f72ab8c29d7d:~#
+
+
+Include stop_check.

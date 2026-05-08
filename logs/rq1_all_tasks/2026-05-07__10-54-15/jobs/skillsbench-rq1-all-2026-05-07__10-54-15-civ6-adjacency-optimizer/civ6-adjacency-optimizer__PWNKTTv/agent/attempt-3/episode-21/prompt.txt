@@ -1,0 +1,44 @@
+Current Terminal Screen:
+        raise ValueError("Could not read map dimensions")
+    width, height = row["Width"], row["Height"]
+    print(f"Map: {width} x {height}", file=sys.stderr)
+
+    tiles: Dict[int, Dict[str, Any]] = {}
+
+    # Get available columns
+    cursor.execute("PRAGMA table_info(Plots)")
+    columns = {col["name"] for col in cursor.fetchall()}
+
+    # Query plots
+    cursor.execute("SELECT * FROM Plots")
+    for row in cursor.fetchall():
+        plot_id = row["ID"]
+        x, y = id_to_coords(plot_id, width)
+
+        raw_terrain = row["TerrainType"] or ""
+        terrain = TERRAIN_MAP.get(raw_terrain, raw_terrain.replace("TERRAIN_", ""))
+        is_hills = "_HILLS" in raw_terrain
+
+        tile: Dict[str, Any] = {"x": x, "y": y, "terrain": terrain}
+        if is_hills:
+            tile["is_hills"] = True
+
+        # Features
+        if "FeatureType" in columns and row["FeatureType"]:
+            raw_feature = row["FeatureType"]
+            if raw_feature in NATURAL_WONDERS:
+                tile["feature"] = raw_feature
+                tile["is_natural_wonder"] = True
+            elif raw_feature in FEATURE_MAP:
+                tile["feature"] = FEATURE_MAP[raw_feature]
+            else:
+                tile["feature"] = raw_feature
+            if "FLOODPLAINS" in raw_feature:
+                tile["is_floodplains"] = True
+
+        tiles[plot_id] = tile
+
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

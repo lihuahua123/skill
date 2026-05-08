@@ -1,0 +1,27 @@
+{
+    "id": "bebda5ad-ee0f-4b11-87fb-d7b9b2724070",
+    "started_at": "2026-05-07T11:18:06.958085",
+    "finished_at": "2026-05-07T11:18:09.797556",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 0,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {},
+                "exception_stats": {
+                    "RuntimeError": [
+                        "dapt-intrusion-detection__RzE2ym3"
+                    ]
+                }
+            }
+        }
+    }
+}

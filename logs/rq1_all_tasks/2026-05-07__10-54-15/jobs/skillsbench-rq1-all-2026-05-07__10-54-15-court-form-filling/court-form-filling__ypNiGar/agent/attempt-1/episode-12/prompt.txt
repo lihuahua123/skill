@@ -1,0 +1,44 @@
+Current Terminal Screen:
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List8[0].item8[0].Checkbox61[1]",
+    "type": "checkbox",
+    "checked_value": "/2",
+    "unchecked_value": "/Off",
+    "page": 3,
+    "rect": [
+      293.374,
+      117.151,
+      302.374,
+      126.151
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List8[0].item8[0].Checkbox14[0]",
+    "type": "checkbox",
+    "checked_value": "/1",
+    "unchecked_value": "/Off",
+    "page": 3,
+    "rect": [
+      309.883,
+      102.867,
+      318.883,
+      111.867
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List8[0].item8[0].Date4[0]",
+    "type": "text",
+    "page": 3,
+    "rect": [
+      451.467,
+      101.033,
+      575.997,
+      113.032
+    ]
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

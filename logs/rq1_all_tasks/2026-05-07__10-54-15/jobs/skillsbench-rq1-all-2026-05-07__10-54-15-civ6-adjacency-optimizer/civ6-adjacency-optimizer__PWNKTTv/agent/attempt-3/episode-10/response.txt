@@ -1,0 +1,23 @@
+{
+  "analysis": "The file with 319KB size shows empty content when read. This might be a sparse file or virtual filesystem issue. Let me try the other .Civ6Map file.",
+  "plan": "Check all the map files in the directory to find the one with actual data.",
+  "commands": [
+    {
+      "keystrokes": "ls -la /data/\n",
+      "duration": 0.3
+    },
+    {
+      "keystrokes": "find /data -name '*.Civ6Map' -o -name '*Map*' 2>/dev/null\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "python3 -c \"\nwith open('/data/maps/e2e_test_case_0.MockitoMap', 'rb') as f:\n    data = f.read()\n    print('MockitoMap size:', len(data))\n    print('Content:', data[:500])\n\"\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Finding map data source",
+    "should_stop": "No"
+  }
+}

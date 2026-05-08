@@ -1,0 +1,116 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.3.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778123242.2324831,
+            "stop": 1778123242.301792
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::TestFormat::test_solution_file_exists",
+                "status": "passed",
+                "duration": 0.0006438195705413818,
+                "start": 1778123242.2573905,
+                "stop": 1778123242.2583444,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_solution_is_valid_json",
+                "status": "passed",
+                "duration": 0.0005300566554069519,
+                "start": 1778123242.258597,
+                "stop": 1778123242.2593706,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_has_placements",
+                "status": "passed",
+                "duration": 0.0005537420511245728,
+                "start": 1778123242.2596374,
+                "stop": 1778123242.2604413,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_has_adjacency_bonuses",
+                "status": "passed",
+                "duration": 0.0004987865686416626,
+                "start": 1778123242.2606673,
+                "stop": 1778123242.2613862,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_has_total_adjacency",
+                "status": "passed",
+                "duration": 0.00048126280307769775,
+                "start": 1778123242.261604,
+                "stop": 1778123242.2622983,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_has_city_center",
+                "status": "passed",
+                "duration": 0.0004789680242538452,
+                "start": 1778123242.262509,
+                "stop": 1778123242.2631948,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_placements_have_coordinates",
+                "status": "passed",
+                "duration": 0.0005575940012931824,
+                "start": 1778123242.2634146,
+                "stop": 1778123242.2641964,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_adjacency_matches_placements",
+                "status": "passed",
+                "duration": 0.0004889294505119324,
+                "start": 1778123242.2644155,
+                "stop": 1778123242.2651174,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestFormat::test_total_adjacency_is_sum",
+                "status": "passed",
+                "duration": 0.00047206878662109375,
+                "start": 1778123242.2653198,
+                "stop": 1778123242.265992,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestEvaluation::test_evaluate_scenario",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.021596647799015045,
+                "start": 1778123242.2661924,
+                "stop": 1778123242.301665,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "tags": [
+                    "parametrize::scenario_id::['scenario_3']"
+                ],
+                "trace": "/tests/test_outputs.py:167: in test_evaluate_scenario\n    assert result.valid, f\"Invalid solution: {result.errors}\"\nE   AssertionError: Invalid solution: ['Total adjacency mismatch: submitted=9, calculated=8']\nE   assert False\nE    +  where False = EvaluationResult(valid=False, total_adjacency=8, optimal_adjacency=20, score=0.0, errors=['Total adjacency mismatch: submitted=9, calculated=8'], warnings=['Adjacency info for CAMPUS: submitted=5, calculated=6', 'Adjacency info for COMMERCIAL_HUB: submitted=4, calculated=2'], per_district={'CAMPUS@(21,14)': {'bonus': 6, 'breakdown': {'FEATURE_GEOTHERMAL_FISSURE': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['FEATURE_GEOTHERMAL_FISSURE@(21,13)']}, 'FEATURE_REEF': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['FEATURE_REEF@(20,14)']}, 'MOUNTAIN': {'count': 1, 'bonus': 1, 'count_required': 1, 'bonus_per': 1, 'sources': ['Mountain@(21,15)']}, 'FEATURE_JUNGLE': {'count': 2, 'bonus': 1, 'count_required': 2, 'bonus_per': 1, 'sources': ['FEATURE_JUNGLE@(20,13)', 'FEATURE_JUNGLE@(20,15)']}}}, 'COMMERCIAL_HUB@(22,17)': {'bonus': 2, 'breakdown': {'RIVER': {'count': 1, 'bonus': 2, 'sources': ['OnRiver']}}}, 'INDUSTRIAL_ZONE@(23,12)': {'bonus': 0, 'breakdown': {}}}, exceeds_optimal=False, adjacency_mismatch=True).valid",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

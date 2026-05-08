@@ -1,0 +1,20 @@
+{
+  "analysis": "The maps directory doesn't exist at /data/scenario_3/. The scenario.json references 'maps/e2e_test_case_0 Civ6Map' - I need to find where this file actually is.",
+  "plan": "Search for the .Civ6Map file on the system.",
+  "commands": [
+    {
+      "keystrokes": "find / -name '*.Civ6Map' 2>/dev/null\n",
+      "duration": 5.0
+    },
+    {
+      "keystrokes": "find / -name '*e2e*' 2>/dev/null\n",
+      "duration": 5.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Looking for map file location",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

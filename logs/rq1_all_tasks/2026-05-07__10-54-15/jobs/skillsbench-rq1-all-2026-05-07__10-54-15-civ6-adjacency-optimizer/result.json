@@ -1,0 +1,29 @@
+{
+    "id": "6af40d93-672b-4b33-9673-1a07791539ff",
+    "started_at": "2026-05-07T10:54:41.799929",
+    "finished_at": "2026-05-07T11:17:54.294516",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.85
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.85": [
+                            "civ6-adjacency-optimizer__PWNKTTv"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    results_df.to_csv('simulation_results.csv', index=False)
+    print(f"Saved {len(results)} rows to simulation_results.csv")
+    generate_report(results_df, config, tuning)
+
+def generate_report(df, config, tuning):
+    set_speed = config['acc_settings']['set_speed']
+    speeds = pd.to_numeric(df['ego_speed'], errors='coerce').fillna(0)
+
+    # Rise time
+    rise_end = None
+    for i, s in enumerate(speeds):
+        if s >= 0.9 * set_speed:
+            rise_end = i
+            break
+    rise_time = (rise_end * 0.1) if rise_end else None
+
+    max_speed = speeds.max()
+    overshoot = max(0, ((max_speed - set_speed) / set_speed) * 100)
+
+    # Speed SS error: use final cruise mode
+    cruise_df = df[(df['mode'] == 'cruise') & (df['time'] >= 147)]
+    if len(cruise_df) > 0:
+        ss_error = abs(cruise_df['ego_speed'].mean() - set_speed)
+    else:
+        ss_error = abs(speeds.iloc[-150:].mean() - set_speed)
+
+    # Distance SS error: find most stable 100 consecutive rows in follow mode
+    follow_df = df[df['mode'] == 'follow'].copy()
+    follow_df['dist_err_num'] = pd.to_numeric(follow_df['distance_error'], errors='coerce')
+    follow_df['dist_num'] = pd.to_numeric(follow_df['distance'], errors='coerce')
+
+    # Find window with minimum mean absolute error
+    best_start = 0
+    best_mean = float('inf')
+    window = 100
+    for i in range(len(follow_df) - window):
+        segment = follow_df.iloc[i:i+window]['dist_err_num']
+        mean_abs = segment.abs().mean()
+        if mean_abs < best_mean:
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

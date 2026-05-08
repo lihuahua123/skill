@@ -1,0 +1,20 @@
+{
+  "analysis": "The file path has spaces and the command got malformed. Let me check the actual file location and use proper quoting.",
+  "plan": "List the directory to find the exact file path, then use Python with proper escaping.",
+  "commands": [
+    {
+      "keystrokes": "ls -la /data/scenario_3/\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "ls -la /data/scenario_3/maps/\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Need to find exact file path",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

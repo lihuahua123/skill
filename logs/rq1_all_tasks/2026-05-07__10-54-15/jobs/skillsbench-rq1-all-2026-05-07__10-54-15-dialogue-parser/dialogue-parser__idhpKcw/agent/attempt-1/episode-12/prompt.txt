@@ -1,0 +1,64 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# python3 -c "import json; d = json.load(open('/app/dialogue.json')); print('Edges sample:'); print(json.dumps(d['edges'][:5], indent=2))"
+Edges sample:
+[
+  {
+    "from": "Start",
+    "to": "TavernEntry",
+    "text": ""
+  },
+  {
+    "from": "TavernEntry",
+    "to": "TavernChoice",
+    "text": ""
+  },
+  {
+    "from": "TavernChoice",
+    "to": "StrangerApproach",
+    "text": "1. Approach the hooded stranger."
+  },
+  {
+    "from": "TavernChoice",
+    "to": "MerchantApproach",
+    "text": "2. Sit next to the merchant."
+  },
+  {
+    "from": "TavernChoice",
+    "to": "BarkeepApproach",
+    "text": "3. Order a drink from the barkeep."
+  }
+]
+root@0588585e24cd:/app# python3 << 'EOF'
+> from solution import parse_script
+>
+> test_script = """[GateScene]
+> Guard: Halt! State your name and business. -> NameChoice
+>
+> [NameChoice]
+> 1. I am Sir Aldric, Knight of the Realm. -> KnightPath
+> 2. Just a humble traveler seeking shelter. -> TravelerPath
+> 3. [Lie] I'm a merchant with important goods. -> MerchantPath
+> 4. [Attack] Draw your sword! -> CombatStart"""
+>
+> graph = parse_script(test_script)
+> print(f"Nodes: {len(graph.nodes)}")
+> print(f"Edges: {len(graph.edges)}")
+> for node_id, node in graph.nodes.items():
+>     print(f"  {node_id}: type={node.type}, speaker={node.speaker}")
+> for edge in graph.edges:
+>     print(f"  {edge.source} -> {edge.target} (text: {edge.text[:30] if edge.text else 'none'}...)")
+> EOF
+Nodes: 2
+Edges: 5
+  GateScene: type=line, speaker=Guard
+  NameChoice: type=choice, speaker=None
+  GateScene -> NameChoice (text: none...)
+  NameChoice -> KnightPath (text: 1. I am Sir Aldric, Knight of ...)
+  NameChoice -> TravelerPath (text: 2. Just a humble traveler seek...)
+  NameChoice -> MerchantPath (text: 3. [Lie] I'm a merchant with i...)
+  NameChoice -> CombatStart (text: 4. [Attack] Draw your sword!...)
+root@0588585e24cd:/app#
+
+
+Include stop_check.

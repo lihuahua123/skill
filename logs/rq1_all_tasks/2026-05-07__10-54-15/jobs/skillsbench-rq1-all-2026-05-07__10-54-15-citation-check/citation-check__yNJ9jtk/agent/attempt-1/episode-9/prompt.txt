@@ -1,0 +1,48 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+Current Terminal Screen:
+","doi-asserted-by":"publisher","DOI":"10.1145\/135239.135244"},{"key":"e_1_2_1_33_1","doi-asserted-by":"publisher","DOI":"10.1093\/bioinformatics\/btq057"},{"k
+ey":"e_1_2_1_34_1","doi-asserted-by":"publisher","DOI":"10.1145\/1376616.1376655"}],"container-title":["ACM Transactions on Database Systems"],"language":"en","
+link":[{"URL":"https:\/\/dl.acm.org\/doi\/10.1145\/2389241.2389247","content-type":"unspecified","content-version":"vor","intended-application":"text-mining"},{
+"URL":"https:\/\/dl.acm.org\/doi\/pdf\/10.1145\/2389241.2389247","content-type":"unspecified","content-version":"vor","intended-application":"similarity-checkin
+g"}],"deposited":{"date-parts":[[2025,6,18]],"date-time":"2025-06-18T09:34:58Z","timestamp":1750239298000},"score":22.317951,"resource":{"primary":{"URL":"https
+:\/\/dl.acm.org\/doi\/10.1145\/2389241.2389247"}},"subtitle":["A High-Throughput Sequence Alignment Method"],"issued":{"date-parts":[[2012,12]]},"references-cou
+nt":34,"journal-issue":{"issue":"4","published-print":{"date-parts":[[2012,12]]}},"alternative-id":["10.1145\/2389241.2389247"],"URL":"https:\/\/doi.org\/10.114
+5\/2389241.2389247","ISSN":["0362-5915","1557-4644"],"issn-type":[{"type":"print","value":"0362-5915"},{"type":"electronic","value":"1557-4644"}],"published":{"
+date-parts":[[2012,12]]},"assertion":[{"value":"2011-10-01","order":0,"name":"received","label":"Received","group":{"name":"publication_history","label":"Public
+ation History"}},{"value":"2012-08-01","order":1,"name":"accepted","label":"Accepted","group":{"name":"publication_history","label":"Publication History"}},{"va
+lue":"2012-12-01","order":2,"name":"published","label":"Published","group":{"name":"publication_history","label":"Publication History"}}]},{"indexed":{"date-par
+ts":[[2024,9,11]],"date-time":"2024-09-11T05:41:46Z","timestamp":1726033306444},"publisher-location":"Singapore","reference-count":12,"publisher":"Springer Sing
+apore","isbn-type":[{"type":"print","value":"9789811371653"},{"type":"electronic","value":"9789811371660"}],"license":[{"start":{"date-parts":[[2019,6,26]],"dat
+e-time":"2019-06-26T00:00:00Z","timestamp":1561507200000},"content-version":"tdm","delay-in-days":0,"URL":"http:\/\/www.springer.com\/tdm"}],"content-domain":{"
+domain":["link.springer.com"],"crossmark-restriction":false},"published-print":{"date-parts":[[2020]]},"DOI":"10.1007\/978-981-13-7166-0_36","type":"book-chapte
+r","created":{"date-parts":[[2019,6,25]],"date-time":"2019-06-25T20:02:30Z","timestamp":1561492950000},"page":"373-382","update-policy":"http:\/\/dx.doi.org\/10
+.1007\/springer_crossmark_policy","source":"Crossref","is-referenced-by-count":2,"title":["Blockchain Technology: An Aid to the Governance of Smart Cities"],"pr
+efix":"10.1007","author":[{"given":"Vishva Nitin","family":"Patel","sequence":"first","affiliation":[]},{"given":"Chhayaben Nitin","family":"Patel","sequence":"
+additional","affiliation":[]}],"member":"297","published-online":{"date-parts":[[2019,6,26]]},"reference":[{"key":"36_CR1","unstructured":"Peters, G.W., Panayi,
+ E.: Understanding Modern Banking Ledgers through Blockchain Technologies: Future of Transaction Processing and Smart Contracts on the Internet of Money"},{"key
+":"36_CR2","doi-asserted-by":"crossref","unstructured":"Sun, J., Yan, J., Zhang, K.Z.K.: Blockchain-based sharing services: What blockchain technology can contr
+ibute to smart cities. Financ. Innov. (2016)","DOI":"10.1186\/s40854-016-0040-y"},{"key":"36_CR3","unstructured":"https:\/\/gomedici.com\/21-areas-of-blockchain
+-application-beyond-financial-services\/\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR4","unstructured":"Pureswara, V.,
+Brody, P.: Device Democracy\u2014Saving the Future of the Internet of Things. IBM Corporation (2015)"},{"key":"36_CR5","unstructured":"Wright, A., De Filippi, P
+.: Decentralized Blockchain Technology and the Rise of Lex Cryptographia"},{"key":"36_CR6","unstructured":"Ethereum: \n                  http:\/\/www.ethereum.o
+rg\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR7","unstructured":"Counterparty: \n                  http:\/\/counterpar
+ty.io\/\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR8","unstructured":"Mastercoin: \n                  http:\/\/www.mas
+tercoin.org\/\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR9","unstructured":"https:\/\/www.cryptocoinsnews.com\/bitcoin
+-governance-2-0-lets-blockchain\/\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR10","unstructured":"https:\/\/www.ibm.com
+\/case-studies\/energy-blockchain-labs-inc\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR11","unstructured":"https:\/\/se
+archcio.techtarget.com\/definition\/sharing-economy\n                  \n                . Last access date: 26\/07\/2018"},{"key":"36_CR12","unstructured":"Atz
+ori, M.: Blockchain Technology and Decentralized Governance: Is the State Still Necessary?"}],"container-title":["Advances in Intelligent Systems and Computing"
+,"Information and Communication Technology for Sustainable Development"],"language":"en","link":[{"URL":"http:\/\/link.springer.com\/content\/pdf\/10.1007\/978-
+981-13-7166-0_36","content-type":"unspecified","content-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2019,6,25]],"d
+ate-time":"2019-06-25T20:09:26Z","timestamp":1561493366000},"score":22.2728,"resource":{"primary":{"URL":"http:\/\/link.springer.com\/10.1007\/978-981-13-7166-0
+_36"}},"issued":{"date-parts":[[2019,6,26]]},"ISBN":["9789811371653","9789811371660"],"references-count":12,"URL":"https:\/\/doi.org\/10.1007\/978-981-13-7166-0
+_36","ISSN":["2194-5357","2194-5365"],"issn-type":[{"type":"print","value":"2194-5357"},{"type":"electronic","value":"2194-5365"}],"published":{"date-parts":[[2
+019,6,26]]},"assertion":[{"value":"26 June 2019","order":1,"name":"first_online","label":"First Online","group":{"name":"ChapterHistory","label":"Chapter Histor
+y"}}]}],"items-per-page":10,"query":{"start-index":0,"search-terms":"Blockchain Information Systems Patel Ramirez ACM London"}}}
+root@30c3cd183633:~#
+
+
+Include stop_check.

@@ -1,0 +1,49 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /output/scenario_3.json << 'EOF'
+> {
+>   "city_center": [22, 15],
+>   "placements": {
+>     "CAMPUS": [21, 14],
+>     "INDUSTRIAL_ZONE": [23, 16],
+>     "AQUEDUCT": [23, 15],
+>     "DAM": [24, 16],
+>     "CANAL": [22, 16],
+>     "COMMERCIAL_HUB": [23, 14],
+>     "NEIGHBORHOOD": [22, 17]
+>   },
+>   "adjacency_bonuses": {
+>     "CAMPUS": 6,
+>     "INDUSTRIAL_ZONE": 9,
+>     "AQUEDUCT": 0,
+>     "DAM": 0,
+>     "CANAL": 0,
+>     "NEIGHBORHOOD": 0,
+>     "COMMERCIAL_HUB": 5
+>   },
+>   "total_adjacency": 20
+> }
+> EOF
+root@0d3c1addd3d3:/data/maps# python3 -m pytest /tests/test_outputs.py::TestFormat -v 2>&1
+===================================================================== test session starts ======================================================================
+platform linux -- Python 3.11.15, pytest-8.3.4, pluggy-1.6.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 9 items
+
+../../tests/test_outputs.py::TestFormat::test_solution_file_exists[scenario_3] PASSED                                                                    [ 11%]
+../../tests/test_outputs.py::TestFormat::test_solution_is_valid_json[scenario_3] PASSED                                                                  [ 22%]
+../../tests/test_outputs.py::TestFormat::test_has_placements[scenario_3] PASSED                                                                          [ 33%]
+../../tests/test_outputs.py::TestFormat::test_has_adjacency_bonuses[scenario_3] PASSED                                                                   [ 44%]
+../../tests/test_outputs.py::TestFormat::test_has_total_adjacency[scenario_3] PASSED                                                                     [ 55%]
+../../tests/test_outputs.py::TestFormat::test_has_city_center[scenario_3] PASSED                                                                         [ 66%]
+../../tests/test_outputs.py::TestFormat::test_placements_have_coordinates[scenario_3] PASSED                                                             [ 77%]
+../../tests/test_outputs.py::TestFormat::test_adjacency_matches_placements[scenario_3] PASSED                                                            [ 88%]
+../../tests/test_outputs.py::TestFormat::test_total_adjacency_is_sum[scenario_3] PASSED                                                                  [100%]
+
+====================================================================== 9 passed in 0.02s =======================================================================
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

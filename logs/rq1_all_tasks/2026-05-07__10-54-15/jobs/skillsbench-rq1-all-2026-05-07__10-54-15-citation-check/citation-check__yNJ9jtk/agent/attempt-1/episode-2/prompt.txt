@@ -1,0 +1,36 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+New Terminal Output:
+
+root@30c3cd183633:~# cat /root/test.bib | grep -A 10 '^@article{wilson2021neural'
+@article{wilson2021neural,
+  author = {Emily Wilson and Robert Taylor},
+  title = {Neural Networks in Deep Learning: A Comprehensive Review},
+  journal = {AI Research Journal},
+  year = {2021},
+  volume = {12},
+  number = {4},
+  pages = {200-215},
+  doi = {10.5678/airj.2021.12.4.200}
+}
+
+root@30c3cd183633:~# cat /root/test.bib | grep -A 10 '^@article{smith2020ai'
+@article{smith2020ai,
+  author = {John Smith and Alice Johnson},
+  title = {Advances in Artificial Intelligence for Natural Language Processing},
+  journal = {Journal of Computational Linguistics},
+  year = {2020},
+  volume = {45},
+  number = {3},
+  pages = {112-130},
+  doi = {10.1234/jcl.2020.45.3.112}
+}
+
+root@30c3cd183633:~# curl -s 'https://api.crossref.org/works/10.5678/airj.2021.12.4.200' | head -50
+Resource not found.root@30c3cd183633:~# curl -s 'https://api.crossref.org/works/10.1234/jcl.2020.45.3.112' | head -50
+Resource not found.root@30c3cd183633:~#
+
+
+Include stop_check.

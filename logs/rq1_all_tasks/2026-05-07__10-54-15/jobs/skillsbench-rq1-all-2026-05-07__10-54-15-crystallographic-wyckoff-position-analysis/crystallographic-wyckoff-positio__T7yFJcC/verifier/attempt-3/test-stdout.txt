@@ -1,0 +1,82 @@
+==========================================
+Installing dependencies...
+==========================================
+
+==========================================
+Agent's solution.py:
+==========================================
+from pymatgen.core import Structure
+from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+from fractions import Fraction
+from typing import Dict, Any
+import sympy
+
+def to_fraction_string(value: float, max_denominator: int = 12) -> str:
+    """Convert a float to a fraction string with denominator <= max_denominator."""
+    frac = Fraction(value).limit_denominator(max_denominator)
+    if frac.numerator == 0:
+        return "0"
+    if frac.denominator == 1:
+        return str(frac.numerator)
+    return f"{frac.numerator}/{frac.denominator}"
+
+def analyze_wyckoff_position_multiplicities_and_coordinates(filepath: str) -> Dict[str, Any]:
+    """
+    Analyze Wyckoff position multiplicities and calculate approximate coordinates
+    for the first atom of each Wyckoff position.
+    
+    Args:
+        filepath: Path to the CIF file
+        
+    Returns:
+        Dictionary with 'wyckoff_multiplicity_dict' and 'wyckoff_coordinates_dict'
+    """
+    # Load structure from CIF
+    structure = Structure.from_file(filepath)
+    
+    # Get symmetry analyzer and dataset
+    analyzer = SpacegroupAnalyzer(structure)
+    sym_dataset = analyzer.get_symmetry_dataset()
+    
+    wyckoffs = sym_dataset['wyckoffs']
+    frac_coords = structure.frac_coords
+    
+    # Group Wyckoff positions and their indices
+    wyckoff_dict = {}
+    for idx, wpos in enumerate(wyckoffs):
+        if wpos not in wyckoff_dict:
+            wyckoff_dict[wpos] = idx
+    
+    # Calculate multiplicities and get first atom coordinates for each position
+    multiplicity_dict = {}
+    coordinates_dict = {}
+    
+    for wpos, first_idx in wyckoff_dict.items():
+        # Count multiplicity by counting occurrences
+        multiplicity = wyckoffs.count(wpos)
+        multiplicity_dict[wpos] = multiplicity
+        
+        # Get coordinates of first atom in this Wyckoff position
+        coords = frac_coords[first_idx]
+        coordinates_dict[wpos] = [
+            to_fraction_string(coord) for coord in coords
+        ]
+    
+    return {
+        "wyckoff_multiplicity_dict": multiplicity_dict,
+        "wyckoff_coordinates_dict": coordinates_dict
+    }
+
+
+if __name__ == "__main__":
+    result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+    print(result)
+
+==========================================
+Running tests...
+==========================================
+
+==========================================
+Test completed. Score:
+0.0
+==========================================

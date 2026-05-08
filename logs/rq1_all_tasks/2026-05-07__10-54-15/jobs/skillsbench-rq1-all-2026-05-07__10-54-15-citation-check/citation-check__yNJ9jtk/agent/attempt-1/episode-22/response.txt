@@ -1,0 +1,21 @@
+```json
+{
+  "analysis": "Terminal appears stuck, not showing output for commands. Will try to reset with Ctrl+C.",
+  "plan": "Send Ctrl+C to reset terminal, then check answer file",
+  "commands": [
+    {
+      "keystrokes": "C-c",
+      "duration": 1.0
+    },
+    {
+      "keystrokes": "ls -la /root/answer.json\n",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal stuck",
+    "should_stop": "No"
+  }
+}
+```

@@ -1,0 +1,35 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# python3 << 'EOF'
+> import sys
+> sys.path.insert(0, '/root/workspace')
+> from solution import analyze_wyckoff_position_multiplicities_and_coordinates
+>
+> # Test with a few more files
+> files = [
+>     "/root/cif_files/Al2O3_mp-7048.cif",
+>     "/root/cif_files/C_mp-169.cif",
+>     "/root/cif_files/SiO2_mp-6945.cif"
+> ]
+>
+> for f in files:
+>     print(f"\n=== {f} ===")
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates(f)
+>     print(result)
+> EOF
+
+=== /root/cif_files/Al2O3_mp-7048.cif ===
+{'wyckoff_multiplicity_dict': {'i': 20}, 'wyckoff_coordinates_dict': {'i': ['7/12', '1/2', '4/5']}}
+
+=== /root/cif_files/C_mp-169.cif ===
+/usr/local/lib/python3.12/site-packages/pymatgen/core/structure.py:3109: UserWarning: Issues encountered while parsing CIF: 2 fractional coordinates rounded to
+ideal values to avoid issues with finite precision.
+  struct = parser.parse_structures(primitive=primitive)[0]
+{'wyckoff_multiplicity_dict': {'i': 4}, 'wyckoff_coordinates_dict': {'i': ['1/6', '0', '1']}}
+
+=== /root/cif_files/SiO2_mp-6945.cif ===
+{'wyckoff_multiplicity_dict': {'a': 4, 'b': 8}, 'wyckoff_coordinates_dict': {'a': ['7/10', '7/10', '1/2'], 'b': ['8/9', '3/4', '1/3']}}
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

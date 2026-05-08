@@ -1,0 +1,18 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# sed -i 's/for (x, y) in plots.items()/for (x, y), _ in plots.items()/' /tmp/optimizer2.py
+root@0d3c1addd3d3:/data/maps# python3 /tmp/optimizer2.py
+Map: 44x26
+Main landmass tiles: 99
+Valid city centers on main landmass: 62
+
+Best solution:
+City Center: (22, 14)
+Districts: [('CAMPUS', (21, 14), 6.0), ('COMMERCIAL_HUB', (22, 17), 4), ('INDUSTRIAL_ZONE', (23, 12), 1.5)]
+Raw total: 11.5
+District bonus: 0
+Final total: 11.5
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

@@ -1,0 +1,29 @@
+{
+    "id": "bb13edf6-6a56-44e2-8d18-ccaf4734892e",
+    "started_at": "2026-05-07T10:55:48.014366",
+    "finished_at": "2026-05-07T11:06:25.509062",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "court-form-filling__ypNiGar"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

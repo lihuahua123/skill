@@ -717,10 +717,6 @@ run_benchmark() {
       else
         max_task_attempts="1"
       fi
-      if [[ "${max_task_attempts}" != "1" ]]; then
-        echo "backend=swebench currently supports only --max-task-attempts 1" >&2
-        exit 2
-      fi
 
       local run_id=""
       if run_id="$(extract_option_value --run-id "$@")"; then
@@ -833,6 +829,11 @@ run_benchmark() {
         --max-task-attempts "${max_task_attempts}"
         --swebench-agent-backend "${swebench_agent_backend}"
         --swebench-max-workers "${swebench_max_workers}"
+        --feedback-policy "${feedback_policy}"
+        --feedback-format "${feedback_format}"
+        --feedback-answer-safety "${feedback_answer_safety}"
+        --stop-rule "${stop_rule}"
+        --stop-threshold "${stop_threshold}"
         --runner-python "${runner_python}"
       )
       if [[ -n "${swebench_instance_id}" ]]; then

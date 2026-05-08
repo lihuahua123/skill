@@ -1,0 +1,88 @@
+New Terminal Output:
+dir)
+root@0d3c1addd3d3:/data/maps# sed -n '100,180p' /tests/evaluate.py
+
+def build_tiles_dict(
+    scenario: Dict[str, Any],
+    data_dir: Optional[Path] = None,
+) -> Dict[Tuple[int, int], Tile]:
+    """Convert scenario tiles to dict keyed by (x, y).
+
+    Supports two formats:
+    1. Direct tiles list: {"tiles": [...]}
+    2. Map file reference: {"map_file": "maps/foo.Civ6Map"}
+
+    Args:
+        scenario: Scenario dict
+        data_dir: Base directory for resolving map_file paths
+    """
+    # Check if we have a map_file reference
+    if "map_file" in scenario and data_dir:
+        map_path = data_dir / scenario["map_file"]
+        if map_path.exists():
+            # Import converter and parse map
+            import sys
+            from pathlib import Path as P
+            # Tools are in tests/tools (same directory as this file)
+            tools_dir = P(__file__).parent / "tools"
+            if not tools_dir.exists():
+                # Docker: tests mounted at /tests
+                tools_dir = P("/tests/tools")
+            if str(tools_dir) not in sys.path:
+                sys.path.insert(0, str(tools_dir))
+            from civ6map_to_scenario import convert_civ6map
+
+            parsed = convert_civ6map(str(map_path))
+            scenario = {**scenario, "tiles": parsed["tiles"]}
+
+    tiles = {}
+    for tile_data in scenario.get("tiles", []):
+        tile = Tile(
+            x=tile_data["x"],
+            y=tile_data["y"],
+            terrain=tile_data.get("terrain", "GRASS"),
+            feature=tile_data.get("feature"),
+            is_hills=tile_data.get("is_hills", False),
+            is_floodplains=tile_data.get("is_floodplains", False),
+            river_edges=tile_data.get("river_edges", []),
+            river_names=tile_data.get("river_names", []),
+            resource=tile_data.get("resource"),
+            resource_type=tile_data.get("resource_type"),
+            improvement=tile_data.get("improvement"),
+        )
+        tiles[(tile.x, tile.y)] = tile
+    return tiles
+
+
+def _normalize_coords(coords) -> List[Tuple[int, int]]:
+    """Normalize coordinates to a list of (x, y) tuples.
+
+    Supports:
+        [x, y]              -> [(x, y)]
+        [[x1, y1], [x2, y2]] -> [(x1, y1), (x2, y2)]
+    """
+    if not coords:
+        return []
+    if isinstance(coords[0], (list, tuple)):
+        return [(c[0], c[1]) for c in coords]
+    return [(coords[0], coords[1])]
+
+
+def parse_placements(
+    solution: Dict[str, Any]
+) -> Dict[Tuple[int, int], DistrictType]:
+    """Parse solution placements into internal format.
+
+    Args:
+        solution: {"placements": {"CAMPUS": [4, 4], "NEIGHBORHOOD": [[1,2],[3,4]], ...}}
+
+    Returns:
+        {(4, 4): DistrictType.CAMPUS, (1, 2): DistrictType.NEIGHBORHOOD, ...}
+    """
+    placements = {}
+    raw_placements = solution.get("placements", {})
+
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

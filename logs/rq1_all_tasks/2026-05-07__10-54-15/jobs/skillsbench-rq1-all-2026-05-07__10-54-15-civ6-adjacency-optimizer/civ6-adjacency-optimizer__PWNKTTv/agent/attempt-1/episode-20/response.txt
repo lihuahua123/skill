@@ -1,0 +1,20 @@
+{
+  "analysis": "The terminal got confused with quotes. Let me start fresh and try a cleaner approach.",
+  "plan": "Clear the terminal and try a simpler approach with proper escaping.",
+  "commands": [
+    {
+      "keystrokes": "C-c",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "cat /tmp/parse_map.py\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Terminal state confused",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

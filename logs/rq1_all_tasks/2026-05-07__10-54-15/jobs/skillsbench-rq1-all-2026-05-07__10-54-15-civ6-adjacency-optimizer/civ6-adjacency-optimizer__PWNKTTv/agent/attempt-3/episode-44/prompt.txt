@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    # Store per-district breakdown (using district name as key)
+    per_district_by_name: Dict[str, AdjacencyResult] = {}
+    for key, adj_result in per_district.items():
+        # Key is "DISTRICT_TYPE@(x,y)", extract just the district type
+        district_name = key.split("@")[0]
+        per_district_by_name[district_name] = adj_result
+        result.per_district[key] = {
+            "bonus": adj_result.total_bonus,
+            "breakdown": adj_result.breakdown,
+        }
+
+    # REQUIRE solver to provide adjacency calculations
+    solver_adjacency = solution.get("adjacency_bonuses", {})
+    solver_total = solution.get("total_adjacency")
+
+    if not solver_adjacency:
+        result.errors.append("Missing required 'adjacency_bonuses' in solution")
+        result.valid = False
+        result.score = 0.0
+        return result
+
+    if solver_total is None:
+        result.errors.append("Missing required 'total_adjacency' in solution")
+        result.valid = False
+        result.score = 0.0
+        return result
+
+    # Compare solver's per-district calculation to ours (INFORMATIONAL ONLY)
+    # Multiple optimal solutions may exist with different district arrangements
+    per_district_mismatches = []
+    for district_name, adj_result in per_district_by_name.items():
+        solver_value = solver_adjacency.get(district_name)
+        if solver_value is None:
+            per_district_mismatches.append(f"Missing adjacency bonus for {district_name}")
+        elif solver_value != adj_result.total_bonus:
+            per_district_mismatches.append(
+                f"Adjacency info for {district_name}: submitted={solver_value}, calculated={adj_result.total_bonus}"
+            )
+
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

@@ -1,0 +1,13 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:~# ls -la /data/scenario_3/
+total 12
+drwxrwxr-x 2 root root 4096 May  1 13:38 .
+drwxr-xr-x 6 root root 4096 May  7 02:54 ..
+-rw-rw-r-- 1 root root  194 May  1 13:38 scenario.json
+root@0d3c1addd3d3:~# ls -la /data/scenario_3/maps/
+ls: cannot access '/data/scenario_3/maps/': No such file or directory
+root@0d3c1addd3d3:~#
+
+
+Include stop_check.

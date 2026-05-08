@@ -1,0 +1,16 @@
+New Terminal Output:
+n 7 (char 6)
+root@0d3c1addd3d3:/data/maps# python3 /tests/tools/civ6map_to_scenario.py /tmp/map.db 2>/dev/null > /tmp/scenario_clean.json
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import json
+> with open('/tmp/scenario_clean.json') as f:
+>     data = json.load(f)
+> print('Dimensions:', data.get('dimensions'))
+> print('Number of tiles:', len(data.get('tiles', [])))
+> "
+Dimensions: {'width': 44, 'height': 26}
+Number of tiles: 1144
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

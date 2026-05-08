@@ -1,0 +1,40 @@
+{
+  "analysis": "The heredoc approach seems to have issues with the space. Let me try writing the script differently.",
+  "plan": "Write a Python script file and execute it with absolute path.",
+  "commands": [
+    {
+      "keystrokes": "echo 'import sqlite3' > /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "echo 'conn = sqlite3.connect(\"/data/maps/e2e_test_case_0 Civ6Map\")' >> /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "echo 'cursor = conn.cursor()' >> /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "echo 'cursor.execute(\"SELECT name FROM sqlite_master WHERE type=\\'table\\';\")' >> /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "echo 'print(cursor.fetchall())' >> /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "cat /tmp/parse_map.py\n",
+      "duration": 0.1
+    },
+    {
+      "keystrokes": "python3 /tmp/parse_map.py\n",
+      "duration": 2.0
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Space in filename handling",
+    "should_stop": "No"
+  },
+  "task_complete": false
+}

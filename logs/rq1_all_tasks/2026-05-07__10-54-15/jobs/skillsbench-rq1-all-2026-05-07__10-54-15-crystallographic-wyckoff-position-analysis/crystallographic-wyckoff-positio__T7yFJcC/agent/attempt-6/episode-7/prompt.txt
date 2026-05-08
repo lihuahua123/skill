@@ -1,0 +1,64 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~/workspace# cat > /root/workspace/solution.py << 'EOF'
+> from fractions import Fraction
+> from typing import Any
+> import numpy as np
+>
+> def rationalize(x: float, max_denom: int = 12) -> str:
+>     """Convert float to rational string with max denominator."""
+>     f = Fraction(x).limit_denominator(max_denom)
+>     return str(f)
+>
+> def analyze_wyckoff_position_multiplicities_and_coordinates(filepath: str) -> dict[str, Any]:
+>     """Analyze Wyckoff positions from a CIF file."""
+>     from pymatgen.core import Structure
+>     from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+>
+>     # Load structure from CIF
+>     structure = Structure.from_file(filepath)
+>
+>     # Get spacegroup analyzer
+>     sym_analyzer = SpacegroupAnalyzer(structure)
+>
+>     # Get symmetry dataset
+>     symmetry_data = sym_analyzer.get_symmetry_dataset()
+>     if symmetry_data is None:
+>         raise ValueError("Could not get symmetry information")
+>
+>     # Get wyckoff letters from symmetry dataset
+>     wyckoffs = symmetry_data.wyckoffs
+>
+>     # Count multiplicities for each Wyckoff letter
+>     wyckoff_counts = {}
+>     wyckoff_first_coords = {}
+>
+>     for idx, label in enumerate(wyckoffs):
+>         if label not in wyckoff_counts:
+>             wyckoff_counts[label] = 0
+>             wyckoff_first_coords[label] = structure[idx].frac_coords
+>         wyckoff_counts[label] += 1
+>
+>     wyckoff_multiplicity_dict = {}
+>     wyckoff_coordinates_dict = {}
+>
+>     for label in sorted(wyckoff_counts.keys()):
+>         wyckoff_multiplicity_dict[label] = wyckoff_counts[label]
+>         coords = wyckoff_first_coords[label]
+>         wyckoff_coordinates_dict[label] = [rationalize(c) for c in coords]
+>
+>     return {
+>         'wyckoff_multiplicity_dict': wyckoff_multiplicity_dict,
+>         'wyckoff_coordinates_dict': wyckoff_coordinates_dict
+>     }
+>
+> if __name__ == "__main__":
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~/workspace# python3 solution.py
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

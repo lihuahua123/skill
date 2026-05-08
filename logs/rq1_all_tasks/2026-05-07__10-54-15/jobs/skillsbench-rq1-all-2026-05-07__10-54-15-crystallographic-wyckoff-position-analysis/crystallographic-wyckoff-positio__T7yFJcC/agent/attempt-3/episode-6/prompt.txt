@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    sym_dataset = analyzer.get_symmetry_dataset()
+
+    wyckoffs = sym_dataset['wyckoffs']
+    frac_coords = structure.frac_coords
+
+    # Group Wyckoff positions and their indices
+    wyckoff_dict = {}
+    for idx, wpos in enumerate(wyckoffs):
+        if wpos not in wyckoff_dict:
+            wyckoff_dict[wpos] = idx
+
+    # Calculate multiplicities and get first atom coordinates for each position
+    multiplicity_dict = {}
+    coordinates_dict = {}
+
+    for wpos, first_idx in wyckoff_dict.items():
+        # Count multiplicity by counting occurrences
+        multiplicity = wyckoffs.count(wpos)
+        multiplicity_dict[wpos] = multiplicity
+
+        # Get coordinates of first atom in this Wyckoff position
+        coords = frac_coords[first_idx]
+        coordinates_dict[wpos] = [
+            to_fraction_string(coord) for coord in coords
+        ]
+
+    return {
+        "wyckoff_multiplicity_dict": multiplicity_dict,
+        "wyckoff_coordinates_dict": coordinates_dict
+    }
+
+
+if __name__ == "__main__":
+    result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+    print(result)
+root@561ccb8d5e18:~# cd /root/workspace && python3 solution.py
+/root/workspace/solution.py:34: DeprecationWarning: dict interface is deprecated. Use attribute interface instead
+  wyckoffs = sym_dataset['wyckoffs']
+{'wyckoff_multiplicity_dict': {'a': 4, 'c': 8}, 'wyckoff_coordinates_dict': {'a': ['0', '1/2', '1/2'], 'c': ['3/8', '1/9', '8/9']}}
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

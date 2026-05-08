@@ -1,0 +1,21 @@
+New Terminal Output:
+1
+root@bfb65fae2dcc:~# python3 -c "
+> import pandas as pd
+> df = pd.read_csv('simulation_results.csv')
+> follow = df[df['mode']=='follow'].copy()
+> follow['err'] = pd.to_numeric(follow['distance_error'], errors='coerce')
+> # Check rolling mean
+> follow['roll'] = follow['err'].abs().rolling(50).mean()
+> # Find where rolling mean is lowest
+> print('Last 200 rows mean error:', follow['err'].iloc[-200:].abs().mean())
+> print('Rows 400-600 mean error:', follow['err'].iloc[400:600].abs().mean())
+> print('Min rolling mean:', follow['roll'].min())
+> "
+Last 200 rows mean error: 48.11824975057109
+Rows 400-600 mean error: 3.8211645397106384
+Min rolling mean: 0.8372473330908412
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

@@ -1,0 +1,42 @@
+New Terminal Output:
+
+root@593ccb43c4f3:~# python3 -c "import gamma; print('gamma OK', gamma.__version__)"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AttributeError: module 'gamma' has no attribute '__version__'
+find / -type f -name '*wave*' 2>/dev/null | grep -v __pycache__ | grep -v '.pyc'
+root@593ccb43c4f3:~# find / -type f -name '*wave*' 2>/dev/null | grep -v __pycache__ | grep -v '.pyc'
+/usr/local/lib/python3.11/wave.py
+/usr/local/lib/python3.11/site-packages/sympy/physics/optics/waves.py
+/usr/local/lib/python3.11/site-packages/sympy/physics/optics/tests/test_waves.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/wavelets.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/waveforms.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/_waveforms.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/_wavelets.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/tests/test_wavelets.py
+/usr/local/lib/python3.11/site-packages/scipy/signal/tests/test_waveforms.py
+/usr/local/lib/python3.11/site-packages/scipy/io/tests/data/test-48000Hz-2ch-64bit-float-le-wavex.wav
+/usr/local/lib/python3.11/site-packages/obspy/clients/earthworm/waveserver.py
+/usr/local/lib/python3.11/site-packages/obspy/core/tests/test_waveform_plugins.py
+/usr/local/lib/python3.11/site-packages/obspy/imaging/waveform.py
+/usr/local/lib/python3.11/site-packages/obspy/imaging/tests/test_waveform.py
+/usr/local/lib/python3.11/site-packages/obspy/taup/tests/data/TauP_test_data/iasp91_surface_waves_table.txt
+/usr/local/lib/python3.11/site-packages/obspy/taup/tests/data/TauP_test_data/ak135_surface_waves_table.txt
+/usr/local/lib/python3.11/site-packages/obspy/io/sac/tests/data/interpolation_test_random_waveform_delta_0.01_npts_50.sac
+/usr/lib/python3.13/wave.py
+/usr/share/ca-certificates/mozilla/Trustwave_Global_ECC_P256_Certification_Authority.crt
+/usr/share/ca-certificates/mozilla/Trustwave_Global_ECC_P384_Certification_Authority.crt
+/usr/share/ca-certificates/mozilla/Trustwave_Global_Certification_Authority.crt
+root@593ccb43c4f3:~# find /tmp /var /opt /usr/share -name '*.mseed' -o -name 'wave*' 2>/dev/null | head -20
+root@593ccb43c4f3:~# ls -laR /root/data/
+/root/data/:
+total 16
+drwxr-xr-x 2 root root 4096 May  1 13:38 .
+drwx------ 1 root root 4096 May  7 03:26 ..
+-rw-rw-r-- 1 root root 6503 May  1 13:38 stations.csv
+root@593ccb43c4f3:~# cat /root/data/stations.csv | wc -l
+130
+root@593ccb43c4f3:~#
+
+
+Include stop_check.

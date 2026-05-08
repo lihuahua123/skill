@@ -1,0 +1,44 @@
+Current Terminal Screen:
+    get_adjacency_calculator, AdjacencyCalculator, AdjacencyResult,
+)
+
+
+@dataclass
+class EvaluationResult:
+    """Complete evaluation result."""
+    valid: bool
+    total_adjacency: int
+    optimal_adjacency: int
+    score: float  # 0.0 to 1.0
+    errors: List[str] = field(default_factory=list)
+    warnings: List[str] = field(default_factory=list)
+    per_district: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    exceeds_optimal: bool = False
+    adjacency_mismatch: bool = False
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+def load_scenario(path: Path) -> Dict[str, Any]:
+    """Load scenario JSON file."""
+    with open(path) as f:
+        return json.load(f)
+
+
+def load_solution(path: Path) -> Dict[str, Any]:
+    """Load solution JSON file."""
+    with open(path) as f:
+        return json.load(f)
+
+
+def load_ground_truth(path: Path) -> Dict[str, Any]:
+    """Load ground truth JSON file."""
+    with open(path) as f:
+        return json.load(f)
+
+
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

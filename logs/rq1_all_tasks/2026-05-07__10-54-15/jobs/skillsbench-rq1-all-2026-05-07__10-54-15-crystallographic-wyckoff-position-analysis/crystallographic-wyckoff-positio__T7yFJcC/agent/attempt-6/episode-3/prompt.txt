@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>     wyckoff_coordinates_dict = {}
+>
+>     # Count atoms per wyckoff position
+>     wyckoff_counts = {}
+>     for idx, label in enumerate(wyckoff_masks):
+>         if label not in wyckoff_counts:
+>             wyckoff_counts[label] = 0
+>         wyckoff_counts[label] += 1
+>
+>     # Get first atom coordinates for each wyckoff position
+>     wyckoff_first_coords = {}
+>     for idx, site in enumerate(structure):
+>         label = wyckoff_masks[idx]
+>         if label not in wyckoff_first_coords:
+>             wyckoff_first_coords[label] = site.frac_coords
+>
+>     for label in sorted(wyckoff_counts.keys()):
+>         wyckoff_multiplicity_dict[label] = wyckoff_counts[label]
+>         coords = wyckoff_first_coords[label]
+>         wyckoff_coordinates_dict[label] = [rationalize(c) for c in coords]
+>
+>     return {
+>         'wyckoff_multiplicity_dict': wyckoff_multiplicity_dict,
+>         'wyckoff_coordinates_dict': wyckoff_coordinates_dict
+>     }
+>
+> if __name__ == "__main__":
+>     result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+>     print(result)
+> EOF
+root@561ccb8d5e18:~/workspace# cd /root/workspace && python3 solution.py
+Traceback (most recent call last):
+  File "/root/workspace/solution.py", line 74, in <module>
+    result = analyze_wyckoff_position_multiplicities_and_coordinates("/root/cif_files/FeS2_mp-226.cif")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/solution.py", line 27, in analyze_wyckoff_position_multiplicities_and_coordinates
+    spg_info = sym_analyzer.get_space_group_info()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SpacegroupAnalyzer' object has no attribute 'get_space_group_info'. Did you mean: 'get_space_group_symbol'?
+root@561ccb8d5e18:~/workspace#
+
+
+Include stop_check.

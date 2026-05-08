@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 7,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778124091.5695202,
+            "stop": 1778124091.6067793
+        },
+        "tests": [
+            {
+                "name": "tests/test_outputs.py::TestAnswerFileExists::test_answer_file_exists",
+                "status": "passed",
+                "duration": 0.00045509636402130127,
+                "start": 1778124091.5831802,
+                "stop": 1778124091.5840185,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestAnswerFileExists::test_answer_file_valid_json",
+                "status": "passed",
+                "duration": 0.0003986358642578125,
+                "start": 1778124091.584305,
+                "stop": 1778124091.5849702,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestAnswerFileExists::test_answer_has_required_key",
+                "status": "passed",
+                "duration": 0.00034771114587783813,
+                "start": 1778124091.5852282,
+                "stop": 1778124091.5858166,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestAnswerFileExists::test_fake_citations_is_list",
+                "status": "passed",
+                "duration": 0.0003549158573150635,
+                "start": 1778124091.586071,
+                "stop": 1778124091.5866747,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFakeCitationsDetected::test_smith2020ai_detected",
+                "status": "passed",
+                "duration": 0.00043699145317077637,
+                "start": 1778124091.5869234,
+                "stop": 1778124091.5875988,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFakeCitationsDetected::test_wilson2021neural_detected",
+                "status": "passed",
+                "duration": 0.0003532394766807556,
+                "start": 1778124091.58787,
+                "stop": 1778124091.5884633,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            },
+            {
+                "name": "tests/test_outputs.py::TestFakeCitationsDetected::test_patel2023blockchain_detected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005428865551948547,
+                "start": 1778124091.5887423,
+                "stop": 1778124091.6014504,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py",
+                "trace": "self = <test_outputs.TestFakeCitationsDetected object at 0x7fb2844ac620>\n\n    def test_patel2023blockchain_detected(self):\n        \"\"\"Verify the fake citation 'Blockchain Applications...' is detected.\"\"\"\n        detected = self._get_detected_titles()\n        detected_normalized = [self._normalize_title(t) for t in detected]\n        expected = self._normalize_title(\"Blockchain Applications in Supply Chain Management\")\n>       assert expected in detected_normalized, \"Failed to detect fake citation: 'Blockchain Applications in Supply Chain Management'\"\nE       AssertionError: Failed to detect fake citation: 'Blockchain Applications in Supply Chain Management'\nE       assert 'blockchain applications in supply chain management' in ['advances in artificial intelligence for natural language processing', 'neural networks in deep learning: a comprehensive review']\n\n/tests/test_outputs.py:94: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "tests/test_outputs.py::TestCitationCount::test_correct_fake_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005079209804534912,
+                "start": 1778124091.6017294,
+                "stop": 1778124091.6057634,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py",
+                "trace": "self = <test_outputs.TestCitationCount object at 0x7fb2844ac770>\n\n    def test_correct_fake_count(self):\n        \"\"\"Verify exactly 3 fake citations are detected.\"\"\"\n        with open(ANSWER_FILE) as f:\n            data = json.load(f)\n        fake_count = len(data.get(\"fake_citations\", []))\n>       assert fake_count == 3, f\"Expected 3 fake citations, but detected {fake_count}\"\nE       AssertionError: Expected 3 fake citations, but detected 2\nE       assert 2 == 3\n\n/tests/test_outputs.py:105: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "tests/test_outputs.py::TestCitationCount::test_no_empty_titles",
+                "status": "passed",
+                "duration": 0.00037025660276412964,
+                "start": 1778124091.6060486,
+                "stop": 1778124091.6066742,
+                "retries": 0,
+                "file_path": "tests/test_outputs.py"
+            }
+        ]
+    }
+}

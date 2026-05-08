@@ -1,0 +1,32 @@
+New Terminal Output:
+
+root@4df30ae92365:~/.claude/skills/pdf# python3 -c "import json; data=json.load(open('/tmp/field_info.json')); page2_fields=[f for f in data if f['page']==2 and
+ 'List3' in f['field_id']]; print(json.dumps(page2_fields, indent=2))"
+[
+  {
+    "field_id": "SC-100[0].Page2[0].List3[0].PlaintiffClaimAmount1[0]",
+    "type": "text",
+    "page": 2,
+    "rect": [
+      301.654,
+      192.909,
+      401.654,
+      205.909
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page2[0].List3[0].Lia[0].FillField2[0]",
+    "type": "text",
+    "page": 2,
+    "rect": [
+      78.477,
+      89.122,
+      575.277,
+      175.225
+    ]
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

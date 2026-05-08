@@ -1,0 +1,44 @@
+New Terminal Output:
+ }
+]
+root@4df30ae92365:~/.claude/skills/pdf# python3 -c "import json; data=json.load(open('/tmp/field_info.json')); date_fields=[f for f in data if 'Date' in f['fiel
+d_id'] and 'List3' in f['field_id'] and f['page']==3]; print(json.dumps(date_fields, indent=2))"
+[
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lib[0].Date1[0]",
+    "type": "text",
+    "page": 3,
+    "rect": [
+      215.929,
+      689.196,
+      332.017,
+      701.235
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lib[0].Date2[0]",
+    "type": "text",
+    "page": 3,
+    "rect": [
+      322.133,
+      673.067,
+      419.049,
+      685.066
+    ]
+  },
+  {
+    "field_id": "SC-100[0].Page3[0].List3[0].Lib[0].Date3[0]",
+    "type": "text",
+    "page": 3,
+    "rect": [
+      463.034,
+      673.067,
+      574.112,
+      685.066
+    ]
+  }
+]
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

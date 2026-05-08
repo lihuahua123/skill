@@ -1,0 +1,27 @@
+New Terminal Output:
+
+root@0d3c1addd3d3:/data/maps# cat > /tmp/parse_map.py << 'ENDSCRIPT'
+> import sqlite3
+> import os
+> for f in os.listdir('/data/maps'):
+>     fp = '/data/maps/' + f
+>     size = os.path.getsize(fp)
+>     if size > 0:
+>         print(f"File: {repr(f)}, Size: {size}")
+>         conn = sqlite3.connect(fp)
+>         cursor = conn.cursor()
+>         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+>         print("Tables:", cursor.fetchall())
+>         break
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/parse_map.py
+File: 'e2e_test_case_0.Civ6Map', Size: 319488
+Tables: [('MetaData',), ('Map',), ('MapAttributes',), ('Plots',), ('PlotAttributes',), ('PlotRivers',), ('PlotCliffs',), ('PlotResources',), ('PlotFeatures',),
+('PlotImprovements',), ('PlotRoutes',), ('PlotOwners',), ('RevealedPlots',), ('StartPositions',), ('Units',), ('UnitAttributes',), ('Cities',), ('CityAttributes
+',), ('Districts',), ('DistrictAttributes',), ('Buildings',), ('Players',), ('PlayerAttributes',), ('ModProperties',), ('ModComponents',), ('ModComponent_Proper
+ties',), ('ModComponent_Items',), ('ModSettings',), ('ModSettings_Properties',), ('ModSettings_Items',), ('ModText',), ('ModDependencies',), ('GameConfig',), ('
+NamedRiverPlot',), ('NamedRiver',)]
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

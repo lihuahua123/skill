@@ -1,0 +1,124 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# cat > /app/solution.py << 'EOF'
+> import re
+> from dialogue_graph import Graph, Node, Edge
+>
+enerate DOT visualization
+    dot_content = graph.to_dot()
+    with open('/app/dialogue.dot', 'w') as f:
+        f.write(dot_content)
+
+    print(f"Parsed {len(graph.nodes)} nodes and {len(graph.edges)} edges")
+    print("Output written to /app/dialogue.json and /app/dialogue.dot")
+
+
+if __name__ == '__main__':
+    main()
+EOF
+> def parse_script(text: str) -> Graph:
+>     """
+>     Parse dialogue script text into a Graph object.
+>     """
+>     graph = Graph()
+>     lines = text.strip().split('\n')
+>
+>     current_node_id = None
+>
+>     for line in lines:
+>         line = line.strip()
+>         if not line:
+>             continue
+>
+>         # Check if this is a node header [NodeID]
+>         header_match = re.match(r'\[(\w+)\]', line)
+>         if header_match:
+>             current_node_id = header_match.group(1)
+>             continue
+>
+>         # Check if this is a regular dialogue line with -> target
+>         dialogue_match = re.match(r'^([^:]+):\s*(.+?)\s*->\s*(\w+)$', line)
+>         if dialogue_match:
+>             speaker = dialogue_match.group(1).strip()
+>             dialogue_text = dialogue_match.group(2).strip()
+>             target = dialogue_match.group(3).strip()
+>
+>             # Create current node if not exists
+>             if current_node_id not in graph.nodes:
+>                 graph.add_node(Node(id=current_node_id, speaker=speaker, text=dialogue_text, type="line"))
+>
+>             # Add edge to target
+>             graph.add_edge(Edge(source=current_node_id, target=target, text=""))
+>             continue
+>
+>         # Check if this is a choice line with optional [Skill]
+>         choice_match = re.match(r'^(\d+)\.\s*(?:\[(\w+)\]\s*)?(.+?)\s*->\s*(\w+)$', line)
+>         if choice_match:
+>             choice_num = choice_match.group(1)
+>             skill = choice_match.group(2)  # Optional skill
+>             choice_text = choice_match.group(3).strip()
+>             target = choice_match.group(4).strip()
+>
+>             # Build full choice text
+>             if skill:
+>                 full_choice = f"{choice_num}. [{skill}] {choice_text}"
+>             else:
+>                 full_choice = f"{choice_num}. {choice_text}"
+>
+>             # Create or update choice node
+>             choice_node_id = f"{current_node_id}_choice"
+>
+>             if choice_node_id in graph.nodes:
+>                 # Append to existing choice text
+>                 graph.nodes[choice_node_id].text += "\n" + full_choice
+>             else:
+>                 # Create new choice node
+>                 graph.add_node(Node(id=choice_node_id, speaker=None, text=full_choice, type="choice"))
+>                 # Add edge from main node to choice node
+>                 graph.add_edge(Edge(source=current_node_id, target=choice_node_id, text=""))
+>
+>             # Add edge from choice node to target
+>             graph.add_edge(Edge(source=choice_node_id, target=target, text=full_choice))
+>             continue
+>
+>     return graph
+>
+>
+> def main():
+>     # Read script
+>     with open('/app/script.txt', 'r') as f:
+>         script_text = f.read()
+>
+>     # Parse script
+>     graph = parse_script(script_text)
+>
+>     # Export to JSON
+>     json_data = graph.to_dict()
+>     with open('/app/dialogue.json', 'w') as f:
+>         import json
+>         json.dump(json_data, f, indent=2)
+>
+>     # Generate DOT visualization
+>     dot_content = graph.to_dot()
+>     with open('/app/dialogue.dot', 'w') as f:
+>         f.write(dot_content)
+>
+>     print(f"Parsed {len(graph.nodes)} nodes and {len(graph.edges)} edges")
+>     print("Output written to /app/dialogue.json and /app/dialogue.dot")
+>
+>
+> if __name__ == '__main__':
+>     main()
+> EOF
+root@0588585e24cd:/app# python3 /app/solution.py
+Traceback (most recent call last):
+  File "/app/solution.py", line 96, in <module>
+    main()
+  File "/app/solution.py", line 87, in main
+    dot_content = graph.to_dot()
+                  ^^^^^^^^^^^^
+AttributeError: 'Graph' object has no attribute 'to_dot'. Did you mean: 'to_dict'?
+root@0588585e24cd:/app#
+
+
+Include stop_check.

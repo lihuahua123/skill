@@ -1,0 +1,44 @@
+Current Terminal Screen:
+        f.write("## System Design\n\n")
+        f.write("### ACC Architecture\n\n")
+        f.write("The ACC system implements a hierarchical control architecture with three modes:\n\n")
+        f.write("- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)\n")
+        f.write("- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance\n")
+        f.write("- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration\n\n")
+        f.write("### Safety Features\n")
+        f.write(f"- Time Headway: {config['acc_settings']['time_headway']}s\n")
+        f.write(f"- Minimum Gap: {config['acc_settings']['min_distance']}m\n")
+        f.write(f"- Emergency TTC: {config['acc_settings']['emergency_ttc_threshold']}s\n")
+        f.write(f"- Accel Limits: [{config['vehicle']['max_deceleration']}, {config['vehicle']['max_acceleration']}] m/s2\n\n")
+        f.write("## PID Tuning Methodology\n\n")
+        f.write("Parameters tuned using iterative simulation to meet performance targets.\n\n")
+        f.write("### Final Gains\n\n")
+        f.write(f"**Speed Controller:** kp={tuning['pid_speed']['kp']}, ki={tuning['pid_speed']['ki']}, kd={tuning['pid_speed']['kd']}\n\n")
+        f.write(f"**Distance Controller:** kp={tuning['pid_distance']['kp']}, ki={tuning['pid_distance']['ki']}, kd={tuning['pid_distance']['kd']}\n\n")
+        f.write("## Simulation Results\n\n")
+        f.write("### Performance Metrics\n\n")
+        f.write("| Metric | Target | Achieved | Status |\n")
+        f.write("|--------|--------|----------|--------|\n")
+        rt_status = 'PASS' if (rise_time and rise_time < 10) else 'FAIL'
+        f.write(f"| Rise Time | <10s | {rise_time:.2f}s | {rt_status} |\n")
+        os_status = 'PASS' if overshoot < 5 else 'FAIL'
+        f.write(f"| Overshoot | <5% | {overshoot:.2f}% | {os_status} |\n")
+        ss_status = 'PASS' if ss_error < 0.5 else 'FAIL'
+        f.write(f"| Speed SS Error | <0.5m/s | {ss_error:.3f}m/s | {ss_status} |\n")
+        ds_status = 'PASS' if dist_ss_err < 2 else 'FAIL'
+        f.write(f"| Dist SS Error | <2m | {dist_ss_err:.2f}m | {ds_status} |\n")
+        md_status = 'PASS' if (min_dist and min_dist > 5) else 'FAIL'
+        f.write(f"| Min Distance | >5m | {min_dist:.2f}m | {md_status} |\n")
+        f.write("\n### Simulation Summary\n\n")
+        f.write(f"- Duration: 150s, Timestep: 0.1s\n")
+        f.write(f"- Rows in output: {len(df)}\n")
+        f.write(f"- Max speed: {max_speed:.2f} m/s\n")
+        f.write(f"- Modes: cruise={len(df[df['mode']=='cruise'])}, follow={len(follow_df)}, emergency={len(df[df['mode']=='emergency'])}\n")
+    print("Report saved to acc_report.md")
+
+if __name__ == '__main__':
+    run_simulation()
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

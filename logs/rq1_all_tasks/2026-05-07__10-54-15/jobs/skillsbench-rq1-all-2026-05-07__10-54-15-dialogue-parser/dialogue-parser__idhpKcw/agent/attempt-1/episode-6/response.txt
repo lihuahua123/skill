@@ -1,0 +1,19 @@
+{
+  "analysis": "The Edge object uses attributes, not dictionary indexing. I need to access edge.source, edge.target, and edge.text directly.",
+  "plan": "1. Check the Edge class structure\n2. Fix the generate_dot function to use proper attribute access",
+  "commands": [
+    {
+      "keystrokes": "python3 -c \"from dialogue_graph import Edge; e = Edge(source='a', target='b', text='test'); print(dir(e))\"\n",
+      "duration": 0.5
+    },
+    {
+      "keystrokes": "python3 -c \"from dialogue_graph import Edge; e = Edge(source='a', target='b', text='test'); print(e.source, e.target, e.text)\"\n",
+      "duration": 0.5
+    }
+  ],
+  "stop_check": {
+    "progress_score": 1,
+    "stuck_reason": "Need to fix Edge attribute access",
+    "should_stop": "No"
+  }
+}

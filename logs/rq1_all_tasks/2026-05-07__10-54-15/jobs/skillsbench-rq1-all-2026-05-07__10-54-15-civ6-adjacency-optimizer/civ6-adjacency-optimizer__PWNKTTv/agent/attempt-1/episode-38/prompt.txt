@@ -1,0 +1,44 @@
+Current Terminal Screen:
+>             reachable.append(t)
+>
+>     # Score each
+>     scores = []
+>     for t in reachable:
+>         c = calc_campus(t[0], t[1])
+>         o = calc_commercial(t[0], t[1])
+>         i = calc_industrial(t[0], t[1])
+>         scores.append(('CAMPUS', t, c))
+>         scores.append(('COMMERCIAL_HUB', t, o))
+>         scores.append(('INDUSTRIAL_ZONE', t, i))
+>
+>     scores.sort(key=lambda x: -x[2])
+>
+>     # Try combinations
+>     chosen = []
+>     used_types = set()
+>     used_tiles = set()
+>     for s in scores:
+>         if s[0] not in used_types and s[1] not in used_tiles:
+>             chosen.append(s)
+>             used_types.add(s[0])
+>             used_tiles.add(s[1])
+>             if len(chosen) >= 3:
+>                 break
+>
+>     total = sum(s[2] for s in chosen)
+>     if total > best[0]:
+>         best = (total, cc, chosen)
+>
+> print(f"Best: {best[0]} at {best[1]}")
+> for s in best[2]:
+>     print(f"  {s[0]} at {s[1]}: {s[2]}")
+> ENDSCRIPT
+root@0d3c1addd3d3:/data/maps# python3 /tmp/optimize_full.py
+Best: 9 at (22, 14)
+  CAMPUS at (21, 14): 5
+  COMMERCIAL_HUB at (22, 17): 4
+  INDUSTRIAL_ZONE at (21, 11): 0
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

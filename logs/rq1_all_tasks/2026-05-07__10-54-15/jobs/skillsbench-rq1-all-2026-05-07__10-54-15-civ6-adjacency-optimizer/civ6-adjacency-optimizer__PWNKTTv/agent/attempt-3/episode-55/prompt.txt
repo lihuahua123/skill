@@ -1,0 +1,44 @@
+Current Terminal Screen:
+        with open(paths["ground_truth"]) as f:
+            ground_truth = json.load(f)
+
+        # Run evaluation ONCE
+        result = evaluate_solution(scenario, solution, ground_truth, DATA_DIR)
+
+        # Write score to file (0 if invalid)
+        score = result.score if result.valid else 0.0
+        SCORE_DIR.mkdir(parents=True, exist_ok=True)
+        (SCORE_DIR / f"{scenario_id}.txt").write_text(str(score))
+
+        # Assert validity
+>       assert result.valid, f"Invalid solution: {result.errors}"
+E       AssertionError: Invalid solution: ['Total adjacency mismatch: submitted=20, calculated=17']
+E       assert False
+E        +  where False = EvaluationResult(valid=False, total_adjacency=17, optimal_adjacency=20, score=0.0, errors=['Total adjacency mismatch: submitted=20, ca
+lculated=17'], warnings=['Adjacency info for INDUSTRIAL_ZONE: submitted=9, calculated=8', 'Adjacency info for COMMERCIAL_HUB: submitted=5, calculated=3'], per_d
+istrict={'CAMPUS@(21,14)': {'bonus': 6, 'breakdown': {'FEATURE_GEOTHERMAL_FISSURE': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['F
+EATURE_GEOTHERMAL_FISSURE@(21,13)']}, 'FEATURE_REEF': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['FEATURE_REEF@(20,14)']}, 'MOUNT
+AIN': {'count': 1, 'bonus': 1, 'count_required': 1, 'bonus_per': 1, 'sources': ['Mountain@(21,15)']}, 'FEATURE_JUNGLE': {'count': 2, 'bonus': 1, 'count_required
+': 2, 'bonus_per': 1, 'sources': ['FEATURE_JUNGLE@(20,13)', 'FEATURE_JUNGLE@(20,15)']}}}, 'INDUSTRIAL_ZONE@(23,16)': {'bonus': 8, 'breakdown': {'AQUEDUCT+BATH+D
+AM+CANAL': {'count': 3, 'bonus': 6, 'count_required': 1, 'bonus_per': 2, 'sources': ['DAM@(24,16)', 'AQUEDUCT@(23,15)', 'CANAL@(22,16)']}, 'DISTRICT': {'count':
+ 5, 'bonus': 2, 'count_required': 2, 'bonus_per': 1, 'sources': ['District(DAM)@(24,16)', 'District(AQUEDUCT)@(23,15)', 'District(CITY_CENTER)@(22,15)', 'Distri
+ct(CANAL)@(22,16)', 'District(NEIGHBORHOOD)@(22,17)']}}}, 'AQUEDUCT@(23,15)': {'bonus': 0, 'breakdown': {}}, 'DAM@(24,16)': {'bonus': 0, 'breakdown': {}}, 'CANA
+L@(22,16)': {'bonus': 0, 'breakdown': {}}, 'COMMERCIAL_HUB@(23,14)': {'bonus': 3, 'breakdown': {'RIVER': {'count': 1, 'bonus': 2, 'sources': ['OnRiver']}, 'DIST
+RICT': {'count': 2, 'bonus': 1, 'count_required': 2, 'bonus_per': 1, 'sources': ['District(CITY_CENTER)@(22,15)', 'District(AQUEDUCT)@(23,15)']}}}, 'NEIGHBORHOO
+D@(22,17)': {'bonus': 0, 'breakdown': {}}}, exceeds_optimal=False, adjacency_mismatch=True).valid
+
+/tests/test_outputs.py:167: AssertionError
+--------------------------------------------------------------------- Captured stderr call ---------------------------------------------------------------------
+Map: 44 x 26
+Plots: 1144
+Features: 276
+Rivers: 14 tiles
+Resources: 0
+=================================================================== short test summary info ====================================================================
+FAILED ../../tests/test_outputs.py::TestEvaluation::test_evaluate_scenario[scenario_3] - AssertionError: Invalid solution: ['Total adjacency mismatch: submitted
+=20, calculated=17']
+================================================================= 1 failed, 9 passed in 0.05s ==================================================================
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

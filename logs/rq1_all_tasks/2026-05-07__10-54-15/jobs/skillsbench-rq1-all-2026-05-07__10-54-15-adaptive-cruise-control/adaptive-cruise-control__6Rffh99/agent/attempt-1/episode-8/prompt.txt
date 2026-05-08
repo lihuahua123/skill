@@ -1,0 +1,85 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat acc_report.md
+# ACC Simulation Report
+
+## System Design
+
+### ACC Architecture
+
+The ACC system implements a hierarchical control architecture with three modes:
+
+- **Cruise Mode**: No lead vehicle detected - maintains set speed (30 m/s)
+- **Follow Mode**: Lead vehicle present with TTC >= threshold - maintains safe following distance
+- **Emergency Mode**: TTC < 3.0s - applies maximum deceleration
+
+### Safety Features
+- Time Headway: 1.5s
+- Minimum Gap: 10.0m
+- Emergency TTC: 3.0s
+- Accel Limits: [-8.0, 3.0] m/s2
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.5, ki=0.3, kd=0.5
+
+**Distance Controller:** kp=0.8, ki=0.1, kd=0.2
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 8.90s | PASS |
+| Overshoot | <5% | 1002.37% | FAIL |
+| Speed SS Error | <0.5m/s | 243.996m/s | FAIL |
+| Dist SS Error | <2m | 222.25m | FAIL |
+| Min Distance | >5m | 1.95m | FAIL |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 330.71 m/s
+- Modes: cruise=501, follow=1000, emergency=0
+root@bfb65fae2dcc:~# head -15 simulation_results.csv
+time,ego_speed,acceleration_cmd,mode,distance_error,distance,ttc
+0.0,0.30000000000000004,3.0,cruise,,,
+0.1,0.6000000000000001,3.0,cruise,,,
+0.2,0.9000000000000001,3.0,cruise,,,
+0.3,1.2000000000000002,3.0,cruise,,,
+0.4,1.5000000000000002,3.0,cruise,,,
+0.5,1.8000000000000003,3.0,cruise,,,
+0.6,2.1000000000000005,3.0,cruise,,,
+0.7,2.4000000000000004,3.0,cruise,,,
+0.8,2.7,3.0,cruise,,,
+0.9,3.0,3.0,cruise,,,
+1.0,3.3,3.0,cruise,,,
+1.1,3.5999999999999996,3.0,cruise,,,
+1.2,3.8999999999999995,3.0,cruise,,,
+1.3,4.199999999999999,3.0,cruise,,,
+root@bfb65fae2dcc:~# tail -15 simulation_results.csv
+148.6,181.1103200510999,-8.0,cruise,,,
+148.7,180.3103200510999,-8.0,cruise,,,
+148.8,179.51032005109988,-8.0,cruise,,,
+148.9,178.71032005109987,-8.0,cruise,,,
+149.0,177.91032005109986,-8.0,cruise,,,
+149.1,177.11032005109985,-8.0,cruise,,,
+149.2,176.31032005109984,-8.0,cruise,,,
+149.3,175.51032005109982,-8.0,cruise,,,
+149.4,174.7103200510998,-8.0,cruise,,,
+149.5,173.9103200510998,-8.0,cruise,,,
+149.6,173.1103200510998,-8.0,cruise,,,
+149.7,172.31032005109978,-8.0,cruise,,,
+149.8,171.51032005109977,-8.0,cruise,,,
+149.9,170.71032005109976,-8.0,cruise,,,
+150.0,169.91032005109975,-8.0,cruise,,,
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

@@ -1,0 +1,31 @@
+New Terminal Output:
+n 1 (char 0)
+root@0d3c1addd3d3:/data/maps# sed -n '7,$p' /tmp/scenario_full.json > /tmp/scenario_clean.json
+root@0d3c1addd3d3:/data/maps# head -5 /tmp/scenario_clean.json
+  "id": "scenario_1",
+  "description": "Scenario from map.db",
+  "dimensions": {
+    "width": 44,
+    "height": 26
+root@0d3c1addd3d3:/data/maps# python3 -c "
+> import json
+> with open('/tmp/scenario_clean.json') as f:
+>     data = json.load(f)
+> print('Dimensions:', data.get('dimensions'))
+> print('Number of tiles:', len(data.get('tiles', [])))
+> "
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "/usr/local/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 1 column 7 (char 6)
+root@0d3c1addd3d3:/data/maps#
+
+
+Include stop_check.

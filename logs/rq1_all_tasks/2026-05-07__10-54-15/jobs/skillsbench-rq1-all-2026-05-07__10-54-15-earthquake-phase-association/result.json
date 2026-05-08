@@ -1,0 +1,28 @@
+{
+    "id": "20818879-ddd8-4b30-9169-b55b02602ba5",
+    "started_at": "2026-05-07T11:25:36.325124",
+    "finished_at": null,
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "terminus-2__MiniMax-M2.7__tasks": {
+                "n_trials": 0,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {},
+                "exception_stats": {
+                    "CancelledError": [
+                        "earthquake-phase-association__pj2ukWf"
+                    ]
+                }
+            }
+        }
+    },
+    "trial_results": []
+}

@@ -1,0 +1,108 @@
+New Terminal Output:
+
+root@bfb65fae2dcc:~# cat -n acc_system.py
+     1  """Adaptive Cruise Control System Implementation"""
+     2
+     3  from pid_controller import PIDController
+     4
+     5  class AdaptiveCruiseControl:
+     6      """ACC system with tuned cruise and follow control."""
+     7
+     8      def __init__(self, config):
+     9          self.mass = config['vehicle']['mass']
+    10          self.max_acceleration = config['vehicle']['max_acceleration']
+    11          self.max_deceleration = config['vehicle']['max_deceleration']
+    12          self.set_speed = config['acc_settings']['set_speed']
+    13          self.time_headway = config['acc_settings']['time_headway']
+    14          self.min_distance = config['acc_settings']['min_distance']
+    15          self.emergency_ttc_threshold = config['acc_settings']['emergency_ttc_threshold']
+    16
+    17          pid_speed_cfg = config.get('pid_speed', {'kp': 0.5, 'ki': 0.05, 'kd': 0.1})
+    18          pid_dist_cfg = config.get('pid_distance', {'kp': 0.5, 'ki': 0.05, 'kd': 0.1})
+    19
+    20          self.pid_speed = PIDController(pid_speed_cfg['kp'], pid_speed_cfg['ki'], pid_speed_cfg['kd'])
+    21          self.pid_distance = PIDController(pid_dist_cfg['kp'], pid_dist_cfg['ki'], pid_dist_cfg['kd'])
+    22          self.prev_mode = 'cruise'
+    23          self.mode = 'cruise'
+    24
+    25      def safe_following_distance(self, ego_speed):
+    26          return ego_speed * self.time_headway + self.min_distance
+    27
+    28      def time_to_collision(self, distance, ego_speed, lead_speed):
+    29          relative_speed = ego_speed - lead_speed
+    30          if relative_speed <= 0:
+    31              return None
+    32          return distance / relative_speed
+    33
+    34      def determine_mode(self, lead_speed, distance):
+    35          if lead_speed is None or distance is None:
+    36              return 'cruise'
+    37          ttc = self.time_to_collision(distance, self.set_speed, lead_speed)
+    38          if ttc is not None and ttc < self.emergency_ttc_threshold:
+    39              return 'emergency'
+    40          return 'follow'
+    41
+    42      def compute(self, ego_speed, lead_speed, distance, dt):
+    43          mode = self.determine_mode(lead_speed, distance)
+    44
+    45          if mode != self.prev_mode:
+    46              self.pid_speed.reset()
+    47              self.pid_distance.reset()
+    48              self.prev_mode = mode
+    49          self.mode = mode
+    50
+    51          if mode == 'cruise':
+    52              self.pid_distance.reset()
+    53              speed_error = self.set_speed - ego_speed
+    54              p_term = self.pid_speed.kp * speed_error
+    55              i_term = self.pid_speed.ki * self.pid_speed.integral
+    56              d_term = self.pid_speed.kd * (speed_error - self.pid_speed.prev_error) / dt
+    57              acceleration_cmd = p_term + i_term + d_term
+    58
+    59              if ego_speed >= self.set_speed - 5:
+    60                  acceleration_cmd *= 0.1
+    61              elif ego_speed >= self.set_speed - 10:
+    62                  acceleration_cmd *= 0.3
+    63              elif ego_speed > self.set_speed:
+    64                  acceleration_cmd = min(acceleration_cmd, -0.5)
+    65
+    66              distance_error = None
+    67
+    68          elif mode == 'emergency':
+    69              self.pid_speed.reset()
+    70              self.pid_distance.reset()
+    71              acceleration_cmd = self.max_deceleration
+    72              distance_error = 0.0
+    73
+    74          else:  # 'follow' mode
+    75              self.pid_speed.reset()
+    76              desired_distance = self.safe_following_distance(ego_speed)
+    77              distance_error = distance - desired_distance
+    78
+    79              # Higher gain for distance control
+    80              acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+    81              acceleration_cmd *= 2.0  # Increase response
+    82
+    83              # Speed limiting
+    84              if ego_speed >= self.set_speed:
+    85                  acceleration_cmd = min(acceleration_cmd, 0.0)
+    86              elif ego_speed > self.set_speed - 3:
+    87                  acceleration_cmd = min(acceleration_cmd, 0.2)
+    88
+    89              if distance < self.min_distance + 5:
+    90                  acceleration_cmd = min(acceleration_cmd, -4.0)
+    91
+    92          acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+    93          return acceleration_cmd, mode, distance_error
+    94
+    95      def reset(self):
+    96          self.pid_speed.reset()
+    97          self.pid_distance.reset()
+    98          self.prev_mode = 'cruise'
+    99          self.mode = 'cruise'
+root@bfb65fae2dcc:~# find / -name 'test_outputs.py' 2>/dev/null
+/tests/test_outputs.py
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

@@ -1,0 +1,54 @@
+New Terminal Output:
+,
+root@bfb65fae2dcc:~# ls -la *.py *.yaml *.csv *.md 2>/dev/null
+-rw-r--r-- 1 root root  1189 May  7 03:09 acc_report.md
+-rw-r--r-- 1 root root  4158 May  7 03:08 acc_system.py
+-rw-r--r-- 1 root root   775 May  7 02:57 pid_controller.py
+-rw-rw-r-- 1 root root 28478 May  1 13:38 sensor_data.csv
+-rw-r--r-- 1 root root  6693 May  7 03:09 simulation.py
+-rw-r--r-- 1 root root 92807 May  7 03:09 simulation_results.csv
+-rw-r--r-- 1 root root    85 May  7 03:08 tuning_results.yaml
+-rw-rw-r-- 1 root root   463 May  1 13:38 vehicle_params.yaml
+root@bfb65fae2dcc:~# wc -l simulation_results.csv && head -1 simulation_results.csv
+1502 simulation_results.csv
+time,ego_speed,acceleration_cmd,mode,distance_error,distance,ttc
+root@bfb65fae2dcc:~# cat tuning_results.yaml
+pid_speed:
+  kp: 1.5
+  ki: 0.3
+  kd: 0.5
+pid_distance:
+  kp: 0.8
+  ki: 0.1
+  kd: 0.2
+root@bfb65fae2dcc:~# cat pid_controller.py
+"""PID Controller Implementation"""
+
+class PIDController:
+    """Discrete-time PID Controller."""
+
+    def __init__(self, kp, ki, kd):
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
+        self.integral = 0.0
+        self.prev_error = 0.0
+
+    def reset(self):
+        """Clear controller state."""
+        self.integral = 0.0
+        self.prev_error = 0.0
+
+    def compute(self, error, dt):
+        """Compute control output given error and timestep."""
+        p_term = self.kp * error
+        self.integral += error * dt
+        i_term = self.ki * self.integral
+        derivative = (error - self.prev_error) / dt if dt > 0 else 0.0
+        d_term = self.kd * derivative
+        self.prev_error = error
+        return p_term + i_term + d_term
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

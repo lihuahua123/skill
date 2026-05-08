@@ -1,0 +1,12 @@
+New Terminal Output:
+
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Edge; e = Edge(source='a', target='b', text='test'); print(dir(e))"
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__in
+it__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__st
+r__', '__subclasshook__', '__weakref__', 'source', 'target', 'text', 'to_dict']
+root@0588585e24cd:/app# python3 -c "from dialogue_graph import Edge; e = Edge(source='a', target='b', text='test'); print(e.source, e.target, e.text)"
+a b test
+root@0588585e24cd:/app#
+
+
+Include stop_check.

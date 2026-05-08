@@ -1,0 +1,37 @@
+Previous response had warnings:
+WARNINGS: - Extra text detected before JSON object
+- Extra text detected after JSON object
+
+New Terminal Output:
+
+echo $?
+<a href=/people/hinrich-schutze/>Hinrich Schütze</a></span></div><div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id=abstract-P19-1086><div cl
+ass="card-body p-3 small">We present SherLIiC, a testbed for lexical inference in context (LIiC), consisting of 3985 manually annotated inference rule candidate
+s (InfCands), accompanied by (i) ~960k unlabeled InfCands, and (ii) ~190k typed textual relations between Freebase entities extracted from the large entity-link
+ed corpus ClueWeb09. Each InfCand consists of one of these relations, expressed as a lemmatized dependency path, and two argument placeholders, each linked to o
+ne or more Freebase types. Due to our candidate selection process based on strong distributional evidence, SherLIiC is much harder than existing testbeds becaus
+e distributional evidence is of little utility in the classification of InfCands. We also show that, due to its construction, many of SherLIiC’s correct InfCand
+s are novel and missing from existing rule bases. We evaluate a large number of strong baselines on SherLIiC, ranging from semantic vector space models to state
+ of the art neural models of natural language inference (NLI). We show that SherLIiC poses a tough challenge to existing NLI systems.</div></div><div class="d-s
+m-flex align-items-stretch mb-3"><div class="d-block me-2 list-button-row"><span class="d-inline d-sm-block text-nowrap"><a class="badge text-bg-primary align-m
+iddle me-1" href=https://aclanthology.org/P19-1087.pdf data-bs-toggle=tooltip data-bs-placement=top title="Open PDF" aria-label="Open PDF">pdf
+<a href=/people/andy-e-fano/unverified/>Andy E. Fano</a></span></div><div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id=abstract-P19-1114><di
+v class="card-body p-3 small">Human trafficking is a worldwide crisis. Traffickers exploit their victims by anonymously offering sexual services through online
+advertisements. These ads often contain clues that law enforcement can use to separate out potential trafficking cases from volunteer sex advertisements. The pr
+oblem is that the sheer volume of ads is too overwhelming for manual processing. Ideally, a centralized semi-automated tool can be used to assist law enforcemen
+t agencies with this task. Here, we present an approach using natural language processing to identify trafficking ads on these websites. We propose a classifier
+ by integrating multiple text feature sets, including the publicly available pre-trained textual language model Bi-directional Encoder Representation from trans
+formers (BERT). In this paper, we demonstrate that a classifier using this composite feature set has significantly better performance compared to any single fea
+ture set alone.</div></div><div class="d-sm-flex align-items-stretch mb-3"><div class="d-block me-2 list-button-row"><span class="d-inline d-sm-block text-nowra
+p"><a class="badge text-bg-primary align-middle me-1" href=https://aclanthology.org/P19-1115.pdf data-bs-toggle=tooltip data-bs-placement=top title="Open PDF" a
+ria-label="Open PDF">pdf
+<a href=/people/yu-su/>Yu Su</a></span></div><div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id=abstract-P19-1127><div class="card-body p-3 s
+mall">Pre-trained embeddings such as word embeddings and sentence embeddings are fundamental tools facilitating a wide range of downstream NLP tasks. In this wo
+rk, we investigate how to learn a general-purpose embedding of textual relations, defined as the shortest dependency path between entities. Textual relation emb
+edding provides a level of knowledge between word/phrase level and sentence level, and we show that it can facilitate downstream tasks requiring relational unde
+rstanding of the text. To learn such an embedding, we create the largest distant supervision dataset by linking the entire English ClueWeb09 corpus to Freebase.
+ We use global co-occurrence statistics between textual and knowledge base relations as the supervision signal to train the embedding. Evaluation on two relatio
+nal understanding tasks demonstrates the usefulness of the learned textual relation e
+
+
+Include stop_check.

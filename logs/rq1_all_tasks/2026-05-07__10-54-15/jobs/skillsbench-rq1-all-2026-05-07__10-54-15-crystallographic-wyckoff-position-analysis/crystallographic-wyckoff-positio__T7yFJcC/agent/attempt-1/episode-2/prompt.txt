@@ -1,0 +1,112 @@
+New Terminal Output:
+
+root@561ccb8d5e18:~# python3 -c "import pymatgen; print(pymatgen.__version__)"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AttributeError: module 'pymatgen' has no attribute '__version__'
+root@561ccb8d5e18:~# python3 -c "from pymatgen.symmetry.analyzer import SpacegroupAnalyzer; help(SpacegroupAnalyzer)" 2>&1 | head -100
+Help on class SpacegroupAnalyzer in module pymatgen.symmetry.analyzer:
+
+class SpacegroupAnalyzer(builtins.object)
+ |  SpacegroupAnalyzer(structure: 'Structure | IStructure', symprec: 'float' = 0.01, angle_tolerance: 'float' = 5) -> 'None'
+ |
+ |  Takes a pymatgen Structure object and a symprec.
+ |
+ |  Uses spglib to perform various symmetry finding operations.
+ |
+ |  Methods defined here:
+ |
+ |  __init__(self, structure: 'Structure | IStructure', symprec: 'float' = 0.01, angle_tolerance: 'float' = 5) -> 'None'
+ |      Args:
+ |          structure (Structure | IStructure): Structure to find symmetry
+ |          symprec (float): Tolerance for symmetry finding. Defaults to 0.01,
+ |              which is fairly strict and works well for properly refined
+ |              structures with atoms in the proper symmetry coordinates. For
+ |              structures with slight deviations from their proper atomic
+ |              positions (e.g., structures relaxed with electronic structure
+ |              codes), a looser tolerance of 0.1 (the value used in Materials
+ |              Project) is often needed.
+ |          angle_tolerance (float): Angle tolerance for symmetry finding. Defaults to 5 degrees.
+ |
+ |  find_primitive(self, keep_site_properties: 'bool' = False) -> 'Structure'
+ |      Find a primitive version of the unit cell.
+ |
+ |      Args:
+ |          keep_site_properties (bool): Whether to keep the input site properties (including
+ |              magnetic moments) on the sites that are still present after the refinement. Note:
+ |              This is disabled by default because the magnetic moments are not always directly
+ |              transferable between unit cell definitions. For instance, long-range magnetic
+ |              ordering or antiferromagnetic character may no longer be present (or exist in
+ |              the same way) in the returned structure. If keep_site_properties is True,
+ |              each site retains the same site property as in the original structure without
+ |              further adjustment.
+ |
+ |      Returns:
+ |          A primitive cell in the input cell is searched and returned
+ |          as a Structure object. If no primitive cell is found, None is
+ |          returned.
+ |
+ |  get_conventional_standard_structure(self, international_monoclinic: 'bool' = True, keep_site_properties: 'bool' = False) -> 'Structure'
+ |      Get a structure with a conventional cell according to certain standards. The
+ |      standards are defined in Setyawan, W., & Curtarolo, S. (2010). High-throughput
+ |      electronic band structure calculations: Challenges and tools. Computational
+ |      Materials Science, 49(2), 299-312. doi:10.1016/j.commatsci.2010.05.010 They
+ |      basically enforce as much as possible norm(a1)<norm(a2)<norm(a3). NB This is not
+ |      necessarily the same as the standard settings within the International Tables of
+ |      Crystallography, for which get_refined_structure should be used instead.
+ |
+ |      Args:
+ |          international_monoclinic (bool): Whether to convert to proper international convention
+ |              such that beta is the non-right angle.
+ |          keep_site_properties (bool): Whether to keep the input site properties (including
+ |              magnetic moments) on the sites that are still present after the refinement. Note:
+ |              This is disabled by default because the magnetic moments are not always directly
+ |              transferable between unit cell definitions. For instance, long-range magnetic
+ |              ordering or antiferromagnetic character may no longer be present (or exist in
+ |              the same way) in the returned structure. If keep_site_properties is True,
+ |              each site retains the same site property as in the original structure without
+ |              further adjustment.
+ |
+ |      Returns:
+ |          The structure in a conventional standardized cell
+ |
+ |  get_conventional_to_primitive_transformation_matrix(self, international_monoclinic: 'bool' = True) -> 'NDArray'
+ |      Get the transformation matrix to transform a conventional unit cell to a
+ |      primitive cell according to certain standards the standards are defined in
+ |      Setyawan, W., & Curtarolo, S. (2010). High-throughput electronic band structure
+ |      calculations: Challenges and tools. Computational Materials Science, 49(2),
+ |      299-312. doi:10.1016/j.commatsci.2010.05.010.
+ |
+ |      Args:
+ |          international_monoclinic (bool): Whether to convert to proper international convention
+ |              such that beta is the non-right angle.
+ |
+ |      Returns:
+ |          Transformation matrix to go from conventional to primitive cell
+ |
+ |  get_crystal_system(self) -> 'CrystalSystem'
+ |      Get the crystal system for the structure, e.g. (triclinic, orthorhombic,
+ |      cubic, etc.).
+ |
+ |      Raises:
+ |          ValueError: on invalid space group numbers < 1 or > 230.
+ |
+ |      Returns:
+ |          str: Crystal system for structure
+ |
+ |  get_hall(self) -> 'str'
+ |      Get Hall symbol for structure.
+ |
+ |      Returns:
+ |          str: Hall symbol
+ |
+ |  get_ir_reciprocal_mesh(self, mesh: 'tuple[int, int, int]' = (10, 10, 10), is_shift: 'tuple[float, float, float]' = (0, 0, 0)) -> 'list[tuple[Kpoint, float]]
+'
+ |      k-point mesh of the Brillouin zone generated taken into account symmetry.
+ |      The method returns the irreducible kpoints of the mesh and their weights.
+ |
+ |      Args:
+root@561ccb8d5e18:~#
+
+
+Include stop_check.

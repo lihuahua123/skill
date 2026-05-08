@@ -1,0 +1,28 @@
+New Terminal Output:
+out.
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 2 -l 2 /root/sc100-filled.pdf - | grep -B 5 -A 15 "The defendant"
+Check here if either plaintiff listed above is doing business under a fictitious name and attach form SC-103.
+Check here if any plaintiff is a “licensee” or “deferred deposit originator” (payday lender) under Financial
+Code sections 23000 et seq.
+2
+
+The defendant (the person, business, or public entity being sued) is:
+Name: Zhi Chen
+
+Phone: 5125658878
+
+Street address: 299 W Washington Ave
+Street
+
+Sunnyvale
+
+CA
+
+94086
+
+City
+
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

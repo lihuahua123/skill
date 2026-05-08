@@ -1,0 +1,44 @@
+Current Terminal Screen:
+Name:
+
+Job title, if known:
+
+Address:
+Street
+
+City
+
+State
+
+Zip
+
+Check here if your case is against more than one defendant and attach form SC-100A.
+Check here if any defendant is on active military duty and write defendant’s name here:
+3
+
+The plaintiff claims the defendant owes $ $1,500.00
+
+. (Explain below and on next page.)
+
+a. Why does the defendant owe the plaintiff money?
+Defendant failed to return my security deposit based on the signed roommate sublease contract after moving out.
+
+Rev. January 1, 2026
+
+Plaintiff’s Claim and ORDER to Go to Small Claims Court
+
+SC-100, Page 2 of 6
+
+
+
+root@4df30ae92365:~/.claude/skills/pdf# pdftotext -f 2 -l 2 /root/sc100-filled.pdf - | grep -A 5 "claims the defendant owes"
+The plaintiff claims the defendant owes $ $1,500.00
+
+. (Explain below and on next page.)
+
+a. Why does the defendant owe the plaintiff money?
+Defendant failed to return my security deposit based on the signed roommate sublease contract after moving out.
+root@4df30ae92365:~/.claude/skills/pdf#
+
+
+Include stop_check.

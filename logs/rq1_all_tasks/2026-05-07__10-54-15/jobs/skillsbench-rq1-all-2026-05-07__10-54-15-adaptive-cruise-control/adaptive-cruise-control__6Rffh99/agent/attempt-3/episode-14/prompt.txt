@@ -1,0 +1,103 @@
+New Terminal Output:
+ EOF
+root@bfb65fae2dcc:~# cat > acc_system.py << 'EOF'
+> """Adaptive Cruise Control System Implementation"""
+>
+> from pid_controller import PIDController
+>
+> class AdaptiveCruiseControl:
+>     """ACC system with proper mode determination."""
+>
+>     def __init__(self, config):
+>         self.mass = config['vehicle']['mass']
+>         self.max_acceleration = config['vehicle']['max_acceleration']
+>         self.max_deceleration = config['vehicle']['max_deceleration']
+>         self.set_speed = config['acc_settings']['set_speed']
+>         self.time_headway = config['acc_settings']['time_headway']
+>         self.min_distance = config['acc_settings']['min_distance']
+>         self.emergency_ttc_threshold = config['acc_settings']['emergency_ttc_threshold']
+>
+>         pid_speed_cfg = config.get('pid_speed', {'kp': 2.0, 'ki': 0.3, 'kd': 0.5})
+>         pid_dist_cfg = config.get('pid_distance', {'kp': 1.5, 'ki': 0.1, 'kd': 0.3})
+>
+>         self.pid_speed = PIDController(pid_speed_cfg['kp'], pid_speed_cfg['ki'], pid_speed_cfg['kd'])
+>         self.pid_distance = PIDController(pid_dist_cfg['kp'], pid_dist_cfg['ki'], pid_dist_cfg['kd'])
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+>
+>     def safe_following_distance(self, ego_speed):
+>         """Calculate desired following distance."""
+>         return ego_speed * self.time_headway + self.min_distance
+>
+>     def calculate_ttc(self, distance, ego_speed, lead_speed):
+>         """Calculate Time to Collision."""
+>         if distance is None or lead_speed is None:
+>             return None
+>         relative_speed = ego_speed - lead_speed
+>         if relative_speed <= 0:
+>             return None
+>         return distance / relative_speed
+>
+>     def determine_mode(self, lead_speed, distance, ego_speed):
+>         """Determine operating mode based on conditions."""
+>         if lead_speed is None or distance is None:
+>             return 'cruise'
+>
+>         ttc = self.calculate_ttc(distance, ego_speed, lead_speed)
+>         if ttc is not None and ttc < self.emergency_ttc_threshold:
+>             return 'emergency'
+>
+>         return 'follow'
+>
+>     def compute(self, ego_speed, lead_speed, distance, dt):
+>         """Compute acceleration command based on ACC logic."""
+>         mode = self.determine_mode(lead_speed, distance, ego_speed)
+>
+>         if mode != self.prev_mode:
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             self.prev_mode = mode
+>         self.mode = mode
+>
+>         if mode == 'cruise':
+>             self.pid_distance.reset()
+>             speed_error = self.set_speed - ego_speed
+>             acceleration_cmd = self.pid_speed.compute(speed_error, dt)
+>             distance_error = None
+>
+>         elif mode == 'emergency':
+>             self.pid_speed.reset()
+>             self.pid_distance.reset()
+>             acceleration_cmd = self.max_deceleration
+>             distance_error = 0.0
+>
+>         else:  # 'follow' mode
+>             self.pid_speed.reset()
+>             desired_distance = self.safe_following_distance(ego_speed)
+>             distance_error = distance - desired_distance
+>             acceleration_cmd = self.pid_distance.compute(distance_error, dt)
+>
+>         # Clamp acceleration to limits
+>         acceleration_cmd = max(self.max_deceleration, min(self.max_acceleration, acceleration_cmd))
+>         return acceleration_cmd, mode, distance_error
+>
+>     def reset(self):
+>         """Reset controller state."""
+>         self.pid_speed.reset()
+>         self.pid_distance.reset()
+>         self.prev_mode = 'cruise'
+>         self.mode = 'cruise'
+> EOF
+root@bfb65fae2dcc:~# cat tuning_results.yaml
+pid_speed:
+  kp: 1.5
+  ki: 0.3
+  kd: 0.5
+pid_distance:
+  kp: 0.8
+  ki: 0.1
+  kd: 0.2
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

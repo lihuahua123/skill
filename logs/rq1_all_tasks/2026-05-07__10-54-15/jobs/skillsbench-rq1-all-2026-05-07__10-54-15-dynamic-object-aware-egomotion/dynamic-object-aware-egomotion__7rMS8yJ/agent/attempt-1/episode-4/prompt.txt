@@ -1,0 +1,213 @@
+New Terminal Output:
+
+root@f72ab8c29d7d:~# cat > /root/analyze_video.py << 'EOF'
+> import cv2
+> import numpy as np
+> import json
+>
+H> VIDEO_PATH = '/root/input.mp4'
+> OUTPUT_JSON = '/root/pred_instructions.json'
+> OUTPUT_MASKS = '/root/pred_dyn_masks.npz'
+> TARGET_FPS = 6
+sa>
+> # Read video
+> cap = cv2.VideoCapture(VIDEO_PATH)
+> total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+> orig_fps = cap.get(cv2.CAP_PROP_FPS)
+> W = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+> H = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+-1>
+> step = int(orig_fps / TARGET_FPS)
+> sample_ids = list(range(0, total_frames, step))
+> if sample_ids[-1] != total_frames - 1:
+>     sample_ids.append(total_frames - 1)
+>
+> print(f"Total frames: {total_frames}, Step: {step}, Samples: {len(sample_ids)}")
+>
+o> # Read all sampled frames as grayscale
+> frames_gray = []
+> for idx in sample_ids:
+>     cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
+>     ret, frame = cap.read()
+>     if ret:
+>         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+>         frames_gray.append(gray)
+>     else:
+>         frames_gray.append(None)
+> cap.release()
+>
+8> # Egomotion estimation
+> def estimate_affine(prev_pts, curr_pts):
+>     if len(prev_pts) < 4 or len(curr_pts) < 4:
+>         return None
+>     M, mask = cv2.estimateAffinePartial2D(prev_pts, curr_pts, method=cv2.RANSAC)
+>     if M is None:
+>         return None
+>     return M
+o>
+s> def decompose_affine(M):
+>     if M is None:
+ >         return 0, 0, 0, 1
+>     tx = M[0, 2]
+>     ty = M[1, 2]
+>     a = M[0, 0]
+>     b = M[0, 1]
+r>     c = M[1, 0]
+>     d = M[1, 1]
+>     scale = np.sqrt(a**2 + b**2)
+>     rot = np.arctan2(b, a)
+>     return tx, ty, rot, scale
+>
+a> # Thresholds normalized by resolution
+> th_trans = max(W, H) * 0.01
+> th_rot = 0.02
+> th_scale = 0.02
+>
+> # Process each frame pair
+> frame_labels = []
+> affine_mats = [None]
+>
+n> for i in range(1, len(sample_ids)):
+>     if frames_gray[i-1] is None or frames_gray[i] is None:
+>         frame_labels.append(["Stay"])
+>         affine_mats.append(None)
+c>         continue
+i>
+>     # Feature tracking
+>     prev_pts = cv2.goodFeaturesToTrack(frames_gray[i-1], maxCorners=200, qualityLevel=0.01, minDistance=10)
+>     if prev_pts is None or len(prev_pts) < 4:
+>         frame_labels.append(["Stay"])
+>         affine_mats.append(None)
+r>         continue
+>
+>     curr_pts, status, _ = cv2.calcOpticalFlowPyrLK(frames_gray[i-1], frames_gray[i], prev_pts, None)
+>     if curr_pts is None:
+>         frame_labels.append(["Stay"])
+>         affine_mats.append(None)
+>         continue
+>
+>     # Filter valid points
+>     valid_prev = prev_pts[status.ravel() == 1]
+>     valid_curr = curr_pts[status.ravel() == 1]
+>
+>     if len(valid_prev) < 4:
+>         frame_labels.append(["Stay"])
+>         affine_mats.append(None)
+>         continue
+>
+>     M = estimate_affine(valid_prev, valid_curr)
+>     affine_mats.append(M)
+>
+>     if M is None:
+>         frame_labels.append(["Stay"])
+>         continue
+>
+>     tx, ty, rot, scale = decompose_affine(M)
+>     labels = []
+>
+>     if abs(scale - 1) > th_scale:
+>         labels.append("Dolly In" if scale > 1 else "Dolly Out")
+>     if abs(rot) > th_rot:
+>         labels.append("Roll Right" if rot > 0 else "Roll Left")
+>     if abs(tx) > th_trans and abs(tx) >= abs(ty):
+>         labels.append("Pan Left" if tx > 0 else "Pan Right")
+>     if abs(ty) > th_trans and abs(ty) > abs(tx):
+>         labels.append("Tilt Up" if ty > 0 else "Tilt Down")
+>
+>     if not labels:
+>         labels.append("Stay")
+>     frame_labels.append(labels)
+>
+> # Temporal smoothing with window=3
+> smoothed = frame_labels.copy()
+> for i in range(1, len(smoothed)):
+>     vote = {}
+>     for j in range(max(1, i-1), min(len(smoothed), i+2)):
+>         for lbl in smoothed[j]:
+>             vote[lbl] = vote.get(lbl, 0) + 1
+>     smoothed[i] = [l for l, c in sorted(vote.items(), key=lambda x: -x[1])]
+>
+> # Merge consecutive identical labels
+> intervals = {}
+> i = 0
+> while i < len(smoothed):
+>     j = i
+>     while j < len(smoothed) and smoothed[j] == smoothed[i]:
+>         j += 1
+>     key = f"{i}->{j}"
+>     intervals[key] = smoothed[i]
+>     i = j
+>
+> # Save JSON
+> with open(OUTPUT_JSON, 'w') as f:
+>     json.dump(intervals, f, indent=2)
+> print(f"Saved {OUTPUT_JSON}")
+>
+> # Dynamic object masks
+> print("Generating dynamic object masks...")
+> morph_open = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+> morph_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+> min_area = max(500, H * W * 0.001)
+>
+> masks_data = {'shape': np.array([H, W], dtype=np.int32)}
+>
+> for i in range(len(sample_ids)):
+>     if i == 0 or affine_mats[i] is None:
+>         mask = np.zeros((H, W), dtype=bool)
+>     else:
+>         # Warp previous frame to current
+>         M = affine_mats[i]
+>         warped_prev = cv2.warpAffine(frames_gray[i-1], M, (W, H), flags=cv2.INTER_LINEAR, borderValue=0)
+>         valid = cv2.warpAffine(np.ones((H, W), dtype=np.uint8), M, (W, H), flags=cv2.INTER_NEAREST) > 0
+>
+>         if frames_gray[i] is None:
+>             mask = np.zeros((H, W), dtype=bool)
+>         else:
+>             diff = cv2.absdiff(frames_gray[i], warped_prev)
+>             vals = diff[valid]
+>
+>             if len(vals) > 0:
+>                 median_val = np.median(vals)
+>                 mad = np.median(np.abs(vals - median_val))
+>                 thr = max(20, median_val + 3 * 1.4826 * mad)
+>                 raw = (diff > thr) & valid
+>
+>                 raw_u8 = (raw.astype(np.uint8) * 255)
+>                 m = cv2.morphologyEx(raw_u8, cv2.MORPH_OPEN, morph_open)
+>                 m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, morph_close)
+>
+>                 n, cc, stats, _ = cv2.connectedComponentsWithStats(m, connectivity=8)
+>                 mask = np.zeros((H, W), dtype=bool)
+>                 for cid in range(1, n):
+>                     if stats[cid, cv2.CC_STAT_AREA] >= min_area:
+>                         mask |= (cc == cid)
+>             else:
+>                 mask = np.zeros((H, W), dtype=bool)
+>
+>     # Convert to CSR
+>     rows, cols = np.nonzero(mask)
+>     data = np.ones(len(rows), dtype=np.uint8)
+>     indices = cols.astype(np.int32)
+>     counts = np.bincount(rows, minlength=H)
+>     indptr = np.cumsum(counts, dtype=np.int64)
+>     indptr = np.insert(indptr, 0, 0)
+>
+>     masks_data[f'f_{i}_data'] = data
+>     masks_data[f'f_{i}_indices'] = indices
+>     masks_data[f'f_{i}_indptr'] = indptr
+>
+> # Save masks
+> np.savez(OUTPUT_MASKS, **masks_data)
+> print(f"Saved {OUTPUT_MASKS}")
+> print("Done!")
+> EOF
+root@f72ab8c29d7d:~# python3 /root/analyze_video.py
+Total frames: 207, Step: 10, Samples: 22
+Saved /root/pred_instructions.json
+Generating dynamic object masks...
+Saved /root/pred_dyn_masks.npz
+Done!
+root@f72ab8c29d7d:~#
+
+
+Include stop_check.

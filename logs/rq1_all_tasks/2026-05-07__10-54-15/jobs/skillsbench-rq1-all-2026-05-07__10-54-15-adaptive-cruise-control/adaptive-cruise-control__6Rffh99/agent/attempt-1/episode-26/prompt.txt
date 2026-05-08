@@ -1,0 +1,44 @@
+Current Terminal Screen:
+
+## PID Tuning Methodology
+
+Parameters tuned using iterative simulation to meet performance targets.
+
+### Final Gains
+
+**Speed Controller:** kp=1.5, ki=0.3, kd=0.5
+
+**Distance Controller:** kp=0.3, ki=0.02, kd=0.05
+
+## Simulation Results
+
+### Performance Metrics
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| Rise Time | <10s | 9.10s | PASS |
+| Overshoot | <5% | 0.01% | PASS |
+| Speed SS Error | <0.5m/s | 0.000m/s | PASS |
+| Dist SS Error | <2m | 11.70m | FAIL |
+| Min Distance | >5m | 33.60m | PASS |
+
+### Simulation Summary
+
+- Duration: 150s, Timestep: 0.1s
+- Rows in output: 1501
+- Max speed: 30.00 m/s
+- Modes: cruise=501, follow=959, emergency=41
+root@bfb65fae2dcc:~# wc -l simulation_results.csv
+1502 simulation_results.csv
+root@bfb65fae2dcc:~# head -3 simulation_results.csv && echo '...' && tail -3 simulation_results.csv
+time,ego_speed,acceleration_cmd,mode,distance_error,distance,ttc
+0.0,0.30000000000000004,3.0,cruise,,,
+0.1,0.6000000000000001,3.0,cruise,,,
+...
+149.8,29.999959855949093,2.7907628973622425e-05,cruise,,,
+149.9,29.999962465312404,2.6093633089274705e-05,cruise,,,
+150.0,29.9999649050671,2.4397546937571236e-05,cruise,,,
+root@bfb65fae2dcc:~#
+
+
+Include stop_check.

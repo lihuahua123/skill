@@ -1,0 +1,52 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting pytest==8.3.4
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/11/92/76a1c94d3afee238333bc0a42b82935dd8f9cf8ce9e336ff87ee14d9e1cf/pytest-8.3.4-py3-none-any.whl (343 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 343.1/343.1 kB 757.6 kB/s eta 0:00:00
+Collecting pytest-json-ctrf==0.3.5
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/51/a8/d58637d10f70ae14a1ad18cb37f4aa32d5593510213d5f929892cb1c9c6d/pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Collecting iniconfig (from pytest==8.3.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Collecting packaging (from pytest==8.3.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl (100 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 2.3 MB/s eta 0:00:00
+Collecting pluggy<2,>=1.5 (from pytest==8.3.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl (20 kB)
+Installing collected packages: pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pytest-8.3.4 pytest-json-ctrf-0.3.5
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.3.4, pluggy-1.6.0 -- /usr/local/bin/python3.11
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collecting ... collected 10 items
+
+../tests/test_outputs.py::TestFormat::test_solution_file_exists[scenario_3] PASSED [ 10%]
+../tests/test_outputs.py::TestFormat::test_solution_is_valid_json[scenario_3] PASSED [ 20%]
+../tests/test_outputs.py::TestFormat::test_has_placements[scenario_3] PASSED [ 30%]
+../tests/test_outputs.py::TestFormat::test_has_adjacency_bonuses[scenario_3] PASSED [ 40%]
+../tests/test_outputs.py::TestFormat::test_has_total_adjacency[scenario_3] PASSED [ 50%]
+../tests/test_outputs.py::TestFormat::test_has_city_center[scenario_3] PASSED [ 60%]
+../tests/test_outputs.py::TestFormat::test_placements_have_coordinates[scenario_3] PASSED [ 70%]
+../tests/test_outputs.py::TestFormat::test_adjacency_matches_placements[scenario_3] PASSED [ 80%]
+../tests/test_outputs.py::TestFormat::test_total_adjacency_is_sum[scenario_3] PASSED [ 90%]
+../tests/test_outputs.py::TestEvaluation::test_evaluate_scenario[scenario_3] FAILED [100%]
+
+=================================== FAILURES ===================================
+______________ TestEvaluation.test_evaluate_scenario[scenario_3] _______________
+/tests/test_outputs.py:167: in test_evaluate_scenario
+    assert result.valid, f"Invalid solution: {result.errors}"
+E   AssertionError: Invalid solution: ['Total adjacency mismatch: submitted=9, calculated=8']
+E   assert False
+E    +  where False = EvaluationResult(valid=False, total_adjacency=8, optimal_adjacency=20, score=0.0, errors=['Total adjacency mismatch: submitted=9, calculated=8'], warnings=['Adjacency info for CAMPUS: submitted=5, calculated=6', 'Adjacency info for COMMERCIAL_HUB: submitted=4, calculated=2'], per_district={'CAMPUS@(21,14)': {'bonus': 6, 'breakdown': {'FEATURE_GEOTHERMAL_FISSURE': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['FEATURE_GEOTHERMAL_FISSURE@(21,13)']}, 'FEATURE_REEF': {'count': 1, 'bonus': 2, 'count_required': 1, 'bonus_per': 2, 'sources': ['FEATURE_REEF@(20,14)']}, 'MOUNTAIN': {'count': 1, 'bonus': 1, 'count_required': 1, 'bonus_per': 1, 'sources': ['Mountain@(21,15)']}, 'FEATURE_JUNGLE': {'count': 2, 'bonus': 1, 'count_required': 2, 'bonus_per': 1, 'sources': ['FEATURE_JUNGLE@(20,13)', 'FEATURE_JUNGLE@(20,15)']}}}, 'COMMERCIAL_HUB@(22,17)': {'bonus': 2, 'breakdown': {'RIVER': {'count': 1, 'bonus': 2, 'sources': ['OnRiver']}}}, 'INDUSTRIAL_ZONE@(23,12)': {'bonus': 0, 'breakdown': {}}}, exceeds_optimal=False, adjacency_mismatch=True).valid
+----------------------------- Captured stderr call -----------------------------
+Map: 44 x 26
+Plots: 1144
+Features: 276
+Rivers: 14 tiles
+Resources: 0
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::TestEvaluation::test_evaluate_scenario[scenario_3]
+========================= 1 failed, 9 passed in 0.06s ==========================
+scenario_3: 0.000
+
+Final score: 0.000
