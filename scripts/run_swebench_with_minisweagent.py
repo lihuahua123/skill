@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import json
 import os
@@ -29,6 +30,12 @@ from minisweagent.run.extra.swebench import get_sb_environment
 from minisweagent.run.utils.save import save_traj
 
 
+def parse_boolish(value: str | bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run single-attempt SWE-bench evaluation with mini-swe-agent."
@@ -51,6 +58,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--feedback-answer-safety", default="no-answers")
     parser.add_argument("--stop-rule", default="max-attempts-only")
     parser.add_argument("--stop-threshold", type=float, default=0.0)
+    parser.add_argument("--stop-check-early-stop-enabled", default="true")
+    parser.add_argument("--stop-check-zero-progress-streak", type=int, default=2)
+    parser.add_argument("--stop-check-yes-streak", type=int, default=2)
+    parser.add_argument("--skillsbench-skill-guidance", default="false")
+    parser.add_argument("--retry-workspace-strategy", choices=("fresh", "preserve"), default="preserve")
     parser.add_argument("--skip-evaluation", action="store_true")
     return parser.parse_args()
 
@@ -82,6 +94,42 @@ def config_path_for_backend(backend: str) -> Path:
 def load_agent_config(backend: str, model_name: str) -> dict[str, Any]:
     config = yaml.safe_load(config_path_for_backend(backend).read_text(encoding="utf-8"))
     config.setdefault("model", {})["model_name"] = model_name
+    return config
+
+
+def inject_agent_section(template: str, heading: str, body: str) -> str:
+    section = f"\n\n    ## {heading}\n    {body.replace(chr(10), chr(10) + '    ')}"
+    marker = "\n    ## Command Execution Rules"
+    if marker in template:
+        before, after = template.split(marker, 1)
+        return before + section + marker + after
+    return template + section
+
+
+def apply_agent_runtime_settings(
+    *,
+    config_template: dict[str, Any],
+    skill_guidance_enabled: bool,
+    stop_check_enabled: bool,
+    stop_check_zero_progress_streak: int,
+    stop_check_yes_streak: int,
+) -> dict[str, Any]:
+    config = copy.deepcopy(config_template)
+    agent_config = config.setdefault("agent", {})
+    agent_config["paper_turn_stopcheck_enabled"] = stop_check_enabled
+    agent_config["paper_turn_stopcheck_zero_progress_streak"] = stop_check_zero_progress_streak
+    agent_config["paper_turn_stopcheck_yes_streak"] = stop_check_yes_streak
+    if skill_guidance_enabled:
+        guidance_text = (
+            "Use project-specific signals before broad exploration. Prefer targeted grep on identifiers and "
+            "error strings from the issue, inspect the most likely implementation files first, and reuse nearby "
+            "tests or existing code patterns to constrain the patch."
+        )
+        agent_config["instance_template"] = inject_agent_section(
+            str(agent_config.get("instance_template") or ""),
+            "Skill Guidance",
+            guidance_text,
+        )
     return config
 
 
@@ -212,6 +260,124 @@ def enrich_traj_outputs(traj_path: Path, attempt_dir: Path) -> dict[str, Any]:
         "usage_per_round": usage_per_round,
         "episode_dirs": episode_dirs,
         "extra_trajectory_files": extra_trajectories,
+    }
+
+
+def _docker_cp_to_env(env: Any, source: Path, destination: str) -> bool:
+    container_id = str(getattr(env, "container_id", "") or "").strip()
+    docker_executable = str(getattr(getattr(env, "config", None), "executable", "docker") or "docker")
+    if not container_id:
+        return False
+    subprocess.run(
+        [docker_executable, "cp", str(source), f"{container_id}:{destination}"],
+        check=True,
+    )
+    return True
+
+
+def _write_file_into_env(env: Any, source: Path, destination: str) -> None:
+    if _docker_cp_to_env(env, source, destination):
+        return
+    encoded = base64.b64encode(source.read_bytes()).decode("ascii")
+    command = (
+        "python3 - <<'PY'\n"
+        "import base64\n"
+        "from pathlib import Path\n"
+        f"path = Path({destination!r})\n"
+        "path.parent.mkdir(parents=True, exist_ok=True)\n"
+        f"path.write_bytes(base64.b64decode({encoded!r}))\n"
+        "PY"
+    )
+    result = env.execute(command)
+    if int(result.get("returncode", 1) or 1) != 0:
+        raise RuntimeError(f"Failed to write file into environment: {destination}\n{result.get('output', '')}")
+
+
+def capture_workspace_snapshot(env: Any, attempt_dir: Path) -> dict[str, str]:
+    snapshot_dir = attempt_dir / "workspace_snapshot"
+    snapshot_dir.mkdir(parents=True, exist_ok=True)
+    patch_path = snapshot_dir / "workspace.patch"
+    untracked_archive_path = snapshot_dir / "untracked.tar.gz"
+
+    diff_result = env.execute("cd /testbed && git diff HEAD --binary")
+    diff_returncode = int(diff_result.get("returncode", 1) or 1)
+    if diff_returncode not in {0, 1}:
+        raise RuntimeError(f"Failed to capture workspace patch:\n{diff_result.get('output', '')}")
+    patch_path.write_text(str(diff_result.get("output") or ""), encoding="utf-8")
+
+    untracked_result = env.execute(
+        "cd /testbed && python3 - <<'PY'\n"
+        "import base64\n"
+        "import io\n"
+        "import subprocess\n"
+        "import sys\n"
+        "import tarfile\n"
+        "proc = subprocess.run(\n"
+        "    ['git', 'ls-files', '--others', '--exclude-standard', '-z'],\n"
+        "    stdout=subprocess.PIPE,\n"
+        "    stderr=subprocess.PIPE,\n"
+        "    check=True,\n"
+        ")\n"
+        "paths = [item for item in proc.stdout.decode('utf-8', errors='surrogateescape').split('\\0') if item]\n"
+        "if not paths:\n"
+        "    sys.exit(0)\n"
+        "buf = io.BytesIO()\n"
+        "with tarfile.open(fileobj=buf, mode='w:gz') as tar:\n"
+        "    for rel in paths:\n"
+        "        tar.add(rel, arcname=rel)\n"
+        "sys.stdout.write(base64.b64encode(buf.getvalue()).decode('ascii'))\n"
+        "PY"
+    )
+    if int(untracked_result.get("returncode", 1) or 1) != 0:
+        return {
+            "patch_path": str(patch_path),
+            "untracked_archive_path": "",
+            "untracked_capture_error": (
+                f"returncode={int(untracked_result.get('returncode', 1) or 1)} "
+                f"output={str(untracked_result.get('output') or '').strip()}"
+            ),
+        }
+    encoded_untracked = str(untracked_result.get("output") or "").strip()
+    if encoded_untracked:
+        untracked_archive_path.write_bytes(base64.b64decode(encoded_untracked))
+
+    return {
+        "patch_path": str(patch_path),
+        "untracked_archive_path": str(untracked_archive_path) if untracked_archive_path.exists() else "",
+        "untracked_capture_error": "",
+    }
+
+
+def restore_workspace_snapshot(env: Any, snapshot: dict[str, str] | None) -> dict[str, Any]:
+    if not snapshot:
+        return {"restored": False, "restored_from_attempt": None}
+    patch_path = Path(snapshot.get("patch_path") or "")
+    untracked_archive_path = Path(snapshot.get("untracked_archive_path") or "")
+    restore_root = "/tmp/minisweagent_retry_restore"
+
+    if patch_path.exists() and patch_path.stat().st_size > 0:
+        destination = f"{restore_root}/workspace.patch"
+        _write_file_into_env(env, patch_path, destination)
+        result = env.execute(f"cd /testbed && git apply --binary {destination}")
+        if int(result.get("returncode", 1) or 1) != 0:
+            raise RuntimeError(f"Failed to restore workspace patch:\n{result.get('output', '')}")
+
+    if untracked_archive_path.exists() and untracked_archive_path.stat().st_size > 0:
+        destination = f"{restore_root}/untracked.tar.gz"
+        _write_file_into_env(env, untracked_archive_path, destination)
+        result = env.execute(
+            "cd /testbed && python3 - <<'PY'\n"
+            "import tarfile\n"
+            f"with tarfile.open({destination!r}, 'r:gz') as tar:\n"
+            "    tar.extractall('.')\n"
+            "PY"
+        )
+        if int(result.get("returncode", 1) or 1) != 0:
+            raise RuntimeError(f"Failed to restore untracked files:\n{result.get('output', '')}")
+
+    return {
+        "restored": True,
+        "restored_from_attempt": snapshot.get("attempt_number"),
     }
 
 
@@ -383,11 +549,23 @@ def build_feedback_prompt(
     }
 
 
-def compose_attempt_instruction(original_problem_statement: str, feedback_prompt: str | None) -> str:
+def compose_attempt_instruction(
+    original_problem_statement: str,
+    feedback_prompt: str | None,
+    retry_workspace_strategy: str,
+) -> str:
+    preserve_note = ""
+    if retry_workspace_strategy == "preserve":
+        preserve_note = (
+            "Retry workspace note:\n"
+            "- You are continuing from the previous attempt's modified workspace.\n"
+            "- Inspect existing source edits before creating new ones.\n"
+            "- Reuse and repair in-place unless the earlier direction is clearly wrong.\n\n"
+        )
     if not feedback_prompt:
-        return original_problem_statement
+        return f"{preserve_note}{original_problem_statement}" if preserve_note else original_problem_statement
     return (
-        f"{feedback_prompt}\n\n"
+        f"{preserve_note}{feedback_prompt}\n\n"
         "Original problem statement:\n"
         f"{original_problem_statement}"
     )
@@ -458,6 +636,10 @@ def build_task_attempt_summary(
     usage_per_round: list[dict[str, Any]] | None,
     episode_dirs: list[str] | None,
     extra_trajectory_files: list[str] | None,
+    retry_workspace_strategy: str,
+    workspace_snapshot: dict[str, str] | None,
+    workspace_restore: dict[str, Any] | None,
+    stop_check: dict[str, Any] | None,
 ) -> dict[str, Any]:
     return {
         "attempt": attempt_number,
@@ -481,6 +663,10 @@ def build_task_attempt_summary(
         "usage_per_round": usage_per_round or [],
         "episode_dirs": episode_dirs or [],
         "extra_trajectory_files": extra_trajectory_files or [],
+        "retry_workspace_strategy": retry_workspace_strategy,
+        "workspace_snapshot": workspace_snapshot or {},
+        "workspace_restore": workspace_restore or {},
+        "stop_check": stop_check or {},
     }
 
 
@@ -491,10 +677,13 @@ def run_single_attempt(
     backend: str,
     config_template: dict[str, Any],
     attempt_dir: Path,
-) -> tuple[Path, Path, float, dict[str, Any]]:
+    restore_snapshot: dict[str, str] | None,
+) -> tuple[Path, Path, float, dict[str, Any], str, str, dict[str, str] | None, dict[str, Any]]:
     instance_id = instance["instance_id"]
     config = copy.deepcopy(config_template)
     env = None
+    workspace_snapshot = None
+    workspace_restore = {"restored": False, "restored_from_attempt": None}
     if config["model"].get("model_class") == "deterministic":
         deterministic_model_config = dict(config["model"])
         deterministic_model_config.pop("model_class", None)
@@ -503,6 +692,7 @@ def run_single_attempt(
         model = get_model(config=config["model"])
     try:
         env = get_sb_environment(config, instance)
+        workspace_restore = restore_workspace_snapshot(env, restore_snapshot)
         agent_config = config.get("agent", {})
         task = instance["problem_statement"]
 
@@ -521,17 +711,44 @@ def run_single_attempt(
             traj_path,
             exit_status=exit_status,
             result=result,
+            extra_info={
+                "stop_check": {
+                    "enabled": bool(getattr(agent, "_paper_turn_stopcheck_enabled", False)),
+                    "history": list(getattr(agent, "stop_check_history", [])),
+                    "stop_triggered": bool(getattr(agent, "stop_check_stop_triggered", False)),
+                    "stop_reason": getattr(agent, "stop_check_stop_reason", None),
+                },
+                "workspace_restore": workspace_restore,
+            },
             instance_id=instance_id,
             print_path=False,
         )
         traj_metadata = enrich_traj_outputs(traj_path, attempt_dir)
+        workspace_snapshot = capture_workspace_snapshot(env, attempt_dir)
+        traj_metadata["workspace_snapshot"] = workspace_snapshot
+        traj_metadata["workspace_restore"] = workspace_restore
+        traj_metadata["stop_check"] = {
+            "enabled": bool(getattr(agent, "_paper_turn_stopcheck_enabled", False)),
+            "history": list(getattr(agent, "stop_check_history", [])),
+            "stop_triggered": bool(getattr(agent, "stop_check_stop_triggered", False)),
+            "stop_reason": getattr(agent, "stop_check_stop_reason", None),
+        }
 
         prediction_path = attempt_dir / "prediction.json"
         prediction_path.write_text(
             json.dumps(build_prediction(instance_id, model_name, result), indent=2),
             encoding="utf-8",
         )
-        return traj_path, prediction_path, finished_at - started_at, traj_metadata
+        return (
+            traj_path,
+            prediction_path,
+            finished_at - started_at,
+            traj_metadata,
+            exit_status,
+            result,
+            workspace_snapshot,
+            workspace_restore,
+        )
     finally:
         if env is not None:
             wait_for_env_cleanup(env)
@@ -626,7 +843,13 @@ def main() -> None:
     os.environ.setdefault("HF_HOME", str(output_root / ".hf_cache"))
 
     instances = filter_instances(load_instances(args.dataset_path.resolve(), args.dataset_split), args.swebench_instance_id)
-    config_template = load_agent_config(args.swebench_agent_backend, args.model)
+    config_template = apply_agent_runtime_settings(
+        config_template=load_agent_config(args.swebench_agent_backend, args.model),
+        skill_guidance_enabled=parse_boolish(args.skillsbench_skill_guidance),
+        stop_check_enabled=parse_boolish(args.stop_check_early_stop_enabled),
+        stop_check_zero_progress_streak=args.stop_check_zero_progress_streak,
+        stop_check_yes_streak=args.stop_check_yes_streak,
+    )
     if args.model_class:
         config_template.setdefault("model", {})["model_class"] = args.model_class
     if args.model_output:
@@ -644,6 +867,7 @@ def main() -> None:
         stop_reason = "max-attempts-reached"
         first_success_attempt: int | None = None
         attempt_summaries: list[dict[str, Any]] = []
+        previous_workspace_snapshot: dict[str, str] | None = None
 
         for attempt_number in range(1, max(1, args.max_task_attempts) + 1):
             attempt_dir = instance_root / f"attempt_{attempt_number}"
@@ -674,15 +898,83 @@ def main() -> None:
                 attempt_instance["problem_statement"] = compose_attempt_instruction(
                     original_problem_statement,
                     feedback_prompt,
+                    args.retry_workspace_strategy,
+                )
+            elif args.retry_workspace_strategy == "preserve":
+                attempt_instance["problem_statement"] = compose_attempt_instruction(
+                    original_problem_statement,
+                    None,
+                    args.retry_workspace_strategy,
                 )
 
-            traj_path, prediction_path, agent_time, traj_metadata = run_single_attempt(
+            (
+                traj_path,
+                prediction_path,
+                agent_time,
+                traj_metadata,
+                exit_status,
+                exit_message,
+                workspace_snapshot,
+                workspace_restore,
+            ) = run_single_attempt(
                 instance=attempt_instance,
                 model_name=args.model,
                 backend=args.swebench_agent_backend,
                 config_template=config_template,
                 attempt_dir=attempt_dir,
+                restore_snapshot=previous_workspace_snapshot if args.retry_workspace_strategy == "preserve" else None,
             )
+            previous_workspace_snapshot = workspace_snapshot if args.retry_workspace_strategy == "preserve" else None
+
+            if exit_status == "StopCheckTerminated":
+                eval_result_path = attempt_dir / "eval_result.json"
+                eval_result = {
+                    "instance_id": instance_id,
+                    "run_id": "",
+                    "split": args.dataset_split,
+                    "resolved": False,
+                    "report_path": "",
+                    "test_output_path": "",
+                    "run_instance_log_path": "",
+                    "evaluation_time_seconds": 0.0,
+                    "report": {},
+                    "notes": exit_message,
+                    "failed_tests": [],
+                    "skipped": True,
+                    "stop_check_early_stop": True,
+                }
+                eval_result_path.write_text(json.dumps(eval_result, indent=2), encoding="utf-8")
+                attempt_summaries.append(
+                    build_task_attempt_summary(
+                        attempt_number=attempt_number,
+                        traj_path=traj_path,
+                        prediction_path=prediction_path,
+                        eval_result_path=eval_result_path,
+                        feedback_path=feedback_path,
+                        feedback_prompt=feedback_prompt,
+                        feedback_stats=feedback_stats,
+                        feedback_policy=args.feedback_policy,
+                        feedback_format=args.feedback_format,
+                        agent_time_seconds=agent_time,
+                        evaluation_time_seconds=0.0,
+                        resolved=False,
+                        stop_rule=args.stop_rule,
+                        stop_threshold=args.stop_threshold,
+                        stop_rule_trigger_reason="intra-attempt-early-stop",
+                        transcript_path=Path(traj_metadata["transcript_path"]),
+                        llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
+                        usage=traj_metadata["usage"],
+                        usage_per_round=traj_metadata["usage_per_round"],
+                        episode_dirs=traj_metadata["episode_dirs"],
+                        extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                        retry_workspace_strategy=args.retry_workspace_strategy,
+                        workspace_snapshot=workspace_snapshot,
+                        workspace_restore=workspace_restore,
+                        stop_check=traj_metadata["stop_check"],
+                    )
+                )
+                stop_reason = "intra-attempt-early-stop"
+                break
 
             if args.skip_evaluation:
                 eval_result_path = attempt_dir / "eval_result.json"
@@ -726,6 +1018,10 @@ def main() -> None:
                         usage_per_round=traj_metadata["usage_per_round"],
                         episode_dirs=traj_metadata["episode_dirs"],
                         extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                        retry_workspace_strategy=args.retry_workspace_strategy,
+                        workspace_snapshot=workspace_snapshot,
+                        workspace_restore=workspace_restore,
+                        stop_check=traj_metadata["stop_check"],
                     )
                 )
                 break
@@ -779,6 +1075,10 @@ def main() -> None:
                         usage_per_round=traj_metadata["usage_per_round"],
                         episode_dirs=traj_metadata["episode_dirs"],
                         extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                        retry_workspace_strategy=args.retry_workspace_strategy,
+                        workspace_snapshot=workspace_snapshot,
+                        workspace_restore=workspace_restore,
+                        stop_check=traj_metadata["stop_check"],
                     )
                 )
 
@@ -799,6 +1099,18 @@ def main() -> None:
             "stop_reason": stop_reason,
             "swebench_agent_backend": args.swebench_agent_backend,
             "model": args.model,
+            "skillsbench_skill_guidance": parse_boolish(args.skillsbench_skill_guidance),
+            "retry_workspace_strategy": args.retry_workspace_strategy,
+            "stop_check": {
+                "enabled": parse_boolish(args.stop_check_early_stop_enabled),
+                "zero_progress_streak": args.stop_check_zero_progress_streak,
+                "yes_streak": args.stop_check_yes_streak,
+                "triggered_attempts": [
+                    attempt["attempt"]
+                    for attempt in attempt_summaries
+                    if bool((attempt.get("stop_check") or {}).get("stop_triggered"))
+                ],
+            },
             "retry_policies": {
                 "feedback_policy": args.feedback_policy,
                 "feedback_format": args.feedback_format,
@@ -807,6 +1119,11 @@ def main() -> None:
                 "stop_rule": args.stop_rule,
                 "stop_threshold": args.stop_threshold,
                 "max_task_attempts": max(1, args.max_task_attempts),
+                "stop_check_early_stop_enabled": parse_boolish(args.stop_check_early_stop_enabled),
+                "stop_check_zero_progress_streak": args.stop_check_zero_progress_streak,
+                "stop_check_yes_streak": args.stop_check_yes_streak,
+                "skillsbench_skill_guidance": parse_boolish(args.skillsbench_skill_guidance),
+                "retry_workspace_strategy": args.retry_workspace_strategy,
             },
             "usage": {
                 "prompt_tokens": sum(int((attempt.get("usage") or {}).get("prompt_tokens", 0) or 0) for attempt in attempt_summaries),

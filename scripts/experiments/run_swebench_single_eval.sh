@@ -15,6 +15,11 @@ RUNNER_PYTHON="${RUNNER_PYTHON:-${REPO_ROOT}/../skillsbench/.venv/bin/python}"
 MAX_TASK_ATTEMPTS="${MAX_TASK_ATTEMPTS:-6}"
 MODEL="${MODEL:-anthropic/MiniMax-M2.5}"
 SWEBENCH_AGENT_BACKEND="${SWEBENCH_AGENT_BACKEND:-plain-mini}"
+STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-true}"
+STOP_CHECK_ZERO_PROGRESS_STREAK="${STOP_CHECK_ZERO_PROGRESS_STREAK:-2}"
+STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
+SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
+RETRY_WORKSPACE_STRATEGY="${RETRY_WORKSPACE_STRATEGY:-preserve}"
 
 if [[ ! -x "${RUNNER_PYTHON}" ]]; then
   echo "Runner python is not executable: ${RUNNER_PYTHON}" >&2
@@ -64,6 +69,11 @@ HF_HOME=/tmp/hf_cache "${RUNNER_PYTHON}" "${REPO_ROOT}/scripts/run_swebench_with
   --max-task-attempts "${MAX_TASK_ATTEMPTS}" \
   --swebench-agent-backend "${SWEBENCH_AGENT_BACKEND}" \
   --swebench-max-workers 1 \
+  --stop-check-early-stop-enabled "${STOP_CHECK_EARLY_STOP_ENABLED}" \
+  --stop-check-zero-progress-streak "${STOP_CHECK_ZERO_PROGRESS_STREAK}" \
+  --stop-check-yes-streak "${STOP_CHECK_YES_STREAK}" \
+  --skillsbench-skill-guidance "${SKILLSBENCH_SKILL_GUIDANCE}" \
+  --retry-workspace-strategy "${RETRY_WORKSPACE_STRATEGY}" \
   --runner-python "${RUNNER_PYTHON}"
 
 echo "run_id=${RUN_ID}"
