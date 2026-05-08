@@ -462,7 +462,7 @@ def summarize_eval_failure(eval_result: dict[str, Any], answer_safety: str) -> d
         }
     if eval_result.get("run_instance_log_path"):
         run_instance_log_path = Path(eval_result.get("run_instance_log_path") or "")
-        if run_instance_log_path.exists():
+        if run_instance_log_path.is_file():
             run_log_text = run_instance_log_path.read_text(encoding="utf-8", errors="replace")
             patch_apply_notes = _extract_patch_apply_failure(run_log_text)
             if patch_apply_notes:
@@ -472,7 +472,7 @@ def summarize_eval_failure(eval_result: dict[str, Any], answer_safety: str) -> d
                 }
     test_output_path = Path(eval_result.get("test_output_path") or "")
     test_output = ""
-    if test_output_path.exists():
+    if test_output_path.is_file():
         test_output = test_output_path.read_text(encoding="utf-8", errors="replace")
     failed_tests = _extract_failed_test_ids(test_output, limit=8)
     snippet = _extract_failure_snippets(test_output, max_lines=40)
@@ -499,6 +499,11 @@ def build_feedback_prompt(
     if not failed_tests_block:
         failed_tests_block = "- No failed test names were extracted."
     notes = summary.get("notes") or "No additional evaluation notes."
+    if bool(eval_result.get("stop_check_early_stop")):
+        notes = (
+            "The previous attempt was early-stopped before evaluation.\n"
+            f"{notes}"
+        )
     header = (
         f"You are retrying SWE-bench instance `{instance['instance_id']}` after evaluation feedback.\n\n"
         f"Attempt completed: {attempt_number}\n"
@@ -507,6 +512,11 @@ def build_feedback_prompt(
         f"Resolved: {'yes' if bool(eval_result.get('resolved')) else 'no'}\n\n"
     )
     retry_policy = "Fix the specific failing tests first. Avoid unrelated changes."
+    if bool(eval_result.get("stop_check_early_stop")):
+        retry_policy = (
+            "The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, "
+            "and choose a more targeted repair path before broad exploration."
+        )
     if feedback_policy == "vague":
         body = (
             "The previous attempt did not resolve the instance.\n\n"
@@ -973,8 +983,11 @@ def main() -> None:
                         stop_check=traj_metadata["stop_check"],
                     )
                 )
-                stop_reason = "intra-attempt-early-stop"
-                break
+                previous_score = 0.0
+                if attempt_number >= max(1, args.max_task_attempts):
+                    stop_reason = "intra-attempt-early-stop"
+                    break
+                continue
 
             if args.skip_evaluation:
                 eval_result_path = attempt_dir / "eval_result.json"
