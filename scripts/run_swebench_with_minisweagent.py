@@ -8,10 +8,11 @@ import copy
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml
@@ -19,6 +20,7 @@ from datasets import load_dataset
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MINISWEAGENT_SRC = REPO_ROOT.parent / "EET" / "mini-swe-agent" / "src"
+SKILLSBENCH_ROOT = REPO_ROOT.parent / "skillsbench"
 os.environ.setdefault("XDG_CONFIG_HOME", "/tmp/mini_sweagent_config")
 sys.path.insert(0, str(MINISWEAGENT_SRC))
 
@@ -62,6 +64,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stop-check-zero-progress-streak", type=int, default=2)
     parser.add_argument("--stop-check-yes-streak", type=int, default=2)
     parser.add_argument("--skillsbench-skill-guidance", default="false")
+    parser.add_argument("--inject-token-efficient-triage-first-prompt", default="false")
     parser.add_argument("--retry-workspace-strategy", choices=("fresh", "preserve"), default="preserve")
     parser.add_argument("--skip-evaluation", action="store_true")
     return parser.parse_args()
@@ -131,6 +134,13 @@ def apply_agent_runtime_settings(
             guidance_text,
         )
     return config
+
+
+def load_injected_skill_text(skill_name: str) -> str:
+    skill_path = SKILLSBENCH_ROOT / "common_skill" / skill_name / "SKILL.md"
+    if not skill_path.is_file():
+        raise FileNotFoundError(f"Injected skill not found: {skill_path}")
+    return skill_path.read_text(encoding="utf-8").strip()
 
 
 def build_prediction(instance_id: str, model_name: str, patch: str) -> dict[str, Any]:
@@ -268,11 +278,96 @@ def _docker_cp_to_env(env: Any, source: Path, destination: str) -> bool:
     docker_executable = str(getattr(getattr(env, "config", None), "executable", "docker") or "docker")
     if not container_id:
         return False
+    destination_parent = str(PurePosixPath(destination).parent)
+    subprocess.run(
+        [docker_executable, "exec", container_id, "mkdir", "-p", destination_parent],
+        check=True,
+    )
+    subprocess.run(
+        [docker_executable, "exec", container_id, "rm", "-rf", destination],
+        check=True,
+    )
     subprocess.run(
         [docker_executable, "cp", str(source), f"{container_id}:{destination}"],
         check=True,
     )
     return True
+
+
+def _execute_env_command(
+    env: Any,
+    command: str,
+    *,
+    cwd: str = "",
+    timeout: int | None = None,
+    attempts: int = 1,
+    retry_delay_seconds: float = 0.5,
+) -> dict[str, Any]:
+    container_id = str(getattr(env, "container_id", "") or "").strip()
+    docker_executable = str(getattr(getattr(env, "config", None), "executable", "docker") or "docker")
+    exec_cwd = cwd or str(getattr(getattr(env, "config", None), "cwd", "") or "/")
+    if not container_id:
+        return env.execute(command, cwd=cwd, timeout=timeout)
+
+    attempt_count = max(int(attempts), 1)
+    last_result: dict[str, Any] | None = None
+    for attempt_number in range(1, attempt_count + 1):
+        cmd = [docker_executable, "exec", "-w", exec_cwd]
+        for key in getattr(getattr(env, "config", None), "forward_env", []) or []:
+            if (value := os.getenv(key)) is not None:
+                cmd.extend(["-e", f"{key}={value}"])
+        for key, value in (getattr(getattr(env, "config", None), "env", None) or {}).items():
+            cmd.extend(["-e", f"{key}={value}"])
+        # Avoid login shell startup files here: some SWE-bench images exit early
+        # under `bash -lc`, which breaks retry workspace restoration before the
+        # actual restore command even runs.
+        cmd.extend([container_id, "bash", "-c", command])
+        result = subprocess.run(
+            cmd,
+            text=True,
+            timeout=timeout or getattr(getattr(env, "config", None), "timeout", 30),
+            encoding="utf-8",
+            errors="replace",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        last_result = {
+            "output": result.stdout,
+            "returncode": result.returncode,
+            "command": shlex.join(cmd),
+            "attempt": attempt_number,
+        }
+        if result.returncode == 0:
+            return last_result
+
+        output_text = str(result.stdout or "").strip()
+        transient = (
+            not output_text
+            or "is not running" in output_text
+            or "No such container" in output_text
+            or "OCI runtime exec failed" in output_text
+            or "container" in output_text and "not found" in output_text
+        )
+        if attempt_number >= attempt_count or not transient:
+            return last_result
+        time.sleep(retry_delay_seconds * attempt_number)
+
+    return last_result or {"output": "", "returncode": 1}
+
+
+def _format_command_failure(prefix: str, result: dict[str, Any]) -> str:
+    details = [
+        prefix,
+        f"returncode={int(result.get('returncode', 1) or 1)}",
+    ]
+    if result.get("attempt"):
+        details.append(f"attempt={result.get('attempt')}")
+    if result.get("command"):
+        details.append(f"exec={result.get('command')}")
+    output_text = str(result.get("output") or "").rstrip()
+    if output_text:
+        details.append(output_text)
+    return "\n".join(details)
 
 
 def _write_file_into_env(env: Any, source: Path, destination: str) -> None:
@@ -288,9 +383,11 @@ def _write_file_into_env(env: Any, source: Path, destination: str) -> None:
         f"path.write_bytes(base64.b64decode({encoded!r}))\n"
         "PY"
     )
-    result = env.execute(command)
+    result = _execute_env_command(env, command)
     if int(result.get("returncode", 1) or 1) != 0:
-        raise RuntimeError(f"Failed to write file into environment: {destination}\n{result.get('output', '')}")
+        raise RuntimeError(
+            _format_command_failure(f"Failed to write file into environment: {destination}", result)
+        )
 
 
 def capture_workspace_snapshot(env: Any, attempt_dir: Path) -> dict[str, str]:
@@ -299,14 +396,15 @@ def capture_workspace_snapshot(env: Any, attempt_dir: Path) -> dict[str, str]:
     patch_path = snapshot_dir / "workspace.patch"
     untracked_archive_path = snapshot_dir / "untracked.tar.gz"
 
-    diff_result = env.execute("cd /testbed && git diff HEAD --binary")
+    diff_result = _execute_env_command(env, "git diff HEAD --binary", cwd="/testbed")
     diff_returncode = int(diff_result.get("returncode", 1) or 1)
     if diff_returncode not in {0, 1}:
-        raise RuntimeError(f"Failed to capture workspace patch:\n{diff_result.get('output', '')}")
+        raise RuntimeError(_format_command_failure("Failed to capture workspace patch", diff_result))
     patch_path.write_text(str(diff_result.get("output") or ""), encoding="utf-8")
 
-    untracked_result = env.execute(
-        "cd /testbed && python3 - <<'PY'\n"
+    untracked_result = _execute_env_command(
+        env,
+        "python3 - <<'PY'\n"
         "import base64\n"
         "import io\n"
         "import subprocess\n"
@@ -326,7 +424,8 @@ def capture_workspace_snapshot(env: Any, attempt_dir: Path) -> dict[str, str]:
         "    for rel in paths:\n"
         "        tar.add(rel, arcname=rel)\n"
         "sys.stdout.write(base64.b64encode(buf.getvalue()).decode('ascii'))\n"
-        "PY"
+        "PY",
+        cwd="/testbed",
     )
     if int(untracked_result.get("returncode", 1) or 1) != 0:
         return {
@@ -354,26 +453,31 @@ def restore_workspace_snapshot(env: Any, snapshot: dict[str, str] | None) -> dic
     patch_path = Path(snapshot.get("patch_path") or "")
     untracked_archive_path = Path(snapshot.get("untracked_archive_path") or "")
     restore_root = "/tmp/minisweagent_retry_restore"
+    reset_restore_root = _execute_env_command(env, f"rm -rf {restore_root} && mkdir -p {restore_root}")
+    if int(reset_restore_root.get("returncode", 1) or 1) != 0:
+        raise RuntimeError(_format_command_failure("Failed to reset restore workspace", reset_restore_root))
 
     if patch_path.exists() and patch_path.stat().st_size > 0:
         destination = f"{restore_root}/workspace.patch"
         _write_file_into_env(env, patch_path, destination)
-        result = env.execute(f"cd /testbed && git apply --binary {destination}")
+        result = _execute_env_command(env, f"git apply --binary {destination}", cwd="/testbed")
         if int(result.get("returncode", 1) or 1) != 0:
-            raise RuntimeError(f"Failed to restore workspace patch:\n{result.get('output', '')}")
+            raise RuntimeError(_format_command_failure("Failed to restore workspace patch", result))
 
     if untracked_archive_path.exists() and untracked_archive_path.stat().st_size > 0:
         destination = f"{restore_root}/untracked.tar.gz"
         _write_file_into_env(env, untracked_archive_path, destination)
-        result = env.execute(
-            "cd /testbed && python3 - <<'PY'\n"
+        result = _execute_env_command(
+            env,
+            "python3 - <<'PY'\n"
             "import tarfile\n"
             f"with tarfile.open({destination!r}, 'r:gz') as tar:\n"
             "    tar.extractall('.')\n"
-            "PY"
+            "PY",
+            cwd="/testbed",
         )
         if int(result.get("returncode", 1) or 1) != 0:
-            raise RuntimeError(f"Failed to restore untracked files:\n{result.get('output', '')}")
+            raise RuntimeError(_format_command_failure("Failed to restore untracked files", result))
 
     return {
         "restored": True,
@@ -577,6 +681,21 @@ def compose_attempt_instruction(
     return (
         f"{preserve_note}{feedback_prompt}\n\n"
         "Original problem statement:\n"
+        f"{original_problem_statement}"
+    )
+
+
+def compose_initial_instruction_with_injected_skill(
+    *,
+    original_problem_statement: str,
+    injected_skill_text: str,
+    injected_skill_name: str,
+) -> str:
+    return (
+        "Startup skill to follow before broad exploration:\n"
+        f"[Injected skill: {injected_skill_name}]\n"
+        f"{injected_skill_text}\n\n"
+        "Original task instruction:\n"
         f"{original_problem_statement}"
     )
 
@@ -860,6 +979,13 @@ def main() -> None:
         stop_check_zero_progress_streak=args.stop_check_zero_progress_streak,
         stop_check_yes_streak=args.stop_check_yes_streak,
     )
+    inject_token_efficient_triage_first_prompt = parse_boolish(args.inject_token_efficient_triage_first_prompt)
+    injected_skill_name = "swebench-token-efficient-repair"
+    injected_skill_text = (
+        load_injected_skill_text(injected_skill_name)
+        if inject_token_efficient_triage_first_prompt
+        else None
+    )
     if args.model_class:
         config_template.setdefault("model", {})["model_class"] = args.model_class
     if args.model_output:
@@ -886,7 +1012,13 @@ def main() -> None:
             feedback_stats = None
             feedback_path: Path | None = None
             attempt_instance = dict(instance)
-            if attempt_summaries:
+            if attempt_number == 1 and injected_skill_text:
+                attempt_instance["problem_statement"] = compose_initial_instruction_with_injected_skill(
+                    original_problem_statement=original_problem_statement,
+                    injected_skill_text=injected_skill_text,
+                    injected_skill_name=injected_skill_name,
+                )
+            elif attempt_summaries:
                 previous_eval_result = json.loads(
                     Path(attempt_summaries[-1]["eval_json"]).read_text(encoding="utf-8")
                 )
@@ -1113,6 +1245,7 @@ def main() -> None:
             "swebench_agent_backend": args.swebench_agent_backend,
             "model": args.model,
             "skillsbench_skill_guidance": parse_boolish(args.skillsbench_skill_guidance),
+            "inject_token_efficient_triage_first_prompt": inject_token_efficient_triage_first_prompt,
             "retry_workspace_strategy": args.retry_workspace_strategy,
             "stop_check": {
                 "enabled": parse_boolish(args.stop_check_early_stop_enabled),
@@ -1136,6 +1269,7 @@ def main() -> None:
                 "stop_check_zero_progress_streak": args.stop_check_zero_progress_streak,
                 "stop_check_yes_streak": args.stop_check_yes_streak,
                 "skillsbench_skill_guidance": parse_boolish(args.skillsbench_skill_guidance),
+                "inject_token_efficient_triage_first_prompt": inject_token_efficient_triage_first_prompt,
                 "retry_workspace_strategy": args.retry_workspace_strategy,
             },
             "usage": {
