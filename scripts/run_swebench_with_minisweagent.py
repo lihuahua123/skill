@@ -681,7 +681,11 @@ def build_feedback_prompt(
         f"Base commit: {instance.get('base_commit', '')}\n"
         f"Resolved: {'yes' if bool(eval_result.get('resolved')) else 'no'}\n\n"
     )
-    retry_policy = "Fix the specific failing tests first. Avoid unrelated changes."
+    retry_policy = (
+        "Fix the specific failing tests first. Avoid unrelated changes.\n"
+        "The previous attempt did not fix the target test; compare expected vs actual in the failing assertion, "
+        "edit the code path that produces the mismatch, and avoid only changing surface-level error wording."
+    )
     if bool(eval_result.get("stop_check_early_stop")):
         retry_policy = (
             "The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, "
