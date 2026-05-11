@@ -30,6 +30,7 @@ from minisweagent.models import get_model
 from minisweagent.models.test_models import DeterministicModel
 from minisweagent.run.extra.swebench import get_sb_environment
 from minisweagent.run.utils.save import save_traj
+from swebench_retry_advisor import request_retry_advice
 
 
 def parse_boolish(value: str | bool) -> bool:
@@ -66,6 +67,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skillsbench-skill-guidance", default="false")
     parser.add_argument("--inject-token-efficient-triage-first-prompt", default="false")
     parser.add_argument("--retry-workspace-strategy", choices=("fresh", "preserve"), default="preserve")
+    parser.add_argument("--external-retry-advisor-enabled", default="false")
+    parser.add_argument("--external-retry-advisor-model", default="anthropic/MiniMax-M2.7")
+    parser.add_argument("--external-retry-advisor-max-tokens", type=int, default=180)
     parser.add_argument("--skip-evaluation", action="store_true")
     return parser.parse_args()
 
@@ -663,6 +667,9 @@ def build_feedback_prompt(
     summary: dict[str, Any],
     feedback_policy: str,
     feedback_format: str,
+    external_retry_advisor_enabled: bool = False,
+    external_retry_advisor_model: str = "anthropic/MiniMax-M2.7",
+    external_retry_advisor_max_tokens: int = 180,
 ) -> dict[str, Any]:
     failed_tests = summary.get("failed_tests") or []
     failed_tests_block = "\n".join(f"- {test_name}" for test_name in failed_tests[:8])
@@ -694,6 +701,18 @@ def build_feedback_prompt(
             "The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, "
             "and choose a more targeted repair path before broad exploration."
         )
+    else:
+        external_advice = request_retry_advice(
+            instance=instance,
+            attempt_number=attempt_number,
+            eval_result=eval_result,
+            summary=summary,
+            enabled=external_retry_advisor_enabled,
+            model=external_retry_advisor_model,
+            max_tokens=external_retry_advisor_max_tokens,
+        )
+        if external_advice:
+            retry_policy = f"{retry_policy}\nExternal failure analysis:\n{external_advice}"
     if feedback_policy == "vague":
         body = (
             "The previous attempt did not resolve the instance.\n\n"
@@ -1115,6 +1134,9 @@ def main() -> None:
                         summary=previous_feedback_summary,
                         feedback_policy=args.feedback_policy,
                         feedback_format=args.feedback_format,
+                        external_retry_advisor_enabled=parse_boolish(args.external_retry_advisor_enabled),
+                        external_retry_advisor_model=args.external_retry_advisor_model,
+                        external_retry_advisor_max_tokens=args.external_retry_advisor_max_tokens,
                     )
                     feedback_prompt = feedback_stats["text"]
                     feedback_path = attempt_dir / "feedback.txt"
