@@ -684,7 +684,10 @@ def build_feedback_prompt(
     retry_policy = (
         "Fix the specific failing tests first. Avoid unrelated changes.\n"
         "The previous attempt did not fix the target test; compare expected vs actual in the failing assertion, "
-        "edit the code path that produces the mismatch, and avoid only changing surface-level error wording."
+        "edit the code path that produces the mismatch, and avoid only changing surface-level error wording.\n"
+        "If the same test still fails after your last patch, treat your previous fix direction as incorrect and "
+        "choose a different hypothesis instead of refining the same error-message wording.\n"
+        "Prioritize the first assertion mismatch over making the message more descriptive."
     )
     if bool(eval_result.get("stop_check_early_stop")):
         retry_policy = (
