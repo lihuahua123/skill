@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 TARGET_JOB_NAME="${1:-}"
-PROCESS_PATTERN='retry_error\.sh|retry_good\.sh|rq1\.sh|rq1_all_tasks\.sh|harbor run|run_skillsbench_with_early_stop|run_skillsbench_experiment\.py|run_terminus_local_host\.py|benchmark\.py|docker compose --project-name .*skillsbench/tasks/.*/environment|docker-compose compose --project-name .*skillsbench/tasks/.*/environment'
+PROCESS_PATTERN='retry_error\.sh|retry_good\.sh|rq1\.sh|rq1_all_tasks\.sh|harbor run|run_skillsbench_with_early_stop|benchmark\.py|docker compose --project-name .*skillsbench/tasks/.*/environment|docker-compose compose --project-name .*skillsbench/tasks/.*/environment'
 
 matches_job_name() {
   local text="${1:-}"
@@ -25,7 +25,7 @@ stop_matching_processes() {
     fi
   done < <(
     ps -eo pid=,args= | awk '
-      /retry_error\.sh|retry_good\.sh|rq1\.sh|rq1_all_tasks\.sh|harbor run|run_skillsbench_with_early_stop|run_skillsbench_experiment\.py|run_terminus_local_host\.py|benchmark\.py|docker compose --project-name .*skillsbench\/tasks\/.*\/environment|docker-compose compose --project-name .*skillsbench\/tasks\/.*\/environment/ {
+      /retry_error\.sh|retry_good\.sh|rq1\.sh|rq1_all_tasks\.sh|harbor run|run_skillsbench_with_early_stop|benchmark\.py|docker compose --project-name .*skillsbench\/tasks\/.*\/environment|docker-compose compose --project-name .*skillsbench\/tasks\/.*\/environment/ {
         print $1 "\t" substr($0, index($0, $2))
       }
     '

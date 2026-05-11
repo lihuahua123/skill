@@ -11,9 +11,9 @@ EVAL_DATASET_NAME="${EVAL_DATASET_NAME:-princeton-nlp/SWE-Bench_Verified}"
 RUNNER_PYTHON="${RUNNER_PYTHON:-${REPO_ROOT}/../skillsbench/.venv/bin/python}"
 SUBSET_SEED="${SUBSET_SEED:-251016786}"
 MAX_TASK_ATTEMPTS="${MAX_TASK_ATTEMPTS:-6}"
-MODEL="${MODEL:-anthropic/MiniMax-M2.5}"
+MODEL="${MODEL:-anthropic/MiniMax-M2.7}"
 SWEBENCH_AGENT_BACKEND="${SWEBENCH_AGENT_BACKEND:-plain-mini}"
-STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-true}"
+STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-false}"
 STOP_CHECK_ZERO_PROGRESS_STREAK="${STOP_CHECK_ZERO_PROGRESS_STREAK:-2}"
 STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
 SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
@@ -22,6 +22,9 @@ MAX_PARALLEL="${MAX_PARALLEL:-1}"
 BATCH_SIZE="${BATCH_SIZE:-10}"
 DOCKER_PRUNE_BETWEEN_BATCHES="${DOCKER_PRUNE_BETWEEN_BATCHES:-1}"
 DOCKER_PRUNE_AFTER_FINAL_BATCH="${DOCKER_PRUNE_AFTER_FINAL_BATCH:-0}"
+PREPULL_BATCH_IMAGES="${PREPULL_BATCH_IMAGES:-1}"
+DOCKER_PULL_TIMEOUT="${DOCKER_PULL_TIMEOUT:-1800}"
+DOCKER_PULL_RETRIES="${DOCKER_PULL_RETRIES:-5}"
 RUN_STAMP="${RUN_STAMP:-$(date +"%Y-%m-%d__%H-%M-%S")}"
 RUN_ID="${RUN_ID:-real-swebench-subset-100-${RUN_STAMP}}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-${REPO_ROOT}/swebench/log/${RUN_ID}}"
@@ -120,6 +123,41 @@ run_batch() {
   done
 }
 
+image_name_for_instance() {
+  local instance_id="$1"
+  local docker_compatible="${instance_id//__/_1776_}"
+  printf 'docker.io/swebench/sweb.eval.x86_64.%s:latest\n' "${docker_compatible,,}"
+}
+
+pull_image_with_retry() {
+  local image="$1"
+  local attempt=1
+  while (( attempt <= DOCKER_PULL_RETRIES )); do
+    echo "[$(date +"%F %T")] PULL_START image=${image} attempt=${attempt}/${DOCKER_PULL_RETRIES}"
+    if timeout "${DOCKER_PULL_TIMEOUT}" docker pull "${image}"; then
+      echo "[$(date +"%F %T")] PULL_DONE image=${image} attempt=${attempt}/${DOCKER_PULL_RETRIES}"
+      return 0
+    fi
+    echo "[$(date +"%F %T")] WARN docker pull failed image=${image} attempt=${attempt}/${DOCKER_PULL_RETRIES}" >&2
+    sleep $(( attempt * 5 ))
+    ((attempt += 1))
+  done
+  echo "[$(date +"%F %T")] ERROR docker pull exhausted retries image=${image}" >&2
+  return 1
+}
+
+prepull_batch_images() {
+  local instance_id image
+  for instance_id in "$@"; do
+    image="$(image_name_for_instance "${instance_id}")"
+    if docker image inspect "${image}" >/dev/null 2>&1; then
+      echo "[$(date +"%F %T")] PULL_SKIP image=${image} reason=already_present"
+      continue
+    fi
+    pull_image_with_retry "${image}"
+  done
+}
+
 cleanup_docker_artifacts() {
   local batch_number="$1"
   local total_batches="$2"
@@ -150,6 +188,9 @@ for ((batch_start = 0; batch_start < total_instances; batch_start += BATCH_SIZE)
   batch_end=$((batch_start + ${#batch_ids[@]}))
 
   echo "[$(date +"%F %T")] BATCH_START ${batch_number}/${total_batches} instances=${#batch_ids[@]} range=$((batch_start + 1))-${batch_end}"
+  if [[ "${PREPULL_BATCH_IMAGES}" == "1" ]]; then
+    prepull_batch_images "${batch_ids[@]}"
+  fi
   run_batch "${batch_ids[@]}"
   echo "[$(date +"%F %T")] BATCH_DONE ${batch_number}/${total_batches}"
 

@@ -1,0 +1,7 @@
+{
+  "pytest-dev__pytest-6202": {
+    "model_name_or_path": "anthropic/MiniMax-M2.5",
+    "instance_id": "pytest-dev__pytest-6202",
+    "model_patch": "stop-check stop: consecutive zero-progress rounds reached 2"
+  }
+}

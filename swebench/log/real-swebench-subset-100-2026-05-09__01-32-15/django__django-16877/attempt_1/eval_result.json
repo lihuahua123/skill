@@ -1,0 +1,46 @@
+{
+  "instance_id": "django__django-16877",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-django__django-16877__django__django-16877__attempt_1",
+  "split": "test",
+  "resolved": false,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-16877__django__django-16877__attempt_1/anthropic__MiniMax-M2.5/django__django-16877/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-16877__django__django-16877__attempt_1/anthropic__MiniMax-M2.5/django__django-16877/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-16877__django__django-16877__attempt_1/anthropic__MiniMax-M2.5/django__django-16877/run_instance.log",
+  "evaluation_time_seconds": 105.66492652893066,
+  "report": {
+    "django__django-16877": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": false,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [
+            "test_chain_join (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_chain_join)",
+            "test_chain_join_autoescape_off (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_chain_join_autoescape_off)"
+          ],
+          "failure": [
+            "test_autoescape_off (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_autoescape_off)",
+            "test_basic (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_basic)"
+          ]
+        },
+        "PASS_TO_PASS": {
+          "success": [],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "Testing against Django installed in '/testbed/django'\nImporting application template_tests\nFound 4 test(s).\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\ntest_autoescape_off (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_autoescape_off) ... FAIL\ntest_basic (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_basic) ... FAIL\ntest_chain_join (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_chain_join) ... ok\ntest_chain_join_autoescape_off (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_chain_join_autoescape_off) ... ok\n======================================================================\nFAIL: test_autoescape_off (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_autoescape_off)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/testbed/django/test/utils.py\", line 443, in inner\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/testbed/tests/template_tests/utils.py\", line 58, in inner\n    func(self)\n  File \"/testbed/tests/template_tests/filter_tests/test_escapeseq.py\", line 41, in test_autoescape_off\n    self.assertEqual(output, \"x&amp;y, &lt;p&gt; -- x&y, <p>\")\nAssertionError: 'x&amp;y, &lt;p&gt; -- x&amp;y, &lt;p&gt;' != 'x&amp;y, &lt;p&gt; -- x&y, <p>'\n======================================================================\nFAIL: test_basic (template_tests.filter_tests.test_escapeseq.EscapeseqTests.test_basic)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/testbed/django/test/utils.py\", line 443, in inner\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/testbed/tests/template_tests/utils.py\", line 58, in inner\n    func(self)\n  File \"/testbed/tests/template_tests/filter_tests/test_escapeseq.py\", line 25, in test_basic\n    self.assertEqual(output, \"x&amp;y, &lt;p&gt; -- x&y, <p>\")\nAssertionError: 'x&amp;y, &lt;p&gt; -- x&amp;y, &lt;p&gt;' != 'x&amp;y, &lt;p&gt; -- x&y, <p>'\n----------------------------------------------------------------------\nRan 4 tests in 0.007s\nFAILED (failures=2)\n+ : '>>>>> End Test Output'\n+ git checkout 98f6ada0e2058d67d91fb6c16482411ec2ca0967\nHEAD is now at 98f6ada0e2 Fixed #34580 -- Avoided unnecessary computation of selected expressions in SQLCompiler.\nM\tdjango/template/defaultfilters.py",
+  "failed_tests": [
+    "(failures=2)"
+  ]
+}

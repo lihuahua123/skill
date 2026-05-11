@@ -1,0 +1,7 @@
+{
+  "scikit-learn__scikit-learn-13328": {
+    "model_name_or_path": "anthropic/MiniMax-M2.5",
+    "instance_id": "scikit-learn__scikit-learn-13328",
+    "model_patch": "stop-check stop: consecutive zero-progress rounds reached 2"
+  }
+}

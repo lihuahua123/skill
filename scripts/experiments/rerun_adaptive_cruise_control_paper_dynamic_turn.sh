@@ -7,22 +7,24 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 cd "${REPO_ROOT}"
 
-MODEL="${MODEL:-anthropic/MiniMax-M2.7}"
-TASK_PATH="${TASK_PATH:-tasks/adaptive-cruise-control}"
+MODEL="${MODEL:-anthropic/MiniMax-M2.5}"
+TASK_NAME="adaptive-cruise-control"
+TASK_PATH="${TASK_PATH:-tasks/${TASK_NAME}}"
 RUNS="${RUNS:-1}"
-MAX_TASK_ATTEMPTS="${MAX_TASK_ATTEMPTS:-6}"
+MAX_TASK_ATTEMPTS="${MAX_TASK_ATTEMPTS:-2}"
 MAX_PARALLEL_TASKS="${MAX_PARALLEL_TASKS:-1}"
 PAPER_INITIAL_TURN_LIMIT="${PAPER_INITIAL_TURN_LIMIT:-14}"
 PAPER_EXTENSION_TURN_LIMIT="${PAPER_EXTENSION_TURN_LIMIT:-14}"
-PAPER_REMIND_EVERY_TURN="${PAPER_REMIND_EVERY_TURN:-true}"
-STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-true}"
+PAPER_REMIND_EVERY_TURN="${PAPER_REMIND_EVERY_TURN:-false}"
+STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-false}"
 STOP_CHECK_ZERO_PROGRESS_STREAK="${STOP_CHECK_ZERO_PROGRESS_STREAK:-2}"
 STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
-SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
+SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-true}"
+INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT="${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT:-false}" # 这个是真的没用啊
 RETRY_WORKSPACE_STRATEGY="${RETRY_WORKSPACE_STRATEGY:-preserve}" #fresh
 FORCE_BUILD="${FORCE_BUILD:-false}"
 RUN_STAMP="$(date +"%Y-%m-%d__%H-%M-%S")"
-RUN_ID="${RUN_ID:-adaptive-cruise-control-paper-dynamic-turn-${RUN_STAMP}}"
+RUN_ID="${RUN_ID:-${TASK_NAME}-paper-dynamic-turn-${RUN_STAMP}}"
 JOB_NAME="${JOB_NAME:-skillsbench-${RUN_ID}}"
 
 NOISE_FILTER='Failed to fetch remote model cost map|Failed to retrieve model info for '\''anthropic/MiniMax-M2.7'\''|Provider List: https://docs.litellm.ai/docs/providers'
@@ -38,6 +40,7 @@ CMD=(
   --skillsbench-task-path "${TASK_PATH}"
   --skillsbench-skill-guidance "${SKILLSBENCH_SKILL_GUIDANCE}"
   --retry-workspace-strategy "${RETRY_WORKSPACE_STRATEGY}"
+  --inject-token-efficient-triage-first-prompt "${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT}"
   --ak "paper_dynamic_turn_enabled=false"
 )
 

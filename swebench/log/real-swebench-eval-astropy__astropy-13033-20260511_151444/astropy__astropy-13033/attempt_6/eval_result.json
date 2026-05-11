@@ -1,0 +1,64 @@
+{
+  "instance_id": "astropy__astropy-13033",
+  "run_id": "real-swebench-eval-astropy__astropy-13033-20260511_151444__astropy__astropy-13033__attempt_6",
+  "split": "test",
+  "resolved": false,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-astropy__astropy-13033-20260511_151444/logs/run_evaluation/real-swebench-eval-astropy__astropy-13033-20260511_151444__astropy__astropy-13033__attempt_6/anthropic__MiniMax-M2.7/astropy__astropy-13033/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-astropy__astropy-13033-20260511_151444/logs/run_evaluation/real-swebench-eval-astropy__astropy-13033-20260511_151444__astropy__astropy-13033__attempt_6/anthropic__MiniMax-M2.7/astropy__astropy-13033/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-astropy__astropy-13033-20260511_151444/logs/run_evaluation/real-swebench-eval-astropy__astropy-13033-20260511_151444__astropy__astropy-13033__attempt_6/anthropic__MiniMax-M2.7/astropy__astropy-13033/run_instance.log",
+  "evaluation_time_seconds": 178.49094676971436,
+  "report": {
+    "astropy__astropy-13033": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": false,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [],
+          "failure": [
+            "astropy/timeseries/tests/test_sampled.py::test_required_columns"
+          ]
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "astropy/timeseries/tests/test_sampled.py::test_empty_initialization",
+            "astropy/timeseries/tests/test_sampled.py::test_empty_initialization_invalid",
+            "astropy/timeseries/tests/test_sampled.py::test_initialize_only_time",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_with_data",
+            "astropy/timeseries/tests/test_sampled.py::test_initialize_only_data",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_with_table",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_missing_time_delta",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_invalid_time_and_time_start",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_invalid_time_delta",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_with_time_in_data",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_n_samples",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_length_mismatch",
+            "astropy/timeseries/tests/test_sampled.py::test_initialization_invalid_both_time_and_time_delta",
+            "astropy/timeseries/tests/test_sampled.py::test_fold",
+            "astropy/timeseries/tests/test_sampled.py::test_fold_invalid_options",
+            "astropy/timeseries/tests/test_sampled.py::test_read_time_missing",
+            "astropy/timeseries/tests/test_sampled.py::test_read_time_wrong",
+            "astropy/timeseries/tests/test_sampled.py::test_read",
+            "astropy/timeseries/tests/test_sampled.py::test_periodogram[BoxLeastSquares]",
+            "astropy/timeseries/tests/test_sampled.py::test_periodogram[LombScargle]"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "=================================== FAILURES ===================================\n_____________________ test_initialization_with_time_delta ______________________\nfiles = None\n    def update_leap_seconds(files=None):\n        \"\"\"If the current ERFA leap second table is out of date, try to update it.\n        Uses `astropy.utils.iers.LeapSeconds.auto_open` to try to find an\n        up-to-date table.  See that routine for the definition of \"out of date\".\n        In order to make it safe to call this any time, all exceptions are turned\n        into warnings,\n        Parameters\n        ----------\n        files : list of path-like, optional\n            List of files/URLs to attempt to open.  By default, uses defined by\n            `astropy.utils.iers.LeapSeconds.auto_open`, which includes the table\n            used by ERFA itself, so if that is up to date, nothing will happen.\n        Returns\n        -------\n        n_update : int\n            Number of items updated.\n        \"\"\"\n        try:\n            from astropy.utils import iers\n>           table = iers.LeapSeconds.auto_open(files)\nastropy/time/core.py:2824:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\ncls = <class 'astropy.utils.iers.iers.LeapSeconds'>\nfiles = ['erfa', '/testbed/astropy/utils/iers/data/Leap_Second.dat', 'https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat', 'https://www.ietf.org/timezones/data/leap-seconds.list']\n    @classmethod\n    def auto_open(cls, files=None):\n        \"\"\"Attempt to get an up-to-date leap-second list.\n        The routine will try the files in sequence until it finds one\n        whose expiration date is \"good enough\" (see below).  If none\n        are good enough, it returns the one with the most recent expiration\n        date, warning if that file is expired.\n        For remote files that are cached already, the cached file is tried\n        first before attempting to retrieve it again.\n        Parameters\n        ----------\n        files : list of path-like, optional\n            List of files/URLs to attempt to open.  By default, uses\n... [146 lines omitted] ...",
+  "failed_tests": [
+    "astropy/timeseries/tests/test_sampled.py::test_initialization_with_time_delta",
+    "astropy/timeseries/tests/test_sampled.py::test_required_columns"
+  ]
+}

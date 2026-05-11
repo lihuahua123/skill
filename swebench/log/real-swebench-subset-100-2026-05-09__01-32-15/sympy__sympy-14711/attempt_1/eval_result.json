@@ -1,0 +1,43 @@
+{
+  "instance_id": "sympy__sympy-14711",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-14711__sympy__sympy-14711__attempt_1",
+  "split": "test",
+  "resolved": true,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-14711__sympy__sympy-14711__attempt_1/anthropic__MiniMax-M2.5/sympy__sympy-14711/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-14711__sympy__sympy-14711__attempt_1/anthropic__MiniMax-M2.5/sympy__sympy-14711/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-14711__sympy__sympy-14711__attempt_1/anthropic__MiniMax-M2.5/sympy__sympy-14711/run_instance.log",
+  "evaluation_time_seconds": 42.21988368034363,
+  "report": {
+    "sympy__sympy-14711": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": true,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [
+            "test_Vector"
+          ],
+          "failure": []
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "test_Vector_diffs",
+            "test_vector_var_in_dcm"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "Updated 0 paths from 0bd77345d\n+ git apply -v -\nChecking patch sympy/physics/vector/tests/test_vector.py...\nApplied patch sympy/physics/vector/tests/test_vector.py cleanly.\n+ : '>>>>> Start Test Output'\n+ PYTHONWARNINGS=ignore::UserWarning,ignore::SyntaxWarning\n+ bin/test -C --verbose sympy/physics/vector/tests/test_vector.py\n/testbed/sympy/core/basic.py:3: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import Mapping, defaultdict\n/testbed/sympy/core/expr.py:12: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import defaultdict, Iterable\n/testbed/sympy/core/containers.py:271: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  class OrderedSet(collections.MutableSet):\n/testbed/sympy/plotting/plot.py:28: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import Callable\n/testbed/sympy/core/basic.py:3: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import Mapping, defaultdict\n/testbed/sympy/core/expr.py:12: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import defaultdict, Iterable\n/testbed/sympy/core/containers.py:271: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  class OrderedSet(collections.MutableSet):\n/testbed/sympy/plotting/plot.py:28: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n  from collections import Callable\n============================= test process starts ==============================\nexecutable:         /opt/miniconda3/envs/testbed/bin/python  (3.9.20-final-0) [CPython]\narchitecture:       64-bit\ncache:              no\nground types:       python\nnumpy:              None\nrandom seed:        68726266\nhash randomization: on (PYTHONHASHSEED=2501146354)\nsympy/physics/vector/tests/test_vector.py[4]\ntest_Vector ok\ntest_Vector_diffs ok\ntest_vector_var_in_dcm ok\ntest_vector_simplify ok                                                     [OK]\n================== tests finished: 4 passed, in 2.75 seconds ===================\n+ : '>>>>> End Test Output'\n+ git checkout c6753448b5c34f95e250105d76709fe4d349ca1f sympy/physics/vector/tests/test_vector.py\nUpdated 1 path from 0bd77345d",
+  "failed_tests": []
+}

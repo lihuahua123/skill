@@ -1,0 +1,102 @@
+diff --git a/sklearn/linear_model/huber.py b/sklearn/linear_model/huber.py
+index 65c686400..d3606a09e 100644
+--- a/sklearn/linear_model/huber.py
++++ b/sklearn/linear_model/huber.py
+@@ -251,7 +251,7 @@ class HuberRegressor(LinearModel, RegressorMixin, BaseEstimator):
+         self : object
+         """
+         X, y = check_X_y(
+-            X, y, copy=False, accept_sparse=['csr'], y_numeric=True)
++            X, y, copy=False, accept_sparse=['csr'], y_numeric=True, dtype=np.float64)
+         if sample_weight is not None:
+             sample_weight = np.array(sample_weight)
+             check_consistent_length(y, sample_weight)
+diff --git a/test_edge_cases.py b/test_edge_cases.py
+new file mode 100644
+index 000000000..cd410def8
+--- /dev/null
++++ b/test_edge_cases.py
+@@ -0,0 +1,48 @@
++import numpy as np
++from scipy import sparse
++from sklearn.datasets import make_regression
++from sklearn.linear_model import HuberRegressor
++
++# Random data
++X, y, coef = make_regression(n_samples=200, n_features=2, noise=4.0, coef=True, random_state=0)
++X_bool = X > 0
++
++print("Testing edge cases...")
++
++# Test with integer array
++print("\n1. Testing with integer X...")
++try:
++    X_int = X.astype(int)
++    huber = HuberRegressor().fit(X_int, y)
++    print("SUCCESS: Works with integer X")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++# Test with sparse matrix
++print("\n2. Testing with sparse CSR matrix...")
++try:
++    X_sparse = sparse.csr_matrix(X)
++    huber = HuberRegressor().fit(X_sparse, y)
++    print("SUCCESS: Works with sparse CSR matrix")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++# Test with sparse boolean matrix
++print("\n3. Testing with sparse boolean matrix...")
++try:
++    X_bool_sparse = sparse.csr_matrix(X_bool)
++    huber = HuberRegressor().fit(X_bool_sparse, y)
++    print("SUCCESS: Works with sparse boolean matrix")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++# Test with sample_weight
++print("\n4. Testing with sample_weight...")
++try:
++    sample_weight = np.ones_like(y)
++    huber = HuberRegressor().fit(X_bool, y, sample_weight=sample_weight)
++    print("SUCCESS: Works with sample_weight")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++print("\nAll edge case tests completed!")
+diff --git a/test_reproduce.py b/test_reproduce.py
+new file mode 100644
+index 000000000..d9ace7f42
+--- /dev/null
++++ b/test_reproduce.py
+@@ -0,0 +1,29 @@
++import numpy as np
++from sklearn.datasets import make_regression
++from sklearn.linear_model import HuberRegressor
++
++# Random data
++X, y, coef = make_regression(n_samples=200, n_features=2, noise=4.0, coef=True, random_state=0)
++X_bool = X > 0
++X_bool_as_float = np.asarray(X_bool, dtype=float)
++
++print("Testing with float X...")
++try:
++    huber = HuberRegressor().fit(X, y)
++    print("SUCCESS: Works with float X")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++print("\nTesting with boolean X...")
++try:
++    huber = HuberRegressor().fit(X_bool, y)
++    print("SUCCESS: Works with boolean X")
++except Exception as e:
++    print(f"FAILED: {e}")
++
++print("\nTesting with boolean converted to float X...")
++try:
++    huber = HuberRegressor().fit(X_bool_as_float, y)
++    print("SUCCESS: Works with boolean converted to float X")
++except Exception as e:
++    print(f"FAILED: {e}")

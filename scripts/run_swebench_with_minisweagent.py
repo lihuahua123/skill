@@ -222,16 +222,80 @@ def _build_llm_rounds(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return rounds
 
 
+def _stringify_message_content(content: Any) -> str:
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif isinstance(item, dict):
+                text = item.get("text")
+                if isinstance(text, str):
+                    parts.append(text)
+        return "\n".join(parts)
+    return ""
+
+
+def _first_round_skill_guidance_metadata(llm_rounds: list[dict[str, Any]]) -> dict[str, Any]:
+    if not llm_rounds:
+        return {
+            "has_first_round": False,
+            "prompt_contains_skill_guidance": False,
+            "assistant_mentions_skill": False,
+        }
+
+    first_round = llm_rounds[0]
+    input_messages = list(first_round.get("input_messages") or [])
+    output_message = first_round.get("output_message") or {}
+    prompt_contains_skill_guidance = any(
+        "skill guidance" in _stringify_message_content(message.get("content")).lower()
+        for message in input_messages
+    )
+    assistant_mentions_skill = (
+        "skill" in _stringify_message_content(output_message.get("content")).lower()
+    )
+    return {
+        "has_first_round": True,
+        "prompt_contains_skill_guidance": prompt_contains_skill_guidance,
+        "assistant_mentions_skill": assistant_mentions_skill,
+    }
+
+
+def enforce_skill_guidance_first_round_or_die(
+    *,
+    llm_rounds: list[dict[str, Any]],
+    attempt_number: int,
+    skill_guidance_enabled: bool,
+) -> dict[str, Any]:
+    metadata = _first_round_skill_guidance_metadata(llm_rounds)
+    if skill_guidance_enabled and attempt_number == 1 and not metadata["assistant_mentions_skill"]:
+        raise RuntimeError("SKILLSBENCH_SKILL_GUIDANCE 为True但是agent没有调用skill")
+    return metadata
+
+
 def _write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
-def enrich_traj_outputs(traj_path: Path, attempt_dir: Path) -> dict[str, Any]:
+def enrich_traj_outputs(
+    traj_path: Path,
+    attempt_dir: Path,
+    *,
+    attempt_number: int,
+    skill_guidance_enabled: bool,
+) -> dict[str, Any]:
     traj_payload = json.loads(traj_path.read_text(encoding="utf-8"))
     messages = list(traj_payload.get("messages") or [])
     usage_totals = _usage_totals_from_messages(messages)
     usage_per_round = _build_usage_per_round(messages)
     llm_rounds = _build_llm_rounds(messages)
+    skill_guidance_check = enforce_skill_guidance_first_round_or_die(
+        llm_rounds=llm_rounds,
+        attempt_number=attempt_number,
+        skill_guidance_enabled=skill_guidance_enabled,
+    )
 
     transcript_path = attempt_dir / "transcript.json"
     llm_rounds_path = attempt_dir / "llm_rounds.json"
@@ -248,6 +312,7 @@ def enrich_traj_outputs(traj_path: Path, attempt_dir: Path) -> dict[str, Any]:
             "usage_per_round": usage_per_round,
             "transcript_path": str(transcript_path),
             "llm_rounds_path": str(llm_rounds_path),
+            "skill_guidance_check": skill_guidance_check,
         }
     )
     _write_json(traj_path, traj_payload)
@@ -270,6 +335,7 @@ def enrich_traj_outputs(traj_path: Path, attempt_dir: Path) -> dict[str, Any]:
         "usage_per_round": usage_per_round,
         "episode_dirs": episode_dirs,
         "extra_trajectory_files": extra_trajectories,
+        "skill_guidance_check": skill_guidance_check,
     }
 
 
@@ -806,13 +872,18 @@ def run_single_attempt(
     backend: str,
     config_template: dict[str, Any],
     attempt_dir: Path,
-    restore_snapshot: dict[str, str] | None,
+    env: Any,
+    attempt_number: int,
+    skill_guidance_enabled: bool,
 ) -> tuple[Path, Path, float, dict[str, Any], str, str, dict[str, str] | None, dict[str, Any]]:
     instance_id = instance["instance_id"]
     config = copy.deepcopy(config_template)
-    env = None
     workspace_snapshot = None
-    workspace_restore = {"restored": False, "restored_from_attempt": None}
+    workspace_restore = {
+        "restored": False,
+        "restored_from_attempt": None,
+        "reused_container": True,
+    }
     if config["model"].get("model_class") == "deterministic":
         deterministic_model_config = dict(config["model"])
         deterministic_model_config.pop("model_class", None)
@@ -820,8 +891,6 @@ def run_single_attempt(
     else:
         model = get_model(config=config["model"])
     try:
-        env = get_sb_environment(config, instance)
-        workspace_restore = restore_workspace_snapshot(env, restore_snapshot)
         agent_config = config.get("agent", {})
         task = instance["problem_statement"]
 
@@ -852,8 +921,12 @@ def run_single_attempt(
             instance_id=instance_id,
             print_path=False,
         )
-        traj_metadata = enrich_traj_outputs(traj_path, attempt_dir)
-        workspace_snapshot = capture_workspace_snapshot(env, attempt_dir)
+        traj_metadata = enrich_traj_outputs(
+            traj_path,
+            attempt_dir,
+            attempt_number=attempt_number,
+            skill_guidance_enabled=skill_guidance_enabled,
+        )
         traj_metadata["workspace_snapshot"] = workspace_snapshot
         traj_metadata["workspace_restore"] = workspace_restore
         traj_metadata["stop_check"] = {
@@ -879,8 +952,7 @@ def run_single_attempt(
             workspace_restore,
         )
     finally:
-        if env is not None:
-            wait_for_env_cleanup(env)
+        pass
 
 
 def run_evaluation(
@@ -1003,143 +1075,212 @@ def main() -> None:
         stop_reason = "max-attempts-reached"
         first_success_attempt: int | None = None
         attempt_summaries: list[dict[str, Any]] = []
-        previous_workspace_snapshot: dict[str, str] | None = None
+        shared_env = None
+        try:
+            if args.retry_workspace_strategy == "preserve":
+                shared_env = get_sb_environment(config_template, instance)
 
-        for attempt_number in range(1, max(1, args.max_task_attempts) + 1):
-            attempt_dir = instance_root / f"attempt_{attempt_number}"
-            attempt_dir.mkdir(parents=True, exist_ok=True)
-            feedback_prompt = None
-            feedback_stats = None
-            feedback_path: Path | None = None
-            attempt_instance = dict(instance)
-            if attempt_number == 1 and injected_skill_text:
-                attempt_instance["problem_statement"] = compose_initial_instruction_with_injected_skill(
-                    original_problem_statement=original_problem_statement,
-                    injected_skill_text=injected_skill_text,
-                    injected_skill_name=injected_skill_name,
-                )
-            elif attempt_summaries:
-                previous_eval_result = json.loads(
-                    Path(attempt_summaries[-1]["eval_json"]).read_text(encoding="utf-8")
-                )
-                previous_feedback_summary = summarize_eval_failure(
-                    previous_eval_result,
-                    args.feedback_answer_safety,
-                )
-                feedback_stats = build_feedback_prompt(
-                    instance=instance,
-                    attempt_number=attempt_number - 1,
-                    eval_result=previous_eval_result,
-                    summary=previous_feedback_summary,
-                    feedback_policy=args.feedback_policy,
-                    feedback_format=args.feedback_format,
-                )
-                feedback_prompt = feedback_stats["text"]
-                feedback_path = attempt_dir / "feedback.txt"
-                feedback_path.write_text(feedback_prompt, encoding="utf-8")
-                attempt_instance["problem_statement"] = compose_attempt_instruction(
-                    original_problem_statement,
-                    feedback_prompt,
-                    args.retry_workspace_strategy,
-                )
-            elif args.retry_workspace_strategy == "preserve":
-                attempt_instance["problem_statement"] = compose_attempt_instruction(
-                    original_problem_statement,
-                    None,
-                    args.retry_workspace_strategy,
-                )
-
-            (
-                traj_path,
-                prediction_path,
-                agent_time,
-                traj_metadata,
-                exit_status,
-                exit_message,
-                workspace_snapshot,
-                workspace_restore,
-            ) = run_single_attempt(
-                instance=attempt_instance,
-                model_name=args.model,
-                backend=args.swebench_agent_backend,
-                config_template=config_template,
-                attempt_dir=attempt_dir,
-                restore_snapshot=previous_workspace_snapshot if args.retry_workspace_strategy == "preserve" else None,
-            )
-            previous_workspace_snapshot = workspace_snapshot if args.retry_workspace_strategy == "preserve" else None
-
-            if exit_status == "StopCheckTerminated":
-                eval_result_path = attempt_dir / "eval_result.json"
-                eval_result = {
-                    "instance_id": instance_id,
-                    "run_id": "",
-                    "split": args.dataset_split,
-                    "resolved": False,
-                    "report_path": "",
-                    "test_output_path": "",
-                    "run_instance_log_path": "",
-                    "evaluation_time_seconds": 0.0,
-                    "report": {},
-                    "notes": exit_message,
-                    "failed_tests": [],
-                    "skipped": True,
-                    "stop_check_early_stop": True,
-                }
-                eval_result_path.write_text(json.dumps(eval_result, indent=2), encoding="utf-8")
-                attempt_summaries.append(
-                    build_task_attempt_summary(
-                        attempt_number=attempt_number,
-                        traj_path=traj_path,
-                        prediction_path=prediction_path,
-                        eval_result_path=eval_result_path,
-                        feedback_path=feedback_path,
-                        feedback_prompt=feedback_prompt,
-                        feedback_stats=feedback_stats,
+            for attempt_number in range(1, max(1, args.max_task_attempts) + 1):
+                attempt_dir = instance_root / f"attempt_{attempt_number}"
+                attempt_dir.mkdir(parents=True, exist_ok=True)
+                feedback_prompt = None
+                feedback_stats = None
+                feedback_path: Path | None = None
+                attempt_instance = dict(instance)
+                if attempt_number == 1 and injected_skill_text:
+                    attempt_instance["problem_statement"] = compose_initial_instruction_with_injected_skill(
+                        original_problem_statement=original_problem_statement,
+                        injected_skill_text=injected_skill_text,
+                        injected_skill_name=injected_skill_name,
+                    )
+                elif attempt_summaries:
+                    previous_eval_result = json.loads(
+                        Path(attempt_summaries[-1]["eval_json"]).read_text(encoding="utf-8")
+                    )
+                    previous_feedback_summary = summarize_eval_failure(
+                        previous_eval_result,
+                        args.feedback_answer_safety,
+                    )
+                    feedback_stats = build_feedback_prompt(
+                        instance=instance,
+                        attempt_number=attempt_number - 1,
+                        eval_result=previous_eval_result,
+                        summary=previous_feedback_summary,
                         feedback_policy=args.feedback_policy,
                         feedback_format=args.feedback_format,
-                        agent_time_seconds=agent_time,
-                        evaluation_time_seconds=0.0,
-                        resolved=False,
-                        stop_rule=args.stop_rule,
-                        stop_threshold=args.stop_threshold,
-                        stop_rule_trigger_reason="intra-attempt-early-stop",
-                        transcript_path=Path(traj_metadata["transcript_path"]),
-                        llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
-                        usage=traj_metadata["usage"],
-                        usage_per_round=traj_metadata["usage_per_round"],
-                        episode_dirs=traj_metadata["episode_dirs"],
-                        extra_trajectory_files=traj_metadata["extra_trajectory_files"],
-                        retry_workspace_strategy=args.retry_workspace_strategy,
-                        workspace_snapshot=workspace_snapshot,
-                        workspace_restore=workspace_restore,
-                        stop_check=traj_metadata["stop_check"],
                     )
-                )
-                previous_score = 0.0
-                if attempt_number >= max(1, args.max_task_attempts):
-                    stop_reason = "intra-attempt-early-stop"
+                    feedback_prompt = feedback_stats["text"]
+                    feedback_path = attempt_dir / "feedback.txt"
+                    feedback_path.write_text(feedback_prompt, encoding="utf-8")
+                    attempt_instance["problem_statement"] = compose_attempt_instruction(
+                        original_problem_statement,
+                        feedback_prompt,
+                        args.retry_workspace_strategy,
+                    )
+                elif args.retry_workspace_strategy == "preserve":
+                    attempt_instance["problem_statement"] = compose_attempt_instruction(
+                        original_problem_statement,
+                        None,
+                        args.retry_workspace_strategy,
+                    )
+
+                attempt_env = shared_env
+                if attempt_env is None:
+                    attempt_env = get_sb_environment(config_template, instance)
+
+                try:
+                    (
+                        traj_path,
+                        prediction_path,
+                        agent_time,
+                        traj_metadata,
+                        exit_status,
+                        exit_message,
+                        workspace_snapshot,
+                        workspace_restore,
+                    ) = run_single_attempt(
+                        instance=attempt_instance,
+                        model_name=args.model,
+                        backend=args.swebench_agent_backend,
+                        config_template=config_template,
+                        attempt_dir=attempt_dir,
+                        env=attempt_env,
+                        attempt_number=attempt_number,
+                        skill_guidance_enabled=parse_boolish(args.skillsbench_skill_guidance),
+                    )
+                finally:
+                    if shared_env is None:
+                        wait_for_env_cleanup(attempt_env)
+
+                if exit_status == "StopCheckTerminated":
+                    eval_result_path = attempt_dir / "eval_result.json"
+                    eval_result = {
+                        "instance_id": instance_id,
+                        "run_id": "",
+                        "split": args.dataset_split,
+                        "resolved": False,
+                        "report_path": "",
+                        "test_output_path": "",
+                        "run_instance_log_path": "",
+                        "evaluation_time_seconds": 0.0,
+                        "report": {},
+                        "notes": exit_message,
+                        "failed_tests": [],
+                        "skipped": True,
+                        "stop_check_early_stop": True,
+                    }
+                    eval_result_path.write_text(json.dumps(eval_result, indent=2), encoding="utf-8")
+                    attempt_summaries.append(
+                        build_task_attempt_summary(
+                            attempt_number=attempt_number,
+                            traj_path=traj_path,
+                            prediction_path=prediction_path,
+                            eval_result_path=eval_result_path,
+                            feedback_path=feedback_path,
+                            feedback_prompt=feedback_prompt,
+                            feedback_stats=feedback_stats,
+                            feedback_policy=args.feedback_policy,
+                            feedback_format=args.feedback_format,
+                            agent_time_seconds=agent_time,
+                            evaluation_time_seconds=0.0,
+                            resolved=False,
+                            stop_rule=args.stop_rule,
+                            stop_threshold=args.stop_threshold,
+                            stop_rule_trigger_reason="intra-attempt-early-stop",
+                            transcript_path=Path(traj_metadata["transcript_path"]),
+                            llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
+                            usage=traj_metadata["usage"],
+                            usage_per_round=traj_metadata["usage_per_round"],
+                            episode_dirs=traj_metadata["episode_dirs"],
+                            extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                            retry_workspace_strategy=args.retry_workspace_strategy,
+                            workspace_snapshot=workspace_snapshot,
+                            workspace_restore=workspace_restore,
+                            stop_check=traj_metadata["stop_check"],
+                        )
+                    )
+                    previous_score = 0.0
+                    if attempt_number >= max(1, args.max_task_attempts):
+                        stop_reason = "intra-attempt-early-stop"
+                        break
+                    continue
+
+                if args.skip_evaluation:
+                    eval_result_path = attempt_dir / "eval_result.json"
+                    eval_result = {
+                        "instance_id": instance_id,
+                        "run_id": "",
+                        "split": args.dataset_split,
+                        "resolved": False,
+                        "report_path": "",
+                        "test_output_path": "",
+                        "evaluation_time_seconds": 0.0,
+                        "report": {},
+                        "skipped": True,
+                    }
+                    eval_result_path.write_text(
+                        json.dumps(eval_result, indent=2),
+                        encoding="utf-8",
+                    )
+                    evaluation_time = 0.0
+                    stop_reason = "evaluation-skipped"
+                    attempt_summaries.append(
+                        build_task_attempt_summary(
+                            attempt_number=attempt_number,
+                            traj_path=traj_path,
+                            prediction_path=prediction_path,
+                            eval_result_path=eval_result_path,
+                            feedback_path=feedback_path,
+                            feedback_prompt=feedback_prompt,
+                            feedback_stats=feedback_stats,
+                            feedback_policy=args.feedback_policy,
+                            feedback_format=args.feedback_format,
+                            agent_time_seconds=agent_time,
+                            evaluation_time_seconds=evaluation_time,
+                            resolved=False,
+                            stop_rule=args.stop_rule,
+                            stop_threshold=args.stop_threshold,
+                            stop_rule_trigger_reason="evaluation-skipped",
+                            transcript_path=Path(traj_metadata["transcript_path"]),
+                            llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
+                            usage=traj_metadata["usage"],
+                            usage_per_round=traj_metadata["usage_per_round"],
+                            episode_dirs=traj_metadata["episode_dirs"],
+                            extra_trajectory_files=traj_metadata["extra_trajectory_files"],
+                            retry_workspace_strategy=args.retry_workspace_strategy,
+                            workspace_snapshot=workspace_snapshot,
+                            workspace_restore=workspace_restore,
+                            stop_check=traj_metadata["stop_check"],
+                        )
+                    )
                     break
-                continue
-
-            if args.skip_evaluation:
-                eval_result_path = attempt_dir / "eval_result.json"
-                eval_result = {
-                    "instance_id": instance_id,
-                    "run_id": "",
-                    "split": args.dataset_split,
-                    "resolved": False,
-                    "report_path": "",
-                    "test_output_path": "",
-                    "evaluation_time_seconds": 0.0,
-                    "report": {},
-                    "skipped": True,
-                }
-                eval_result_path.write_text(
-                    json.dumps(eval_result, indent=2),
-                    encoding="utf-8",
+                if not args.eval_dataset_name:
+                    raise ValueError("--eval-dataset-name is required unless --skip-evaluation is set")
+                eval_run_id = f"{args.run_id}__{instance_id}__attempt_{attempt_number}"
+                eval_result_path, evaluation_time = run_evaluation(
+                    runner_python=args.runner_python,
+                    eval_dataset_name=args.eval_dataset_name,
+                    prediction_path=prediction_path,
+                    model_name=args.model,
+                    run_id=eval_run_id,
+                    split=args.dataset_split,
+                    instance_id=instance_id,
+                    max_workers=args.swebench_max_workers,
+                    output_root=output_root,
+                    attempt_dir=attempt_dir,
+                    answer_safety=args.feedback_answer_safety,
                 )
-                evaluation_time = 0.0
-                stop_reason = "evaluation-skipped"
+                eval_result = json.loads(eval_result_path.read_text(encoding="utf-8"))
+                current_score = 1.0 if bool(eval_result["resolved"]) else 0.0
+                token_delta = float((traj_metadata.get("usage") or {}).get("total_tokens", 0) or 0.0)
+                stop_trigger = should_stop_retry(
+                    stop_rule=args.stop_rule,
+                    stop_threshold=args.stop_threshold,
+                    current_score=current_score,
+                    previous_score=previous_score,
+                    token_delta=token_delta,
+                )
+
                 attempt_summaries.append(
                     build_task_attempt_summary(
                         attempt_number=attempt_number,
@@ -1151,63 +1292,6 @@ def main() -> None:
                         feedback_stats=feedback_stats,
                         feedback_policy=args.feedback_policy,
                         feedback_format=args.feedback_format,
-                        agent_time_seconds=agent_time,
-                        evaluation_time_seconds=evaluation_time,
-                        resolved=False,
-                        stop_rule=args.stop_rule,
-                        stop_threshold=args.stop_threshold,
-                        stop_rule_trigger_reason="evaluation-skipped",
-                        transcript_path=Path(traj_metadata["transcript_path"]),
-                        llm_rounds_path=Path(traj_metadata["llm_rounds_path"]),
-                        usage=traj_metadata["usage"],
-                        usage_per_round=traj_metadata["usage_per_round"],
-                        episode_dirs=traj_metadata["episode_dirs"],
-                        extra_trajectory_files=traj_metadata["extra_trajectory_files"],
-                        retry_workspace_strategy=args.retry_workspace_strategy,
-                        workspace_snapshot=workspace_snapshot,
-                        workspace_restore=workspace_restore,
-                        stop_check=traj_metadata["stop_check"],
-                    )
-                )
-                break
-            if not args.eval_dataset_name:
-                raise ValueError("--eval-dataset-name is required unless --skip-evaluation is set")
-            eval_run_id = f"{args.run_id}__{instance_id}__attempt_{attempt_number}"
-            eval_result_path, evaluation_time = run_evaluation(
-                runner_python=args.runner_python,
-                eval_dataset_name=args.eval_dataset_name,
-                prediction_path=prediction_path,
-                model_name=args.model,
-                run_id=eval_run_id,
-                split=args.dataset_split,
-                instance_id=instance_id,
-                max_workers=args.swebench_max_workers,
-                output_root=output_root,
-                attempt_dir=attempt_dir,
-                answer_safety=args.feedback_answer_safety,
-            )
-            eval_result = json.loads(eval_result_path.read_text(encoding="utf-8"))
-            current_score = 1.0 if bool(eval_result["resolved"]) else 0.0
-            token_delta = float((traj_metadata.get("usage") or {}).get("total_tokens", 0) or 0.0)
-            stop_trigger = should_stop_retry(
-                stop_rule=args.stop_rule,
-                stop_threshold=args.stop_threshold,
-                current_score=current_score,
-                previous_score=previous_score,
-                token_delta=token_delta,
-            )
-
-            attempt_summaries.append(
-                build_task_attempt_summary(
-                    attempt_number=attempt_number,
-                    traj_path=traj_path,
-                    prediction_path=prediction_path,
-                    eval_result_path=eval_result_path,
-                    feedback_path=feedback_path,
-                    feedback_prompt=feedback_prompt,
-                    feedback_stats=feedback_stats,
-                    feedback_policy=args.feedback_policy,
-                    feedback_format=args.feedback_format,
                         agent_time_seconds=agent_time,
                         evaluation_time_seconds=evaluation_time,
                         resolved=bool(eval_result["resolved"]),
@@ -1227,14 +1311,17 @@ def main() -> None:
                     )
                 )
 
-            if current_score >= 1.0:
-                first_success_attempt = attempt_number
-                stop_reason = "passed"
-                break
-            if stop_trigger is not None:
-                stop_reason = stop_trigger
-                break
-            previous_score = current_score
+                if current_score >= 1.0:
+                    first_success_attempt = attempt_number
+                    stop_reason = "passed"
+                    break
+                if stop_trigger is not None:
+                    stop_reason = stop_trigger
+                    break
+                previous_score = current_score
+        finally:
+            if shared_env is not None:
+                wait_for_env_cleanup(shared_env)
 
         task_summary = {
             "task_id": instance_id,

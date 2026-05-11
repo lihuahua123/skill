@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `scikit-learn__scikit-learn-12585` after evaluation feedback.
+
+Attempt completed: 1
+Repository: scikit-learn/scikit-learn
+Base commit: bfc4a566423e036fbdc9fb02765fd893e4860c85
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

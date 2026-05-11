@@ -1,0 +1,191 @@
+diff --git a/astropy/timeseries/core.py b/astropy/timeseries/core.py
+index c279f35f8..cbb8b825f 100644
+--- a/astropy/timeseries/core.py
++++ b/astropy/timeseries/core.py
+@@ -76,9 +76,23 @@ class BaseTimeSeries(QTable):
+ 
+             elif self.colnames[:len(required_columns)] != required_columns:
+ 
+-                raise ValueError("{} object is invalid - expected '{}' "
+-                                 "as the first column{} but found '{}'"
+-                                 .format(self.__class__.__name__, required_columns[0], plural, self.colnames[0]))
++                # Find which required column(s) are missing
++                missing_columns = []
++                for col in required_columns:
++                    if col not in self.colnames:
++                        missing_columns.append(col)
++                
++                if missing_columns:
++                    missing_plural = 's' if len(missing_columns) > 1 else ''
++                    missing_str = ', '.join(f"'{c}'" for c in missing_columns)
++                    raise ValueError("{} object is invalid - missing required "
++                                     "column{}: {}"
++                                     .format(self.__class__.__name__, missing_plural, missing_str))
++                else:
++                    # Columns are present but in wrong order
++                    raise ValueError("{} object is invalid - expected '{}' "
++                                     "as the first column{} but found '{}'"
++                                     .format(self.__class__.__name__, required_columns[0], plural, self.colnames[0]))
+ 
+             if (self._required_columns_relax
+                     and self._required_columns == self.colnames[:len(self._required_columns)]):
+diff --git a/final_test.py b/final_test.py
+new file mode 100644
+index 000000000..f6cb9016f
+--- /dev/null
++++ b/final_test.py
+@@ -0,0 +1,54 @@
++import numpy as np
++from astropy.time import Time
++from astropy.timeseries import TimeSeries
++
++# Test 1: Original issue - missing required column
++print("Test 1: Original issue - missing required column")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_column("flux")
++except ValueError as e:
++    print(f"  Result: {e}")
++    assert "missing required column: 'flux'" in str(e)
++    print("  PASS")
++
++# Test 2: Multiple missing columns
++print("\nTest 2: Multiple missing columns")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"a": [1, 2, 3], "b": [4, 5, 6]})
++ts._required_columns = ["time", "a", "b", "c"]
++try:
++    ts.remove_column("a")
++except ValueError as e:
++    print(f"  Result: {e}")
++    assert "missing required column" in str(e) and "'c'" in str(e)
++    print("  PASS")
++
++# Test 3: Empty TimeSeries (existing case - should be unchanged)
++print("\nTest 3: Empty TimeSeries")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_columns(["time", "flux"])
++except ValueError as e:
++    print(f"  Result: {e}")
++    assert "no columns" in str(e)
++    print("  PASS")
++
++# Test 4: Normal case - no errors
++print("\nTest 4: Normal case - should work without error")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_column("other_column")  # Non-required column
++    print("  PASS - no error raised for non-required column removal")
++except ValueError as e:
++    print(f"  FAIL: {e}")
++
++print("\n" + "=" * 60)
++print("All tests passed! Fix is working correctly.")
++print("=" * 60)
+diff --git a/reproduce_issue.py b/reproduce_issue.py
+new file mode 100644
+index 000000000..8ab027939
+--- /dev/null
++++ b/reproduce_issue.py
+@@ -0,0 +1,16 @@
++import numpy as np
++from astropy.time import Time
++from astropy.timeseries import TimeSeries
++
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++print("Columns before remove:", ts.colnames)
++print("Required columns:", ts._required_columns)
++
++try:
++    ts.remove_column("flux")
++except ValueError as e:
++    print(f"\nError message: {e}")
++    print("\nThis error message is misleading - it says 'expected time but found time'")
++    print("when the real problem is that 'flux' (a required column) is missing.")
+diff --git a/test_edge_cases.py b/test_edge_cases.py
+new file mode 100644
+index 000000000..52d119747
+--- /dev/null
++++ b/test_edge_cases.py
+@@ -0,0 +1,44 @@
++import numpy as np
++from astropy.time import Time
++from astropy.timeseries import TimeSeries
++
++print("Test 1: Single missing required column")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_column("flux")
++except ValueError as e:
++    print(f"Error: {e}")
++
++print("\nTest 2: Multiple missing required columns")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"a": [1, 2, 3], "b": [4, 5, 6]})
++ts._required_columns = ["time", "a", "b", "c"]
++try:
++    ts.remove_column("a")
++except ValueError as e:
++    print(f"Error: {e}")
++
++print("\nTest 3: Wrong column order (columns exist but in wrong order)")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7], "time2": [1, 2, 3]})
++ts._required_columns = ["time", "flux"]
++# Add a delay check context to bypass the first check
++with ts._delay_required_column_checks():
++    ts.add_column([1, 2, 3], name='extra')
++try:
++    pass  # Just checking the logic
++except ValueError as e:
++    print(f"Error: {e}")
++
++print("\nTest 4: Empty TimeSeries")
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_columns(["time", "flux"])
++except ValueError as e:
++    print(f"Error: {e}")
++
++print("\nAll tests completed!")
+diff --git a/verify_fix.py b/verify_fix.py
+new file mode 100644
+index 000000000..929ed2df5
+--- /dev/null
++++ b/verify_fix.py
+@@ -0,0 +1,22 @@
++import numpy as np
++from astropy.time import Time
++from astropy.timeseries import TimeSeries
++
++# Original issue reproduction
++print("Original Issue from PR description:")
++print("-" * 50)
++time = Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data={"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]
++try:
++    ts.remove_column("flux")
++except ValueError as e:
++    print(f"Error message: {e}")
++    print()
++    # Verify that the error message is no longer misleading
++    if "'time' as the first column" in str(e) and "'time'" in str(e):
++        print("FAIL: Error message is still misleading (says 'expected time but found time')")
++    elif "missing required column" in str(e) and "flux" in str(e):
++        print("PASS: Error message correctly identifies missing required column 'flux'")
++    else:
++        print(f"UNKNOWN: {e}")

@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `psf__requests-1766` after evaluation feedback.
+
+Attempt completed: 1
+Repository: psf/requests
+Base commit: 847735553aeda6e6633f2b32e14ba14ba86887a4
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

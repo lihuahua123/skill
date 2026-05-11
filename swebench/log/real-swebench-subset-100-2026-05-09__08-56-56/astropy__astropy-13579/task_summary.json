@@ -1,0 +1,664 @@
+{
+  "task_id": "astropy__astropy-13579",
+  "attempt_count": 1,
+  "first_success_attempt": 1,
+  "success_within_budget": true,
+  "stop_reason": "passed",
+  "swebench_agent_backend": "plain-mini",
+  "model": "anthropic/MiniMax-M2.5",
+  "skillsbench_skill_guidance": false,
+  "inject_token_efficient_triage_first_prompt": true,
+  "retry_workspace_strategy": "preserve",
+  "stop_check": {
+    "enabled": true,
+    "zero_progress_streak": 2,
+    "yes_streak": 2,
+    "triggered_attempts": []
+  },
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "swebench-safe",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6,
+    "stop_check_early_stop_enabled": true,
+    "stop_check_zero_progress_streak": 2,
+    "stop_check_yes_streak": 2,
+    "skillsbench_skill_guidance": false,
+    "inject_token_efficient_triage_first_prompt": true,
+    "retry_workspace_strategy": "preserve"
+  },
+  "usage": {
+    "prompt_tokens": 454980,
+    "completion_tokens": 18295,
+    "total_tokens": 473275,
+    "cost_usd": 0.0,
+    "request_count": 30
+  },
+  "total_prompt_tokens": 454980,
+  "total_completion_tokens": 18295,
+  "total_tokens": 473275,
+  "usage_per_round": [
+    {
+      "round": 1,
+      "prompt_tokens": 4275,
+      "completion_tokens": 202,
+      "total_tokens": 4477,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 2,
+      "prompt_tokens": 4404,
+      "completion_tokens": 115,
+      "total_tokens": 4519,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 3,
+      "prompt_tokens": 4533,
+      "completion_tokens": 93,
+      "total_tokens": 4626,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 4,
+      "prompt_tokens": 4662,
+      "completion_tokens": 119,
+      "total_tokens": 4781,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 5,
+      "prompt_tokens": 4955,
+      "completion_tokens": 140,
+      "total_tokens": 5095,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 6,
+      "prompt_tokens": 5172,
+      "completion_tokens": 128,
+      "total_tokens": 5300,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 7,
+      "prompt_tokens": 7798,
+      "completion_tokens": 185,
+      "total_tokens": 7983,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 8,
+      "prompt_tokens": 9214,
+      "completion_tokens": 100,
+      "total_tokens": 9314,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 9,
+      "prompt_tokens": 9824,
+      "completion_tokens": 1020,
+      "total_tokens": 10844,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 10,
+      "prompt_tokens": 10740,
+      "completion_tokens": 750,
+      "total_tokens": 11490,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 11,
+      "prompt_tokens": 11549,
+      "completion_tokens": 1293,
+      "total_tokens": 12842,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 12,
+      "prompt_tokens": 12583,
+      "completion_tokens": 1352,
+      "total_tokens": 13935,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 13,
+      "prompt_tokens": 13464,
+      "completion_tokens": 735,
+      "total_tokens": 14199,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 14,
+      "prompt_tokens": 13935,
+      "completion_tokens": 639,
+      "total_tokens": 14574,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 15,
+      "prompt_tokens": 14545,
+      "completion_tokens": 638,
+      "total_tokens": 15183,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 16,
+      "prompt_tokens": 15067,
+      "completion_tokens": 1378,
+      "total_tokens": 16445,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 17,
+      "prompt_tokens": 16038,
+      "completion_tokens": 960,
+      "total_tokens": 16998,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 18,
+      "prompt_tokens": 17002,
+      "completion_tokens": 72,
+      "total_tokens": 17074,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 19,
+      "prompt_tokens": 17172,
+      "completion_tokens": 822,
+      "total_tokens": 17994,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 20,
+      "prompt_tokens": 18120,
+      "completion_tokens": 120,
+      "total_tokens": 18240,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 21,
+      "prompt_tokens": 20019,
+      "completion_tokens": 79,
+      "total_tokens": 20098,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 22,
+      "prompt_tokens": 20130,
+      "completion_tokens": 99,
+      "total_tokens": 20229,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 23,
+      "prompt_tokens": 20940,
+      "completion_tokens": 941,
+      "total_tokens": 21881,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 24,
+      "prompt_tokens": 21956,
+      "completion_tokens": 91,
+      "total_tokens": 22047,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 25,
+      "prompt_tokens": 22606,
+      "completion_tokens": 1496,
+      "total_tokens": 24102,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 26,
+      "prompt_tokens": 24205,
+      "completion_tokens": 2232,
+      "total_tokens": 26437,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 27,
+      "prompt_tokens": 25872,
+      "completion_tokens": 1697,
+      "total_tokens": 27569,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 28,
+      "prompt_tokens": 27239,
+      "completion_tokens": 133,
+      "total_tokens": 27372,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 29,
+      "prompt_tokens": 28142,
+      "completion_tokens": 113,
+      "total_tokens": 28255,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 30,
+      "prompt_tokens": 28819,
+      "completion_tokens": 553,
+      "total_tokens": 29372,
+      "cost_usd": 0.0,
+      "attempt": 1
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "traj_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/traj.json",
+      "prediction_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/prediction.json",
+      "eval_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/eval_result.json",
+      "transcript_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/transcript.json",
+      "llm_rounds_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/llm_rounds.json",
+      "feedback_path": "",
+      "feedback_prompt": null,
+      "feedback_prompt_stats": null,
+      "feedback_policy": "error-localized",
+      "feedback_format": "full-refresh",
+      "agent_time_seconds": 163.9320056438446,
+      "evaluation_time_seconds": 144.51926016807556,
+      "resolved": true,
+      "stop_rule": "max-attempts-only",
+      "stop_threshold": 0.0,
+      "stop_rule_trigger_reason": null,
+      "usage": {
+        "prompt_tokens": 454980,
+        "completion_tokens": 18295,
+        "total_tokens": 473275,
+        "cost_usd": 0.0,
+        "request_count": 30
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "prompt_tokens": 4275,
+          "completion_tokens": 202,
+          "total_tokens": 4477,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 2,
+          "prompt_tokens": 4404,
+          "completion_tokens": 115,
+          "total_tokens": 4519,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 3,
+          "prompt_tokens": 4533,
+          "completion_tokens": 93,
+          "total_tokens": 4626,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 4,
+          "prompt_tokens": 4662,
+          "completion_tokens": 119,
+          "total_tokens": 4781,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 5,
+          "prompt_tokens": 4955,
+          "completion_tokens": 140,
+          "total_tokens": 5095,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 6,
+          "prompt_tokens": 5172,
+          "completion_tokens": 128,
+          "total_tokens": 5300,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 7,
+          "prompt_tokens": 7798,
+          "completion_tokens": 185,
+          "total_tokens": 7983,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 8,
+          "prompt_tokens": 9214,
+          "completion_tokens": 100,
+          "total_tokens": 9314,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 9,
+          "prompt_tokens": 9824,
+          "completion_tokens": 1020,
+          "total_tokens": 10844,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 10,
+          "prompt_tokens": 10740,
+          "completion_tokens": 750,
+          "total_tokens": 11490,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 11,
+          "prompt_tokens": 11549,
+          "completion_tokens": 1293,
+          "total_tokens": 12842,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 12,
+          "prompt_tokens": 12583,
+          "completion_tokens": 1352,
+          "total_tokens": 13935,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 13,
+          "prompt_tokens": 13464,
+          "completion_tokens": 735,
+          "total_tokens": 14199,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 14,
+          "prompt_tokens": 13935,
+          "completion_tokens": 639,
+          "total_tokens": 14574,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 15,
+          "prompt_tokens": 14545,
+          "completion_tokens": 638,
+          "total_tokens": 15183,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 16,
+          "prompt_tokens": 15067,
+          "completion_tokens": 1378,
+          "total_tokens": 16445,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 17,
+          "prompt_tokens": 16038,
+          "completion_tokens": 960,
+          "total_tokens": 16998,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 18,
+          "prompt_tokens": 17002,
+          "completion_tokens": 72,
+          "total_tokens": 17074,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 19,
+          "prompt_tokens": 17172,
+          "completion_tokens": 822,
+          "total_tokens": 17994,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 20,
+          "prompt_tokens": 18120,
+          "completion_tokens": 120,
+          "total_tokens": 18240,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 21,
+          "prompt_tokens": 20019,
+          "completion_tokens": 79,
+          "total_tokens": 20098,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 22,
+          "prompt_tokens": 20130,
+          "completion_tokens": 99,
+          "total_tokens": 20229,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 23,
+          "prompt_tokens": 20940,
+          "completion_tokens": 941,
+          "total_tokens": 21881,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 24,
+          "prompt_tokens": 21956,
+          "completion_tokens": 91,
+          "total_tokens": 22047,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 25,
+          "prompt_tokens": 22606,
+          "completion_tokens": 1496,
+          "total_tokens": 24102,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 26,
+          "prompt_tokens": 24205,
+          "completion_tokens": 2232,
+          "total_tokens": 26437,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 27,
+          "prompt_tokens": 25872,
+          "completion_tokens": 1697,
+          "total_tokens": 27569,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 28,
+          "prompt_tokens": 27239,
+          "completion_tokens": 133,
+          "total_tokens": 27372,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 29,
+          "prompt_tokens": 28142,
+          "completion_tokens": 113,
+          "total_tokens": 28255,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 30,
+          "prompt_tokens": 28819,
+          "completion_tokens": 553,
+          "total_tokens": 29372,
+          "cost_usd": 0.0
+        }
+      ],
+      "episode_dirs": [],
+      "extra_trajectory_files": [],
+      "retry_workspace_strategy": "preserve",
+      "workspace_snapshot": {
+        "patch_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__08-56-56/astropy__astropy-13579/attempt_1/workspace_snapshot/workspace.patch",
+        "untracked_archive_path": "",
+        "untracked_capture_error": "returncode=1 output="
+      },
+      "workspace_restore": {
+        "restored": false,
+        "restored_from_attempt": null
+      },
+      "stop_check": {
+        "enabled": true,
+        "history": [
+          {
+            "progress_score": 0,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": true,
+            "stuck_reason": null
+          }
+        ],
+        "stop_triggered": false,
+        "stop_reason": null
+      }
+    }
+  ]
+}

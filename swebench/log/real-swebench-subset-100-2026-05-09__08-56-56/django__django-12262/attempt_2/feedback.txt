@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `django__django-12262` after evaluation feedback.
+
+Attempt completed: 1
+Repository: django/django
+Base commit: 69331bb851c34f05bc77e9fc24020fe6908b9cd5
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

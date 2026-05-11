@@ -1,0 +1,959 @@
+{
+  "task_id": "django__django-10914",
+  "attempt_count": 2,
+  "first_success_attempt": 2,
+  "success_within_budget": true,
+  "stop_reason": "passed",
+  "swebench_agent_backend": "plain-mini",
+  "model": "anthropic/MiniMax-M2.7",
+  "skillsbench_skill_guidance": false,
+  "inject_token_efficient_triage_first_prompt": true,
+  "retry_workspace_strategy": "preserve",
+  "stop_check": {
+    "enabled": true,
+    "zero_progress_streak": 2,
+    "yes_streak": 2,
+    "triggered_attempts": [
+      1
+    ]
+  },
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "swebench-safe",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6,
+    "stop_check_early_stop_enabled": true,
+    "stop_check_zero_progress_streak": 2,
+    "stop_check_yes_streak": 2,
+    "skillsbench_skill_guidance": false,
+    "inject_token_efficient_triage_first_prompt": true,
+    "retry_workspace_strategy": "preserve"
+  },
+  "usage": {
+    "prompt_tokens": 477149,
+    "completion_tokens": 7575,
+    "total_tokens": 484724,
+    "cost_usd": 0.0,
+    "request_count": 41
+  },
+  "total_prompt_tokens": 477149,
+  "total_completion_tokens": 7575,
+  "total_tokens": 484724,
+  "usage_per_round": [
+    {
+      "round": 1,
+      "prompt_tokens": 3028,
+      "completion_tokens": 292,
+      "total_tokens": 3320,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 2,
+      "prompt_tokens": 3263,
+      "completion_tokens": 56,
+      "total_tokens": 3319,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 3,
+      "prompt_tokens": 3348,
+      "completion_tokens": 73,
+      "total_tokens": 3421,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 1,
+      "prompt_tokens": 1704,
+      "completion_tokens": 208,
+      "total_tokens": 1912,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 2,
+      "prompt_tokens": 1802,
+      "completion_tokens": 154,
+      "total_tokens": 1956,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 3,
+      "prompt_tokens": 2189,
+      "completion_tokens": 139,
+      "total_tokens": 2328,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 4,
+      "prompt_tokens": 2430,
+      "completion_tokens": 175,
+      "total_tokens": 2605,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 5,
+      "prompt_tokens": 4622,
+      "completion_tokens": 264,
+      "total_tokens": 4886,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 6,
+      "prompt_tokens": 4917,
+      "completion_tokens": 235,
+      "total_tokens": 5152,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 7,
+      "prompt_tokens": 5136,
+      "completion_tokens": 481,
+      "total_tokens": 5617,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 8,
+      "prompt_tokens": 5365,
+      "completion_tokens": 83,
+      "total_tokens": 5448,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 9,
+      "prompt_tokens": 5900,
+      "completion_tokens": 313,
+      "total_tokens": 6213,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 10,
+      "prompt_tokens": 6048,
+      "completion_tokens": 82,
+      "total_tokens": 6130,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 11,
+      "prompt_tokens": 6272,
+      "completion_tokens": 211,
+      "total_tokens": 6483,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 12,
+      "prompt_tokens": 6433,
+      "completion_tokens": 79,
+      "total_tokens": 6512,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 13,
+      "prompt_tokens": 6645,
+      "completion_tokens": 88,
+      "total_tokens": 6733,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 14,
+      "prompt_tokens": 6868,
+      "completion_tokens": 219,
+      "total_tokens": 7087,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 15,
+      "prompt_tokens": 7440,
+      "completion_tokens": 468,
+      "total_tokens": 7908,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 16,
+      "prompt_tokens": 11148,
+      "completion_tokens": 445,
+      "total_tokens": 11593,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 17,
+      "prompt_tokens": 11610,
+      "completion_tokens": 160,
+      "total_tokens": 11770,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 18,
+      "prompt_tokens": 11954,
+      "completion_tokens": 107,
+      "total_tokens": 12061,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 19,
+      "prompt_tokens": 15309,
+      "completion_tokens": 156,
+      "total_tokens": 15465,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 20,
+      "prompt_tokens": 15878,
+      "completion_tokens": 114,
+      "total_tokens": 15992,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 21,
+      "prompt_tokens": 16138,
+      "completion_tokens": 322,
+      "total_tokens": 16460,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 22,
+      "prompt_tokens": 16443,
+      "completion_tokens": 115,
+      "total_tokens": 16558,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 23,
+      "prompt_tokens": 16664,
+      "completion_tokens": 97,
+      "total_tokens": 16761,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 24,
+      "prompt_tokens": 16778,
+      "completion_tokens": 81,
+      "total_tokens": 16859,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 25,
+      "prompt_tokens": 17046,
+      "completion_tokens": 150,
+      "total_tokens": 17196,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 26,
+      "prompt_tokens": 17476,
+      "completion_tokens": 206,
+      "total_tokens": 17682,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 27,
+      "prompt_tokens": 17608,
+      "completion_tokens": 79,
+      "total_tokens": 17687,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 28,
+      "prompt_tokens": 17725,
+      "completion_tokens": 79,
+      "total_tokens": 17804,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 29,
+      "prompt_tokens": 17950,
+      "completion_tokens": 93,
+      "total_tokens": 18043,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 30,
+      "prompt_tokens": 18123,
+      "completion_tokens": 118,
+      "total_tokens": 18241,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 31,
+      "prompt_tokens": 18520,
+      "completion_tokens": 173,
+      "total_tokens": 18693,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 32,
+      "prompt_tokens": 18654,
+      "completion_tokens": 75,
+      "total_tokens": 18729,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 33,
+      "prompt_tokens": 19225,
+      "completion_tokens": 411,
+      "total_tokens": 19636,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 34,
+      "prompt_tokens": 19486,
+      "completion_tokens": 67,
+      "total_tokens": 19553,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 35,
+      "prompt_tokens": 19568,
+      "completion_tokens": 76,
+      "total_tokens": 19644,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 36,
+      "prompt_tokens": 19784,
+      "completion_tokens": 187,
+      "total_tokens": 19971,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 37,
+      "prompt_tokens": 20127,
+      "completion_tokens": 202,
+      "total_tokens": 20329,
+      "cost_usd": 0.0,
+      "attempt": 2
+    },
+    {
+      "round": 38,
+      "prompt_tokens": 20525,
+      "completion_tokens": 442,
+      "total_tokens": 20967,
+      "cost_usd": 0.0,
+      "attempt": 2
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "traj_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_1/traj.json",
+      "prediction_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_1/prediction.json",
+      "eval_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_1/eval_result.json",
+      "transcript_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_1/transcript.json",
+      "llm_rounds_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_1/llm_rounds.json",
+      "feedback_path": "",
+      "feedback_prompt": null,
+      "feedback_prompt_stats": null,
+      "feedback_policy": "error-localized",
+      "feedback_format": "full-refresh",
+      "agent_time_seconds": 38.371644496917725,
+      "evaluation_time_seconds": 0.0,
+      "resolved": false,
+      "stop_rule": "max-attempts-only",
+      "stop_threshold": 0.0,
+      "stop_rule_trigger_reason": "intra-attempt-early-stop",
+      "usage": {
+        "prompt_tokens": 9639,
+        "completion_tokens": 421,
+        "total_tokens": 10060,
+        "cost_usd": 0.0,
+        "request_count": 3
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "prompt_tokens": 3028,
+          "completion_tokens": 292,
+          "total_tokens": 3320,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 2,
+          "prompt_tokens": 3263,
+          "completion_tokens": 56,
+          "total_tokens": 3319,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 3,
+          "prompt_tokens": 3348,
+          "completion_tokens": 73,
+          "total_tokens": 3421,
+          "cost_usd": 0.0
+        }
+      ],
+      "episode_dirs": [],
+      "extra_trajectory_files": [],
+      "retry_workspace_strategy": "preserve",
+      "workspace_snapshot": {},
+      "workspace_restore": {
+        "restored": false,
+        "restored_from_attempt": null,
+        "reused_container": true
+      },
+      "stop_check": {
+        "enabled": true,
+        "history": [
+          {
+            "progress_score": 0,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 0,
+            "should_stop": false,
+            "stuck_reason": null
+          }
+        ],
+        "stop_triggered": true,
+        "stop_reason": "stop-check stop: consecutive zero-progress rounds reached 2"
+      }
+    },
+    {
+      "attempt": 2,
+      "traj_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/traj.json",
+      "prediction_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/prediction.json",
+      "eval_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/eval_result.json",
+      "transcript_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/transcript.json",
+      "llm_rounds_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/llm_rounds.json",
+      "feedback_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_212228/django__django-10914/attempt_2/feedback.txt",
+      "feedback_prompt": "You are retrying SWE-bench instance `django__django-10914` after evaluation feedback.\n\nAttempt completed: 1\nRepository: django/django\nBase commit: e7fd69d051eaa67cb17f172a39b57253e9cb831a\nResolved: no\n\nFailed tests:\n- No failed test names were extracted.\n\nEvaluation notes:\nThe previous attempt was early-stopped before evaluation.\nEvaluation failed without structured pytest output.\n\nRetry policy:\nThe previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.",
+      "feedback_prompt_stats": {
+        "text": "You are retrying SWE-bench instance `django__django-10914` after evaluation feedback.\n\nAttempt completed: 1\nRepository: django/django\nBase commit: e7fd69d051eaa67cb17f172a39b57253e9cb831a\nResolved: no\n\nFailed tests:\n- No failed test names were extracted.\n\nEvaluation notes:\nThe previous attempt was early-stopped before evaluation.\nEvaluation failed without structured pytest output.\n\nRetry policy:\nThe previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.",
+        "text_length_chars": 566,
+        "stable_prefix_length_chars": 0,
+        "dynamic_suffix_length_chars": 566,
+        "unresolved_criteria_count": 1,
+        "feedback_format": "full-refresh"
+      },
+      "feedback_policy": "error-localized",
+      "feedback_format": "full-refresh",
+      "agent_time_seconds": 360.6448016166687,
+      "evaluation_time_seconds": 67.86254501342773,
+      "resolved": true,
+      "stop_rule": "max-attempts-only",
+      "stop_threshold": 0.0,
+      "stop_rule_trigger_reason": null,
+      "usage": {
+        "prompt_tokens": 467510,
+        "completion_tokens": 7154,
+        "total_tokens": 474664,
+        "cost_usd": 0.0,
+        "request_count": 38
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "prompt_tokens": 1704,
+          "completion_tokens": 208,
+          "total_tokens": 1912,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 2,
+          "prompt_tokens": 1802,
+          "completion_tokens": 154,
+          "total_tokens": 1956,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 3,
+          "prompt_tokens": 2189,
+          "completion_tokens": 139,
+          "total_tokens": 2328,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 4,
+          "prompt_tokens": 2430,
+          "completion_tokens": 175,
+          "total_tokens": 2605,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 5,
+          "prompt_tokens": 4622,
+          "completion_tokens": 264,
+          "total_tokens": 4886,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 6,
+          "prompt_tokens": 4917,
+          "completion_tokens": 235,
+          "total_tokens": 5152,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 7,
+          "prompt_tokens": 5136,
+          "completion_tokens": 481,
+          "total_tokens": 5617,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 8,
+          "prompt_tokens": 5365,
+          "completion_tokens": 83,
+          "total_tokens": 5448,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 9,
+          "prompt_tokens": 5900,
+          "completion_tokens": 313,
+          "total_tokens": 6213,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 10,
+          "prompt_tokens": 6048,
+          "completion_tokens": 82,
+          "total_tokens": 6130,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 11,
+          "prompt_tokens": 6272,
+          "completion_tokens": 211,
+          "total_tokens": 6483,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 12,
+          "prompt_tokens": 6433,
+          "completion_tokens": 79,
+          "total_tokens": 6512,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 13,
+          "prompt_tokens": 6645,
+          "completion_tokens": 88,
+          "total_tokens": 6733,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 14,
+          "prompt_tokens": 6868,
+          "completion_tokens": 219,
+          "total_tokens": 7087,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 15,
+          "prompt_tokens": 7440,
+          "completion_tokens": 468,
+          "total_tokens": 7908,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 16,
+          "prompt_tokens": 11148,
+          "completion_tokens": 445,
+          "total_tokens": 11593,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 17,
+          "prompt_tokens": 11610,
+          "completion_tokens": 160,
+          "total_tokens": 11770,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 18,
+          "prompt_tokens": 11954,
+          "completion_tokens": 107,
+          "total_tokens": 12061,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 19,
+          "prompt_tokens": 15309,
+          "completion_tokens": 156,
+          "total_tokens": 15465,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 20,
+          "prompt_tokens": 15878,
+          "completion_tokens": 114,
+          "total_tokens": 15992,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 21,
+          "prompt_tokens": 16138,
+          "completion_tokens": 322,
+          "total_tokens": 16460,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 22,
+          "prompt_tokens": 16443,
+          "completion_tokens": 115,
+          "total_tokens": 16558,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 23,
+          "prompt_tokens": 16664,
+          "completion_tokens": 97,
+          "total_tokens": 16761,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 24,
+          "prompt_tokens": 16778,
+          "completion_tokens": 81,
+          "total_tokens": 16859,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 25,
+          "prompt_tokens": 17046,
+          "completion_tokens": 150,
+          "total_tokens": 17196,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 26,
+          "prompt_tokens": 17476,
+          "completion_tokens": 206,
+          "total_tokens": 17682,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 27,
+          "prompt_tokens": 17608,
+          "completion_tokens": 79,
+          "total_tokens": 17687,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 28,
+          "prompt_tokens": 17725,
+          "completion_tokens": 79,
+          "total_tokens": 17804,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 29,
+          "prompt_tokens": 17950,
+          "completion_tokens": 93,
+          "total_tokens": 18043,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 30,
+          "prompt_tokens": 18123,
+          "completion_tokens": 118,
+          "total_tokens": 18241,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 31,
+          "prompt_tokens": 18520,
+          "completion_tokens": 173,
+          "total_tokens": 18693,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 32,
+          "prompt_tokens": 18654,
+          "completion_tokens": 75,
+          "total_tokens": 18729,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 33,
+          "prompt_tokens": 19225,
+          "completion_tokens": 411,
+          "total_tokens": 19636,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 34,
+          "prompt_tokens": 19486,
+          "completion_tokens": 67,
+          "total_tokens": 19553,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 35,
+          "prompt_tokens": 19568,
+          "completion_tokens": 76,
+          "total_tokens": 19644,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 36,
+          "prompt_tokens": 19784,
+          "completion_tokens": 187,
+          "total_tokens": 19971,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 37,
+          "prompt_tokens": 20127,
+          "completion_tokens": 202,
+          "total_tokens": 20329,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 38,
+          "prompt_tokens": 20525,
+          "completion_tokens": 442,
+          "total_tokens": 20967,
+          "cost_usd": 0.0
+        }
+      ],
+      "episode_dirs": [],
+      "extra_trajectory_files": [],
+      "retry_workspace_strategy": "preserve",
+      "workspace_snapshot": {},
+      "workspace_restore": {
+        "restored": false,
+        "restored_from_attempt": null,
+        "reused_container": true
+      },
+      "stop_check": {
+        "enabled": true,
+        "history": [
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          }
+        ],
+        "stop_triggered": false,
+        "stop_reason": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+diff --git a/astropy/timeseries/core.py b/astropy/timeseries/core.py
+index c279f35f8..7ca49c480 100644
+--- a/astropy/timeseries/core.py
++++ b/astropy/timeseries/core.py
+@@ -71,14 +71,25 @@ class BaseTimeSeries(QTable):
+             if not self._required_columns_relax and len(self.colnames) == 0:
+ 
+                 raise ValueError("{} object is invalid - expected '{}' "
+-                                 "as the first column{} but time series has no columns"
+-                                 .format(self.__class__.__name__, required_columns[0], plural))
+-
+-            elif self.colnames[:len(required_columns)] != required_columns:
++                                 "as the first column but time series has no columns"
++                                 .format(self.__class__.__name__, required_columns[0]))
+ 
++            # Check if first column matches the first required column
++            if len(self.colnames) > 0 and self.colnames[0] != required_columns[0]:
+                 raise ValueError("{} object is invalid - expected '{}' "
+-                                 "as the first column{} but found '{}'"
+-                                 .format(self.__class__.__name__, required_columns[0], plural, self.colnames[0]))
++                                 "as the first column but found '{}'"
++                                 .format(self.__class__.__name__, required_columns[0], self.colnames[0]))
++
++            # Check if all required columns are present
++            all_required_present = all(col in self.colnames for col in required_columns)
++
++            if not all_required_present:
++                # Some required columns are missing
++                missing_columns = [col for col in required_columns if col not in self.colnames]
++                raise ValueError("{} object is invalid - required column{} {} missing"
++                                 .format(self.__class__.__name__,
++                                         's' if len(missing_columns) > 1 else '',
++                                         ', '.join(missing_columns)))
+ 
+             if (self._required_columns_relax
+                     and self._required_columns == self.colnames[:len(self._required_columns)]):
+diff --git a/test_edge_cases.py b/test_edge_cases.py
+new file mode 100644
+index 000000000..7aa5be084
+--- /dev/null
++++ b/test_edge_cases.py
+@@ -0,0 +1,50 @@
++import numpy as np
++from astropy.time import Time
++from astropy.timeseries import TimeSeries
++
++print("Test 1: Single required column missing")
++time=Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data = {"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]                                   
++
++try:
++    ts.remove_column("flux")
++except ValueError as e:
++    print("  Error message:", e)
++
++print("\nTest 2: Multiple required columns missing")
++time=Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data = {"flux": [99.9, 99.8, 99.7], "mag": [1, 2, 3]})
++ts._required_columns = ["time", "flux", "mag"]                                   
++
++try:
++    ts.remove_columns(["flux", "mag"])
++except ValueError as e:
++    print("  Error message:", e)
++
++print("\nTest 3: Column order wrong (all columns present)")
++time=Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data = {"flux": [99.9, 99.8, 99.7], "mag": [1, 2, 3]})
++ts._required_columns = ["time", "flux"]                                   
++
++try:
++    ts.rename_column("time", "original_time")
++except ValueError as e:
++    print("  Error message:", e)
++
++print("\nTest 4: Normal case - everything works")
++time=Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data = {"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]                                   
++
++try:
++    ts.remove_column("mag")  # Non-required column
++    print("  Success - no error for removing non-required column")
++except ValueError as e:
++    print("  Error message:", e)
++
++print("\nTest 5: Normal case - valid table")
++time=Time(np.arange(100000, 100003), format='jd')
++ts = TimeSeries(time=time, data = {"flux": [99.9, 99.8, 99.7]})
++ts._required_columns = ["time", "flux"]                                   
++print("  Success - table is valid")

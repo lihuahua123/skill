@@ -1,0 +1,55 @@
+{
+  "instance_id": "astropy__astropy-12907",
+  "run_id": "real-swebench-triage-first-smoke-2026-05-08__20-05-00__astropy__astropy-12907__attempt_1",
+  "split": "test",
+  "resolved": true,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-triage-first-smoke-2026-05-08__20-05-00/logs/run_evaluation/real-swebench-triage-first-smoke-2026-05-08__20-05-00__astropy__astropy-12907__attempt_1/anthropic__MiniMax-M2.5/astropy__astropy-12907/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-triage-first-smoke-2026-05-08__20-05-00/logs/run_evaluation/real-swebench-triage-first-smoke-2026-05-08__20-05-00__astropy__astropy-12907__attempt_1/anthropic__MiniMax-M2.5/astropy__astropy-12907/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-triage-first-smoke-2026-05-08__20-05-00/logs/run_evaluation/real-swebench-triage-first-smoke-2026-05-08__20-05-00__astropy__astropy-12907__attempt_1/anthropic__MiniMax-M2.5/astropy__astropy-12907/run_instance.log",
+  "evaluation_time_seconds": 229.6550555229187,
+  "report": {
+    "astropy__astropy-12907": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": true,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]"
+          ],
+          "failure": []
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "astropy/modeling/tests/test_separable.py::test_coord_matrix",
+            "astropy/modeling/tests/test_separable.py::test_cdot",
+            "astropy/modeling/tests/test_separable.py::test_cstack",
+            "astropy/modeling/tests/test_separable.py::test_arith_oper",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model0-result0]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model1-result1]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model2-result2]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model3-result3]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model4-result4]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model5-result5]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model7-result7]",
+            "astropy/modeling/tests/test_separable.py::test_separable[compound_model8-result8]",
+            "astropy/modeling/tests/test_separable.py::test_custom_model_separable"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "Package versions:\nNumpy: 1.25.2\nScipy: not available\nMatplotlib: not available\nh5py: not available\nPandas: not available\nPyERFA: 2.0.0.3\nCython: not available\nScikit-image: not available\nasdf: not available\npyarrow: not available\nUsing Astropy options: remote_data: none.\nARCH_ON_CI: undefined\nIS_CRON: undefined\nrootdir: /testbed\nconfigfile: setup.cfg\nplugins: doctestplus-1.0.0, astropy-0.10.0, openfiles-0.5.0, xdist-3.3.1, mock-3.11.1, cov-4.1.0, remotedata-0.4.0, filter-subpackage-0.1.2, astropy-header-0.2.2, arraydiff-0.5.0, hypothesis-6.82.6\ncollected 15 items\nastropy/modeling/tests/test_separable.py ...............                 [100%]\n==================================== PASSES ====================================\n=========================== short test summary info ============================\nPASSED astropy/modeling/tests/test_separable.py::test_coord_matrix\nPASSED astropy/modeling/tests/test_separable.py::test_cdot\nPASSED astropy/modeling/tests/test_separable.py::test_cstack\nPASSED astropy/modeling/tests/test_separable.py::test_arith_oper\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model0-result0]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model1-result1]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model2-result2]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model3-result3]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model4-result4]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model5-result5]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model7-result7]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model8-result8]\nPASSED astropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]\nPASSED astropy/modeling/tests/test_separable.py::test_custom_model_separable\n============================== 15 passed in 0.35s ==============================\n+ : '>>>>> End Test Output'\n+ git checkout d16bfe05a744909de4b27f5875fe0d4ed41ce607 astropy/modeling/tests/test_separable.py\nUpdated 1 path from 4d9ea46e5",
+  "failed_tests": []
+}

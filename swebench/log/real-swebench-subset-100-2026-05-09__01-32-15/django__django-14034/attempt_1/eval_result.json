@@ -1,0 +1,55 @@
+{
+  "instance_id": "django__django-14034",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-django__django-14034__django__django-14034__attempt_1",
+  "split": "test",
+  "resolved": false,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14034__django__django-14034__attempt_1/anthropic__MiniMax-M2.5/django__django-14034/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14034__django__django-14034__attempt_1/anthropic__MiniMax-M2.5/django__django-14034/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14034__django__django-14034__attempt_1/anthropic__MiniMax-M2.5/django__django-14034/run_instance.log",
+  "evaluation_time_seconds": 154.6311230659485,
+  "report": {
+    "django__django-14034": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": false,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [],
+          "failure": [
+            "test_render_required_attributes (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)"
+          ]
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "test_bad_choice (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_clean (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_clean_disabled_multivalue (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_disabled_has_changed (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_form_as_table (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_form_as_table_data (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_form_cleaned_data (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "Test when the first widget's data has changed.",
+            "Test when the last widget's data has changed. This ensures that it is",
+            "test_has_changed_no_initial (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "test_has_changed_same (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)",
+            "If insufficient data is provided, None is substituted."
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "Checking patch tests/forms_tests/field_tests/test_multivaluefield.py...\nApplied patch tests/forms_tests/field_tests/test_multivaluefield.py cleanly.\n+ : '>>>>> Start Test Output'\n+ ./tests/runtests.py --verbosity 2 --settings=test_sqlite --parallel 1 forms_tests.field_tests.test_multivaluefield\ntest_bad_choice (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_clean (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_clean_disabled_multivalue (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_disabled_has_changed (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_form_as_table (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_form_as_table_data (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_form_cleaned_data (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_has_changed_first_widget (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)\nTest when the first widget's data has changed. ... ok\ntest_has_changed_last_widget (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)\nTest when the last widget's data has changed. This ensures that it is ... ok\ntest_has_changed_no_initial (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_has_changed_same (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... ok\ntest_no_value (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)\nIf insufficient data is provided, None is substituted. ... ok\ntest_render_required_attributes (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest) ... FAIL\n======================================================================\nFAIL: test_render_required_attributes (forms_tests.field_tests.test_multivaluefield.MultiValueFieldTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/testbed/tests/forms_tests/field_tests/test_multivaluefield.py\", line 194, in test_render_required_attributes\n    self.assertInHTML('<input type=\"text\" name=\"f_1\" id=\"id_f_1\">', form.as_p())\n  File \"/testbed/django/test/testcases.py\", line 834, in assertInHTML\n    self.assertTrue(real_count != 0, msg_prefix + \"Couldn't find '%s' in response\" % needle)\nAssertionError: False is not true : Couldn't find '<input id=\"id_f_1\" name=\"f_1\" type=\"text\">' in response\n----------------------------------------------------------------------\nRan 13 tests in 0.016s\nFAILED (failures=1)\nTesting against Django installed in '/testbed/django'\nImporting application forms_tests\nFound 13 test(s).\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n+ : '>>>>> End Test Output'\n+ git checkout db1fc5cd3c5d36cdb5d0fe4404efd6623dd3e8fb tests/forms_tests/field_tests/test_multivaluefield.py\nUpdated 1 path from b735936f17",
+  "failed_tests": [
+    "(failures=1)"
+  ]
+}

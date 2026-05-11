@@ -968,3 +968,63 @@ Wrote aggregated SkillsBench result: /data/lirui/skill_study/skill/results/rq1/s
   - 把 temperature=0 固定下来，先去掉采样噪声
   - 把 retry prompt 改成“局部修复模式”，明确禁止大范围重构
   - 加一个 no-improvement stop rule：如果连续两轮失败对象基本一样，就停止，避免无效烧 token
+
+
+
+    22 轮对一个 smoke test 来说偏多，通常说明 agent 在“读文件/定位问题/小
+  步试探”上花了太多轮。可压缩的主要手段是：
+
+  - 降低 step_limit
+  - 改更强的系统提示，要求先高密度阅读再少量执行
+  - 用 eet-mini 或反馈重试减少盲试
+  - 针对 SWE-bench 专门优化 prompt，减少无效探索
+
+2026/5/8 说明/data/lirui/skill_study/skillsbench/common_skill 不能跨数据集使用，在skillsbench用得好，不一定在swebench 用得好
+
+export HARBOR_HTTP_PROXY=http://host.docker.internal:7895
+  export HARBOR_HTTPS_PROXY=http://host.docker.internal:7895
+  export HARBOR_ALL_PROXY=http://host.docker.internal:7895
+这里改成4096
+  response = litellm.completion(
+                model=self._model_name,
+                messages=messages,
+                temperature=self._temperature,
+                response_format=response_format,
+                drop_params=True,
+                logger_fn=logger_fn,
+                api_base=self._api_base,
+                api_key=self._api_key,
+                max_tokens=4096,
+                **kwargs,
+            )
+
+swebench 
+两次 attempt（同时存在 attempt_1 和 attempt_2）的共有 27 个：
+
+  astropy__astropy-13033
+  astropy__astropy-14508
+  django__django-10914
+  django__django-10973
+  django__django-10999
+  django__django-11095
+  django__django-11206
+  django__django-11333
+  django__django-11532
+  django__django-11603
+  django__django-11728
+  django__django-11734
+  django__django-11820
+  django__django-11848
+  django__django-12262
+  django__django-12273
+  django__django-12325
+  django__django-12754
+  django__django-13028
+  django__django-13121
+  django__django-13297
+  scikit-learn__scikit-learn-12585
+  scikit-learn__scikit-learn-13328
+  scikit-learn__scikit-learn-25232
+  sphinx-doc__sphinx-7454
+  sphinx-doc__sphinx-7590
+  sphinx-doc__sphinx-7757

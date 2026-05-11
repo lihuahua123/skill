@@ -1,0 +1,7 @@
+{
+  "sympy__sympy-15809": {
+    "model_name_or_path": "anthropic/MiniMax-M2.5",
+    "instance_id": "sympy__sympy-15809",
+    "model_patch": ""
+  }
+}

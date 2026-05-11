@@ -172,6 +172,76 @@ load_env_file_exports() {
   set +a
 }
 
+docker_proxy_target_host() {
+  if [[ -n "${DOCKER_PROXY_HOST:-}" ]]; then
+    printf '%s\n' "${DOCKER_PROXY_HOST}"
+    return 0
+  fi
+  if [[ -n "${DOCKER_HOST_GATEWAY_IP:-}" ]]; then
+    printf '%s\n' "${DOCKER_HOST_GATEWAY_IP}"
+    return 0
+  fi
+  if command -v docker >/dev/null 2>&1; then
+    local bridge_gateway=""
+    bridge_gateway="$(docker network inspect bridge --format '{{(index .IPAM.Config 0).Gateway}}' 2>/dev/null || true)"
+    if [[ -n "${bridge_gateway}" ]]; then
+      printf '%s\n' "${bridge_gateway}"
+      return 0
+    fi
+  fi
+  printf '%s\n' "host.docker.internal"
+}
+
+rewrite_local_proxy_url_for_docker() {
+  local raw_url="$1"
+  local docker_host="$2"
+
+  if [[ -z "${raw_url}" ]]; then
+    return 1
+  fi
+
+  local pattern='^([A-Za-z][A-Za-z0-9+.-]*://)([^/@]+@)?(127\.0\.0\.1|localhost|\[::1\])(:[0-9]+)?(/.*)?$'
+  if [[ ! "${raw_url}" =~ ${pattern} ]]; then
+    return 1
+  fi
+
+  printf '%s%s%s%s%s\n' \
+    "${BASH_REMATCH[1]}" \
+    "${BASH_REMATCH[2]}" \
+    "${docker_host}" \
+    "${BASH_REMATCH[4]}" \
+    "${BASH_REMATCH[5]}"
+}
+
+normalize_docker_proxy_env() {
+  case "${DOCKER_PROXY_AUTO_NORMALIZE:-1}" in
+    0|false|FALSE|False|no|NO|off|OFF)
+      return 0
+      ;;
+  esac
+
+  local docker_host
+  docker_host="$(docker_proxy_target_host)"
+
+  local proxy_var
+  local proxy_value
+  local rewritten_value
+  local rewrote_any=0
+  for proxy_var in http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY; do
+    proxy_value="${!proxy_var:-}"
+    if rewritten_value="$(rewrite_local_proxy_url_for_docker "${proxy_value}" "${docker_host}")"; then
+      if [[ "${rewritten_value}" != "${proxy_value}" ]]; then
+        export "${proxy_var}=${rewritten_value}"
+        rewrote_any=1
+      fi
+    fi
+  done
+
+  if [[ ${rewrote_any} -eq 1 ]]; then
+    echo "Normalized localhost proxy env vars for Docker using host ${docker_host}" >&2
+  fi
+}
+
 should_skip_env_file_for_model() {
   local model_name="$1"
   local env_file="$2"
@@ -548,22 +618,45 @@ run_benchmark() {
         env_file=""
       fi
 
+      local inject_token_efficient_triage_first_prompt=0
+      if option_supplied --inject-token-efficient-triage-first-prompt "$@"; then
+        local inject_value=""
+        if inject_value="$(extract_option_value --inject-token-efficient-triage-first-prompt "$@")"; then
+          case "${inject_value,,}" in
+            1|true|yes|on)
+              inject_token_efficient_triage_first_prompt=1
+              ;;
+            0|false|no|off|"")
+              inject_token_efficient_triage_first_prompt=0
+              ;;
+            *)
+              echo "Unsupported value for --inject-token-efficient-triage-first-prompt: ${inject_value}" >&2
+              echo "Supported values: true, false" >&2
+              exit 2
+              ;;
+          esac
+        else
+          inject_token_efficient_triage_first_prompt=1
+        fi
+      fi
+
       local use_local_host_runner=0
       case "${sandbox}" in
-        local|local-host|host|process)
-          use_local_host_runner=1
-          ;;
         docker)
           if ! docker_available; then
             echo "Docker check failed in current environment" >&2
             exit 2
           fi
           ;;
+        *)
+          echo "Unsupported value for --sandbox: ${sandbox}" >&2
+          echo "Supported values: docker" >&2
+          exit 2
+          ;;
       esac
 
       local cmd=(
         -p "${tasks_root}"
-        -a "${agent_name}"
         -m "${model_name}"
         --env "${sandbox}"
         -k "${max_task_attempts}"
@@ -571,6 +664,9 @@ run_benchmark() {
         -o "${jobs_root}"
         -y
       )
+      if [[ -z "${agent_import_path}" ]]; then
+        cmd+=(-a "${agent_name}")
+      fi
       if [[ -n "${agent_import_path}" ]]; then
         cmd+=(--agent-import-path "${agent_import_path}")
       fi
@@ -585,6 +681,9 @@ run_benchmark() {
       fi
       if option_supplied --no-delete "$@"; then
         cmd+=(--no-delete)
+      fi
+      if [[ "${inject_token_efficient_triage_first_prompt}" -eq 1 ]]; then
+        cmd+=(--ak "inject_token_efficient_triage_first_prompt=true")
       fi
       if [[ -n "${env_file}" ]]; then
         cmd+=(--env-file "${env_file}")
@@ -628,6 +727,9 @@ run_benchmark() {
         if [[ "${early_stop_intra_attempt}" -eq 1 ]]; then
           local_runner_cmd+=(--early-stop-intra-attempt)
         fi
+        if [[ "${inject_token_efficient_triage_first_prompt}" -eq 1 ]]; then
+          local_runner_cmd+=(--inject-token-efficient-triage-first-prompt)
+        fi
         for task_name in "${task_names[@]}"; do
           local_runner_cmd+=(--skillsbench-task-path "tasks/${task_name}")
         done
@@ -641,6 +743,7 @@ run_benchmark() {
       else
         (
           cd "$(skillsbench_root)"
+          normalize_docker_proxy_env
           python3 "${REPO_ROOT}/scripts/ensure_skills_dir_for_docker_tasks.py" \
             --skillsbench-root "$(skillsbench_root)" \
             $(for task_name in "${task_names[@]}"; do printf -- '--task-name %q ' "${task_name}"; done)
@@ -717,7 +820,6 @@ run_benchmark() {
       else
         max_task_attempts="1"
       fi
-
       local run_id=""
       if run_id="$(extract_option_value --run-id "$@")"; then
         :

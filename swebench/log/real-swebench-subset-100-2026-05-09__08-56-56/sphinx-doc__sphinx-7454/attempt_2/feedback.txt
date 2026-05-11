@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `sphinx-doc__sphinx-7454` after evaluation feedback.
+
+Attempt completed: 1
+Repository: sphinx-doc/sphinx
+Base commit: aca3f825f2e4a8817190f3c885a242a285aa0dba
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

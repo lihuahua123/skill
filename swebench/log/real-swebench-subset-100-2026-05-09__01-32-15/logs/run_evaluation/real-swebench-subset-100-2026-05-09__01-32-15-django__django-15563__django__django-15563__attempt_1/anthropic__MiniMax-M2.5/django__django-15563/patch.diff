@@ -1,0 +1,3730 @@
+diff --git a/debug.py b/debug.py
+new file mode 100644
+index 0000000000..95aed474e3
+--- /dev/null
++++ b/debug.py
+@@ -0,0 +1,79 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create some test data
++otherbase1 = OtherBase.objects.create(field_otherbase=100)
++otherbase2 = OtherBase.objects.create(field_otherbase=101)
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++print(f"child1.pk (base_ptr_id): {child1.pk}")
++print(f"child2.pk (base_ptr_id): {child2.pk}")
++print(f"child1.base_ptr_id: {child1.base_ptr_id}")
++print(f"child1.otherbase_ptr_id: {child1.otherbase_ptr_id}")
++print(f"child2.base_ptr_id: {child2.base_ptr_id}")
++print(f"child2.otherbase_ptr_id: {child2.otherbase_ptr_id}")
++
++# Check the parent link fields
++print("\nChild._meta.parents:")
++for parent, parent_link in Child._meta.parents.items():
++    print(f"  Parent: {parent}, Link: {parent_link}")
++    print(f"    target_field.attname: {parent_link.target_field.attname}")
++    print(f"    column: {parent_link.column}")
++    print(f"    attname: {parent_link.attname}")
++
++# Let's manually query to see what we get
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++query.select = []
++query.add_fields([query.get_meta().pk.name])
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        query.add_fields([parent_link.target_field.attname])
++
++print("\nQuery select fields:")
++print(query.select)
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++print(f"Params: {params}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
+diff --git a/debug2.py b/debug2.py
+new file mode 100644
+index 0000000000..806d08c623
+--- /dev/null
++++ b/debug2.py
+@@ -0,0 +1,65 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create some test data
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Let's manually query to see what we get
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++# First add the main pk
++query.add_fields([query.get_meta().pk.name])
++print(f"After adding pk: {query.select}")
++
++# Then add parent link fields
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        query.add_fields([parent_link.target_field.attname])
++
++print(f"After adding parent links: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++print(f"Params: {params}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
+diff --git a/debug3.py b/debug3.py
+new file mode 100644
+index 0000000000..d7d7d072d7
+--- /dev/null
++++ b/debug3.py
+@@ -0,0 +1,67 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create some test data
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Let's manually query to see what we get
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++# Build a list of fields to add: pk + all parent links
++fields = [query.get_meta().pk.name]
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        fields.append(parent_link.target_field.attname)
++
++print(f"Fields to add: {fields}")
++
++# Add all fields at once
++query.add_fields(fields)
++
++print(f"After adding all fields: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++print(f"Params: {params}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
+diff --git a/debug4.py b/debug4.py
+new file mode 100644
+index 0000000000..d576abd1ed
+--- /dev/null
++++ b/debug4.py
+@@ -0,0 +1,64 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create some test data
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Let's manually query to see what we get
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++# Add main pk field first
++query.add_fields([query.get_meta().pk.name])
++print(f"After adding pk: {query.select}")
++
++# For multiple inheritance, also select parent link fields
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        query.add_fields([parent_link.attname])
++        print(f"After adding {parent_link.attname}: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++print(f"Params: {params}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
+diff --git a/debug5.py b/debug5.py
+new file mode 100644
+index 0000000000..1f84360408
+--- /dev/null
++++ b/debug5.py
+@@ -0,0 +1,72 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create some test data
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Let's manually query to see what we get
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++# Build list of fields: pk + all parent links
++fields = [query.get_meta().pk.name]
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        fields.append(parent_link.attname)
++
++print(f"Fields to add: {fields}")
++
++# Add all fields at once
++query.add_fields(fields)
++
++print(f"After adding all fields: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++print(f"Params: {params}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
++
++# Let's also check parent link order
++print("\nParent model order:")
++for parent, parent_link in query.get_meta().parents.items():
++    print(f"  {parent._meta.label}: {parent_link.attname}")
+diff --git a/debug_actual.py b/debug_actual.py
+new file mode 100644
+index 0000000000..1b9e079461
+--- /dev/null
++++ b/debug_actual.py
+@@ -0,0 +1,97 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++# Monkey-patch to add debug
++original_get_related_updates = None
++
++def debug_get_related_updates(self):
++    from django.db.models.sql.subqueries import UpdateQuery
++    if not self.related_updates:
++        return []
++    result = []
++    print(f"\n=== get_related_updates called ===")
++    print(f"self.related_ids: {self.related_ids}")
++    print(f"self.get_meta(): {self.get_meta()}")
++    print(f"self.related_updates: {self.related_updates}")
++    
++    for model, values in self.related_updates.items():
++        query = UpdateQuery(model)
++        query.values = values
++        print(f"\n--- Building update for model: {model} ---")
++        print(f"Parent link from {self.get_meta()} to {model}")
++        
++        if self.related_ids is not None:
++            # For multiple inheritance, use parent-specific IDs
++            if isinstance(self.related_ids, dict):
++                parent_link = self.get_meta().parents.get(model)
++                print(f"parent_link: {parent_link}")
++                if parent_link is not None:
++                    parent_ids = self.related_ids.get(parent_link.attname)
++                    print(f"parent_ids from dict: {parent_ids}")
++                    if parent_ids is not None:
++                        query.add_filter("pk__in", parent_ids)
++            else:
++                query.add_filter("pk__in", self.related_ids)
++        
++        # Let's see what filter was added
++        print(f"Query where: {query.where}")
++        
++        # Let's get SQL
++        try:
++            sql, params = query.get_compiler('default').as_sql()
++            print(f"Update SQL: {sql}")
++            print(f"Params: {params}")
++        except Exception as e:
++            print(f"Error getting SQL: {e}")
++            
++        result.append(query)
++    return result
++
++import django.db.models.sql.subqueries
++django.db.models.sql.subqueries.UpdateQuery.get_related_updates = debug_get_related_updates
++
++django.setup()
++
++from django.db import models, connection
++
++# Create test
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++Child.objects.create(field_base=0, field_otherbase=0)
++Child.objects.create(field_base=1, field_otherbase=1)
++
++# Now do the update
++print("=== Starting Child.objects.update(field_otherbase=55) ===")
++result = Child.objects.update(field_otherbase=55)
++print(f"\n=== Result: {result} rows ===")
++
++# Show final state
++print("\nOtherBase final state:")
++for obj in OtherBase.objects.all():
++    print(f"  {obj.otherbase_id}: {obj.field_otherbase}")
+diff --git a/debug_chain.py b/debug_chain.py
+new file mode 100644
+index 0000000000..7cfd74a877
+--- /dev/null
++++ b/debug_chain.py
+@@ -0,0 +1,56 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class C(B):
++        class Meta:
++            app_label = 'test'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'test'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create data
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++# Get queryset
++d_set = a2.d_set.all()
++print(f"d_set WHERE: {d_set.query.where}")
++
++# Test chain() behavior
++query = d_set.query
++new_query = query.chain(klass=django.db.models.sql.query.Query)
++
++print(f"\nOriginal WHERE: {query.where}")
++print(f"Chained WHERE: {new_query.where}")
++print(f"\nAre they same? {query.where}")
+diff --git a/debug_complete.py b/debug_complete.py
+new file mode 100644
+index 0000000000..6fe897d936
+--- /dev/null
++++ b/debug_complete.py
+@@ -0,0 +1,118 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class C(B):
++        class Meta:
++            app_label = 'test'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'test'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create data
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++# The flow in SQLUpdateCompiler.execute_sql:
++# 1. as_sql calls pre_sql_setup
++# 2. pre_sql_setup gets idents from a subquery
++# 3. get_related_updates uses those IDs
++
++# The issue might be in how the SQL is being executed
++# Let's see what happens with empty rows
++
++d_set = a2.d_set.all()
++print(f"d_set count: {d_set.count()}")
++
++# Force debug in compiler
++import django.db.models.sql.compiler as compiler
++
++original = compiler.SQLUpdateCompiler.pre_sql_setup
++
++def debug_pre_sql_setup(self):
++    from django.db.models.sql.constants import MULTI
++    refcounts_before = self.query.alias_refcount.copy()
++    self.query.get_initial_alias()
++    count = self.query.count_active_tables()
++    
++    from django.db.models.sql.query import Query
++    from django.db.models.sql.subqueries import UpdateQuery
++    
++    if not self.query.related_updates and count == 1:
++        return original(self)
++    
++    query = self.query.chain(klass=Query)
++    query.select_related = False
++    query.clear_ordering(force=True)
++    query.extra = {}
++    query.select = []
++    
++    # Same logic as my fix
++    pk_column = query.get_meta().pk.column
++    field_names = [query.get_meta().pk.name]
++    for parent_link in query.get_meta().parents.values():
++        if parent_link and parent_link.column != pk_column:
++            field_names.append(parent_link.name)
++    
++    query.add_fields(field_names)
++    
++    # Call super().pre_sql_setup()
++    # Now I see the original issue - super().pre_sql_setup() is being called AFTER we set up fields
++    # But it might be resetting things
++    print(f"\n=== pre_sql_setup debug ===")
++    print(f"query.where: {query.where}")
++    print(f"field_names: {field_names}")
++    
++    # Check parent links
++    parent_links_list = []
++    for parent, parent_link in query.get_meta().parents.items():
++        if parent_link and parent_link.column != pk_column:
++            parent_links_list.append(parent_link.attname)
++    print(f"parent_links_list: {parent_links_list}")
++    
++    # Get rows
++    rows_list = []
++    for rows in query.get_compiler(self.using).execute_sql(MULTI):
++        rows_list.extend(rows)
++    
++    print(f"Rows from selection: {rows_list}")
++    print(f"Row count: {len(rows_list)}")
++    
++    # Now continue to original function
++    return original(self)
++
++compiler.SQLUpdateCompiler.pre_sql_setup = debug_pre_sql_setup
++
++# Execute update
++result = d_set.update(y=100)
++print(f"\n=== Result: {result} ===")
+diff --git a/debug_empty.py b/debug_empty.py
+new file mode 100644
+index 0000000000..f7dceca3a0
+--- /dev/null
++++ b/debug_empty.py
+@@ -0,0 +1,56 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class C(models.Model):
++        c_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# This is what's happening in the test
++# a2 is an A object with no D objects
++# So when D.objects.filter(a=a2) is called, it's an empty queryset
++
++# Let's check d_set
++a2 = A.objects.create(x=0)
++print(f"a2.pk: {a2.pk}")
++
++# Now query D with filter a=a2 (empty result)
++d_set = D.objects.filter(a=a2)
++print(f"d_set.count(): {d_set.count()}")
++print(f"D.objects.filter(a=a2).query.related_updates: {d_set.query.related_updates}")
++
++# Let's check the query's parent structure
++print(f"\nD._meta.parents: {D._meta.parents}")
++print(f"D._meta.concrete_model: {D._meta.concrete_model}")
++print(f"D._meta.pk: {D._meta.pk}")
++
++# Let's manually test the update
++print("\nNow testing update on empty queryset...")
++result = d_set.update(y=100)
++print(f"Updated rows: {result}")
+diff --git a/debug_empty2.py b/debug_empty2.py
+new file mode 100644
+index 0000000000..a0aaf9c0e7
+--- /dev/null
++++ b/debug_empty2.py
+@@ -0,0 +1,55 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class C(models.Model):
++        c_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create an A object with no D objects
++a2 = A.objects.create(x=0)
++print(f"a2.pk: {a2.pk}")
++
++# Query D with filter a=a2 (empty result)
++d_set = D.objects.filter(a=a2)
++print(f"d_set.count(): {d_set.count()}")
++
++# Check D model parents
++print(f"\nD._meta.parents: {D._meta.parents}")
++for parent, parent_link in D._meta.parents.items():
++    if parent_link:
++        print(f"  Parent: {parent._meta.label}, Link: {parent_link}")
++        print(f"    Link.attname: {parent_link.attname}")
++        print(f"    Link.column: {parent_link.column}")
++        print(f"    Link.target_field: {parent_link.target_field}")
++
++# Now update on empty queryset
++print("\nNow testing update on empty queryset...")
++result = d_set.update(y=100)
++print(f"Updated rows: {result}")
+diff --git a/debug_empty_query.py b/debug_empty_query.py
+new file mode 100644
+index 0000000000..5936325ec2
+--- /dev/null
++++ b/debug_empty_query.py
+@@ -0,0 +1,94 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the failing test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class C(B):
++        class Meta:
++            app_label = 'update'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'update'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create the test data 
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++# What queryset does d_set use?
++d_set = a2.d_set.all()
++qs = d_set.query
++
++print(f"Original queryset:")
++print(f"  where: {qs.where}")
++print(f"  model: {qs.model}")
++
++# Let's see what happens in pre_sql_setup
++from django.db.models.sql.query import Query
++from django.db.models.sql.constants import MULTI
++
++# Build the selection query like pre_sql_setup does
++pk_column = qs.get_meta().pk.column
++field_names = [qs.get_meta().pk.name]
++for parent_link in qs.get_meta().parents.values():
++    if parent_link and parent_link.column != pk_column:
++        field_names.append(parent_link.name)
++
++print(f"\nField names to add: {field_names}")
++
++# Build the query
++selection_query = qs.chain(klass=Query)
++selection_query.select_related = False
++selection_query.clear_ordering(force=True)
++selection_query.extra = {}
++selection_query.select = []
++selection_query.add_fields(field_names)
++
++# Check if there's a filter in the original query
++print(f"\nOriginal query.where: {qs.where}")
++
++# The filter should be carried into the subquery somehow
++# Looking at the original code before my changes...
++# query = self.query.chain(klass=Query) - this creates a copy but doesn't copy the where
++
++# Let me manually check: what's in the subquery when we call get_related_updates?
++print(f"\n--- Checking the main query ---")
++print(f"Has related_updates: {bool(qs.related_updates)}")
++
++# This is the issue - the original query had a condition (a=a2)
++# but when we do update, we're rebuilding the query from scratch
++# and losing the WHERE clause!
++
++# We need to see if pre_sql_setup is getting the where clause preserved
++# Let me check what the WHERE clause looks like
++from django.db.models.sql import query as sql_query
++print(f"\nqs.get_meta().parents: {qs.get_meta().parents}")
+diff --git a/debug_execution.py b/debug_execution.py
+new file mode 100644
+index 0000000000..69387f3751
+--- /dev/null
++++ b/debug_execution.py
+@@ -0,0 +1,98 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the test models
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create the test data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++Child.objects.create(field_base=0, field_otherbase=0)
++Child.objects.create(field_base=1, field_otherbase=1)
++
++# Let's trace what happens in the SQLUpdateCompiler
++# The key is in as_sql and execute_sql
++
++# In as_sql, it starts with pre_sql_setup and gets values
++# But when values is empty, it returns early
++
++# But then execute_sql calls get_related_updates()
++
++# Let's manually build the related_ids dict
++# In the case of multiple inheritance with 2 parents:
++# - Main query: base_ptr_id [1, 2] -> filters Child (but no values to update)
++# - Related query for OtherBase: needs otherbase_ptr_id [3, 4]
++
++# Check what the compiler stores:
++from django.db.models.sql.query import Query
++
++query = Query(Child)
++
++# Simulating what pre_sql_setup does
++pk_column = query.get_meta().pk.column
++field_names = [query.get_meta().pk.name]
++for parent_link in query.get_meta().parents.values():
++    if parent_link and parent_link.column != pk_column:
++        field_names.append(parent_link.name)
++
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++query.select = []
++query.add_fields(field_names)
++
++# Get query SQL and execute
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"SQL: {sql}")
++
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"Rows: {rows}")
++
++# Now build the expected IDs
++idents = [r[0] for r in rows]
++related_ids = {}
++parent_links_list = []
++for parent, parent_link in query.get_meta().parents.items():
++    if parent_link and parent_link.column != pk_column:
++        parent_links_list.append(parent_link.attname)
++
++print(f"\nidents (main pk): {idents}")
++print(f"parent_links_list: {parent_links_list}")
++
++for i, parent_link_attname in enumerate(parent_links_list):
++    related_ids[parent_link_attname] = [r[i + 1] for r in rows]
++
++print(f"related_ids: {related_ids}")
++
++# Now check what otherbase_ptr_id would be - should be [3, 4]
++print(f"\nExpected otherbase IDs: [3, 4]")
++print(f"Got: {related_ids.get('otherbase_ptr_id', 'NOT FOUND')}")
+diff --git a/debug_filter.py b/debug_filter.py
+new file mode 100644
+index 0000000000..c8fd384c59
+--- /dev/null
++++ b/debug_filter.py
+@@ -0,0 +1,59 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the test models
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create the test data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++print(f"OtherBase IDs: ob1={ob1.pk}, ob2={ob2.pk}")
++print(f"Child base_ptr_id: child1={child1.base_ptr_id}, child2={child2.base_ptr_id}")
++print(f"Child otherbase_ptr_id: child1={child1.otherbase_ptr_id}, child2={child2.otherbase_ptr_id}")
++
++# Now check what happens when we filter by otherbase_ptr_id
++print("\n--- Filtering tests ---")
++
++# This should only show child-related OtherBase objects (IDs 3, 4)
++print("Child's OtherBase:")
++for obj in Child.objects.all():
++    print(f"  {obj.pk}, otherbase_ptr_id={obj.otherbase_ptr_id}")
++
++# This shows all OtherBase (including standalone)
++print("\nAll OtherBase:")
++for obj in OtherBase.objects.all():
++    print(f"  otherbase_id={obj.otherbase_id}, field_otherbase={obj.field_otherbase}")
++
++# The filter that should be used
++print("\n--- What filter should be used ---")
++print("We want to filter otherbase_id IN (3, 4) - NOT (1, 2)")
+diff --git a/debug_filter2.py b/debug_filter2.py
+new file mode 100644
+index 0000000000..45ac22eb71
+--- /dev/null
++++ b/debug_filter2.py
+@@ -0,0 +1,54 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the test models
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create the test data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++Child.objects.create(field_base=0, field_otherbase=0)
++Child.objects.create(field_base=1, field_otherbase=1)
++
++# The issue: main query filters by main pk (base_ptr_id = 1, 2) which is correct since that's what Child uses
++# But when we update OtherBase fields, we need to use the child instance's otherbase_ptr_id (3, 4)
++
++# Let's see: When we update field_otherbase=55 on Child, it's going to OtherBase model
++# The related_ids should have the correct IDs for each parent model
++
++# The key insight is that when we UPDATE Child fields that belong to Base, we use base_ptr_id (1, 2)
++# When we UPDATE Child fields that belong to OtherBase, we use otherbase_ptr_id (3, 4)
++
++# But currently, related_ids stores {'otherbase_ptr_id': [3, 4]}, and main idents = [1, 2]
++
++# Let me check what fields are in the values to understand if this is for OtherBase or Base
++print("The issue: AddUpdateValues determines which model each field belongs to")
++print("In this case, field_otherbase belongs to OtherBase (not Child)")
++print("So we need related_ids to be used for that update")
+diff --git a/debug_final.py b/debug_final.py
+new file mode 100644
+index 0000000000..308e07521d
+--- /dev/null
++++ b/debug_final.py
+@@ -0,0 +1,76 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Multiple inheritance case
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Check the field structure
++print("Child._meta.parents:", Child._meta.parents)
++print("Child._meta.pk:", Child._meta.pk)
++print("pk.name:", Child._meta.pk.name)
++print("pk.column:", Child._meta.pk.column)
++
++pk_column = Child._meta.pk.column
++print(f"\npk_column: {pk_column}")
++
++field_names = [Child._meta.pk.name]
++for parent_link in Child._meta.parents.values():
++    if parent_link and parent_link.column != pk_column:
++        field_names.append(parent_link.name)
++        print(f"Adding parent_link: {parent_link.name}, column: {parent_link.column}")
++
++print(f"\nfield_names: {field_names}")
++
++# Create some test data
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Build the query
++from django.db.models.sql.query import Query
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++query.add_fields(field_names)
++print(f"\nQuery select fields: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
++print(f"Row count: {len(rows)}")
++if rows:
++    print(f"First row length: {len(rows[0])}")
+diff --git a/debug_full_flow.py b/debug_full_flow.py
+new file mode 100644
+index 0000000000..5c39e4c952
+--- /dev/null
++++ b/debug_full_flow.py
+@@ -0,0 +1,64 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the test models
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create the test data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++Child.objects.create(field_base=0, field_otherbase=0)
++Child.objects.create(field_base=1, field_otherbase=1)
++
++# Now let's check what the update query looks like
++# First let's simulate what add_update_values does
++from django.db.models.sql.subqueries import UpdateQuery
++
++query = UpdateQuery(Child)
++query.add_update_values({'field_otherbase': 55})
++
++print("UpdateQuery values:", query.values)
++print("UpdateQuery related_updates:", query.related_updates)
++
++# Now let's look at what related_ids should be
++print("\n--- Expected behavior ---")
++print("When updating field_otherbase (which belongs to OtherBase),")
++print("the filter should use child instance's otherbase_ptr_id values: 3, 4")
++print("NOT base_ptr_id values: 1, 2")
++
++# Let's examine the parents
++print("\n--- Model structure ---")
++print("OtherBase._meta.parents:", OtherBase._meta.parents)
++print("Child._meta.parents:", Child._meta.parents)
++
++# Check the parent link from Child to OtherBase
++parent_link = Child._meta.parents.get(OtherBase)
++print(f"Child's parent_link to OtherBase: {parent_link}")
++print(f"  attname: {parent_link.attname}")
+diff --git a/debug_mixed.py b/debug_mixed.py
+new file mode 100644
+index 0000000000..194bfb79e3
+--- /dev/null
++++ b/debug_mixed.py
+@@ -0,0 +1,72 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Multiple inheritance case
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Check the field structure
++print("Child._meta.parents:", Child._meta.parents)
++print("Child._meta.pk:", Child._meta.pk)
++print("pk.name:", Child._meta.pk.name)
++print("pk.column:", Child._meta.pk.column)
++
++for parent, parent_link in Child._meta.parents.items():
++    print(f"\nParent: {parent._meta.label}")
++    print(f"  parent_link.name: {parent_link.name}")
++    print(f"  parent_link.column: {parent_link.column}")
++    print(f"  parent_link.attname: {parent_link.attname}")
++
++print("\n" + "="*40)
++
++# Single inheritance case
++with connection.schema_editor() as schema_editor:
++    class Parent(models.Model):
++        parent_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test_app2'
++
++    class Child2(Parent):
++        class Meta:
++            app_label = 'test_app2'
++
++    schema_editor.create_model(Parent)
++    schema_editor.create_model(Child2)
++
++print("Child2._meta.parents:", Child2._meta.parents)
++print("Child2._meta.pk:", Child2._meta.pk)
++print("pk.name:", Child2._meta.pk.name)
++print("pk.column:", Child2._meta.pk.column)
++
++for parent, parent_link in Child2._meta.parents.items():
++    print(f"\nParent: {parent._meta.label}")
++    print(f"  parent_link.name: {parent_link.name}")
++    print(f"  parent_link.column: {parent_link.column}")
++    print(f"  parent_link.attname: {parent_link.attname}")
+diff --git a/debug_presql.py b/debug_presql.py
+new file mode 100644
+index 0000000000..49523b200c
+--- /dev/null
++++ b/debug_presql.py
+@@ -0,0 +1,100 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++# Monkey-patch
++original_pre_sql_setup = None
++
++def debug_pre_sql_setup(self):
++    from django.db.models.sql.constants import MULTI
++    refcounts_before = self.query.alias_refcount.copy()
++    self.query.get_initial_alias()
++    count = self.query.count_active_tables()
++    
++    from django.db.models.sql.subqueries import UpdateQuery
++    if not self.query.related_updates and count == 1:
++        return original_pre_sql_setup(self)
++    
++    query = self.query.chain(klass=UpdateQuery)
++    query.select_related = False
++    query.clear_ordering(force=True)
++    query.extra = {}
++    query.select = []
++    
++    pk_column = query.get_meta().pk.column
++    print(f"\n=== pre_sql_setup debug ===")
++    print(f"pk_column: {pk_column}")
++    
++    field_names = [query.get_meta().pk.name]
++    for parent_link in query.get_meta().parents.values():
++        if parent_link and parent_link.column != pk_column:
++            field_names.append(parent_link.name)
++            print(f"Adding field: {parent_link.name}, column: {parent_link.column}")
++    
++    print(f"field_names: {field_names}")
++    query.add_fields(field_names)
++    
++    # Get SQL and execute
++    sql, params = query.get_compiler(self.using).as_sql(with_col_aliases=True)
++    print(f"SQL: {sql}")
++    
++    idents = []
++    related_ids = {}
++    parent_links_list = []
++    for parent, parent_link in query.get_meta().parents.items():
++        if parent_link and parent_link.column != pk_column:
++            parent_links_list.append(parent_link.attname)
++    
++    print(f"parent_links_list: {parent_links_list}")
++    
++    for rows in query.get_compiler(self.using).execute_sql(MULTI):
++        idents.extend(r[0] for r in rows)
++        for i, parent_link_attname in enumerate(parent_links_list):
++            related_ids.setdefault(parent_link_attname, []).extend(r[i + 1] for r in rows)
++    
++    print(f"idents: {idents}")
++    print(f"related_ids: {related_ids}")
++    
++    return original_pre_sql_setup(self)
++
++import django.db.models.sql.compiler
++django.db.models.sql.compiler.SQLUpdateCompiler.pre_sql_setup = debug_pre_sql_setup
++
++django.setup()
++
++from django.db import models, connection
++
++# Create test
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++Child.objects.create(field_base=0, field_otherbase=0)
++Child.objects.create(field_base=1, field_otherbase=1)
++
++print("=== Starting update ===")
++result = Child.objects.update(field_otherbase=55)
++print(f"Result: {result}")
+diff --git a/debug_query.py b/debug_query.py
+new file mode 100644
+index 0000000000..7d62abe765
+--- /dev/null
++++ b/debug_query.py
+@@ -0,0 +1,80 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the test models
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Create the test data
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++# Build the query with my fix logic
++from django.db.models.sql.query import Query
++
++query = Query(Child)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++pk_column = query.get_meta().pk.column
++print(f"pk_column: {pk_column}")
++
++field_names = [query.get_meta().pk.name]
++for parent_link in query.get_meta().parents.values():
++    if parent_link and parent_link.column != pk_column:
++        field_names.append(parent_link.name)
++        print(f"Adding parent_link: {parent_link.name}, column: {parent_link.column}")
++
++print(f"field_names: {field_names}")
++
++query.add_fields(field_names)
++print(f"Query select: {query.select}")
++
++# Get the SQL
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nGenerated SQL: {sql}")
++
++# Execute it
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"Rows: {rows}")
++print(f"Row count: {len(rows)}")
++if rows:
++    print(f"Row[0]: {rows[0]}")
++
++# Now let's check what parent_links_list will be
++parent_links_list = []
++for parent, parent_link in query.get_meta().parents.items():
++    if parent_link:
++        parent_links_list.append(parent_link.attname)
++print(f"\nParent links list: {parent_links_list}")
+diff --git a/debug_selection.py b/debug_selection.py
+new file mode 100644
+index 0000000000..d35095d594
+--- /dev/null
++++ b/debug_selection.py
+@@ -0,0 +1,76 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'test'
++
++    class C(B):
++        class Meta:
++            app_label = 'test'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'test'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create data
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++# Check a2.d_set.all() count
++d_set = a2.d_set.all()
++print(f"d_set count: {d_set.count()}")
++
++# Simulate pre_sql_setup
++query = d_set.query.chain(klass=django.db.models.sql.query.Query)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++query.select = []
++
++# Same logic as my fix
++pk_column = query.get_meta().pk.column
++field_names = [query.get_meta().pk.name]
++for parent_link in query.get_meta().parents.values():
++    if parent_link and parent_link.column != pk_column:
++        field_names.append(parent_link.name)
++
++print(f"field_names: {field_names}")
++query.add_fields(field_names)
++
++# Get SQL
++sql, params = query.get_compiler('default').as_sql()
++print(f"SQL: {sql}")
++print(f"Params: {params}")
++
++# Execute
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"Rows count: {len(rows)}")
+diff --git a/debug_single.py b/debug_single.py
+new file mode 100644
+index 0000000000..37627f594a
+--- /dev/null
++++ b/debug_single.py
+@@ -0,0 +1,35 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Parent(models.Model):
++        parent_id = models.AutoField(primary_key=True)
++        y = models.IntegerField(null=True)
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Parent):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Parent)
++    schema_editor.create_model(Child)
++
++# Check the parent structure
++print("Child._meta.parents:", Child._meta.parents)
++print("Child._meta.pk:", Child._meta.pk)
++
++# For single inheritance, there should be only one parent
++# Let's check what fields are available
++print("\nParent link fields:")
++for parent, parent_link in Child._meta.parents.items():
++    print(f"  Parent: {parent._meta.label}, Link: {parent_link}")
+diff --git a/debug_single_fail.py b/debug_single_fail.py
+new file mode 100644
+index 0000000000..3cd73155ad
+--- /dev/null
++++ b/debug_single_fail.py
+@@ -0,0 +1,73 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the failing test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class C(B):
++        class Meta:
++            app_label = 'update'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'update'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create the test data 
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++print(f"D count: {D.objects.count()}")
++
++# This is the case:
++# a2 has no D objects related to it
++# a2.d_set.update(y=100) should update 0 rows
++
++d_set = a2.d_set.all()
++print(f"d_set count: {d_set.count()}")
++
++# What's the pk column and parent link?
++print(f"\nD._meta.parents: {D._meta.parents}")
++print(f"D._meta.pk.column: {D._meta.pk.column}")
++
++for parent, parent_link in D._meta.parents.items():
++    print(f"  Parent: {parent._meta.label}")
++    print(f"  parent_link.column: {parent_link.column}")
++
++# Check pk column == parent link column
++pk_column = D._meta.pk.column
++for parent, parent_link in D._meta.parents.items():
++    if parent_link and parent_link.column == pk_column:
++        print(f"\nPK column equals parent link column: {pk_column}")
++        
++# Empty queryset - let's see what happens
++print("\n=== Running update on empty queryset ===")
++result = d_set.update(y=100)
++print(f"Result: {result}")
+diff --git a/debug_test.py b/debug_test.py
+new file mode 100644
+index 0000000000..b8f6053a16
+--- /dev/null
++++ b/debug_test.py
+@@ -0,0 +1,67 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the exact test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class C(B):
++        class Meta:
++            app_label = 'update'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'update'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create A objects (as in test setup)
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++
++# Create 20 D objects (as in test setup)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++print(f"Created D objects count: {D.objects.count()}")
++
++# Check d_set relation on a2 (should be empty)
++print(f"D.objects.filter(a=a2).count(): {D.objects.filter(a=a2).count()}")
++
++# Now let's try the update using d_set (the reverse relation)
++# d_set is a2.d_set which is a RelatedManager
++d_set = a2.d_set
++print(f"d_set type: {type(d_set)}")
++print(f"d_set query: {d_set.query}")
++
++# Check the model structure
++print(f"\nD._meta.parents: {D._meta.parents}")
++print(f"D._meta.pk: {D._meta.pk}")
++print(f"D._meta.pk.column: {D._meta.pk.column}")
++
++# Run the update
++result = d_set.update(y=100)
++print(f"\nUpdated {result} rows")
++print(f"D.objects.filter(y=100).count(): {D.objects.filter(y=100).count()}")
+diff --git a/debug_test2.py b/debug_test2.py
+new file mode 100644
+index 0000000000..fee9a77d44
+--- /dev/null
++++ b/debug_test2.py
+@@ -0,0 +1,62 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the exact test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class C(B):
++        class Meta:
++            app_label = 'update'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'update'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create A objects (as in test setup)
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++
++# Create 20 D objects (as in test setup)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++print(f"Created D objects count: {D.objects.count()}")
++
++# Get d_set as shown in the test (a2.d_set)
++d_set = a2.d_set.all()  # Get the queryset
++print(f"d_set query type: {type(d_set.query)}")
++print(f"d_set count: {d_set.count()}")
++
++# Check the model structure of D
++print(f"\nD._meta.parents: {D._meta.parents}")
++
++# Run the update
++print("\nRunning update...")
++result = d_set.update(y=100)
++print(f"Updated {result} rows")
++print(f"D.objects.filter(y=100).count(): {D.objects.filter(y=100).count()}")
+diff --git a/debug_test3.py b/debug_test3.py
+new file mode 100644
+index 0000000000..6f2e480d5e
+--- /dev/null
++++ b/debug_test3.py
+@@ -0,0 +1,90 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the exact test models
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        x = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        y = models.IntegerField()
++        class Meta:
++            app_label = 'update'
++
++    class C(B):
++        class Meta:
++            app_label = 'update'
++
++    class D(C):
++        a = models.ForeignKey(A, models.CASCADE)
++        class Meta:
++            app_label = 'update'
++
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++    schema_editor.create_model(D)
++
++# Create A objects (as in the test setup)
++a1 = A.objects.create(x=1)
++a2 = A.objects.create(x=2)
++
++# Create 20 D objects (as in the test setup)
++for i in range(20):
++    D.objects.create(a=a1, y=i)
++
++print(f"Created D objects: {D.objects.count()}")
++
++# Get d_set as shown in the test (a2.d_set) - this should be empty!
++d_set = a2.d_set.all()
++print(f"d_set count (before update): {d_set.count()}")
++
++# Let's check the model's parent and pk structure
++print(f"\nD._meta.parents: {D._meta.parents}")
++print(f"D._meta.pk: {D._meta.pk}")
++print(f"D._meta.pk.column: {D._meta.pk.column}")
++
++# Let's manually examine the query that's being run
++print("\nChecking parent links:")
++for parent, parent_link in D._meta.parents.items():
++    print(f"  Parent: {parent._meta.label}")
++    print(f"    parent_link: {parent_link}")
++    print(f"    parent_link.column: {parent_link.column}")
++
++# Now let's check what fields are being selected in the SELECT query
++from django.db.models.sql.query import Query
++query = Query(D)
++query.select_related = False
++query.clear_ordering(force=True)
++query.extra = {}
++
++# Same logic as in my fix - pk column + all parent links
++fields = [query.get_meta().pk.column]
++print(f"\nAdding fields: {fields}")
++for parent_link in query.get_meta().parents.values():
++    if parent_link:
++        fields.append(parent_link.column)
++        
++print(f"All fields: {fields}")
++query.add_fields(fields)
++
++sql, params = query.get_compiler('default').as_sql(with_col_aliases=True)
++print(f"\nSQL: {sql}")
++
++cursor = connection.cursor()
++cursor.execute(sql, params)
++rows = cursor.fetchall()
++print(f"\nRows: {rows}")
++print(f"Row count: {len(rows)}")
+diff --git a/debug_values.py b/debug_values.py
+new file mode 100644
+index 0000000000..a7a386fc8f
+--- /dev/null
++++ b/debug_values.py
+@@ -0,0 +1,61 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the exact test models from reproduce.py
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Test the exact scenario from reproduce.py
++print("Creating OtherBase objects...")
++OtherBase.objects.create(field_otherbase=100)
++OtherBase.objects.create(field_otherbase=101)
++
++print("Creating Child objects...")
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++print(f"child1.pk: {child1.pk}")
++print(f"child2.pk: {child2.pk}")
++print(f"child1.base_ptr_id: {child1.base_ptr_id}")
++print(f"child2.base_ptr_id: {child2.base_ptr_id}")
++print(f"child1.otherbase_ptr_id: {child1.otherbase_ptr_id}")
++print(f"child2.otherbase_ptr_id: {child2.otherbase_ptr_id}")
++
++# Let's see what's in the child table
++print("\nContents of test_app_child table:")
++cursor = connection.cursor()
++cursor.execute('SELECT base_ptr_id, otherbase_ptr_id, field_base, field_otherbase FROM test_app_child')
++for row in cursor.fetchall():
++    print(f"  base_ptr_id={row[0]}, otherbase_ptr_id={row[1]}, field_base={row[2]}, field_otherbase={row[3]}")
++
++# Now let's check what's in the otherbase table
++print("\nContents of test_app_otherbase table:")
++cursor.execute('SELECT otherbase_id, field_otherbase FROM test_app_otherbase')
++for row in cursor.fetchall():
++    print(f"  otherbase_id={row[0]}, field_otherbase={row[1]}")
+diff --git a/debug_values2.py b/debug_values2.py
+new file mode 100644
+index 0000000000..f8054867a1
+--- /dev/null
++++ b/debug_values2.py
+@@ -0,0 +1,49 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Recreate the exact test models from reproduce.py
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Test the exact scenario from reproduce.py
++print("Creating OtherBase objects...")
++ob1 = OtherBase.objects.create(field_otherbase=100)
++ob2 = OtherBase.objects.create(field_otherbase=101)
++print(f"ob1.pk: {ob1.pk}, ob2.pk: {ob2.pk}")
++
++print("Creating Child objects...")
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++print(f"child1.pk: {child1.pk}")
++print(f"child2.pk: {child2.pk}")
++print(f"child1.base_ptr_id: {child1.base_ptr_id}")
++print(f"child2.base_ptr_id: {child2.base_ptr_id}")
++print(f"child1.otherbase_ptr_id: {child1.otherbase_ptr_id}")
++print(f"child2.otherbase_ptr_id: {child2.otherbase_ptr_id}")
+diff --git a/django/db/models/sql/compiler.py b/django/db/models/sql/compiler.py
+index 59a5d6abbb..45fca903ae 100644
+--- a/django/db/models/sql/compiler.py
++++ b/django/db/models/sql/compiler.py
+@@ -1836,7 +1836,16 @@ class SQLUpdateCompiler(SQLCompiler):
+         query.clear_ordering(force=True)
+         query.extra = {}
+         query.select = []
+-        query.add_fields([query.get_meta().pk.name])
++        
++        # For multiple inheritance, build list of fields to select:
++        # pk field + unique parent link fields (avoid same column twice)
++        pk_column = query.get_meta().pk.column
++        field_names = [query.get_meta().pk.name]
++        for parent_link in query.get_meta().parents.values():
++            if parent_link and parent_link.column != pk_column:
++                field_names.append(parent_link.name)
++        
++        query.add_fields(field_names)
+         super().pre_sql_setup()
+ 
+         must_pre_select = (
+@@ -1850,11 +1859,33 @@ class SQLUpdateCompiler(SQLCompiler):
+             # Either we're using the idents in multiple update queries (so
+             # don't want them to change), or the db backend doesn't support
+             # selecting from the updating table (e.g. MySQL).
+-            idents = []
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs (for multi-inheritance)
++            
++            # Get parent_link attname for each parent, but only those not matching pk column
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link and parent_link.column != pk_column:
++                    parent_links_list.append(parent_link.attname)
++            
+             for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values (if any)
+                 idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
+             self.query.add_filter("pk__in", idents)
+-            self.query.related_ids = idents
++            
++            # For single inheritance: keep backward compatibility with list
++            # For multiple inheritance: use dict for parent-specific IDs
++            if parent_links_list:
++                # Multiple inheritance - store dict with parent-specific IDs
++                self.query.related_ids = related_ids
++            else:
++                # Single inheritance - maintain backward compatibility with list
++                self.query.related_ids = idents
+         else:
+             # The fast path. Filters and updates in one query.
+             self.query.add_filter("pk__in", query)
+diff --git a/django/db/models/sql/subqueries.py b/django/db/models/sql/subqueries.py
+index 04063f73bc..59385f0871 100644
+--- a/django/db/models/sql/subqueries.py
++++ b/django/db/models/sql/subqueries.py
+@@ -134,7 +134,18 @@ class UpdateQuery(Query):
+             query = UpdateQuery(model)
+             query.values = values
+             if self.related_ids is not None:
+-                query.add_filter("pk__in", self.related_ids)
++                # For multiple inheritance, use parent-specific IDs
++                # The related_ids is a dict mapping parent_link.attname -> list of IDs
++                # For backward compatibility, also handle list (single inheritance)
++                if isinstance(self.related_ids, dict):
++                    parent_link = self.get_meta().parents.get(model)
++                    if parent_link is not None:
++                        parent_ids = self.related_ids.get(parent_link.attname)
++                        if parent_ids is not None:
++                            query.add_filter("pk__in", parent_ids)
++                else:
++                    # Single inheritance or old format
++                    query.add_filter("pk__in", self.related_ids)
+             result.append(query)
+         return result
+ 
+diff --git a/fix_compiler.py b/fix_compiler.py
+new file mode 100644
+index 0000000000..cc1ca16169
+--- /dev/null
++++ b/fix_compiler.py
+@@ -0,0 +1,114 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        # For multiple inheritance, also select parent link fields
++        for parent_link in query.get_meta().parents.values():
++            if parent_link:
++                query.add_fields([parent_link.target_field.attname])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs (for Child, this is base_ptr_id)
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk (base_ptr_id), rows[1:] are parent link IDs
++                idents.extend(r[0] for r in rows)
++                for i, parent_model in enumerate(query.get_meta().parents):
++                    parent_link = query.get_meta().parents.get(parent_model)
++                    if parent_link:
++                        attname = parent_link.attname
++                        related_ids.setdefault(attname, []).extend(
++                            r[i + 1] for r in rows
++                        )
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler2.py b/fix_compiler2.py
+new file mode 100644
+index 0000000000..b665476e71
+--- /dev/null
++++ b/fix_compiler2.py
+@@ -0,0 +1,116 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        # Add main pk field first
++        query.add_fields([query.get_meta().pk.name])
++        # For multiple inheritance, also select parent link fields
++        for parent_link in query.get_meta().parents.values():
++            if parent_link:
++                query.add_fields([parent_link.attname])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            parent_models = list(query.get_meta().parents.keys())
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk (base_ptr_id), rows[1:] are parent link IDs
++                idents.extend(r[0] for r in rows)
++                for i, parent_model in enumerate(parent_models):
++                    parent_link = query.get_meta().parents.get(parent_model)
++                    if parent_link:
++                        attname = parent_link.attname
++                        related_ids.setdefault(attname, []).extend(
++                            r[i + 1] for r in rows
++                        )
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler3.py b/fix_compiler3.py
+new file mode 100644
+index 0000000000..aad13f22b5
+--- /dev/null
++++ b/fix_compiler3.py
+@@ -0,0 +1,123 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of fields: pk column + all parent link columns
++        # Use column name (attname) to avoid duplicates
++        fields = [query.get_meta().pk.column]  # e.g., 'base_ptr_id'
++        for parent_link in query.get_meta().parents.values():
++            if parent_link:
++                fields.append(parent_link.column)
++        
++        query.add_fields(fields)
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            
++            # Get parent_link attname (not column) for each parent in order
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk column value, rows[1:] are parent link column values
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler4.py b/fix_compiler4.py
+new file mode 100644
+index 0000000000..ebe775b2f8
+--- /dev/null
++++ b/fix_compiler4.py
+@@ -0,0 +1,127 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of unique columns: pk + all parent links
++        # The pk column is the same as one of the parent link columns in single inheritance,
++        # so we need to avoid duplicates
++        pk_column = query.get_meta().pk.column
++        field_names = set()
++        # Always add pk field first (as name, not column)
++        field_names.add(query.get_meta().pk.name)
++        for parent_link in query.get_meta().parents.values():
++            if parent_link:
++                field_names.add(parent_link.name)
++        
++        query.add_fields(list(field_names))
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            
++            # Get parent_link attname (not column) for each parent in order
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler5.py b/fix_compiler5.py
+new file mode 100644
+index 0000000000..ecec6cbbc1
+--- /dev/null
++++ b/fix_compiler5.py
+@@ -0,0 +1,124 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of fields to select:
++        # pk field + unique parent link fields (avoid same column twice)
++        pk_column = query.get_meta().pk.column
++        field_names = [query.get_meta().pk.name]
++        for parent_link in query.get_meta().parents.values():
++            if parent_link and parent_link.column != pk_column:
++                field_names.add(parent_link.name)
++        
++        query.add_fields(field_names)
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            
++            # Get parent_link attname (not column) for each parent in order
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler6.py b/fix_compiler6.py
+new file mode 100644
+index 0000000000..6164a74f9d
+--- /dev/null
++++ b/fix_compiler6.py
+@@ -0,0 +1,124 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of fields to select:
++        # pk field + unique parent link fields (avoid same column twice)
++        pk_column = query.get_meta().pk.column
++        field_names = [query.get_meta().pk.name]
++        for parent_link in query.get_meta().parents.values():
++            if parent_link and parent_link.column != pk_column:
++                field_names.append(parent_link.name)
++        
++        query.add_fields(field_names)
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            
++            # Get parent_link attname (not column) for each parent in order
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_compiler_final.py b/fix_compiler_final.py
+new file mode 100644
+index 0000000000..5f065af130
+--- /dev/null
++++ b/fix_compiler_final.py
+@@ -0,0 +1,124 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of fields to select:
++        # pk field + unique parent link fields (avoid same column twice)
++        pk_column = query.get_meta().pk.column
++        field_names = [query.get_meta().pk.name]
++        for parent_link in query.get_meta().parents.values():
++            if parent_link and parent_link.column != pk_column:
++                field_names.append(parent_link.name)
++        
++        query.add_fields(field_names)
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs
++            
++            # Get parent_link attname for each parent, but only those not matching pk column
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link and parent_link.column != pk_column:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            # Store both the main idents and the parent-specific ids
++            self.query.related_ids = related_ids
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_complete.py b/fix_complete.py
+new file mode 100644
+index 0000000000..ea11351373
+--- /dev/null
++++ b/fix_complete.py
+@@ -0,0 +1,131 @@
++# Read the compiler.py file
++with open('/testbed/django/db/models/sql/compiler.py', 'r') as f:
++    content = f.read()
++
++# Fix pre_sql_setup to select all parent link fields for multiple inheritance
++old_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        query.add_fields([query.get_meta().pk.name])
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                idents.extend(r[0] for r in rows)
++            self.query.add_filter("pk__in", idents)
++            self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++new_code = '''    def pre_sql_setup(self):
++        """
++        If the update depends on results from other tables, munge the "where"
++        conditions to match the format required for (portable) SQL updates.
++
++        If multiple updates are required, pull out the id values to update at
++        this point so that they don't change as a result of the progressive
++        updates.
++        """
++        refcounts_before = self.query.alias_refcount.copy()
++        # Ensure base table is in the query
++        self.query.get_initial_alias()
++        count = self.query.count_active_tables()
++        if not self.query.related_updates and count == 1:
++            return
++        query = self.query.chain(klass=Query)
++        query.select_related = False
++        query.clear_ordering(force=True)
++        query.extra = {}
++        query.select = []
++        
++        # For multiple inheritance, build list of fields to select:
++        # pk field + unique parent link fields (avoid same column twice)
++        pk_column = query.get_meta().pk.column
++        field_names = [query.get_meta().pk.name]
++        for parent_link in query.get_meta().parents.values():
++            if parent_link and parent_link.column != pk_column:
++                field_names.append(parent_link.name)
++        
++        query.add_fields(field_names)
++        super().pre_sql_setup()
++
++        must_pre_select = (
++            count > 1 and not self.connection.features.update_can_self_select
++        )
++
++        # Now we adjust the current query: reset the where clause and get rid
++        # of all the tables we don't need (since they're in the sub-select).
++        self.query.clear_where()
++        if self.query.related_updates or must_pre_select:
++            # Either we're using the idents in multiple update queries (so
++            # don't want them to change), or the db backend doesn't support
++            # selecting from the updating table (e.g. MySQL).
++            idents = []  # List of main PKs
++            related_ids = {}  # Dict mapping parent_link attname -> list of IDs (for multi-inheritance)
++            
++            # Get parent_link attname for each parent, but only those not matching pk column
++            parent_links_list = []
++            for parent, parent_link in query.get_meta().parents.items():
++                if parent_link and parent_link.column != pk_column:
++                    parent_links_list.append(parent_link.attname)
++            
++            for rows in query.get_compiler(self.using).execute_sql(MULTI):
++                # rows[0] is the main pk value, rows[1:] are parent link values (if any)
++                idents.extend(r[0] for r in rows)
++                for i, parent_link_attname in enumerate(parent_links_list):
++                    related_ids.setdefault(parent_link_attname, []).extend(
++                        r[i + 1] for r in rows
++                    )
++            
++            self.query.add_filter("pk__in", idents)
++            
++            # For single inheritance: keep backward compatibility with list
++            # For multiple inheritance: use dict for parent-specific IDs
++            if parent_links_list:
++                # Multiple inheritance - store dict with parent-specific IDs
++                self.query.related_ids = related_ids
++            else:
++                # Single inheritance - maintain backward compatibility with list
++                self.query.related_ids = idents
++        else:
++            # The fast path. Filters and updates in one query.
++            self.query.add_filter("pk__in", query)
++        self.query.reset_refcounts(refcounts_before)'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/compiler.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to compiler.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_patch.py b/fix_patch.py
+new file mode 100644
+index 0000000000..01bf3b3dd4
+--- /dev/null
++++ b/fix_patch.py
+@@ -0,0 +1,59 @@
++# Read the subqueries.py file
++with open('/testbed/django/db/models/sql/subqueries.py', 'r') as f:
++    content = f.read()
++
++# The fix: Update get_related_updates to get parent-specific IDs
++old_get_related_updates = '''    def get_related_updates(self):
++        """
++        Return a list of query objects: one for each update required to an
++        ancestor model. Each query will have the same filtering conditions as
++        the current query but will only update a single table.
++        """
++        if not self.related_updates:
++            return []
++        result = []
++        for model, values in self.related_updates.items():
++            query = UpdateQuery(model)
++            query.values = values
++            if self.related_ids is not None:
++                query.add_filter("pk__in", self.related_ids)
++            result.append(query)
++        return result'''
++
++new_get_related_updates = '''    def get_related_updates(self):
++        """
++        Return a list of query objects: one for each update required to an
++        ancestor model. Each query will have the same filtering conditions as
++        the current query but will only update a single table.
++        """
++        if not self.related_updates:
++            return []
++        result = []
++        for model, values in self.related_updates.items():
++            query = UpdateQuery(model)
++            query.values = values
++            if self.related_ids is not None:
++                # For multiple inheritance, we need to get the correct IDs
++                # for each parent model using the parent link field
++                parent_link = self.get_meta().parents.get(model)
++                if parent_link is not None:
++                    # Get the parent_link attname (e.g., 'otherbase_ptr_id')
++                    parent_link_attname = parent_link.attname
++                    # Get the ID values from the related_ids using the parent link
++                    # This requires the IDs to be stored as tuples with both
++                    # the concrete model's pk and the parent link values
++                    related_ids = self.related_ids.get(parent_link_attname)
++                    if related_ids is not None:
++                        query.add_filter("pk__in", related_ids)
++                else:
++                    query.add_filter("pk__in", self.related_ids)
++            result.append(query)
++        return result'''
++
++if old_get_related_updates in content:
++    content = content.replace(old_get_related_updates, new_get_related_updates)
++    with open('/testbed/django/db/models/sql/subqueries.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to subqueries.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/fix_subqueries.py b/fix_subqueries.py
+new file mode 100644
+index 0000000000..5fc7d538ca
+--- /dev/null
++++ b/fix_subqueries.py
+@@ -0,0 +1,57 @@
++# Read the subqueries.py file
++with open('/testbed/django/db/models/sql/subqueries.py', 'r') as f:
++    content = f.read()
++
++# Fix get_related_updates to use parent-specific IDs
++old_code = '''    def get_related_updates(self):
++        """
++        Return a list of query objects: one for each update required to an
++        ancestor model. Each query will have the same filtering conditions as
++        the current query but will only update a single table.
++        """
++        if not self.related_updates:
++            return []
++        result = []
++        for model, values in self.related_updates.items():
++            query = UpdateQuery(model)
++            query.values = values
++            if self.related_ids is not None:
++                query.add_filter("pk__in", self.related_ids)
++            result.append(query)
++        return result'''
++
++new_code = '''    def get_related_updates(self):
++        """
++        Return a list of query objects: one for each update required to an
++        ancestor model. Each query will have the same filtering conditions as
++        the current query but will only update a single table.
++        """
++        if not self.related_updates:
++            return []
++        result = []
++        for model, values in self.related_updates.items():
++            query = UpdateQuery(model)
++            query.values = values
++            if self.related_ids is not None:
++                # For multiple inheritance, use parent-specific IDs
++                # The related_ids is a dict mapping parent_link.attname -> list of IDs
++                # For backward compatibility, also handle list (single inheritance)
++                if isinstance(self.related_ids, dict):
++                    parent_link = self.get_meta().parents.get(model)
++                    if parent_link is not None:
++                        parent_ids = self.related_ids.get(parent_link.attname)
++                        if parent_ids is not None:
++                            query.add_filter("pk__in", parent_ids)
++                else:
++                    # Single inheritance or old format
++                    query.add_filter("pk__in", self.related_ids)
++            result.append(query)
++        return result'''
++
++if old_code in content:
++    content = content.replace(old_code, new_code)
++    with open('/testbed/django/db/models/sql/subqueries.py', 'w') as f:
++        f.write(content)
++    print("Applied fix to subqueries.py")
++else:
++    print("ERROR: Could not find the target code to replace")
+diff --git a/reproduce.py b/reproduce.py
+new file mode 100644
+index 0000000000..dc636028ba
+--- /dev/null
++++ b/reproduce.py
+@@ -0,0 +1,94 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++# Create test settings
++import sys
++sys.path.insert(0, '/testbed')
++
++# Create a settings file
++settings_content = """
++DATABASES = {
++    'default': {
++        'ENGINE': 'django.db.backends.sqlite3',
++        'NAME': ':memory:',
++    }
++}
++INSTECTED_APPS = [
++    'django.contrib.contenttypes',
++    'django.contrib.auth',
++]
++SECRET_KEY = 'test-secret-key'
++DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
++"""
++
++with open('/testbed/test_settings.py', 'w') as f:
++    f.write(settings_content)
++
++django.setup()
++
++from django.db import models, connection
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Base(models.Model):
++        base_id = models.AutoField(primary_key=True)
++        field_base = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class OtherBase(models.Model):
++        otherbase_id = models.AutoField(primary_key=True)
++        field_otherbase = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Base, OtherBase):
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Base)
++    schema_editor.create_model(OtherBase)
++    schema_editor.create_model(Child)
++
++# Test the queryset update
++print("Creating OtherBase objects...")
++OtherBase.objects.create(field_otherbase=100)
++OtherBase.objects.create(field_otherbase=101)
++
++print("Creating Child objects...")
++child1 = Child.objects.create(field_base=0, field_otherbase=0)
++child2 = Child.objects.create(field_base=1, field_otherbase=1)
++
++print(f"Child 1 pk: {child1.pk}")
++print(f"Child 2 pk: {child2.pk}")
++
++print("\nBefore update - Child.objects.values('field_otherbase'):")
++for obj in Child.objects.values('field_otherbase'):
++    print(obj)
++
++print("\nBefore update - OtherBase.objects.values('field_otherbase'):")
++for obj in OtherBase.objects.values('otherbase_id', 'field_otherbase'):
++    print(obj)
++
++print("\nNow updating Child.objects.update(field_otherbase=55)...")
++result = Child.objects.update(field_otherbase=55)
++print(f"Updated {result} rows")
++
++print("\nAfter update - Child.objects.values('field_otherbase'):")
++for obj in Child.objects.values('field_otherbase'):
++    print(obj)
++
++print("\nAfter update - OtherBase.objects.values('otherbase_id', 'field_otherbase'):")
++for obj in OtherBase.objects.values('otherbase_id', 'field_otherbase'):
++    print(obj)
++
++# Check the model's meta
++print("\nModel meta info:")
++print(f"Child._meta.concrete_model: {Child._meta.concrete_model}")
++print(f"Child._meta.pk: {Child._meta.pk}")
++print(f"Child._meta.db_table: {Child._meta.db_table}")
++print(f"Base._meta.concrete_model: {Base._meta.concrete_model}")
++print(f"OtherBase._meta.concrete_model: {OtherBase._meta.concrete_model}")
++print(f"Base._meta.db_table: {Base._meta.db_table}")
++print(f"OtherBase._meta.db_table: {OtherBase._meta.db_table}")
+diff --git a/reproduce2.py b/reproduce2.py
+new file mode 100644
+index 0000000000..94e27a9ee1
+--- /dev/null
++++ b/reproduce2.py
+@@ -0,0 +1,53 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models
++
++# Create models dynamically
++class Base(models.Model):
++    base_id = models.AutoField(primary_key=True)
++    field_base = models.IntegerField()
++    class Meta:
++        app_label = 'test_app2'
++
++class OtherBase(models.Model):
++    otherbase_id = models.AutoField(primary_key=True)
++    field_otherbase = models.IntegerField()
++    class Meta:
++        app_label = 'test_app2'
++
++class Child(Base, OtherBase):
++    class Meta:
++        app_label = 'test_app2'
++
++print("Child model parents:")
++for parent, field in Child._meta.parents.items():
++    print(f"  Parent: {parent}, Parent link field: {field}")
++
++print("\nChild _meta.parents.items():")
++print(Child._meta.parents)
++
++print("\nChild _meta.get_fields():")
++for f in Child._meta.get_fields():
++    print(f"  {f}")
++
++print("\nLet's check the concrete_model._meta.parents:")
++print(Child._meta.concrete_model._meta.parents)
++
++print("\nBase_pk_attname:")
++print(f"  Base._meta.pk.attname: {Base._meta.pk.attname}")
++print(f"  Base._meta.pk: {Base._meta.pk}")
++
++print("\nOtherBase._meta.pk:")
++print(f"  OtherBase._meta.pk.attname: {OtherBase._meta.pk.attname}")
++print(f"  OtherBase._meta.pk: {OtherBase._meta.pk}")
++
++print("\nGetting ancestor link:")
++ancestor_link = Child._meta.get_ancestor_link(OtherBase)
++print(f"  get_ancestor_link(OtherBase): {ancestor_link}")
+diff --git a/reproduce3.py b/reproduce3.py
+new file mode 100644
+index 0000000000..2c552a6be8
+--- /dev/null
++++ b/reproduce3.py
+@@ -0,0 +1,40 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models
++
++class Base(models.Model):
++    base_id = models.AutoField(primary_key=True)
++    field_base = models.IntegerField()
++    class Meta:
++        app_label = 'test_app3'
++
++class OtherBase(models.Model):
++    otherbase_id = models.AutoField(primary_key=True)
++    field_otherbase = models.IntegerField()
++    class Meta:
++        app_label = 'test_app3'
++
++class Child(Base, OtherBase):
++    class Meta:
++        app_label = 'test_app3'
++
++# Check what parent link fields we have
++print("Child._meta.concrete_model:", Child._meta.concrete_model)
++print("Child._meta.parents:", Child._meta.parents)
++print()
++
++# Access concrete model parent's link
++concrete_model = Child._meta.concrete_model
++print("concrete_model._meta.parents:", concrete_model._meta.parents)
++for parent, parent_link in concrete_model._meta.parents.items():
++    print(f"  Parent: {parent}, Parent link: {parent_link}")
++    print(f"    attname: {parent_link.attname}")
++    print(f"    column: {parent_link.column}")
++    print(f"    target_field: {parent_link.target_field}")
+diff --git a/test_edge_cases.py b/test_edge_cases.py
+new file mode 100644
+index 0000000000..1deaa91b28
+--- /dev/null
++++ b/test_edge_cases.py
+@@ -0,0 +1,80 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++settings_content = """
++DATABASES = {
++    'default': {
++        'ENGINE': 'django.db.backends.sqlite3',
++        'NAME': ':memory:',
++    }
++}
++INSTECTED_APPS = [
++    'django.contrib.contenttypes',
++    'django.contrib.auth',
++]
++SECRET_KEY = 'test-secret-key'
++DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
++"""
++
++with open('/testbed/test_settings.py', 'w') as f:
++    f.write(settings_content)
++
++# Test 1: Multiple inheritance - update field from specific parent
++with connection.schema_editor() as schema_editor:
++    class A(models.Model):
++        a_id = models.AutoField(primary_key=True)
++        field_a = models.IntegerField()
++        class Meta:
++            app_label = 'test1'
++    class B(models.Model):
++        b_id = models.AutoField(primary_key=True)
++        field_b = models.IntegerField()
++        class Meta:
++            app_label = 'test1'
++    class C(A, B):
++        class Meta:
++            app_label = 'test1'
++    schema_editor.create_model(A)
++    schema_editor.create_model(B)
++    schema_editor.create_model(C)
++
++C.objects.create(field_a=10, field_b=20)
++C.objects.create(field_a=11, field_b=21)
++
++print("Test 1: Multiple inheritance - update field_b")
++result = C.objects.update(field_b=55)
++print(f"  Updated {result} rows")
++print(f"  C field_b after: {[c.field_b for c in C.objects.all()]}")
++print(f"  B field_b after: {[b.field_b for b in B.objects.all()]}")
++
++# Test 2: Multiple inheritance - update field from first parent
++print("\nTest 2: Multiple inheritance - update field_a")
++result = C.objects.update(field_a=66)
++print(f"  Updated {result} rows")
++print(f"  C field_a after: {[c.field_a for c in C.objects.all()]}")
++
++# Test 3: No inheritance - plain model
++print("\nTest 3: Plain model update (no inheritance)")
++with connection.schema_editor() as schema_editor:
++    class Plain(models.Model):
++        id = models.AutoField(primary_key=True)
++        value = models.IntegerField()
++        class Meta:
++            app_label = 'test3'
++    schema_editor.create_model(Plain)
++
++Plain.objects.create(value=10)
++Plain.objects.create(value=20)
++result = Plain.objects.update(value=99)
++print(f"  Updated {result} rows")
++print(f"  Values after: {[p.value for p in Plain.objects.all()]}")
++
++print("\nAll edge case tests passed!")
+diff --git a/test_settings.py b/test_settings.py
+new file mode 100644
+index 0000000000..417221c379
+--- /dev/null
++++ b/test_settings.py
+@@ -0,0 +1,13 @@
++
++DATABASES = {
++    'default': {
++        'ENGINE': 'django.db.backends.sqlite3',
++        'NAME': ':memory:',
++    }
++}
++INSTECTED_APPS = [
++    'django.contrib.contenttypes',
++    'django.contrib.auth',
++]
++SECRET_KEY = 'test-secret-key'
++DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+diff --git a/test_single_inheritance.py b/test_single_inheritance.py
+new file mode 100644
+index 0000000000..c88839b95f
+--- /dev/null
++++ b/test_single_inheritance.py
+@@ -0,0 +1,72 @@
++import os
++import django
++os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_settings')
++
++import sys
++sys.path.insert(0, '/testbed')
++
++django.setup()
++
++from django.db import models, connection
++
++# Create test settings
++settings_content = """
++DATABASES = {
++    'default': {
++        'ENGINE': 'django.db.backends.sqlite3',
++        'NAME': ':memory:',
++    }
++}
++INSTECTED_APPS = [
++    'django.contrib.contenttypes',
++    'django.contrib.auth',
++]
++SECRET_KEY = 'test-secret-key'
++DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
++"""
++
++with open('/testbed/test_settings.py', 'w') as f:
++    f.write(settings_content)
++
++# Create tables
++with connection.schema_editor() as schema_editor:
++    class Parent(models.Model):
++        parent_id = models.AutoField(primary_key=True)
++        field_parent = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    class Child(Parent):
++        field_child = models.IntegerField()
++        class Meta:
++            app_label = 'test_app'
++
++    schema_editor.create_model(Parent)
++    schema_editor.create_model(Child)
++
++# Test single inheritance
++print("Testing single inheritance...")
++print("Creating Child objects...")
++child1 = Child.objects.create(field_parent=10, field_child=100)
++child2 = Child.objects.create(field_parent=20, field_child=200)
++
++print(f"Child 1 pk: {child1.pk}, field_parent: {child1.field_parent}")
++print(f"Child 2 pk: {child2.pk}, field_parent: {child2.field_parent}")
++
++print("\nBefore update - Child.objects.values('field_parent'):")
++for obj in Child.objects.values('field_parent'):
++    print(obj)
++
++print("\nNow updating Child.objects.update(field_parent=55)...")
++result = Child.objects.update(field_parent=55)
++print(f"Updated {result} rows")
++
++print("\nAfter update - Child.objects.values('field_parent'):")
++for obj in Child.objects.values('field_parent'):
++    print(obj)
++
++print("\nAfter update - Parent.objects.values('parent_id', 'field_parent'):")
++for obj in Parent.objects.values('parent_id', 'field_parent'):
++    print(obj)
++
++print("\nTest passed - single inheritance works correctly!")

@@ -1,0 +1,67 @@
+{
+  "instance_id": "sphinx-doc__sphinx-7590",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-sphinx-doc__sphinx-7590__sphinx-doc__sphinx-7590__attempt_1",
+  "split": "test",
+  "resolved": false,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sphinx-doc__sphinx-7590__sphinx-doc__sphinx-7590__attempt_1/anthropic__MiniMax-M2.5/sphinx-doc__sphinx-7590/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sphinx-doc__sphinx-7590__sphinx-doc__sphinx-7590__attempt_1/anthropic__MiniMax-M2.5/sphinx-doc__sphinx-7590/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sphinx-doc__sphinx-7590__sphinx-doc__sphinx-7590__attempt_1/anthropic__MiniMax-M2.5/sphinx-doc__sphinx-7590/run_instance.log",
+  "evaluation_time_seconds": 46.30074906349182,
+  "report": {
+    "sphinx-doc__sphinx-7590": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": false,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [],
+          "failure": [
+            "tests/test_domain_cpp.py::test_expressions"
+          ]
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "tests/test_domain_cpp.py::test_fundamental_types",
+            "tests/test_domain_cpp.py::test_type_definitions",
+            "tests/test_domain_cpp.py::test_concept_definitions",
+            "tests/test_domain_cpp.py::test_member_definitions",
+            "tests/test_domain_cpp.py::test_function_definitions",
+            "tests/test_domain_cpp.py::test_operators",
+            "tests/test_domain_cpp.py::test_class_definitions",
+            "tests/test_domain_cpp.py::test_union_definitions",
+            "tests/test_domain_cpp.py::test_enum_definitions",
+            "tests/test_domain_cpp.py::test_anon_definitions",
+            "tests/test_domain_cpp.py::test_templates",
+            "tests/test_domain_cpp.py::test_template_args",
+            "tests/test_domain_cpp.py::test_initializers",
+            "tests/test_domain_cpp.py::test_attributes",
+            "tests/test_domain_cpp.py::test_xref_parsing",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_multi_decl_lookup",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_warn_template_param_qualified_name",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_backslash_ok",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_semicolon",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_anon_dup_decl",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_misuse_of_roles",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_with_add_function_parentheses_is_True",
+            "tests/test_domain_cpp.py::test_build_domain_cpp_with_add_function_parentheses_is_False",
+            "tests/test_domain_cpp.py::test_xref_consistency"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "=================================== FAILURES ===================================\n_______________________________ test_expressions _______________________________\n    def test_expressions():\n        def exprCheck(expr, id, id4=None):\n            ids = 'IE1CIA%s_1aE'\n            idDict = {2: ids % expr, 3: ids % id}\n            if id4 is not None:\n                idDict[4] = ids % id4\n            check('class', 'template<> C<a[%s]>' % expr, idDict)\n            class Config:\n                cpp_id_attributes = [\"id_attr\"]\n                cpp_paren_attributes = [\"paren_attr\"]\n            parser = DefinitionParser(expr, location=None,\n                                      config=Config())\n            parser.allowFallbackExpressionParsing = False\n            ast = parser.parse_expression()\n            res = str(ast)\n            if res != expr:\n                print(\"\")\n                print(\"Input:    \", expr)\n                print(\"Result:   \", res)\n                raise DefinitionError(\"\")\n        # primary\n        exprCheck('nullptr', 'LDnE')\n        exprCheck('true', 'L1E')\n        exprCheck('false', 'L0E')\n        ints = ['5', '0', '075', '0x0123456789ABCDEF', '0XF', '0b1', '0B1']\n        unsignedSuffix = ['', 'u', 'U']\n        longSuffix = ['', 'l', 'L', 'll', 'LL']\n        for i in ints:\n            for u in unsignedSuffix:\n                for l in longSuffix:\n                    expr = i + u + l\n                    exprCheck(expr, 'L' + expr + 'E')\n                    expr = i + l + u\n                    exprCheck(expr, 'L' + expr + 'E')\n        decimalFloats = ['5e42', '5e+42', '5e-42',\n                      '5.', '5.e42', '5.e+42', '5.e-42',\n                      '.5', '.5e42', '.5e+42', '.5e-42',\n                      '5.0', '5.0e42', '5.0e+42', '5.0e-42']\n... [1798 lines omitted] ...",
+  "failed_tests": [
+    "tests/test_domain_cpp.py::test_expressions"
+  ]
+}

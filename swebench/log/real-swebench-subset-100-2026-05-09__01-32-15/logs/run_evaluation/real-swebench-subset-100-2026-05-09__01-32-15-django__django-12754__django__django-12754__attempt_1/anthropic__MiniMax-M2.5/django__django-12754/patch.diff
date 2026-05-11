@@ -1,0 +1,100 @@
+diff --git a/django/db/migrations/autodetector.py b/django/db/migrations/autodetector.py
+index 30616c0172..9de696cb35 100644
+--- a/django/db/migrations/autodetector.py
++++ b/django/db/migrations/autodetector.py
+@@ -562,7 +562,18 @@ class MigrationAutodetector:
+             for base in model_state.bases:
+                 if isinstance(base, str) and "." in base:
+                     base_app_label, base_name = base.split(".", 1)
+-                    dependencies.append((base_app_label, base_name, None, True))
++                elif isinstance(base, str):
++                    base_app_label = app_label
++                    base_name = base
++                else:
++                    continue
++                dependencies.append((base_app_label, base_name, None, True))
++                # Depend on the removal of any base fields whose name matches a
++                # local field of the new model (to avoid field clashes).
++                for field_name in model_state.fields:
++                    old_field_key = (base_app_label, base_name.lower(), field_name)
++                    if old_field_key in self.old_field_keys - self.new_field_keys:
++                        dependencies.append((base_app_label, base_name.lower(), field_name, False))
+             # Depend on the other end of the primary key if it's a relation
+             if primary_key_rel:
+                 dependencies.append((
+diff --git a/test_same_app.py b/test_same_app.py
+new file mode 100644
+index 0000000000..4c08b0b941
+--- /dev/null
++++ b/test_same_app.py
+@@ -0,0 +1,70 @@
++import django
++from django.conf import settings
++
++settings.configure(
++    DEBUG=True,
++    DATABASES={
++        'default': {
++            'ENGINE': 'django.db.backends.sqlite3',
++            'NAME': ':memory:',
++        }
++    },
++    INSTALLED_APPS=[
++        'django.contrib.contenttypes',
++        'django.contrib.auth',
++    ],
++    USE_TZ=True,
++)
++
++django.setup()
++
++from django.db import models
++from django.db.migrations.state import ProjectState, ModelState
++from django.db.migrations.autodetector import MigrationAutodetector
++from django.db.migrations.questioner import MigrationQuestioner
++
++print("Test: Base without app label prefix")
++print("="*60)
++from_state = ProjectState()
++from_state.add_model(ModelState(
++    'testapp',
++    'Readable',
++    [
++        ('id', models.AutoField(primary_key=True)),
++        ('title', models.CharField(max_length=200)),
++    ],
++))
++
++to_state = ProjectState()
++to_state.add_model(ModelState(
++    'testapp',
++    'Readable',
++    [
++        ('id', models.AutoField(primary_key=True)),
++    ],
++))
++to_state.add_model(ModelState(
++    'testapp',
++    'Book',
++    [
++        ('readable_ptr', models.OneToOneField(
++            'testapp.Readable',
++            on_delete=models.CASCADE,
++            parent_link=True,
++            primary_key=True,
++        )),
++        ('title', models.CharField(max_length=200)),
++    ],
++    bases=('Readable',),  # Without app label prefix
++))
++
++autodetector = MigrationAutodetector(from_state, to_state, MigrationQuestioner())
++changes = autodetector._detect_changes()
++
++for app_label, migrations in changes.items():
++    for migration in migrations:
++        ops = migration.operations
++        for i, op in enumerate(ops):
++            print(f"  {i}: {op.__class__.__name__}: {op}")
++            if hasattr(op, '_auto_deps') and op._auto_deps:
++                print(f"       deps: {op._auto_deps}")

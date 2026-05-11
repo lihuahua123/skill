@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `pylint-dev__pylint-6528` after evaluation feedback.
+
+Attempt completed: 1
+Repository: pylint-dev/pylint
+Base commit: 273a8b25620467c1e5686aa8d2a1dbb8c02c78d0
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

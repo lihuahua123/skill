@@ -1,0 +1,67 @@
+diff --git a/django/db/backends/sqlite3/operations.py b/django/db/backends/sqlite3/operations.py
+index 1f77b3109f..33f6e2a3cd 100644
+--- a/django/db/backends/sqlite3/operations.py
++++ b/django/db/backends/sqlite3/operations.py
+@@ -12,6 +12,7 @@ from django.db.models.expressions import Col
+ from django.utils import timezone
+ from django.utils.dateparse import parse_date, parse_datetime, parse_time
+ from django.utils.functional import cached_property
++from django.utils.functional import SimpleLazyObject
+ 
+ 
+ class DatabaseOperations(BaseDatabaseOperations):
+@@ -131,6 +132,11 @@ class DatabaseOperations(BaseDatabaseOperations):
+                 results += self._quote_params_for_last_executed_query(chunk)
+             return results
+ 
++        # Convert SimpleLazyObject params to their wrapped values for proper quoting.
++        params = tuple(
++            param._wrapped if isinstance(param, SimpleLazyObject) else param
++            for param in params
++        )
+         sql = 'SELECT ' + ', '.join(['QUOTE(?)'] * len(params))
+         # Bypass Django's wrappers and use the underlying sqlite3 connection
+         # to avoid logging this query - it would trigger infinite recursion.
+@@ -147,12 +153,23 @@ class DatabaseOperations(BaseDatabaseOperations):
+         # Unfortunately there is no way to reach self->statement from Python,
+         # so we quote and substitute parameters manually.
+         if params:
++            # Convert SimpleLazyObject params to their wrapped values.
+             if isinstance(params, (list, tuple)):
++                params = tuple(
++                    param._wrapped if isinstance(param, SimpleLazyObject) else param
++                    for param in params
++                )
+                 params = self._quote_params_for_last_executed_query(params)
+             else:
+-                values = tuple(params.values())
++                # params is a dict like {'username': SimpleLazyObject}
++                values = tuple(
++                    v._wrapped if isinstance(v, SimpleLazyObject) else v
++                    for v in params.values()
++                )
+                 values = self._quote_params_for_last_executed_query(values)
+                 params = dict(zip(params, values))
++            # Replace ? placeholders with %s for Python string formatting
++            sql = sql.replace('?', '%s')
+             return sql % params
+         # For consistency with SQLiteCursorWrapper.execute(), just return sql
+         # when there are no parameters. See #13648 and #17158.
+diff --git a/django/utils/functional.py b/django/utils/functional.py
+index 6d38f932f9..443ec03163 100644
+--- a/django/utils/functional.py
++++ b/django/utils/functional.py
+@@ -322,6 +322,13 @@ class LazyObject:
+ 
+     __bytes__ = new_method_proxy(bytes)
+     __str__ = new_method_proxy(str)
++
++    # This method is used by database adapters to convert Python objects
++    # to SQL parameters.
++    def __conform__(self, protocol):
++        if self._wrapped is empty:
++            self._setup()
++        return self._wrapped
+     __bool__ = new_method_proxy(bool)
+ 
+     # Introspection support

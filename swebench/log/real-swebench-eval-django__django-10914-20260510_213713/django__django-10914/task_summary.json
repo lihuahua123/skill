@@ -1,0 +1,390 @@
+{
+  "task_id": "django__django-10914",
+  "attempt_count": 1,
+  "first_success_attempt": 1,
+  "success_within_budget": true,
+  "stop_reason": "passed",
+  "swebench_agent_backend": "plain-mini",
+  "model": "anthropic/MiniMax-M2.7",
+  "skillsbench_skill_guidance": false,
+  "inject_token_efficient_triage_first_prompt": true,
+  "retry_workspace_strategy": "preserve",
+  "stop_check": {
+    "enabled": false,
+    "zero_progress_streak": 2,
+    "yes_streak": 2,
+    "triggered_attempts": []
+  },
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "swebench-safe",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6,
+    "stop_check_early_stop_enabled": false,
+    "stop_check_zero_progress_streak": 2,
+    "stop_check_yes_streak": 2,
+    "skillsbench_skill_guidance": false,
+    "inject_token_efficient_triage_first_prompt": true,
+    "retry_workspace_strategy": "preserve"
+  },
+  "usage": {
+    "prompt_tokens": 145563,
+    "completion_tokens": 3005,
+    "total_tokens": 148568,
+    "cost_usd": 0.0,
+    "request_count": 20
+  },
+  "total_prompt_tokens": 145563,
+  "total_completion_tokens": 3005,
+  "total_tokens": 148568,
+  "usage_per_round": [
+    {
+      "round": 1,
+      "prompt_tokens": 2915,
+      "completion_tokens": 214,
+      "total_tokens": 3129,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 2,
+      "prompt_tokens": 3059,
+      "completion_tokens": 80,
+      "total_tokens": 3139,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 3,
+      "prompt_tokens": 3152,
+      "completion_tokens": 151,
+      "total_tokens": 3303,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 4,
+      "prompt_tokens": 5378,
+      "completion_tokens": 97,
+      "total_tokens": 5475,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 5,
+      "prompt_tokens": 5602,
+      "completion_tokens": 290,
+      "total_tokens": 5892,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 6,
+      "prompt_tokens": 5825,
+      "completion_tokens": 199,
+      "total_tokens": 6024,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 7,
+      "prompt_tokens": 6019,
+      "completion_tokens": 183,
+      "total_tokens": 6202,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 8,
+      "prompt_tokens": 6163,
+      "completion_tokens": 58,
+      "total_tokens": 6221,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 9,
+      "prompt_tokens": 6243,
+      "completion_tokens": 99,
+      "total_tokens": 6342,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 10,
+      "prompt_tokens": 6344,
+      "completion_tokens": 61,
+      "total_tokens": 6405,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 11,
+      "prompt_tokens": 6538,
+      "completion_tokens": 77,
+      "total_tokens": 6615,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 12,
+      "prompt_tokens": 7119,
+      "completion_tokens": 118,
+      "total_tokens": 7237,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 13,
+      "prompt_tokens": 7500,
+      "completion_tokens": 123,
+      "total_tokens": 7623,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 14,
+      "prompt_tokens": 7980,
+      "completion_tokens": 123,
+      "total_tokens": 8103,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 15,
+      "prompt_tokens": 8292,
+      "completion_tokens": 297,
+      "total_tokens": 8589,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 16,
+      "prompt_tokens": 8532,
+      "completion_tokens": 133,
+      "total_tokens": 8665,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 17,
+      "prompt_tokens": 11951,
+      "completion_tokens": 88,
+      "total_tokens": 12039,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 18,
+      "prompt_tokens": 12151,
+      "completion_tokens": 115,
+      "total_tokens": 12266,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 19,
+      "prompt_tokens": 12263,
+      "completion_tokens": 317,
+      "total_tokens": 12580,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 20,
+      "prompt_tokens": 12537,
+      "completion_tokens": 182,
+      "total_tokens": 12719,
+      "cost_usd": 0.0,
+      "attempt": 1
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "traj_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_213713/django__django-10914/attempt_1/traj.json",
+      "prediction_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_213713/django__django-10914/attempt_1/prediction.json",
+      "eval_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_213713/django__django-10914/attempt_1/eval_result.json",
+      "transcript_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_213713/django__django-10914/attempt_1/transcript.json",
+      "llm_rounds_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-10914-20260510_213713/django__django-10914/attempt_1/llm_rounds.json",
+      "feedback_path": "",
+      "feedback_prompt": null,
+      "feedback_prompt_stats": null,
+      "feedback_policy": "error-localized",
+      "feedback_format": "full-refresh",
+      "agent_time_seconds": 169.19720935821533,
+      "evaluation_time_seconds": 81.84967160224915,
+      "resolved": true,
+      "stop_rule": "max-attempts-only",
+      "stop_threshold": 0.0,
+      "stop_rule_trigger_reason": null,
+      "usage": {
+        "prompt_tokens": 145563,
+        "completion_tokens": 3005,
+        "total_tokens": 148568,
+        "cost_usd": 0.0,
+        "request_count": 20
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "prompt_tokens": 2915,
+          "completion_tokens": 214,
+          "total_tokens": 3129,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 2,
+          "prompt_tokens": 3059,
+          "completion_tokens": 80,
+          "total_tokens": 3139,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 3,
+          "prompt_tokens": 3152,
+          "completion_tokens": 151,
+          "total_tokens": 3303,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 4,
+          "prompt_tokens": 5378,
+          "completion_tokens": 97,
+          "total_tokens": 5475,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 5,
+          "prompt_tokens": 5602,
+          "completion_tokens": 290,
+          "total_tokens": 5892,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 6,
+          "prompt_tokens": 5825,
+          "completion_tokens": 199,
+          "total_tokens": 6024,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 7,
+          "prompt_tokens": 6019,
+          "completion_tokens": 183,
+          "total_tokens": 6202,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 8,
+          "prompt_tokens": 6163,
+          "completion_tokens": 58,
+          "total_tokens": 6221,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 9,
+          "prompt_tokens": 6243,
+          "completion_tokens": 99,
+          "total_tokens": 6342,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 10,
+          "prompt_tokens": 6344,
+          "completion_tokens": 61,
+          "total_tokens": 6405,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 11,
+          "prompt_tokens": 6538,
+          "completion_tokens": 77,
+          "total_tokens": 6615,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 12,
+          "prompt_tokens": 7119,
+          "completion_tokens": 118,
+          "total_tokens": 7237,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 13,
+          "prompt_tokens": 7500,
+          "completion_tokens": 123,
+          "total_tokens": 7623,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 14,
+          "prompt_tokens": 7980,
+          "completion_tokens": 123,
+          "total_tokens": 8103,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 15,
+          "prompt_tokens": 8292,
+          "completion_tokens": 297,
+          "total_tokens": 8589,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 16,
+          "prompt_tokens": 8532,
+          "completion_tokens": 133,
+          "total_tokens": 8665,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 17,
+          "prompt_tokens": 11951,
+          "completion_tokens": 88,
+          "total_tokens": 12039,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 18,
+          "prompt_tokens": 12151,
+          "completion_tokens": 115,
+          "total_tokens": 12266,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 19,
+          "prompt_tokens": 12263,
+          "completion_tokens": 317,
+          "total_tokens": 12580,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 20,
+          "prompt_tokens": 12537,
+          "completion_tokens": 182,
+          "total_tokens": 12719,
+          "cost_usd": 0.0
+        }
+      ],
+      "episode_dirs": [],
+      "extra_trajectory_files": [],
+      "retry_workspace_strategy": "preserve",
+      "workspace_snapshot": {},
+      "workspace_restore": {
+        "restored": false,
+        "restored_from_attempt": null,
+        "reused_container": true
+      },
+      "stop_check": {
+        "enabled": false,
+        "history": [],
+        "stop_triggered": false,
+        "stop_reason": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "instance_id": "django__django-14559",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-django__django-14559__django__django-14559__attempt_1",
+  "split": "test",
+  "resolved": true,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14559__django__django-14559__attempt_1/anthropic__MiniMax-M2.5/django__django-14559/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14559__django__django-14559__attempt_1/anthropic__MiniMax-M2.5/django__django-14559/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-14559__django__django-14559__attempt_1/anthropic__MiniMax-M2.5/django__django-14559/run_instance.log",
+  "evaluation_time_seconds": 97.53440022468567,
+  "report": {
+    "django__django-14559": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": true,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [
+            "test_empty_objects (queries.test_bulk_update.BulkUpdateTests)",
+            "test_large_batch (queries.test_bulk_update.BulkUpdateTests)",
+            "test_updated_rows_when_passing_duplicates (queries.test_bulk_update.BulkUpdateTests)"
+          ],
+          "failure": []
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "test_batch_size (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_foreign_keys_do_not_lookup (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_functions (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_multiple_fields (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_set_field_to_null (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_set_mixed_fields_to_null (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_simple (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_unsaved_models (queries.test_bulk_update.BulkUpdateNoteTests)",
+            "test_booleanfield (queries.test_bulk_update.BulkUpdateTests)",
+            "test_custom_db_columns (queries.test_bulk_update.BulkUpdateTests)",
+            "test_custom_pk (queries.test_bulk_update.BulkUpdateTests)",
+            "test_datetime_field (queries.test_bulk_update.BulkUpdateTests)",
+            "test_falsey_pk_value (queries.test_bulk_update.BulkUpdateTests)",
+            "test_field_references (queries.test_bulk_update.BulkUpdateTests)",
+            "test_inherited_fields (queries.test_bulk_update.BulkUpdateTests)",
+            "test_invalid_batch_size (queries.test_bulk_update.BulkUpdateTests)",
+            "test_ipaddressfield (queries.test_bulk_update.BulkUpdateTests)",
+            "test_json_field (queries.test_bulk_update.BulkUpdateTests)",
+            "test_no_fields (queries.test_bulk_update.BulkUpdateTests)",
+            "test_nonexistent_field (queries.test_bulk_update.BulkUpdateTests)",
+            "test_only_concrete_fields_allowed (queries.test_bulk_update.BulkUpdateTests)",
+            "test_update_custom_primary_key (queries.test_bulk_update.BulkUpdateTests)",
+            "test_update_primary_key (queries.test_bulk_update.BulkUpdateTests)"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nCreating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\nSystem check identified no issues (1 silenced).\ntest_batch_size (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_foreign_keys_do_not_lookup (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_functions (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_multiple_fields (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_set_field_to_null (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_set_mixed_fields_to_null (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_simple (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_unsaved_models (queries.test_bulk_update.BulkUpdateNoteTests) ... ok\ntest_booleanfield (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_custom_db_columns (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_custom_pk (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_datetime_field (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_empty_objects (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_falsey_pk_value (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_field_references (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_inherited_fields (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_invalid_batch_size (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_ipaddressfield (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_json_field (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_large_batch (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_no_fields (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_nonexistent_field (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_only_concrete_fields_allowed (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_update_custom_primary_key (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_update_primary_key (queries.test_bulk_update.BulkUpdateTests) ... ok\ntest_updated_rows_when_passing_duplicates (queries.test_bulk_update.BulkUpdateTests) ... ok\n----------------------------------------------------------------------\nRan 26 tests in 0.391s\nOK\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\n+ : '>>>>> End Test Output'\n+ git checkout d79be3ed39b76d3e34431873eec16f6dd354ab17 tests/queries/test_bulk_update.py\nUpdated 1 path from 819a76c2c3",
+  "failed_tests": []
+}

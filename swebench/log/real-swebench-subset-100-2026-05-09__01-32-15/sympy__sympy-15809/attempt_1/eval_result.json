@@ -1,0 +1,13 @@
+{
+  "instance_id": "sympy__sympy-15809",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-15809__sympy__sympy-15809__attempt_1",
+  "split": "test",
+  "resolved": false,
+  "report_path": "",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-sympy__sympy-15809__sympy__sympy-15809__attempt_1/anthropic__MiniMax-M2.5/sympy__sympy-15809/test_output.txt",
+  "run_instance_log_path": "",
+  "evaluation_time_seconds": 28.055561304092407,
+  "report": {},
+  "notes": "Evaluation failed without structured pytest output.",
+  "failed_tests": []
+}

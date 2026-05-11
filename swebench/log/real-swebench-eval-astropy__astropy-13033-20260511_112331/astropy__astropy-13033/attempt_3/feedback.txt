@@ -1,0 +1,56 @@
+You are retrying SWE-bench instance `astropy__astropy-13033` after evaluation feedback.
+
+Attempt completed: 2
+Repository: astropy/astropy
+Base commit: 298ccb478e6bf092953bca67a3d29dc6c35f6752
+Resolved: no
+
+Failed tests:
+- astropy/timeseries/tests/test_sampled.py::test_initialization_with_time_delta
+- astropy/timeseries/tests/test_sampled.py::test_required_columns
+
+Evaluation notes:
+=================================== FAILURES ===================================
+_____________________ test_initialization_with_time_delta ______________________
+files = None
+    def update_leap_seconds(files=None):
+        """If the current ERFA leap second table is out of date, try to update it.
+        Uses `astropy.utils.iers.LeapSeconds.auto_open` to try to find an
+        up-to-date table.  See that routine for the definition of "out of date".
+        In order to make it safe to call this any time, all exceptions are turned
+        into warnings,
+        Parameters
+        ----------
+        files : list of path-like, optional
+            List of files/URLs to attempt to open.  By default, uses defined by
+            `astropy.utils.iers.LeapSeconds.auto_open`, which includes the table
+            used by ERFA itself, so if that is up to date, nothing will happen.
+        Returns
+        -------
+        n_update : int
+            Number of items updated.
+        """
+        try:
+            from astropy.utils import iers
+>           table = iers.LeapSeconds.auto_open(files)
+astropy/time/core.py:2824:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+cls = <class 'astropy.utils.iers.iers.LeapSeconds'>
+files = ['erfa', '/testbed/astropy/utils/iers/data/Leap_Second.dat', 'https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat', 'https://www.ietf.org/timezones/data/leap-seconds.list']
+    @classmethod
+    def auto_open(cls, files=None):
+        """Attempt to get an up-to-date leap-second list.
+        The routine will try the files in sequence until it finds one
+        whose expiration date is "good enough" (see below).  If none
+        are good enough, it returns the one with the most recent expiration
+        date, warning if that file is expired.
+        For remote files that are cached already, the cached file is tried
+        first before attempting to retrieve it again.
+        Parameters
+        ----------
+        files : list of path-like, optional
+            List of files/URLs to attempt to open.  By default, uses
+... [147 lines omitted] ...
+
+Retry policy:
+Fix the specific failing tests first. Avoid unrelated changes.

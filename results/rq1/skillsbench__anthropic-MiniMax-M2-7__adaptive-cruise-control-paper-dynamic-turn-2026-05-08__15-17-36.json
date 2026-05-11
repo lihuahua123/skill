@@ -1,0 +1,478 @@
+{
+  "model": "anthropic/MiniMax-M2.7",
+  "benchmark_version": "skillsbench",
+  "agent_temperature": 0.0,
+  "run_id": "adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36",
+  "timestamp": "2026-05-08T08:21:43.476009+00:00",
+  "suite": "adaptive-cruise-control",
+  "runs_per_task": 1,
+  "max_task_attempts": 6,
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "none",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": "0.0",
+    "early_stop_intra_attempt": false,
+    "early_stop_strategy": "heuristic"
+  },
+  "tasks": [
+    {
+      "task_id": "adaptive-cruise-control",
+      "task_prompt": null,
+      "status": "passed",
+      "timed_out": false,
+      "execution_time": 3719.574349,
+      "transcript_length": 10,
+      "llm_rounds": 121,
+      "usage": {
+        "total_tokens": 3980954,
+        "prompt_tokens": 3876788,
+        "completion_tokens": 104166,
+        "input_tokens": 3876788,
+        "output_tokens": 104166,
+        "cache_tokens": 3512447,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": 0.0,
+        "requests": 4
+      },
+      "usage_per_round": [],
+      "workspace": {},
+      "grading": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true,
+        "criteria": [
+          {
+            "criterion": "overall",
+            "score": 1.0,
+            "max_score": 1.0
+          }
+        ]
+      },
+      "grading_summary": {
+        "score": 1.0,
+        "max_score": 1.0,
+        "passed": true
+      },
+      "completion": {
+        "passed": true
+      },
+      "frontmatter": {},
+      "attempt_count": 4,
+      "first_success_attempt": 4,
+      "success_within_budget": true,
+      "unresolved_criteria_count_by_attempt": [
+        10,
+        2,
+        2,
+        0
+      ],
+      "transcript_length_by_attempt": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "prompt_tokens_by_attempt": [
+        5144,
+        2711404,
+        1110536,
+        49704
+      ],
+      "completion_tokens_by_attempt": [
+        609,
+        58340,
+        41948,
+        3269
+      ],
+      "feedback_length_chars_by_attempt": [
+        0,
+        2366,
+        1394,
+        1405
+      ],
+      "stop_reason": "passed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "instruction_kind": "initial",
+          "started_at": "2026-05-08T07:19:32.020254Z",
+          "finished_at": "2026-05-08T07:19:54.752675Z",
+          "feedback_prompt": null,
+          "feedback_prompt_stats": {
+            "chars": 0,
+            "tokens_estimate": 0
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ea4f0581-938c-4ba2-b34b-2b6eff920b8c",
+          "execution": {
+            "llm_rounds": 2,
+            "usage": {
+              "total_tokens": 5753,
+              "prompt_tokens": 5144,
+              "completion_tokens": 609,
+              "input_tokens": 5144,
+              "output_tokens": 609,
+              "cache_tokens": 2052,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 22.732421,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestPIDController::test_pid_controller: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestACCSystem::test_acc_system: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestTuningResults::test_tuning_results: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestSimulationResults::test_simulation_results: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestReport::test_report_keywords: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestSpeedControl::test_speed_control: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestDistanceControl::test_distance_control: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestSafety::test_safety: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestScenario::test_scenario: FileNotFoundError: structured value mismatch",
+              "test_outputs.py::TestSimulationExecution::test_simulation_execution: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-1/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-1/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-1/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-1/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-08T07:19:54.752675Z",
+            "finished_at": "2026-05-08T07:19:54.752675Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 10,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 2,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-08T07:19:54.753331Z",
+          "finished_at": "2026-05-08T07:49:58.603609Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nYou are continuing in the same workspace from the previous attempt.\nInspect the existing files first and modify them in place when possible.\nUse the verifier feedback together with the original task requirements.\nDo not restart from scratch unless a required file is missing or clearly unusable.\nVerifier feedback:\n========================= 11 failed, 1 passed in 0.98s =========================\nRepair targets:\n- test_outputs.py::TestPIDController::test_pid_controller: FileNotFoundError: [Errno 2] No such file or directory: '/root/pid_controller.py'\n  Likely files: pid_controller.py, acc_system.py\n  Focus: PID controller API; control output computation\n  Evidence: spec.loader.exec_module(module)\n  Location: <frozen importlib._bootstrap_external>:1186: FileNotFoundError\n- test_outputs.py::TestACCSystem::test_acc_system: FileNotFoundError: [Errno 2] No such file or directory: '/root/acc_system.py'\n  Likely files: simulation.py\n  Focus: inspect failing assertion and nearby output logic\n  Evidence: spec.loader.exec_module(module)\n  Location: <frozen importlib._bootstrap_external>:1186: FileNotFoundError\n- test_outputs.py::TestTuningResults::test_tuning_results: FileNotFoundError: [Errno 2] No such file or directory: '/root/tuning_results.yaml'\n  Likely files: tuning_results.yaml\n  Focus: YAML output format; gain values\n  Evidence: with open('/root/tuning_results.yaml', 'r') as f:\n  Location: /tests/test_outputs.py:128: FileNotFoundError\n- test_outputs.py::TestSimulationResults::test_simulation_results: FileNotFoundError: [Errno 2] No such file or directory: '/root/simulation_results.csv'\n  Likely files: simulation.py\n  Focus: CSV schema; output formatting\n  Evidence: simulation_data = pd.read_csv('/root/simulation_results.csv')\n  Location: /usr/local/lib/python3.12/dist-packages/pandas/io/common.py:873: FileNotFoundError\n- test_outputs.py::TestReport::test_report_keywords: FileNotFoundError: [Errno 2] No such file or directory: '/root/acc_report.md'\n  Likely files: acc_report.md\n  Focus: report content; required sections\n  Evidence: with open('/root/acc_report.md', 'r') as f:\n  Location: /tests/test_outputs.py:185: FileNotFoundError\nApply the smallest reasonable patch set that resolves the listed failures.\nFor each edit, verify which repair target it addresses before broadening scope.",
+          "feedback_prompt_stats": {
+            "chars": 2366,
+            "tokens_estimate": 591
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ea4f0581-938c-4ba2-b34b-2b6eff920b8c",
+          "execution": {
+            "llm_rounds": 62,
+            "usage": {
+              "total_tokens": 2769744,
+              "prompt_tokens": 2711404,
+              "completion_tokens": 58340,
+              "input_tokens": 2711404,
+              "output_tokens": 58340,
+              "cache_tokens": 2487801,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1803.850278,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestDistanceControl::test_distance_control: The test failed in the call phase due to an assertion error",
+              "test_outputs.py::TestAntiCheat::test_anti_cheat: TTC should be empty when not approaching at t=31.8"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-2/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-2/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-2/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-2/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-08T07:49:58.603609Z",
+            "finished_at": "2026-05-08T07:49:58.603609Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 3,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-08T07:49:58.604350Z",
+          "finished_at": "2026-05-08T08:20:02.547688Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nYou are continuing in the same workspace from the previous attempt.\nInspect the existing files first and modify them in place when possible.\nUse the verifier feedback together with the original task requirements.\nDo not restart from scratch unless a required file is missing or clearly unusable.\nVerifier feedback:\n========================= 2 failed, 10 passed in 1.99s =========================\nRepair targets:\n- test_outputs.py::TestDistanceControl::test_distance_control: Steady-state error < 2m from safe distance (at t=50-60s)\n  Likely files: simulation.py, acc_system.py, pid_controller.py\n  Focus: distance update logic; mode selection logic; time-to-collision calculation; speed-control loop\n  Evidence: Steady-state error < 2m from safe distance (at t=50-60s)\n  Location: /tests/test_outputs.py:233: AssertionError\n- test_outputs.py::TestAntiCheat::test_anti_cheat: TTC should be empty when not approaching at t=31.8\n  Likely files: simulation.py, acc_system.py\n  Focus: distance update logic; mode selection logic; time-to-collision calculation\n  Evidence: TTC should only be present when ego is faster than lead (approaching)\n  Location: /tests/test_outputs.py:414: AssertionError\nApply the smallest reasonable patch set that resolves the listed failures.\nFor each edit, verify which repair target it addresses before broadening scope.",
+          "feedback_prompt_stats": {
+            "chars": 1394,
+            "tokens_estimate": 348
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ea4f0581-938c-4ba2-b34b-2b6eff920b8c",
+          "execution": {
+            "llm_rounds": 48,
+            "usage": {
+              "total_tokens": 1152484,
+              "prompt_tokens": 1110536,
+              "completion_tokens": 41948,
+              "input_tokens": 1110536,
+              "output_tokens": 41948,
+              "cache_tokens": 991533,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 1803.943338,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 0.0,
+            "returncode": null,
+            "notes": "Verifier reported failed tests in ctrf.json.",
+            "feedback": [
+              "test_outputs.py::TestTuningResults::test_tuning_results: pid_distance kp must be in (0, 10)",
+              "test_outputs.py::TestDistanceControl::test_distance_control: The test failed in the call phase due to an assertion error"
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-3/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-3/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-3/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-3/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-08T08:20:02.547688Z",
+            "finished_at": "2026-05-08T08:20:02.547688Z"
+          },
+          "grading": {
+            "score": 0.0,
+            "max_score": 1.0,
+            "passed": false,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 0.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 0,
+          "transcript_length_delta": 0,
+          "score_delta": 0.0,
+          "unresolved_criteria_count": 2,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": false,
+          "stop_rule_trigger_reason": null
+        },
+        {
+          "attempt": 4,
+          "instruction_kind": "retry",
+          "started_at": "2026-05-08T08:20:02.548344Z",
+          "finished_at": "2026-05-08T08:21:31.596656Z",
+          "feedback_prompt": "The previous attempt did not pass verification.\nYou are continuing in the same workspace from the previous attempt.\nInspect the existing files first and modify them in place when possible.\nUse the verifier feedback together with the original task requirements.\nDo not restart from scratch unless a required file is missing or clearly unusable.\nVerifier feedback:\n========================= 2 failed, 10 passed in 2.12s =========================\nRepair targets:\n- test_outputs.py::TestTuningResults::test_tuning_results: pid_distance kp must be in (0, 10)\n  Likely files: simulation.py, acc_system.py, pid_controller.py, tuning_results.yaml\n  Focus: distance update logic; mode selection logic; time-to-collision calculation; PID controller API\n  Evidence: Gains must be in valid range\n  Location: /tests/test_outputs.py:146: AssertionError\n- test_outputs.py::TestDistanceControl::test_distance_control: Steady-state error < 2m from safe distance (at t=50-60s)\n  Likely files: simulation.py, acc_system.py, pid_controller.py\n  Focus: distance update logic; mode selection logic; time-to-collision calculation; speed-control loop\n  Evidence: Steady-state error < 2m from safe distance (at t=50-60s)\n  Location: /tests/test_outputs.py:233: AssertionError\nApply the smallest reasonable patch set that resolves the listed failures.\nFor each edit, verify which repair target it addresses before broadening scope.",
+          "feedback_prompt_stats": {
+            "chars": 1405,
+            "tokens_estimate": 351
+          },
+          "feedback_policy": "error-localized",
+          "feedback_format": "full-refresh",
+          "feedback_strategy": "none",
+          "agent_session_id": "ea4f0581-938c-4ba2-b34b-2b6eff920b8c",
+          "execution": {
+            "llm_rounds": 9,
+            "usage": {
+              "total_tokens": 52973,
+              "prompt_tokens": 49704,
+              "completion_tokens": 3269,
+              "input_tokens": 49704,
+              "output_tokens": 3269,
+              "cache_tokens": 31061,
+              "cache_read_tokens": 0,
+              "cache_write_tokens": 0,
+              "cost_usd": 0.0,
+              "requests": 1
+            },
+            "usage_per_round": [],
+            "execution_time": 89.048312,
+            "agent_dir": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/agent",
+            "error": {},
+            "intra_attempt_early_stop": false
+          },
+          "verifier": {
+            "reward": 1.0,
+            "returncode": null,
+            "notes": "WARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Skipping /usr/lib/python3.12/dist-packages/asciinema-2.4.0.dist-info due to invalid metadata entry 'name'\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv",
+            "feedback": [
+              "../tests/test_outputs.py::TestTuningResults::test_tuning_results PASSED  [ 33%]",
+              "../tests/test_outputs.py::TestSimulationResults::test_simulation_results PASSED [ 41%]",
+              "../tests/test_outputs.py::TestReport::test_report_keywords PASSED        [ 50%]",
+              "../tests/test_outputs.py::TestSpeedControl::test_speed_control PASSED    [ 58%]",
+              "../tests/test_outputs.py::TestDistanceControl::test_distance_control PASSED [ 66%]",
+              "../tests/test_outputs.py::TestSafety::test_safety PASSED                 [ 75%]",
+              "../tests/test_outputs.py::TestScenario::test_scenario PASSED             [ 83%]",
+              "../tests/test_outputs.py::TestSimulationExecution::test_simulation_execution PASSED [ 91%]",
+              "../tests/test_outputs.py::TestAntiCheat::test_anti_cheat PASSED          [100%]",
+              "============================== 12 passed in 2.17s =============================="
+            ],
+            "stdout_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-4/test-stdout.txt",
+            "stderr_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-4/test-stderr.txt",
+            "ctrf_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-4/ctrf.json",
+            "reward_path": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36/adaptive-cruise-control__kud8Cpe/verifier/attempt-4/reward.txt",
+            "timed_out": false,
+            "timeout_sec": null,
+            "timeout_message": "",
+            "started_at": "2026-05-08T08:21:31.596656Z",
+            "finished_at": "2026-05-08T08:21:31.596656Z"
+          },
+          "grading": {
+            "score": 1.0,
+            "max_score": 1.0,
+            "passed": true,
+            "criteria": [
+              {
+                "criterion": "overall",
+                "score": 1.0,
+                "max_score": 1.0
+              }
+            ]
+          },
+          "transcript_length": 10,
+          "transcript_length_delta": 10,
+          "score_delta": 1.0,
+          "unresolved_criteria_count": 0,
+          "stop_rule": "max-attempts-only",
+          "stop_rule_threshold": "0.0",
+          "stop_rule_triggered": true,
+          "stop_rule_trigger_reason": "reward-maxed"
+        }
+      ],
+      "retry_policies": {
+        "feedback_policy": "error-localized",
+        "feedback_format": "full-refresh",
+        "feedback_strategy": "none",
+        "feedback_answer_safety": "no-answers",
+        "stop_rule": "max-attempts-only",
+        "stop_threshold": "0.0",
+        "early_stop_intra_attempt": false,
+        "early_stop_strategy": "heuristic"
+      },
+      "judge_usage": {},
+      "workspace_changed_by_attempt": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "source_job": "/data/lirui/skill_study/skillsbench/jobs/skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36",
+      "source_trial": "adaptive-cruise-control__kud8Cpe"
+    }
+  ],
+  "efficiency": {
+    "total_tokens": 3980954,
+    "total_input_tokens": 3876788,
+    "total_output_tokens": 104166,
+    "total_cache_tokens": 3512447,
+    "total_cache_read_tokens": 0,
+    "total_cache_write_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_requests": 4,
+    "total_execution_time_seconds": 3719.574349,
+    "tasks_with_usage_data": 1,
+    "tokens_per_task": 3980954.0,
+    "cost_per_task_usd": 0.0,
+    "score_per_1k_tokens": 0.0002512,
+    "score_per_dollar": null,
+    "success_rate": 1.0,
+    "success_per_1k_tokens": 0.0002512,
+    "success_per_dollar": null,
+    "success_at_k": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0
+    },
+    "per_task": [
+      {
+        "task_id": "adaptive-cruise-control",
+        "success": true,
+        "first_success_attempt": 4,
+        "attempt_count": 4,
+        "total_tokens": 3980954,
+        "cost_usd": 0.0
+      }
+    ]
+  },
+  "retry_metrics": {
+    "first_attempt_success_rate": 0.0,
+    "average_attempts_executed": 4.0
+  },
+  "source": {
+    "jobs_root": "/data/lirui/skill_study/skillsbench/jobs",
+    "job_filter": "skillsbench-adaptive-cruise-control-paper-dynamic-turn-2026-05-08__15-17-36",
+    "agent": "terminus-2",
+    "trial_count": 1,
+    "sandbox": "docker",
+    "mode": "with-skills"
+  }
+}

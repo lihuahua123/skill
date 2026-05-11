@@ -1,0 +1,12 @@
+问题：
+`inject_token_efficient_triage_first_prompt=true` 已传到 config，但首轮 prompt 没有真正注入 skill。
+
+原因：
+Harbor 配置里同时传了 `name=terminus-2` 和 `import_path=...HarborTerminus2WithSkills`。
+Harbor 会优先按 `name` 选择已注册的内置 agent，导致 `import_path` 被绕过。
+实际运行的是内置 `terminus-2`，不是带注入逻辑的自定义 agent。
+
+解决：
+如果设置了 `agent_import_path`，就不要再传 `-a/--agent-name`。
+只保留 `--agent-import-path`，强制 Harbor 加载自定义 agent。
+重跑时建议加 `FORCE_BUILD=true`。

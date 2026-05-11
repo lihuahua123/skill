@@ -1,0 +1,51 @@
+{
+  "instance_id": "django__django-15572",
+  "run_id": "real-swebench-subset-100-2026-05-09__01-32-15-django__django-15572__django__django-15572__attempt_1",
+  "split": "test",
+  "resolved": true,
+  "report_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-15572__django__django-15572__attempt_1/anthropic__MiniMax-M2.5/django__django-15572/report.json",
+  "test_output_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-15572__django__django-15572__attempt_1/anthropic__MiniMax-M2.5/django__django-15572/test_output.txt",
+  "run_instance_log_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-subset-100-2026-05-09__01-32-15/logs/run_evaluation/real-swebench-subset-100-2026-05-09__01-32-15-django__django-15572__django__django-15572__attempt_1/anthropic__MiniMax-M2.5/django__django-15572/run_instance.log",
+  "evaluation_time_seconds": 69.57550263404846,
+  "report": {
+    "django__django-15572": {
+      "patch_is_None": false,
+      "patch_exists": true,
+      "patch_successfully_applied": true,
+      "resolved": true,
+      "tests_status": {
+        "FAIL_TO_PASS": {
+          "success": [
+            "test_template_dirs_ignore_empty_path (template_tests.test_autoreloader.TemplateReloadTests)"
+          ],
+          "failure": []
+        },
+        "PASS_TO_PASS": {
+          "success": [
+            "test_get_template_directories (template_tests.test_autoreloader.Jinja2TemplateReloadTests)",
+            "test_reset_all_loaders (template_tests.test_autoreloader.Jinja2TemplateReloadTests)",
+            "test_watch_for_template_changes (template_tests.test_autoreloader.Jinja2TemplateReloadTests)",
+            "test_get_template_directories (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_non_template_changed (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_non_template_changed_in_template_directory (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_reset_all_loaders (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_template_changed (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_template_dirs_normalized_to_paths (template_tests.test_autoreloader.TemplateReloadTests)",
+            "test_watch_for_template_changes (template_tests.test_autoreloader.TemplateReloadTests)"
+          ],
+          "failure": []
+        },
+        "FAIL_TO_FAIL": {
+          "success": [],
+          "failure": []
+        },
+        "PASS_TO_FAIL": {
+          "success": [],
+          "failure": []
+        }
+      }
+    }
+  },
+  "notes": "  Building editable for Django (pyproject.toml): finished with status 'done'\n  Created wheel for Django: filename=django-4.1.dev20250910124948-0.editable-py3-none-any.whl size=27018 sha256=62cb5a3f9434b375e9dffa969c8b662efcadbead276c64a9321a336ef3b4bc7e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-rnv2mlkp/wheels/7d/66/67/70d1ee2124ccf21d601c352e25cdca10f611f7c8b3f9ffb9e4\nSuccessfully built Django\nInstalling collected packages: Django\n  Attempting uninstall: Django\n    Found existing installation: Django 4.1.dev20220407055456\n    Uninstalling Django-4.1.dev20220407055456:\n      Successfully uninstalled Django-4.1.dev20220407055456\nSuccessfully installed Django-4.1.dev20250910124948\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\n+ git checkout 0b31e024873681e187b574fe1c4afe5e48aeeecf tests/template_tests/test_autoreloader.py\nUpdated 0 paths from 3e481b3745\n+ git apply -v -\nChecking patch tests/template_tests/test_autoreloader.py...\nApplied patch tests/template_tests/test_autoreloader.py cleanly.\n+ : '>>>>> Start Test Output'\n+ ./tests/runtests.py --verbosity 2 --settings=test_sqlite --parallel 1 template_tests.test_autoreloader\ntest_get_template_directories (template_tests.test_autoreloader.Jinja2TemplateReloadTests) ... ok\ntest_reset_all_loaders (template_tests.test_autoreloader.Jinja2TemplateReloadTests) ... ok\ntest_watch_for_template_changes (template_tests.test_autoreloader.Jinja2TemplateReloadTests) ... ok\ntest_get_template_directories (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_non_template_changed (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_non_template_changed_in_template_directory (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_reset_all_loaders (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_template_changed (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_template_dirs_ignore_empty_path (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_template_dirs_normalized_to_paths (template_tests.test_autoreloader.TemplateReloadTests) ... ok\ntest_watch_for_template_changes (template_tests.test_autoreloader.TemplateReloadTests) ... ok\n----------------------------------------------------------------------\nRan 11 tests in 0.012s\nOK\nTesting against Django installed in '/testbed/django'\nImporting application template_tests\nFound 11 test(s).\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n+ : '>>>>> End Test Output'\n+ git checkout 0b31e024873681e187b574fe1c4afe5e48aeeecf tests/template_tests/test_autoreloader.py\nUpdated 1 path from 3e481b3745",
+  "failed_tests": []
+}

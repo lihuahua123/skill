@@ -1,0 +1,15 @@
+{
+  "instance_id": "django__django-12325",
+  "run_id": "",
+  "split": "test",
+  "resolved": false,
+  "report_path": "",
+  "test_output_path": "",
+  "run_instance_log_path": "",
+  "evaluation_time_seconds": 0.0,
+  "report": {},
+  "notes": "stop-check stop: consecutive zero-progress rounds reached 2",
+  "failed_tests": [],
+  "skipped": true,
+  "stop_check_early_stop": true
+}

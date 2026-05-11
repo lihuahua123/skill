@@ -1,0 +1,16 @@
+You are retrying SWE-bench instance `pytest-dev__pytest-10356` after evaluation feedback.
+
+Attempt completed: 1
+Repository: pytest-dev/pytest
+Base commit: 3c1534944cbd34e8a41bc9e76818018fadefc9a1
+Resolved: no
+
+Failed tests:
+- No failed test names were extracted.
+
+Evaluation notes:
+The previous attempt was early-stopped before evaluation.
+Evaluation failed without structured pytest output.
+
+Retry policy:
+The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, and choose a more targeted repair path before broad exploration.

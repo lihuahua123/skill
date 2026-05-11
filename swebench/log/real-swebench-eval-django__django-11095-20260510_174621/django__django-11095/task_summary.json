@@ -1,0 +1,604 @@
+{
+  "task_id": "django__django-11095",
+  "attempt_count": 1,
+  "first_success_attempt": 1,
+  "success_within_budget": true,
+  "stop_reason": "passed",
+  "swebench_agent_backend": "plain-mini",
+  "model": "anthropic/MiniMax-M2.7",
+  "skillsbench_skill_guidance": false,
+  "inject_token_efficient_triage_first_prompt": true,
+  "retry_workspace_strategy": "preserve",
+  "stop_check": {
+    "enabled": true,
+    "zero_progress_streak": 2,
+    "yes_streak": 2,
+    "triggered_attempts": []
+  },
+  "retry_policies": {
+    "feedback_policy": "error-localized",
+    "feedback_format": "full-refresh",
+    "feedback_strategy": "swebench-safe",
+    "feedback_answer_safety": "no-answers",
+    "stop_rule": "max-attempts-only",
+    "stop_threshold": 0.0,
+    "max_task_attempts": 6,
+    "stop_check_early_stop_enabled": true,
+    "stop_check_zero_progress_streak": 2,
+    "stop_check_yes_streak": 2,
+    "skillsbench_skill_guidance": false,
+    "inject_token_efficient_triage_first_prompt": true,
+    "retry_workspace_strategy": "preserve"
+  },
+  "usage": {
+    "prompt_tokens": 178271,
+    "completion_tokens": 5790,
+    "total_tokens": 184061,
+    "cost_usd": 0.0,
+    "request_count": 26
+  },
+  "total_prompt_tokens": 178271,
+  "total_completion_tokens": 5790,
+  "total_tokens": 184061,
+  "usage_per_round": [
+    {
+      "round": 1,
+      "prompt_tokens": 2893,
+      "completion_tokens": 265,
+      "total_tokens": 3158,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 2,
+      "prompt_tokens": 3054,
+      "completion_tokens": 129,
+      "total_tokens": 3183,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 3,
+      "prompt_tokens": 3283,
+      "completion_tokens": 117,
+      "total_tokens": 3400,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 4,
+      "prompt_tokens": 3848,
+      "completion_tokens": 263,
+      "total_tokens": 4111,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 5,
+      "prompt_tokens": 4221,
+      "completion_tokens": 225,
+      "total_tokens": 4446,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 6,
+      "prompt_tokens": 4658,
+      "completion_tokens": 361,
+      "total_tokens": 5019,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 7,
+      "prompt_tokens": 4839,
+      "completion_tokens": 116,
+      "total_tokens": 4955,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 8,
+      "prompt_tokens": 5101,
+      "completion_tokens": 272,
+      "total_tokens": 5373,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 9,
+      "prompt_tokens": 5318,
+      "completion_tokens": 261,
+      "total_tokens": 5579,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 10,
+      "prompt_tokens": 5457,
+      "completion_tokens": 111,
+      "total_tokens": 5568,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 11,
+      "prompt_tokens": 5772,
+      "completion_tokens": 184,
+      "total_tokens": 5956,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 12,
+      "prompt_tokens": 5912,
+      "completion_tokens": 120,
+      "total_tokens": 6032,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 13,
+      "prompt_tokens": 6120,
+      "completion_tokens": 185,
+      "total_tokens": 6305,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 14,
+      "prompt_tokens": 6271,
+      "completion_tokens": 66,
+      "total_tokens": 6337,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 15,
+      "prompt_tokens": 6521,
+      "completion_tokens": 526,
+      "total_tokens": 7047,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 16,
+      "prompt_tokens": 7026,
+      "completion_tokens": 109,
+      "total_tokens": 7135,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 17,
+      "prompt_tokens": 7144,
+      "completion_tokens": 88,
+      "total_tokens": 7232,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 18,
+      "prompt_tokens": 7383,
+      "completion_tokens": 80,
+      "total_tokens": 7463,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 19,
+      "prompt_tokens": 8501,
+      "completion_tokens": 115,
+      "total_tokens": 8616,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 20,
+      "prompt_tokens": 9314,
+      "completion_tokens": 715,
+      "total_tokens": 10029,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 21,
+      "prompt_tokens": 10130,
+      "completion_tokens": 400,
+      "total_tokens": 10530,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 22,
+      "prompt_tokens": 10491,
+      "completion_tokens": 178,
+      "total_tokens": 10669,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 23,
+      "prompt_tokens": 10718,
+      "completion_tokens": 84,
+      "total_tokens": 10802,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 24,
+      "prompt_tokens": 11092,
+      "completion_tokens": 259,
+      "total_tokens": 11351,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 25,
+      "prompt_tokens": 11454,
+      "completion_tokens": 386,
+      "total_tokens": 11840,
+      "cost_usd": 0.0,
+      "attempt": 1
+    },
+    {
+      "round": 26,
+      "prompt_tokens": 11750,
+      "completion_tokens": 175,
+      "total_tokens": 11925,
+      "cost_usd": 0.0,
+      "attempt": 1
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "traj_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/traj.json",
+      "prediction_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/prediction.json",
+      "eval_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/eval_result.json",
+      "transcript_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/transcript.json",
+      "llm_rounds_json": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/llm_rounds.json",
+      "feedback_path": "",
+      "feedback_prompt": null,
+      "feedback_prompt_stats": null,
+      "feedback_policy": "error-localized",
+      "feedback_format": "full-refresh",
+      "agent_time_seconds": 247.5451910495758,
+      "evaluation_time_seconds": 62.08624863624573,
+      "resolved": true,
+      "stop_rule": "max-attempts-only",
+      "stop_threshold": 0.0,
+      "stop_rule_trigger_reason": null,
+      "usage": {
+        "prompt_tokens": 178271,
+        "completion_tokens": 5790,
+        "total_tokens": 184061,
+        "cost_usd": 0.0,
+        "request_count": 26
+      },
+      "usage_per_round": [
+        {
+          "round": 1,
+          "prompt_tokens": 2893,
+          "completion_tokens": 265,
+          "total_tokens": 3158,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 2,
+          "prompt_tokens": 3054,
+          "completion_tokens": 129,
+          "total_tokens": 3183,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 3,
+          "prompt_tokens": 3283,
+          "completion_tokens": 117,
+          "total_tokens": 3400,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 4,
+          "prompt_tokens": 3848,
+          "completion_tokens": 263,
+          "total_tokens": 4111,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 5,
+          "prompt_tokens": 4221,
+          "completion_tokens": 225,
+          "total_tokens": 4446,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 6,
+          "prompt_tokens": 4658,
+          "completion_tokens": 361,
+          "total_tokens": 5019,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 7,
+          "prompt_tokens": 4839,
+          "completion_tokens": 116,
+          "total_tokens": 4955,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 8,
+          "prompt_tokens": 5101,
+          "completion_tokens": 272,
+          "total_tokens": 5373,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 9,
+          "prompt_tokens": 5318,
+          "completion_tokens": 261,
+          "total_tokens": 5579,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 10,
+          "prompt_tokens": 5457,
+          "completion_tokens": 111,
+          "total_tokens": 5568,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 11,
+          "prompt_tokens": 5772,
+          "completion_tokens": 184,
+          "total_tokens": 5956,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 12,
+          "prompt_tokens": 5912,
+          "completion_tokens": 120,
+          "total_tokens": 6032,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 13,
+          "prompt_tokens": 6120,
+          "completion_tokens": 185,
+          "total_tokens": 6305,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 14,
+          "prompt_tokens": 6271,
+          "completion_tokens": 66,
+          "total_tokens": 6337,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 15,
+          "prompt_tokens": 6521,
+          "completion_tokens": 526,
+          "total_tokens": 7047,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 16,
+          "prompt_tokens": 7026,
+          "completion_tokens": 109,
+          "total_tokens": 7135,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 17,
+          "prompt_tokens": 7144,
+          "completion_tokens": 88,
+          "total_tokens": 7232,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 18,
+          "prompt_tokens": 7383,
+          "completion_tokens": 80,
+          "total_tokens": 7463,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 19,
+          "prompt_tokens": 8501,
+          "completion_tokens": 115,
+          "total_tokens": 8616,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 20,
+          "prompt_tokens": 9314,
+          "completion_tokens": 715,
+          "total_tokens": 10029,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 21,
+          "prompt_tokens": 10130,
+          "completion_tokens": 400,
+          "total_tokens": 10530,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 22,
+          "prompt_tokens": 10491,
+          "completion_tokens": 178,
+          "total_tokens": 10669,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 23,
+          "prompt_tokens": 10718,
+          "completion_tokens": 84,
+          "total_tokens": 10802,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 24,
+          "prompt_tokens": 11092,
+          "completion_tokens": 259,
+          "total_tokens": 11351,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 25,
+          "prompt_tokens": 11454,
+          "completion_tokens": 386,
+          "total_tokens": 11840,
+          "cost_usd": 0.0
+        },
+        {
+          "round": 26,
+          "prompt_tokens": 11750,
+          "completion_tokens": 175,
+          "total_tokens": 11925,
+          "cost_usd": 0.0
+        }
+      ],
+      "episode_dirs": [],
+      "extra_trajectory_files": [],
+      "retry_workspace_strategy": "preserve",
+      "workspace_snapshot": {
+        "patch_path": "/data/lirui/skill_study/skill/swebench/log/real-swebench-eval-django__django-11095-20260510_174621/django__django-11095/attempt_1/workspace_snapshot/workspace.patch",
+        "untracked_archive_path": "",
+        "untracked_capture_error": "returncode=1 output="
+      },
+      "workspace_restore": {
+        "restored": false,
+        "restored_from_attempt": null
+      },
+      "stop_check": {
+        "enabled": true,
+        "history": [
+          {
+            "progress_score": 0,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 1,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": false,
+            "stuck_reason": null
+          },
+          {
+            "progress_score": 2,
+            "should_stop": true,
+            "stuck_reason": null
+          }
+        ],
+        "stop_triggered": false,
+        "stop_reason": null
+      }
+    }
+  ]
+}

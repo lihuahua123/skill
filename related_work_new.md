@@ -141,3 +141,5 @@
 41. AgentCollab
     在每一轮让小模型自己总结一下刚刚这“一步”的行动有没有让整个任务朝着最终目标实质性地推进 并输出是或者否，从而判断是否要继续。
 
+42. ATROPOS: IMPROVING COST-BENEFIT TRADE-OFF OF LLM-BASED AGENTS UNDER SELF-CONSISTENCY WITH EARLY TERMINATION AND MODEL HOTSWAP.ATROPOS 将推理路径转化为一种名为语义流图（SFG）的数据结构，利用图卷积网络（GCN）分析推理到一半的 SFG 结构，预测这次推理最终是会成功还是失败，失败的话，提前终止，之后转移到更强大的模型上。
+我是大模型给出方向，之后让小模型继续
