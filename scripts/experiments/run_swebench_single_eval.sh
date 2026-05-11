@@ -22,6 +22,9 @@ STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
 SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
 INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT="${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT:-true}"
 RETRY_WORKSPACE_STRATEGY="${RETRY_WORKSPACE_STRATEGY:-fresh}" #preserve
+EXTERNAL_RETRY_ADVISOR_ENABLED="${EXTERNAL_RETRY_ADVISOR_ENABLED:-false}"
+EXTERNAL_RETRY_ADVISOR_MODEL="${EXTERNAL_RETRY_ADVISOR_MODEL:-anthropic/MiniMax-M2.7}"
+EXTERNAL_RETRY_ADVISOR_MAX_TOKENS="${EXTERNAL_RETRY_ADVISOR_MAX_TOKENS:-180}"
 
 if [[ ! -x "${RUNNER_PYTHON}" ]]; then
   echo "Runner python is not executable: ${RUNNER_PYTHON}" >&2
@@ -77,6 +80,9 @@ HF_HOME=/tmp/hf_cache "${RUNNER_PYTHON}" "${REPO_ROOT}/scripts/run_swebench_with
   --skillsbench-skill-guidance "${SKILLSBENCH_SKILL_GUIDANCE}" \
   --inject-token-efficient-triage-first-prompt "${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT}" \
   --retry-workspace-strategy "${RETRY_WORKSPACE_STRATEGY}" \
+  --external-retry-advisor-enabled "${EXTERNAL_RETRY_ADVISOR_ENABLED}" \
+  --external-retry-advisor-model "${EXTERNAL_RETRY_ADVISOR_MODEL}" \
+  --external-retry-advisor-max-tokens "${EXTERNAL_RETRY_ADVISOR_MAX_TOKENS}" \
   --runner-python "${RUNNER_PYTHON}"
 
 echo "run_id=${RUN_ID}"
