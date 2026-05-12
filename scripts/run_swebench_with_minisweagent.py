@@ -66,6 +66,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stop-check-yes-streak", type=int, default=2)
     parser.add_argument("--skillsbench-skill-guidance", default="false")
     parser.add_argument("--inject-token-efficient-triage-first-prompt", default="false")
+    parser.add_argument(
+        "--inject-token-efficient-triage-first-prompt-md",
+        default="",
+        help="Optional path to a markdown file to inject for the triage-first prompt. "
+        "If unset, a bundled default skill is used.",
+    )
     parser.add_argument("--retry-workspace-strategy", choices=("fresh", "preserve"), default="preserve")
     parser.add_argument("--external-retry-advisor-enabled", default="false")
     parser.add_argument("--external-retry-advisor-model", default="anthropic/MiniMax-M2.7")
@@ -140,7 +146,14 @@ def apply_agent_runtime_settings(
     return config
 
 
-def load_injected_skill_text(skill_name: str) -> str:
+def load_injected_skill_text(*, skill_name: str, override_md_path: str = "") -> str:
+    override_md_path = override_md_path.strip()
+    if override_md_path:
+        md_path = Path(override_md_path).expanduser().resolve()
+        if not md_path.is_file():
+            raise FileNotFoundError(f"Injected markdown not found: {md_path}")
+        return md_path.read_text(encoding="utf-8").strip()
+
     skill_path = SKILLSBENCH_ROOT / "common_skill" / skill_name / "SKILL.md"
     if not skill_path.is_file():
         raise FileNotFoundError(f"Injected skill not found: {skill_path}")
@@ -1080,7 +1093,10 @@ def main() -> None:
     inject_token_efficient_triage_first_prompt = parse_boolish(args.inject_token_efficient_triage_first_prompt)
     injected_skill_name = "swebench-token-efficient-repair"
     injected_skill_text = (
-        load_injected_skill_text(injected_skill_name)
+        load_injected_skill_text(
+            skill_name=injected_skill_name,
+            override_md_path=str(args.inject_token_efficient_triage_first_prompt_md or ""),
+        )
         if inject_token_efficient_triage_first_prompt
         else None
     )

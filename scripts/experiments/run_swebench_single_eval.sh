@@ -14,16 +14,19 @@ RUN_ID="${RUN_ID:-real-swebench-eval-${INSTANCE_ID}-${TIMESTAMP}}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-${REPO_ROOT}/swebench/log/${RUN_ID}}"
 RUNNER_PYTHON="${RUNNER_PYTHON:-${REPO_ROOT}/../skillsbench/.venv/bin/python}"
 MAX_TASK_ATTEMPTS="${MAX_TASK_ATTEMPTS:-6}"
-MODEL="${MODEL:-anthropic/MiniMax-M2.7}"
+MODEL="${MODEL:-anthropic/MiniMax-M2.5}"
 SWEBENCH_AGENT_BACKEND="${SWEBENCH_AGENT_BACKEND:-plain-mini}"
 STOP_CHECK_EARLY_STOP_ENABLED="${STOP_CHECK_EARLY_STOP_ENABLED:-false}"
 STOP_CHECK_ZERO_PROGRESS_STREAK="${STOP_CHECK_ZERO_PROGRESS_STREAK:-2}"
 STOP_CHECK_YES_STREAK="${STOP_CHECK_YES_STREAK:-2}"
 SKILLSBENCH_SKILL_GUIDANCE="${SKILLSBENCH_SKILL_GUIDANCE:-false}"
 INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT="${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT:-true}"
+# Optional: override the injected triage-first prompt markdown.
+# When unset, the runner falls back to its default bundled skill.
+INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT_MD="${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT_MD:-/data/lirui/skill_study/skill/my_skills/fix_skill.md}"
 RETRY_WORKSPACE_STRATEGY="${RETRY_WORKSPACE_STRATEGY:-fresh}" #preserve
 EXTERNAL_RETRY_ADVISOR_ENABLED="${EXTERNAL_RETRY_ADVISOR_ENABLED:-false}"
-EXTERNAL_RETRY_ADVISOR_MODEL="${EXTERNAL_RETRY_ADVISOR_MODEL:-anthropic/MiniMax-M2.7}"
+EXTERNAL_RETRY_ADVISOR_MODEL="${EXTERNAL_RETRY_ADVISOR_MODEL:-anthropic/MiniMax-M2.5}"
 EXTERNAL_RETRY_ADVISOR_MAX_TOKENS="${EXTERNAL_RETRY_ADVISOR_MAX_TOKENS:-180}"
 
 if [[ ! -x "${RUNNER_PYTHON}" ]]; then
@@ -79,6 +82,7 @@ HF_HOME=/tmp/hf_cache "${RUNNER_PYTHON}" "${REPO_ROOT}/scripts/run_swebench_with
   --stop-check-yes-streak "${STOP_CHECK_YES_STREAK}" \
   --skillsbench-skill-guidance "${SKILLSBENCH_SKILL_GUIDANCE}" \
   --inject-token-efficient-triage-first-prompt "${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT}" \
+  --inject-token-efficient-triage-first-prompt-md "${INJECT_TOKEN_EFFICIENT_TRIAGE_FIRST_PROMPT_MD}" \
   --retry-workspace-strategy "${RETRY_WORKSPACE_STRATEGY}" \
   --external-retry-advisor-enabled "${EXTERNAL_RETRY_ADVISOR_ENABLED}" \
   --external-retry-advisor-model "${EXTERNAL_RETRY_ADVISOR_MODEL}" \
