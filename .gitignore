@@ -39,7 +39,7 @@ env/
 # Logs
 *.log
 benchmark.log
-
+swebench/log/
 # Testing
 .pytest_cache/
 .coverage
