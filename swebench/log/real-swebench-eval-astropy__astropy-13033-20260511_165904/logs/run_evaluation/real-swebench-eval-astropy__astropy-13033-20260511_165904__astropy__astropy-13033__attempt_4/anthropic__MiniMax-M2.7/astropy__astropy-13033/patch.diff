@@ -1,0 +1,48 @@
+diff --git a/astropy/timeseries/core.py b/astropy/timeseries/core.py
+index c279f35f8..663943f0b 100644
+--- a/astropy/timeseries/core.py
++++ b/astropy/timeseries/core.py
+@@ -43,6 +43,18 @@ def autocheck_required_columns(cls):
+     return cls
+ 
+ 
++def _ordinal(n):
++    """Return ordinal string for a number (e.g., 1 -> '1st', 2 -> '2nd')."""
++    if n == 1:
++        return '1st'
++    elif n == 2:
++        return '2nd'
++    elif n == 3:
++        return '3rd'
++    else:
++        return f'{n}th'
++
++
+ class BaseTimeSeries(QTable):
+ 
+     _required_columns = None
+@@ -76,9 +88,21 @@ class BaseTimeSeries(QTable):
+ 
+             elif self.colnames[:len(required_columns)] != required_columns:
+ 
+-                raise ValueError("{} object is invalid - expected '{}' "
+-                                 "as the first column{} but found '{}'"
+-                                 .format(self.__class__.__name__, required_columns[0], plural, self.colnames[0]))
++                # Find the first column where there's a mismatch
++                for i, (actual, expected) in enumerate(zip(self.colnames, required_columns)):
++                    if actual != expected:
++                        if i == 0:
++                            raise ValueError("{} object is invalid - expected '{}' "
++                                             "as the first column{} but found '{}'"
++                                             .format(self.__class__.__name__, expected, plural, actual))
++                        else:
++                            raise ValueError("{} object is invalid - expected '{}' "
++                                             "as the {} required column{} but found '{}'"
++                                             .format(self.__class__.__name__, expected, _ordinal(i+1), plural, actual))
++
++                # If we get here, we have fewer columns than required
++                raise ValueError("{} object is invalid - missing required column{}: '{}'"
++                                 .format(self.__class__.__name__, plural, required_columns[len(self.colnames):]))
+ 
+             if (self._required_columns_relax
+                     and self._required_columns == self.colnames[:len(self._required_columns)]):

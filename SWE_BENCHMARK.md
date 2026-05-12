@@ -161,3 +161,13 @@ SWE-bench 多轮重试的安全反馈模板
      - 总反馈字符数上限 4000 到 8000
   3. 聚合结果里单独保留 full logs 到本地文件，但不要把 full logs 直接注入下一轮 prompt。
   4. 如果 patch 连 apply 都失败，下一轮只反馈 apply error，不要附带任何官方测试信息。
+
+
+# swebench 一些知识
+agent 看不到 在 attempt 结束后额外跑的那一整套官方判分流程
+
+astropy/timeseries/tests/test_sampled.py 是仓库里的一个普通测试文件，而“评测器在 attempt 结束后跑的官方判分流程”是外层的裁判逻辑。前者是被执行的测试内容，后者是决定你算不算过题的规则和流程。测试文件定义“代码应该怎么表现”，评测器定义“哪些测试算关键、怎么记分、最终是否通过”
+
+
+## SWE-bench 风格的“修 bug”题是长什么样的？
+输入主要是两部分：一个仓库：这里是 astropy.一段 issue / PR 描述：告诉 agent 有个 bug，需要它自己去代码里定位、修改、验证

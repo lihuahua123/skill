@@ -102,6 +102,7 @@ fi
 RESULTS_DIR="${RQ1_RESULTS_DIR:-results/rq1}"
 ANALYSIS_DIR="${RQ1_ANALYSIS_DIR:-analysis/rq1}"
 MAX_ATTEMPTS_VALUE="${RQ1_MAX_ATTEMPTS:-6}"
+MAX_ATTEMPTS_ARGS=()
 NOISE_FILTER='Failed to fetch remote model cost map|Failed to retrieve model info for '\''anthropic/MiniMax-M2.7'\''|Provider List: https://docs.litellm.ai/docs/providers'
 
 SKILLSBENCH_EXCLUDED_TASKS=()
@@ -110,6 +111,9 @@ SKILLSBENCH_TASK_ARGS=()
 BACKEND="$(selected_backend "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
 if [[ "${BACKEND}" == "swebench" ]] && ! option_supplied --max-task-attempts "${EXTRA_ARGS[@]}"; then
   MAX_ATTEMPTS_VALUE=1
+fi
+if ! option_supplied --max-task-attempts "${EXTRA_ARGS[@]}"; then
+  MAX_ATTEMPTS_ARGS=(--max-task-attempts "${MAX_ATTEMPTS_VALUE}")
 fi
 if [[ "${BACKEND}" == "skillsbench" ]] && ! option_supplied --skillsbench-task-path "${EXTRA_ARGS[@]}"; then
   SKILLSBENCH_MODE="$(skillsbench_mode_from_args "${MODEL_ARGS[@]}" "${SUITE_ARGS[@]}" "${RUNS_ARGS[@]}" "${PARALLEL_ARGS[@]}" "${EXTRA_ARGS[@]}")"
@@ -159,7 +163,7 @@ run_benchmark "${RESULTS_DIR}" \
   "${SUITE_ARGS[@]}" \
   "${RUNS_ARGS[@]}" \
   "${PARALLEL_ARGS[@]}" \
-  --max-task-attempts "${MAX_ATTEMPTS_VALUE}" \
+  "${MAX_ATTEMPTS_ARGS[@]}" \
   --feedback-policy "${RQ1_FEEDBACK_POLICY:-error-localized}" \
   --feedback-format "${RQ1_FEEDBACK_FORMAT:-full-refresh}" \
   --feedback-answer-safety "no-answers" \

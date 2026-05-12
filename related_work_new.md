@@ -15,10 +15,10 @@
     *   **核心：** 针对漏洞修复，利用外部工具（Sanitizer/Compiler）提供 Actionable 反馈，并做了消融实验。
     *   **关联：** **RQ4**。证明了“推理+验证反馈”的协同作用。
 5.  **RePair: Automated Program Repair with Process-based Feedback** (2024)
-    *   **核心：** 推理时要求模型迭代，直到效果不再提升或达到最大步数。
+    *   **核心：** 推理时要求模型迭代，直到效果不再提升或达到最大步数。这是一个基于“强化学习”的框架，包含两个核心组件：奖励模型（Reward Model / Critic）： 充当“虚拟工具”，模拟编译器评估程序质量。 它根据程序状态（如：通过全部测试 AC > 格式错误 PE > 编译错误 CE > 运行时错误 RE）给出奖励分数。修复模型（Repair Model / Actor）： 负责执行具体的修改操作，并根据奖励模型的反馈调整下一步的修复策略。如果在连续的 $P$ 个步数内（论文中称为 Max Patience），代码的奖励分数 $\Delta$ 没有显著提升（即 $\Delta \le 0$），模型会自动停止迭代并回退（Roll back）到之前表现最好的版本
     *   **关联：** **RQ1/RQ3**。涉及了动态停止的初步思想。
 6.  **RepairAgent: An Autonomous, LLM-Based Agent for Program Repair** (2024)
-    *   **核心：** 将程序修复建模为 agent 式工具使用流程，结合外部反馈持续修复并报告 token 成本。
+    *   **核心：** 将程序修复建模为 agent 式工具使用流程，结合外部反馈持续修复并报告 token 成本。有限状态机 (FSM)：为了防止智能体漫无目的地探索，中间件利用状态机引导其在“理解漏洞”、“收集信息”、“尝试修复”等状态间转换。限制工具的使用范围 。防止跳步，强制逻辑。
     *   **关联：** **RQ1/RQ3**。是“真实 agent + repair + tools + cost”方向的强近邻。
 7.  **ThinkRepair: Self-Directed Automated Program Repair** (2024/2025)
     *   **核心：** 强调自引导的修复流程，结合知识收集、推理和测试反馈改进后续修复。
@@ -143,3 +143,6 @@
 
 42. ATROPOS: IMPROVING COST-BENEFIT TRADE-OFF OF LLM-BASED AGENTS UNDER SELF-CONSISTENCY WITH EARLY TERMINATION AND MODEL HOTSWAP.ATROPOS 将推理路径转化为一种名为语义流图（SFG）的数据结构，利用图卷积网络（GCN）分析推理到一半的 SFG 结构，预测这次推理最终是会成功还是失败，失败的话，提前终止，之后转移到更强大的模型上。
 我是大模型给出方向，之后让小模型继续
+
+43. SWE-Skills-Bench
+    作者找现成的skill，之后根据这个skill找到对应的任务
