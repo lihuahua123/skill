@@ -1,7 +1,0 @@
-{
-  "psf__requests-2931": {
-    "model_name_or_path": "anthropic/MiniMax-M2.5",
-    "instance_id": "psf__requests-2931",
-    "model_patch": "stop-check stop: consecutive zero-progress rounds reached 2"
-  }
-}

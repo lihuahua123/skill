@@ -1,7 +1,0 @@
-{
-  "astropy__astropy-13033": {
-    "model_name_or_path": "anthropic/MiniMax-M2.7",
-    "instance_id": "astropy__astropy-13033",
-    "model_patch": "diff --git a/astropy/timeseries/core.py b/astropy/timeseries/core.py\nindex c279f35f8..c1bf22a01 100644\n--- a/astropy/timeseries/core.py\n+++ b/astropy/timeseries/core.py\n@@ -74,6 +74,14 @@ class BaseTimeSeries(QTable):\n                                  \"as the first column{} but time series has no columns\"\n                                  .format(self.__class__.__name__, required_columns[0], plural))\n \n+            # Check if the first required column is present at all\n+            elif len(self.colnames) > 0 and self.colnames[0] == required_columns[0]:\n+                # First column is correct, check if any required columns are missing\n+                if len(self.colnames) < len(required_columns):\n+                    missing_column = required_columns[len(self.colnames)]\n+                    raise ValueError(\"{} object is invalid - expected '{}' \"\n+                                     \"as the first column{} but required column '{}' missing\"\n+                                     .format(self.__class__.__name__, required_columns[0], plural, missing_column))\n             elif self.colnames[:len(required_columns)] != required_columns:\n \n                 raise ValueError(\"{} object is invalid - expected '{}' \"\n"
-  }
-}

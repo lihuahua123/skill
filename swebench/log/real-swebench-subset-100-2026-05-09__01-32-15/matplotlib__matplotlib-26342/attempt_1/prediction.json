@@ -1,7 +1,0 @@
-{
-  "matplotlib__matplotlib-26342": {
-    "model_name_or_path": "anthropic/MiniMax-M2.5",
-    "instance_id": "matplotlib__matplotlib-26342",
-    "model_patch": "diff --git a/lib/matplotlib/contour.py b/lib/matplotlib/contour.py\nindex 3f84250b64..c7f24bc6c1 100644\n--- a/lib/matplotlib/contour.py\n+++ b/lib/matplotlib/contour.py\n@@ -943,6 +943,17 @@ class ContourSet(ContourLabeler, mcoll.Collection):\n     alpha = property(lambda self: self.get_alpha())\n     linestyles = property(lambda self: self._orig_linestyles)\n \n+    def set_paths(self, paths):\n+        \"\"\"\n+        Set the paths of the contour.\n+\n+        Parameters\n+        ----------\n+        paths : list of `~matplotlib.path.Path`\n+            The list of paths representing contours.\n+        \"\"\"\n+        self._paths = paths\n+\n     @_api.deprecated(\"3.8\")\n     @property\n     def collections(self):\n"
-  }
-}

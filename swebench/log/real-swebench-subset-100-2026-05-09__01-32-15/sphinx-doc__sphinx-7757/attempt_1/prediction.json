@@ -1,7 +1,0 @@
-{
-  "sphinx-doc__sphinx-7757": {
-    "model_name_or_path": "anthropic/MiniMax-M2.5",
-    "instance_id": "sphinx-doc__sphinx-7757",
-    "model_patch": "diff --git a/sphinx/util/inspect.py b/sphinx/util/inspect.py\nindex 15f0d66e2..522b64fb5 100644\n--- a/sphinx/util/inspect.py\n+++ b/sphinx/util/inspect.py\n@@ -521,10 +521,17 @@ def signature_from_str(signature: str) -> inspect.Signature:\n     params = []\n \n     if hasattr(args, \"posonlyargs\"):\n-        for arg in args.posonlyargs:  # type: ignore\n+        posonlyargs_defaults = len(args.defaults) - len(args.args)\n+        for i, arg in enumerate(args.posonlyargs):  # type: ignore\n             annotation = ast_unparse(arg.annotation) or Parameter.empty\n+            # defaults apply to last n params: compute index from the end of combined list\n+            total_positional = len(args.posonlyargs) + len(args.args)\n+            if i >= total_positional - len(args.defaults):\n+                default = ast_unparse(args.defaults[i - (len(args.posonlyargs) - posonlyargs_defaults)])\n+            else:\n+                default = Parameter.empty\n             params.append(Parameter(arg.arg, Parameter.POSITIONAL_ONLY,\n-                                    annotation=annotation))\n+                                    default=default, annotation=annotation))\n \n     for i, arg in enumerate(args.args):\n         if len(args.args) - i <= len(args.defaults):\n"
-  }
-}

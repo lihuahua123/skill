@@ -1,7 +1,0 @@
-{
-  "sphinx-doc__sphinx-8056": {
-    "model_name_or_path": "anthropic/MiniMax-M2.5",
-    "instance_id": "sphinx-doc__sphinx-8056",
-    "model_patch": "stop-check stop: consecutive zero-progress rounds reached 2"
-  }
-}
