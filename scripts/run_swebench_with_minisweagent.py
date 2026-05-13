@@ -714,18 +714,6 @@ def build_feedback_prompt(
             "The previous attempt was stopped for low progress. Reassess quickly, inspect the existing edits first, "
             "and choose a more targeted repair path before broad exploration."
         )
-    else:
-        external_advice = request_retry_advice(
-            instance=instance,
-            attempt_number=attempt_number,
-            eval_result=eval_result,
-            summary=summary,
-            enabled=external_retry_advisor_enabled,
-            model=external_retry_advisor_model,
-            max_tokens=external_retry_advisor_max_tokens,
-        )
-        if external_advice:
-            retry_policy = f"{retry_policy}\nExternal failure analysis:\n{external_advice}"
     if feedback_policy == "vague":
         body = (
             "The previous attempt did not resolve the instance.\n\n"
